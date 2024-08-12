@@ -2,7 +2,7 @@
 1e-12				;; prune_threshold
 1e-12				;; report_prune_threshold
 0					;; is_naval
-3b, 12f, 18a, 45i
+3b, 12f, 18a, 45i, 2C
 15f, 1b, 22t, 4c, 4a, 72i
 0					;; strafe
 1					;; num times
@@ -10,7 +10,7 @@
 0					;; att submerge
 0					;; def dlast
 0					;; def submerge
-1a, 5b, 5f, 21a, 80i
+1a, 5b, 5f, 21a, 80i, 1B, 1C
 3f, 3i
 ftaibc
 

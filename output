@@ -1,0 +1,4363 @@
+done
+input {
+  wave_info: [
+    {
+      attacker: '1b, 2f, 1t, 13a, 16i, 1C',
+      defender: '5f, 9t, 3c, 5a, 20i',
+      def_ool: '',
+      att_submerge: false,
+      def_submerge: false,
+      att_dest_last: false,
+      def_dest_last: false,
+      retreat_threshold: 0
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 21i, 1C, 1B',
+      defender: '4f',
+      def_ool: 'ftaibc',
+      att_submerge: false,
+      def_submerge: false,
+      att_dest_last: false,
+      def_dest_last: false,
+      retreat_threshold: 0
+    }
+  ],
+  debug: false,
+  prune_threshold: 1e-12,
+  report_prune_threshold: 1e-12,
+  is_naval: false,
+  num_runs: 1
+}
+undefined defend_add_reinforce
+ make_unit_group
+bff make_unit_group
+taaaaaaaaaaaaadddddddddddddiiiC naval_unit_group_construct
+taaaaaaaaaaaaadddddddddddddiiiC make_unit_group
+3 num_shots
+bfftaaaaaaaaaaaaadddddddddddddiiiC make_unit_group
+bftaaaaaaaaaaaaadddddddddddddiiiC make_unit_group
+btaaaaaaaaaaaaadddddddddddddiiiC make_unit_group
+ make_unit_group
+0:  1b, 2f, 1t, 13a, 13d, 3i, 1C 0 3 31 0 false
+1:  1b, 1f, 1t, 13a, 13d, 3i, 1C 0 2 31 0 false
+2:  1b, 2f, 1t, 13a, 13d, 3i 0 3 30 0 false
+3:  1b, 2f, 1t, 13a, 13d, 2i 0 3 29 0 false
+4:  1b, 2f, 1t, 13a, 13d, 1i 0 3 28 0 false
+5:  1b, 1t, 13a, 13d, 3i, 1C 0 1 31 0 false
+6:  1b, 2f, 1t, 13a, 13d 0 3 27 0 false
+7:  1b, 1f, 1t, 13a, 13d, 3i 0 2 30 0 false
+8:  1b, 2f, 1t, 13a, 12d 0 3 26 0 false
+9:  1b, 1f, 1t, 13a, 13d, 2i 0 2 29 0 false
+10:  1b, 2f, 1t, 13a, 11d 0 3 25 0 false
+11:  1b, 1f, 1t, 13a, 13d, 1i 0 2 28 0 false
+12:  1b, 2f, 1t, 13a, 10d 0 3 24 0 false
+13:  1b, 1f, 1t, 13a, 13d 0 2 27 0 false
+14:  1b, 1t, 13a, 13d, 3i 0 1 30 0 false
+15:  1t, 13a, 13d, 3i, 1C 0 0 31 0 false
+16:  1b, 2f, 1t, 13a, 9d 0 3 23 0 false
+17:  1b, 1f, 1t, 13a, 12d 0 2 26 0 false
+18:  1b, 1t, 13a, 13d, 2i 0 1 29 0 false
+19:  1b, 2f, 1t, 13a, 8d 0 3 22 0 false
+20:  1b, 1f, 1t, 13a, 11d 0 2 25 0 false
+21:  1b, 1t, 13a, 13d, 1i 0 1 28 0 false
+22:  1b, 2f, 1t, 13a, 7d 0 3 21 0 false
+23:  1b, 1f, 1t, 13a, 10d 0 2 24 0 false
+24:  1b, 1t, 13a, 13d 0 1 27 0 false
+25:  1b, 2f, 1t, 13a, 6d 0 3 20 0 false
+26:  1b, 1f, 1t, 13a, 9d 0 2 23 0 false
+27:  1b, 1t, 13a, 12d 0 1 26 0 false
+28:  1t, 13a, 13d, 3i 0 0 30 0 false
+29:  1b, 2f, 1t, 13a, 5d 0 3 19 0 false
+30:  1b, 1f, 1t, 13a, 8d 0 2 22 0 false
+31:  1b, 1t, 13a, 11d 0 1 25 0 false
+32:  1t, 13a, 13d, 2i 0 0 29 0 false
+33:  1b, 2f, 1t, 13a, 4d 0 3 18 0 false
+34:  1b, 1f, 1t, 13a, 7d 0 2 21 0 false
+35:  1b, 1t, 13a, 10d 0 1 24 0 false
+36:  1t, 13a, 13d, 1i 0 0 28 0 false
+37:  1b, 2f, 1t, 13a, 3d 0 3 17 0 false
+38:  1b, 1f, 1t, 13a, 6d 0 2 20 0 false
+39:  1b, 1t, 13a, 9d 0 1 23 0 false
+40:  1t, 13a, 13d 0 0 27 0 false
+41:  1b, 2f, 1t, 13a, 2d 0 3 16 0 false
+42:  1b, 1f, 1t, 13a, 5d 0 2 19 0 false
+43:  1b, 1t, 13a, 8d 0 1 22 0 false
+44:  1t, 13a, 12d 0 0 26 0 false
+45:  1b, 2f, 1t, 13a, 1d 0 3 15 0 false
+46:  1b, 1f, 1t, 13a, 4d 0 2 18 0 false
+47:  1b, 1t, 13a, 7d 0 1 21 0 false
+48:  1t, 13a, 11d 0 0 25 0 false
+49:  1b, 2f, 1t, 13a 0 3 14 0 false
+50:  1b, 1f, 1t, 13a, 3d 0 2 17 0 false
+51:  1b, 1t, 13a, 6d 0 1 20 0 false
+52:  1t, 13a, 10d 0 0 24 0 false
+53:  1b, 2f, 1t, 12a 0 3 13 0 false
+54:  1b, 1f, 1t, 13a, 2d 0 2 16 0 false
+55:  1b, 1t, 13a, 5d 0 1 19 0 false
+56:  1t, 13a, 9d 0 0 23 0 false
+57:  1b, 1f, 1t, 13a, 1d 0 2 15 0 false
+58:  1t, 13a, 8d 0 0 22 0 false
+59:  1b, 1t, 13a, 4d 0 1 18 0 false
+60:  1b, 2f, 1t, 11a 0 3 12 0 false
+61:  1b, 1f, 1t, 13a 0 2 14 0 false
+62:  1b, 1t, 13a, 3d 0 1 17 0 false
+63:  1t, 13a, 7d 0 0 21 0 false
+64:  1b, 2f, 1t, 10a 0 3 11 0 false
+65:  1t, 13a, 6d 0 0 20 0 false
+66:  1b, 1t, 13a, 2d 0 1 16 0 false
+67:  1b, 1f, 1t, 12a 0 2 13 0 false
+68:  1b, 2f, 1t, 9a 0 3 10 0 false
+69:  1b, 1t, 13a, 1d 0 1 15 0 false
+70:  1t, 13a, 5d 0 0 19 0 false
+71:  1b, 1f, 1t, 11a 0 2 12 0 false
+72:  1t, 13a, 4d 0 0 18 0 false
+73:  1b, 1t, 13a 0 1 14 0 false
+74:  1b, 2f, 1t, 8a 0 3 9 0 false
+75:  1b, 1f, 1t, 10a 0 2 11 0 false
+76:  1t, 13a, 3d 0 0 17 0 false
+77:  1b, 1t, 12a 0 1 13 0 false
+78:  1b, 2f, 1t, 7a 0 3 8 0 false
+79:  1b, 1f, 1t, 9a 0 2 10 0 false
+80:  1t, 13a, 2d 0 0 16 0 false
+81:  1b, 1t, 11a 0 1 12 0 false
+82:  1b, 2f, 1t, 6a 0 3 7 0 false
+83:  1t, 13a, 1d 0 0 15 0 false
+84:  1b, 1f, 1t, 8a 0 2 9 0 false
+85:  1t, 13a 0 0 14 0 false
+86:  1b, 1t, 10a 0 1 11 0 false
+87:  1b, 2f, 1t, 5a 0 3 6 0 false
+88:  1b, 1f, 1t, 7a 0 2 8 0 false
+89:  1b, 2f, 1t, 4a 0 3 5 0 false
+90:  1b, 1t, 9a 0 1 10 0 false
+91:  1t, 12a 0 0 13 0 false
+92:  1b, 1f, 1t, 6a 0 2 7 0 false
+93:  1t, 11a 0 0 12 0 false
+94:  1b, 1t, 8a 0 1 9 0 false
+95:  1b, 2f, 1t, 3a 0 3 4 0 false
+96:  1b, 1f, 1t, 5a 0 2 6 0 false
+97:  1b, 2f, 1t, 2a 0 3 3 0 false
+98:  1b, 1t, 7a 0 1 8 0 false
+99:  1t, 10a 0 0 11 0 false
+100:  1b, 1f, 1t, 4a 0 2 5 0 false
+101:  1t, 9a 0 0 10 0 false
+102:  1b, 1t, 6a 0 1 7 0 false
+103:  1b, 2f, 1t, 1a 0 3 2 0 false
+104:  1b, 1f, 1t, 3a 0 2 4 0 false
+105:  1b, 2f, 1t 0 3 1 0 false
+106:  1b, 1t, 5a 0 1 6 0 false
+107:  1t, 8a 0 0 9 0 false
+108:  1b, 1f, 1t, 2a 0 2 3 0 false
+109:  1t, 7a 0 0 8 0 false
+110:  1b, 1t, 4a 0 1 5 0 false
+111:  1b, 1f, 1t, 1a 0 2 2 0 false
+112:  1b, 2f 0 3 0 0 false
+113:  1t, 6a 0 0 7 0 false
+114:  1b, 1t, 3a 0 1 4 0 false
+115:  1b, 1f, 1t 0 2 1 0 false
+116:  1b, 1t, 2a 0 1 3 0 false
+117:  1t, 5a 0 0 6 0 false
+118:  1b, 1t, 1a 0 1 2 0 false
+119:  1t, 4a 0 0 5 0 false
+120:  1b, 1f 0 2 0 0 false
+121:  1t, 3a 0 0 4 0 false
+122:  1b, 1t 0 1 1 0 false
+123:  1t, 2a 0 0 3 0 false
+124:  1b 0 1 0 0 false
+125:  1t, 1a 0 0 2 0 false
+126:  1t 0 0 1 0 false
+127:   0 0 0 0 false
+ make_unit_group
+fffff make_unit_group
+tttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii naval_unit_group_construct
+tttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii make_unit_group
+ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii make_unit_group
+ make_unit_group
+0:  5f, 9t, 3c, 5a, 20i 0 5 37 0 false
+1:  5f, 9t, 3c, 5a, 19i 0 5 36 0 false
+2:  5f, 9t, 3c, 5a, 18i 0 5 35 0 false
+3:  5f, 9t, 3c, 5a, 17i 0 5 34 0 false
+4:  5f, 9t, 3c, 5a, 16i 0 5 33 0 false
+5:  5f, 9t, 3c, 5a, 15i 0 5 32 0 false
+6:  5f, 9t, 3c, 5a, 14i 0 5 31 0 false
+7:  5f, 9t, 3c, 5a, 13i 0 5 30 0 false
+8:  5f, 9t, 3c, 5a, 12i 0 5 29 0 false
+9:  5f, 9t, 3c, 5a, 11i 0 5 28 0 false
+10:  5f, 9t, 3c, 5a, 10i 0 5 27 0 false
+11:  5f, 9t, 3c, 5a, 9i 0 5 26 0 false
+12:  5f, 9t, 3c, 5a, 8i 0 5 25 0 false
+13:  5f, 9t, 3c, 5a, 7i 0 5 24 0 false
+14:  5f, 9t, 3c, 5a, 6i 0 5 23 0 false
+15:  5f, 9t, 3c, 5a, 5i 0 5 22 0 false
+16:  5f, 9t, 3c, 5a, 4i 0 5 21 0 false
+17:  5f, 9t, 3c, 5a, 3i 0 5 20 0 false
+18:  5f, 9t, 3c, 5a, 2i 0 5 19 0 false
+19:  5f, 9t, 3c, 5a, 1i 0 5 18 0 false
+20:  5f, 9t, 3c, 5a 0 5 17 0 false
+21:  5f, 9t, 3c, 4a 0 5 16 0 false
+22:  5f, 9t, 3c, 3a 0 5 15 0 false
+23:  5f, 9t, 3c, 2a 0 5 14 0 false
+24:  5f, 9t, 3c, 1a 0 5 13 0 false
+25:  5f, 9t, 3c 0 5 12 0 false
+26:  5f, 9t, 2c 0 5 11 0 false
+27:  5f, 9t, 1c 0 5 10 0 false
+28:  5f, 9t 0 5 9 0 false
+29:  5f, 8t 0 5 8 0 false
+30:  5f, 7t 0 5 7 0 false
+31:  5f, 6t 0 5 6 0 false
+32:  5f, 5t 0 5 5 0 false
+33:  5f, 4t 0 5 4 0 false
+34:  5f, 3t 0 5 3 0 false
+35:  5f, 2t 0 5 2 0 false
+36:  5f, 1t 0 5 1 0 false
+37:  5f 0 5 0 0 false
+38:  4f 0 4 0 0 false
+39:  3f 0 3 0 0 false
+40:  2f 0 2 0 0 false
+41:  1f 0 1 0 0 false
+42:   0 0 0 0 false
+ccc make_unit_group
+0 0 0.5787037037037038 i, n, prob -- solveAA
+1 1 0.34722222222222227 i, n, prob -- solveAA
+2 5 0.06944444444444445 i, n, prob -- solveAA
+3 15 0.004629629629629629 i, n, prob -- solveAA
+122 number of results
+attackers = bfftaaaaaaaaaaaaaiiiiiiiiiiiiiiiiC
+defenders = ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii
+attackers = 1b, 2f, 1t, 13a, 16i, 1C
+defenders = 5f, 9t, 3c, 5a, 20i
+result:  P[19][42] 1b, 2f, 1t, 13a, 8i vs.  (loss 8i 24 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.407810468928899e-12 cumm(1.407810468928899e-12) rcumm(0.9999999999340451) (-25.326647564469916)
+result:  P[22][42] 1b, 2f, 1t, 13a, 7i vs.  (loss 9i 27 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.0444006362428713e-11 cumm(1.1851816831357611e-11) rcumm(0.9999999999326373) (-24.318051575931232)
+result:  P[25][42] 1b, 2f, 1t, 13a, 6i vs.  (loss 10i 30 vs. 5f, 9t, 3c, 5a, 20i 199)= 5.443788172472401e-11 cumm(6.628969855608162e-11) rcumm(0.9999999999221933) (-23.30945558739255)
+result:  P[34][42] 1b, 1f, 1t, 13a, 7i vs.  (loss 1f, 9i 37 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.3993821018862832e-12 cumm(6.76890806579679e-11) rcumm(0.9999999998677555) (-23.289398280802292)
+result:  P[29][42] 1b, 2f, 1t, 13a, 5i vs.  (loss 11i 33 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.2611039150199915e-10 cumm(2.937994721599671e-10) rcumm(0.999999999866356) (-22.30085959885387)
+result:  P[38][42] 1b, 1f, 1t, 13a, 6i vs.  (loss 1f, 10i 40 vs. 5f, 9t, 3c, 5a, 20i 199)= 9.174983283340384e-12 cumm(3.029744554433075e-10) rcumm(0.9999999996402457) (-22.280802292263612)
+result:  P[33][42] 1b, 2f, 1t, 13a, 4i vs.  (loss 12i 36 vs. 5f, 9t, 3c, 5a, 20i 199)= 8.2433214874933e-10 cumm(1.1273066041926374e-9) rcumm(0.9999999996310707) (-21.292263610315185)
+result:  P[42][42] 1b, 1f, 1t, 13a, 5i vs.  (loss 1f, 11i 43 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.3238832724094155e-11 cumm(1.1705454369167316e-9) rcumm(0.9999999988067385) (-21.27220630372493)
+result:  P[37][42] 1b, 2f, 1t, 13a, 3i vs.  (loss 13i 39 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.7128151682738076e-9 cumm(3.883360605190539e-9) rcumm(0.9999999987634997) (-20.283667621776505)
+result:  P[46][42] 1b, 1f, 1t, 13a, 4i vs.  (loss 1f, 12i 46 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.620130805021606e-10 cumm(4.0453736856926995e-9) rcumm(0.9999999960506845) (-20.263610315186245)
+result:  P[55][42] 1b, 1t, 13a, 5i vs.  (loss 2f, 11i 53 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.342613048478741e-12 cumm(4.046716298741178e-9) rcumm(0.9999999958886714) (-20.24355300859599)
+result:  P[41][42] 1b, 2f, 1t, 13a, 2i vs.  (loss 14i 42 vs. 5f, 9t, 3c, 5a, 20i 199)= 8.129572704658253e-9 cumm(1.217628900339943e-8) rcumm(0.9999999958873288) (-19.275071633237822)
+result:  P[50][42] 1b, 1f, 1t, 13a, 3i vs.  (loss 1f, 13i 49 vs. 5f, 9t, 3c, 5a, 20i 199)= 5.33292356265093e-10 cumm(1.2709581359664523e-8) rcumm(0.9999999877577561) (-19.255014326647565)
+result:  P[59][42] 1b, 1t, 13a, 4i vs.  (loss 2f, 12i 56 vs. 5f, 9t, 3c, 5a, 20i 199)= 7.318540252918729e-12 cumm(1.2716899899917441e-8) rcumm(0.9999999872244637) (-19.23495702005731)
+result:  P[45][42] 1b, 2f, 1t, 13a, 1i vs.  (loss 15i 45 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.232035489122205e-8 cumm(3.503725479113949e-8) rcumm(0.9999999872171451) (-18.266475644699142)
+result:  P[54][42] 1b, 1f, 1t, 13a, 2i vs.  (loss 1f, 14i 52 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.5908888886347426e-9 cumm(3.662814367977423e-8) rcumm(0.9999999648967902) (-18.24641833810888)
+result:  P[62][42] 1b, 1t, 13a, 3i vs.  (loss 2f, 13i 59 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.939694405784229e-11 cumm(3.665754062383208e-8) rcumm(0.9999999633059014) (-18.226361031518625)
+result:  P[49][42] 1b, 2f, 1t, 13a vs.  (loss 16i 48 vs. 5f, 9t, 3c, 5a, 20i 199)= 5.6482483087721115e-8 cumm(9.31400237115532e-8) rcumm(0.9999999632765044) (-17.25787965616046)
+result:  P[57][42] 1b, 1f, 1t, 13a, 1i vs.  (loss 1f, 15i 55 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.34790762604422e-9 cumm(9.748793133759742e-8) rcumm(0.9999999067940213) (-17.2378223495702)
+result:  P[66][42] 1b, 1t, 13a, 2i vs.  (loss 2f, 14i 62 vs. 5f, 9t, 3c, 5a, 20i 199)= 9.157064164970669e-11 cumm(9.757950197924712e-8) rcumm(0.9999999024461137) (-17.21776504297994)
+result:  P[53][42] 1b, 2f, 1t, 12a vs.  (loss 1a, 16i 52 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.3255012030306507e-7 cumm(2.3012962228231218e-7) rcumm(0.9999999023545431) (-16.24641833810888)
+result:  P[61][42] 1b, 1f, 1t, 13a vs.  (loss 1f, 16i 58 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.0968685123180889e-8 cumm(2.4109830740549305e-7) rcumm(0.9999997698044227) (-16.229226361031518)
+result:  P[69][42] 1b, 1t, 13a, 1i vs.  (loss 2f, 15i 65 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.5142050510259627e-10 cumm(2.4134972791059567e-7) rcumm(0.9999997588357377) (-16.20916905444126)
+result:  P[60][42] 1b, 2f, 1t, 11a vs.  (loss 2a, 16i 56 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.9028764354735043e-7 cumm(5.316373714579461e-7) rcumm(0.9999997585843171) (-15.234957020057307)
+result:  P[67][42] 1b, 1f, 1t, 12a vs.  (loss 1f, 1a, 16i 62 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.5719517327388702e-8 cumm(5.573568887853348e-7) rcumm(0.9999994682966735) (-15.217765042979943)
+result:  P[73][42] 1b, 1t, 13a vs.  (loss 2f, 16i 68 vs. 5f, 9t, 3c, 5a, 20i 199)= 6.342579330294638e-10 cumm(5.579911467183643e-7) rcumm(0.9999994425771562) (-15.200573065902578)
+result:  P[64][42] 1b, 2f, 1t, 10a vs.  (loss 3a, 16i 60 vs. 5f, 9t, 3c, 5a, 20i 199)= 5.969104653380232e-7 cumm(0.0000011549016120563875) rcumm(0.9999994419428982) (-14.223495702005732)
+result:  P[71][42] 1b, 1f, 1t, 11a vs.  (loss 1f, 2a, 16i 66 vs. 5f, 9t, 3c, 5a, 20i 199)= 5.64106897279163e-8 cumm(0.0000012113123017843038) rcumm(0.9999988450324329) (-14.206303724928366)
+result:  P[77][42] 1b, 1t, 12a vs.  (loss 2f, 1a, 16i 72 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.4880845863403382e-9 cumm(0.0000012128003863706442) rcumm(0.9999987886217432) (-14.189111747851003)
+result:  P[85][42] 1t, 13a vs.  (loss 1b, 2f, 16i 80 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.8827104936858995e-12 cumm(0.000001212805269081138) rcumm(0.9999987871336586) (-14.166189111747851)
+result:  P[68][42] 1b, 2f, 1t, 9a vs.  (loss 4a, 16i 64 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000011587365447791285 cumm(0.000002371541813860266) rcumm(0.9999987871287759) (-13.212034383954155)
+result:  P[75][42] 1b, 1f, 1t, 10a vs.  (loss 1f, 3a, 16i 70 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.1635792029680491e-7 cumm(0.0000024878997341570713) rcumm(0.999997628392231) (-13.194842406876791)
+result:  P[81][42] 1b, 1t, 11a vs.  (loss 2f, 2a, 16i 76 vs. 5f, 9t, 3c, 5a, 20i 199)= 3.267848303802431e-9 cumm(0.000002491167582460874) rcumm(0.9999975120343108) (-13.177650429799426)
+result:  P[91][42] 1t, 12a vs.  (loss 1b, 2f, 1a, 16i 84 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.5695985625723476e-11 cumm(0.0000024911832784464995) rcumm(0.9999975087664624) (-13.154727793696274)
+result:  P[74][42] 1b, 2f, 1t, 8a vs.  (loss 5a, 16i 68 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000002132610718880559 cumm(0.000004623793997327059) rcumm(0.9999975087507664) (-12.200573065902578)
+result:  P[79][42] 1b, 1f, 1t, 9a vs.  (loss 1f, 4a, 16i 74 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.2663779462676549e-7 cumm(0.000004850431791953824) rcumm(0.9999953761400475) (-12.183381088825215)
+result:  P[86][42] 1b, 1t, 10a vs.  (loss 2f, 3a, 16i 80 vs. 5f, 9t, 3c, 5a, 20i 199)= 6.744825093572845e-9 cumm(0.0000048571766170473975) rcumm(0.9999951495022529) (-12.166189111747851)
+result:  P[93][42] 1t, 11a vs.  (loss 1b, 2f, 2a, 16i 88 vs. 5f, 9t, 3c, 5a, 20i 199)= 3.7055149811956544e-11 cumm(0.000004857213672197209) rcumm(0.9999951427574277) (-12.1432664756447)
+result:  P[78][42] 1b, 2f, 1t, 7a vs.  (loss 6a, 16i 72 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000037317462030237446 cumm(0.000008588959875220953) rcumm(0.9999951427203726) (-11.189111747851003)
+result:  P[84][42] 1b, 1f, 1t, 8a vs.  (loss 1f, 5a, 16i 78 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.1792019831824833e-7 cumm(0.000009006880073539201) rcumm(0.9999914109741695) (-11.17191977077364)
+result:  P[90][42] 1b, 1t, 9a vs.  (loss 2f, 4a, 16i 84 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.3117208148823336e-8 cumm(0.000009019997281688023) rcumm(0.9999909930539712) (-11.154727793696274)
+result:  P[99][42] 1t, 10a vs.  (loss 1b, 2f, 3a, 16i 92 vs. 5f, 9t, 3c, 5a, 20i 199)= 7.758009479331864e-11 cumm(0.000009020074861782817) rcumm(0.9999909799367631) (-11.131805157593123)
+result:  P[82][42] 1b, 2f, 1t, 6a vs.  (loss 7a, 16i 76 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000006217516686421232 cumm(0.00001523759154820405) rcumm(0.9999909798591831) (-10.177650429799426)
+result:  P[88][42] 1b, 1f, 1t, 7a vs.  (loss 1f, 6a, 16i 82 vs. 5f, 9t, 3c, 5a, 20i 199)= 7.305639164532218e-7 cumm(0.00001596815546465727) rcumm(0.9999847623424967) (-10.160458452722063)
+result:  P[94][42] 1b, 1t, 8a vs.  (loss 2f, 5a, 16i 88 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.406826765743624e-8 cumm(0.000015992223732314707) rcumm(0.9999840317785802) (-10.1432664756447)
+result:  P[101][42] 1t, 9a vs.  (loss 1b, 2f, 4a, 16i 96 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.497814177307645e-10 cumm(0.000015992373513732437) rcumm(0.9999840077103125) (-10.120343839541547)
+result:  P[87][42] 1b, 2f, 1t, 5a vs.  (loss 8a, 16i 80 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000009869088785257173 cumm(0.000025861462298989612) rcumm(0.9999840075605311) (-9.166189111747851)
+result:  P[92][42] 1b, 1f, 1t, 6a vs.  (loss 1f, 7a, 16i 86 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000012114160541612416 cumm(0.000027072878353150854) rcumm(0.9999741384717458) (-9.148997134670488)
+result:  P[98][42] 1b, 1t, 7a vs.  (loss 2f, 6a, 16i 92 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.169527113783018e-8 cumm(0.000027114573624288685) rcumm(0.9999729270556916) (-9.131805157593123)
+result:  P[107][42] 1t, 8a vs.  (loss 1b, 2f, 5a, 16i 100 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.6984180796167675e-10 cumm(0.000027114843466096648) rcumm(0.9999728853604205) (-9.10888252148997)
+result:  P[89][42] 1b, 2f, 1t, 4a vs.  (loss 9a, 16i 84 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000014929412012420467 cumm(0.00004204425547851712) rcumm(0.9999728850905787) (-8.154727793696274)
+result:  P[96][42] 1b, 1f, 1t, 5a vs.  (loss 1f, 8a, 16i 90 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000019063372225421184 cumm(0.00004395059270105924) rcumm(0.9999579556785663) (-8.137535816618911)
+result:  P[102][42] 1b, 1t, 6a vs.  (loss 2f, 7a, 16i 96 vs. 5f, 9t, 3c, 5a, 20i 199)= 6.823645934593872e-8 cumm(0.000044018829160405176) rcumm(0.9999560493413437) (-8.120343839541547)
+result:  P[109][42] 1t, 7a vs.  (loss 1b, 2f, 6a, 16i 104 vs. 5f, 9t, 3c, 5a, 20i 199)= 4.5552603767394895e-10 cumm(0.00004401928468644285) rcumm(0.9999559811048844) (-8.097421203438396)
+result:  P[95][42] 1b, 2f, 1t, 3a vs.  (loss 10a, 16i 88 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000021535612431306084 cumm(0.00006555489711774893) rcumm(0.9999559806493583) (-7.143266475644699)
+result:  P[100][42] 1b, 1f, 1t, 4a vs.  (loss 1f, 9a, 16i 94 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000028486422887066286 cumm(0.00006840353940645557) rcumm(0.999934445036927) (-7.126074498567335)
+result:  P[106][42] 1b, 1t, 5a vs.  (loss 2f, 8a, 16i 100 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.0555569260313445e-7 cumm(0.0000685090950990587) rcumm(0.9999315963946382) (-7.108882521489972)
+result:  P[113][42] 1t, 6a vs.  (loss 1b, 2f, 7a, 16i 108 vs. 5f, 9t, 3c, 5a, 20i 199)= 7.215188690195417e-10 cumm(0.00006850981661792773) rcumm(0.9999314908389456) (-7.08595988538682)
+result:  P[97][42] 1b, 2f, 1t, 2a vs.  (loss 11a, 16i 92 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000296444440880109 cumm(0.00009815426070593863) rcumm(0.9999314901174268) (-6.131805157593123)
+result:  P[104][42] 1b, 1f, 1t, 3a vs.  (loss 1f, 10a, 16i 98 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000004044312486738867 cumm(0.0001021985731926775) rcumm(0.9999018456733387) (-6.114613180515759)
+result:  P[110][42] 1b, 1t, 4a vs.  (loss 2f, 9a, 16i 104 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.543785624729977e-7 cumm(0.00010235295175515049) rcumm(0.999897801360852) (-6.097421203438396)
+result:  P[117][42] 1t, 5a vs.  (loss 1b, 2f, 8a, 16i 112 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.0719597375366145e-9 cumm(0.00010235402371488803) rcumm(0.9998976469822896) (-6.074498567335244)
+result:  P[103][42] 1b, 2f, 1t, 1a vs.  (loss 12a, 16i 96 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.00003895549222323131 cumm(0.00014130951593811935) rcumm(0.9998976459103298) (-5.1203438395415475)
+result:  P[108][42] 1b, 1f, 1t, 2a vs.  (loss 1f, 11a, 16i 102 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.0000054546646663496315 cumm(0.00014676418060446898) rcumm(0.9998586904181066) (-5.103151862464183)
+result:  P[114][42] 1b, 1t, 3a vs.  (loss 2f, 10a, 16i 108 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.1331025005342512e-7 cumm(0.0001469774908545224) rcumm(0.9998532357534402) (-5.08595988538682)
+result:  P[119][42] 1t, 4a vs.  (loss 1b, 2f, 9a, 16i 116 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.490597123948836e-9 cumm(0.00014697898145164635) rcumm(0.9998530224431902) (-5.063037249283668)
+result:  P[105][42] 1b, 2f, 1t vs.  (loss 13a, 16i 100 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000048832695881235166 cumm(0.0001958116773328815) rcumm(0.9998530209525931) (-4.108882521489972)
+result:  P[111][42] 1b, 1f, 1t, 1a vs.  (loss 1f, 12a, 16i 106 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.00000697825600576004 cumm(0.00020278993333864155) rcumm(0.9998041882567119) (-4.091690544412607)
+result:  P[116][42] 1b, 1t, 2a vs.  (loss 2f, 11a, 16i 112 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.777776519754247e-7 cumm(0.00020306771099061697) rcumm(0.9997972100007062) (-4.074498567335244)
+result:  P[121][42] 1t, 3a vs.  (loss 1b, 2f, 10a, 16i 120 vs. 5f, 9t, 3c, 5a, 20i 199)= 1.9306080934856773e-9 cumm(0.00020306964159871044) rcumm(0.9997969322230542) (-4.051575931232092)
+result:  P[112][42] 1b, 2f vs.  (loss 1t, 13a, 16i 106 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.00005780357450503832 cumm(0.0002608732161037488) rcumm(0.9997969302924461) (-3.0916905444126073)
+result:  P[115][42] 1b, 1f, 1t vs.  (loss 1f, 13a, 16i 110 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000008437975146628565 cumm(0.00026931119125037735) rcumm(0.9997391267179411) (-3.0802292263610314)
+result:  P[118][42] 1b, 1t, 1a vs.  (loss 2f, 12a, 16i 116 vs. 5f, 9t, 3c, 5a, 20i 199)= 3.392471991348406e-7 cumm(0.0002696504384495122) rcumm(0.9997306887427945) (-3.0630372492836675)
+result:  P[123][42] 1t, 2a vs.  (loss 1b, 2f, 11a, 16i 124 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.3077020040586643e-9 cumm(0.0002696527461515162) rcumm(0.9997303494955954) (-3.0401146131805157)
+result:  P[120][42] 1b, 1f vs.  (loss 1f, 1t, 13a, 16i 116 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.00007212611693339993 cumm(0.00034177886308491614) rcumm(0.9997303471878933) (-2.0630372492836675)
+result:  P[122][42] 1b, 1t vs.  (loss 2f, 13a, 16i 120 vs. 5f, 9t, 3c, 5a, 20i 199)= 3.8514188156361277e-7 cumm(0.00034216400496647975) rcumm(0.9996582210709599) (-2.0515759312320916)
+result:  P[125][42] 1t, 1a vs.  (loss 1b, 2f, 12a, 16i 128 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.499891080494874e-9 cumm(0.00034216650485756025) rcumm(0.9996578359290783) (-2.0286532951289398)
+result:  P[124][42] 1b vs.  (loss 2f, 1t, 13a, 16i 126 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.00006859834661990259 cumm(0.00041076485147746285) rcumm(0.9996578334291872) (-1.0343839541547277)
+result:  P[126][42] 1t vs.  (loss 1b, 2f, 13a, 16i 132 vs. 5f, 9t, 3c, 5a, 20i 199)= 2.353903301374965e-9 cumm(0.00041076720538076424) rcumm(0.9995892350825674) (-1.0171919770773639)
+result:  P[127][42]  vs.  (loss 1b, 2f, 1t, 13a, 16i 138 vs. 5f, 9t, 3c, 5a, 20i 199)= 0.000039931403087399946 cumm(0.0004506986084681642) rcumm(0.9995892327286641) (0)
+result:  P[127][41]  vs. 1f (loss 1b, 2f, 1t, 13a, 16i 138 vs. 4f, 9t, 3c, 5a, 20i 189)= 0.00009615433629209988 cumm(0.0005468529447602641) rcumm(0.9995493013255766) (1.0286532951289398)
+result:  P[127][40]  vs. 2f (loss 1b, 2f, 1t, 13a, 16i 138 vs. 3f, 9t, 3c, 5a, 20i 179)= 0.0001617516508073229 cumm(0.0007086045955675869) rcumm(0.9994531469892846) (2.0573065902578795)
+result:  P[127][39]  vs. 3f (loss 1b, 2f, 1t, 13a, 16i 138 vs. 2f, 9t, 3c, 5a, 20i 169)= 0.0002531800005816817 cumm(0.0009617845961492687) rcumm(0.9992913953384772) (3.0859598853868193)
+result:  P[127][38]  vs. 4f (loss 1b, 2f, 1t, 13a, 16i 138 vs. 1f, 9t, 3c, 5a, 20i 159)= 0.00038589784769476574 cumm(0.0013476824438440344) rcumm(0.9990382153378955) (4.114613180515759)
+result:  P[127][37]  vs. 5f (loss 1b, 2f, 1t, 13a, 16i 138 vs. 9t, 3c, 5a, 20i 149)= 0.0005844755374816664 cumm(0.0019321579813257007) rcumm(0.9986523174902008) (5.143266475644699)
+result:  P[127][36]  vs. 5f, 1t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 8t, 3c, 5a, 20i 143)= 0.0008878088621036354 cumm(0.002819966843429336) rcumm(0.9980678419527191) (6.160458452722063)
+result:  P[127][35]  vs. 5f, 2t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 7t, 3c, 5a, 20i 137)= 0.0013503357324271372 cumm(0.0041703025758564735) rcumm(0.9971800330906155) (7.177650429799427)
+result:  P[127][34]  vs. 5f, 3t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 6t, 3c, 5a, 20i 131)= 0.0020442973437021237 cumm(0.006214599919558597) rcumm(0.9958296973581884) (8.194842406876791)
+result:  P[127][33]  vs. 5f, 4t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 5t, 3c, 5a, 20i 125)= 0.0030586928241974234 cumm(0.009273292743756021) rcumm(0.9937854000144862) (9.212034383954155)
+result:  P[127][32]  vs. 5f, 5t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 4t, 3c, 5a, 20i 119)= 0.004494496323403109 cumm(0.01376778906715913) rcumm(0.9907267071902888) (10.229226361031518)
+result:  P[127][31]  vs. 5f, 6t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 3t, 3c, 5a, 20i 113)= 0.006466675046921163 cumm(0.020234464114080294) rcumm(0.9862322108668856) (11.246418338108883)
+result:  P[127][30]  vs. 5f, 7t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 2t, 3c, 5a, 20i 107)= 0.009129587469739067 cumm(0.029364051583819363) rcumm(0.9797655358199645) (12.263610315186247)
+result:  P[127][29]  vs. 5f, 8t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 1t, 3c, 5a, 20i 101)= 0.012716578338599701 cumm(0.042080629922419066) rcumm(0.9706359483502255) (13.28080229226361)
+result:  P[127][28]  vs. 5f, 9t (loss 1b, 2f, 1t, 13a, 16i 138 vs. 3c, 5a, 20i 95)= 0.01753794711061311 cumm(0.05961857703303218) rcumm(0.9579193700116257) (14.297994269340974)
+result:  P[127][27]  vs. 5f, 9t, 1c (loss 1b, 2f, 1t, 13a, 16i 138 vs. 2c, 5a, 20i 90)= 0.023892869114023763 cumm(0.08351144614705594) rcumm(0.9403814229010127) (15.312320916905444)
+result:  P[127][26]  vs. 5f, 9t, 2c (loss 1b, 2f, 1t, 13a, 16i 138 vs. 1c, 5a, 20i 85)= 0.03192907364568823 cumm(0.11544051979274417) rcumm(0.9164885537869889) (16.326647564469916)
+result:  P[127][25]  vs. 5f, 9t, 3c (loss 1b, 2f, 1t, 13a, 16i 138 vs. 5a, 20i 80)= 0.04152373539260376 cumm(0.15696425518534793) rcumm(0.8845594801413007) (17.340974212034382)
+result:  P[127][24]  vs. 5f, 9t, 3c, 1a (loss 1b, 2f, 1t, 13a, 16i 138 vs. 4a, 20i 76)= 0.05221517399557626 cumm(0.2091794291809242) rcumm(0.8430357447486969) (18.35243553008596)
+result:  P[127][23]  vs. 5f, 9t, 3c, 2a (loss 1b, 2f, 1t, 13a, 16i 138 vs. 3a, 20i 72)= 0.06319000651568751 cumm(0.2723694356966117) rcumm(0.7908205707531206) (19.363896848137536)
+result:  P[127][22]  vs. 5f, 9t, 3c, 3a (loss 1b, 2f, 1t, 13a, 16i 138 vs. 2a, 20i 68)= 0.07335746430335328 cumm(0.345726899999965) rcumm(0.7276305642374331) (20.375358166189113)
+result:  P[127][21]  vs. 5f, 9t, 3c, 4a (loss 1b, 2f, 1t, 13a, 16i 138 vs. 1a, 20i 64)= 0.08152019529658666 cumm(0.42724709529655164) rcumm(0.6542730999340798) (21.38681948424069)
+result:  P[127][20]  vs. 5f, 9t, 3c, 5a (loss 1b, 2f, 1t, 13a, 16i 138 vs. 20i 60)= 0.0865918944668218 cumm(0.5138389897633735) rcumm(0.5727529046374932) (22.398280802292263)
+result:  P[127][19]  vs. 5f, 9t, 3c, 5a, 1i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 19i 57)= 0.08779641686089924 cumm(0.6016354066242727) rcumm(0.48616101017067137) (23.406876790830946)
+result:  P[127][18]  vs. 5f, 9t, 3c, 5a, 2i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 18i 54)= 0.0848062026774565 cumm(0.6864416093017293) rcumm(0.39836459330977214) (24.415472779369626)
+result:  P[127][17]  vs. 5f, 9t, 3c, 5a, 3i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 17i 51)= 0.07781103928308589 cumm(0.7642526485848151) rcumm(0.3135583906323156) (25.42406876790831)
+result:  P[127][16]  vs. 5f, 9t, 3c, 5a, 4i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 16i 48)= 0.06752242202392965 cumm(0.8317750706087448) rcumm(0.2357473513492297) (26.432664756446993)
+result:  P[127][15]  vs. 5f, 9t, 3c, 5a, 5i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 15i 45)= 0.055103772497310556 cumm(0.8868788431060554) rcumm(0.16822492932530006) (27.441260744985673)
+result:  P[127][14]  vs. 5f, 9t, 3c, 5a, 6i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 14i 42)= 0.04200065281504582 cumm(0.9288794959211012) rcumm(0.11312115682798951) (28.449856733524356)
+result:  P[127][13]  vs. 5f, 9t, 3c, 5a, 7i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 13i 39)= 0.02966823004048708 cumm(0.9585477259615883) rcumm(0.07112050401294369) (29.458452722063036)
+result:  P[127][12]  vs. 5f, 9t, 3c, 5a, 8i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 12i 36)= 0.019258503944289577 cumm(0.977806229905878) rcumm(0.04145227397245661) (30.46704871060172)
+result:  P[127][11]  vs. 5f, 9t, 3c, 5a, 9i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 11i 33)= 0.011385538035336424 cumm(0.9891917679412143) rcumm(0.022193770028167033) (31.4756446991404)
+result:  P[127][10]  vs. 5f, 9t, 3c, 5a, 10i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 10i 30)= 0.006072119222485466 cumm(0.9952638871636998) rcumm(0.010808231992830607) (32.48424068767908)
+result:  P[127][9]  vs. 5f, 9t, 3c, 5a, 11i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 9i 27)= 0.0028912710442473098 cumm(0.9981551582079472) rcumm(0.0047361127703451425) (33.49283667621776)
+result:  P[127][8]  vs. 5f, 9t, 3c, 5a, 12i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 8i 24)= 0.001214980896128693 cumm(0.9993701391040759) rcumm(0.0018448417260978323) (34.50143266475645)
+result:  P[127][7]  vs. 5f, 9t, 3c, 5a, 13i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 7i 21)= 0.00044455641891291134 cumm(0.9998146955229888) rcumm(0.0006298608299691392) (35.51002865329513)
+result:  P[127][6]  vs. 5f, 9t, 3c, 5a, 14i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 6i 18)= 0.00013932823117704745 cumm(0.9999540237541659) rcumm(0.00018530441105622786) (36.51862464183381)
+result:  P[127][5]  vs. 5f, 9t, 3c, 5a, 15i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 5i 15)= 0.0000366285817360393 cumm(0.9999906523359019) rcumm(0.00004597617987918042) (37.52722063037249)
+result:  P[127][4]  vs. 5f, 9t, 3c, 5a, 16i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 4i 12)= 0.000007852956648606181 cumm(0.9999985052925505) rcumm(0.000009347598143141122) (38.53581661891118)
+result:  P[127][3]  vs. 5f, 9t, 3c, 5a, 17i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 3i 9)= 0.0000013184383550207496 cumm(0.9999998237309056) rcumm(0.0000014946414945349416) (39.54441260744986)
+result:  P[127][2]  vs. 5f, 9t, 3c, 5a, 18i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 2i 6)= 1.6258590343826103e-7 cumm(0.999999986316809) rcumm(1.7620313951419194e-7) (40.55300859598854)
+result:  P[127][1]  vs. 5f, 9t, 3c, 5a, 19i (loss 1b, 2f, 1t, 13a, 16i 138 vs. 1i 3)= 1.309957511287289e-8 cumm(0.9999999994163841) rcumm(1.3617236075930912e-8) (41.561604584527224)
+result:  P[127][0]  vs. 5f, 9t, 3c, 5a, 20i (loss 1b, 2f, 1t, 13a, 16i 138 vs.  0)= 5.176609630580208e-10 cumm(0.999999999934045) rcumm(5.176609630580208e-10) (42.570200573065904)
+attsurvive: 0.00041076720538076424
+defsurvive: 0.9995493013255767
+{
+  attack: {
+    survives: [ 0.00041076720538076424, 0, 0 ],
+    ipcLoss: [ 137.98623425860112, 0, 0 ]
+  },
+  defense: {
+    survives: [ 0.9995493013255767, 0, 0 ],
+    ipcLoss: [ 62.15348491239068, 0, 0 ]
+  },
+  casualtiesInfo: [
+    {
+      attacker: '1b, 2f, 1t, 13a, 8i',
+      defender: '',
+      attacker_casualty: '8i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.407810468928899e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 7i',
+      defender: '',
+      attacker_casualty: '9i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.0444006362428713e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 6i',
+      defender: '',
+      attacker_casualty: '10i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 5.443788172472401e-11
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 7i',
+      defender: '',
+      attacker_casualty: '1f, 9i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.3993821018862832e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 5i',
+      defender: '',
+      attacker_casualty: '11i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.2611039150199915e-10
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 6i',
+      defender: '',
+      attacker_casualty: '1f, 10i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 9.174983283340384e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 4i',
+      defender: '',
+      attacker_casualty: '12i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 8.2433214874933e-10
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 5i',
+      defender: '',
+      attacker_casualty: '1f, 11i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.3238832724094155e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 3i',
+      defender: '',
+      attacker_casualty: '13i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.7128151682738076e-9
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 4i',
+      defender: '',
+      attacker_casualty: '1f, 12i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.620130805021606e-10
+    },
+    {
+      attacker: '1b, 1t, 13a, 5i',
+      defender: '',
+      attacker_casualty: '2f, 11i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.342613048478741e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 2i',
+      defender: '',
+      attacker_casualty: '14i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 8.129572704658253e-9
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 3i',
+      defender: '',
+      attacker_casualty: '1f, 13i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 5.33292356265093e-10
+    },
+    {
+      attacker: '1b, 1t, 13a, 4i',
+      defender: '',
+      attacker_casualty: '2f, 12i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 7.318540252918729e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a, 1i',
+      defender: '',
+      attacker_casualty: '15i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.232035489122205e-8
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 2i',
+      defender: '',
+      attacker_casualty: '1f, 14i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.5908888886347426e-9
+    },
+    {
+      attacker: '1b, 1t, 13a, 3i',
+      defender: '',
+      attacker_casualty: '2f, 13i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.939694405784229e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 13a',
+      defender: '',
+      attacker_casualty: '16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 5.6482483087721115e-8
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a, 1i',
+      defender: '',
+      attacker_casualty: '1f, 15i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.34790762604422e-9
+    },
+    {
+      attacker: '1b, 1t, 13a, 2i',
+      defender: '',
+      attacker_casualty: '2f, 14i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 9.157064164970669e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 12a',
+      defender: '',
+      attacker_casualty: '1a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.3255012030306507e-7
+    },
+    {
+      attacker: '1b, 1f, 1t, 13a',
+      defender: '',
+      attacker_casualty: '1f, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.0968685123180889e-8
+    },
+    {
+      attacker: '1b, 1t, 13a, 1i',
+      defender: '',
+      attacker_casualty: '2f, 15i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.5142050510259627e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 11a',
+      defender: '',
+      attacker_casualty: '2a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.9028764354735043e-7
+    },
+    {
+      attacker: '1b, 1f, 1t, 12a',
+      defender: '',
+      attacker_casualty: '1f, 1a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.5719517327388702e-8
+    },
+    {
+      attacker: '1b, 1t, 13a',
+      defender: '',
+      attacker_casualty: '2f, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 6.342579330294638e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 10a',
+      defender: '',
+      attacker_casualty: '3a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 5.969104653380232e-7
+    },
+    {
+      attacker: '1b, 1f, 1t, 11a',
+      defender: '',
+      attacker_casualty: '1f, 2a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 5.64106897279163e-8
+    },
+    {
+      attacker: '1b, 1t, 12a',
+      defender: '',
+      attacker_casualty: '2f, 1a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.4880845863403382e-9
+    },
+    {
+      attacker: '1t, 13a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.8827104936858995e-12
+    },
+    {
+      attacker: '1b, 2f, 1t, 9a',
+      defender: '',
+      attacker_casualty: '4a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000011587365447791285
+    },
+    {
+      attacker: '1b, 1f, 1t, 10a',
+      defender: '',
+      attacker_casualty: '1f, 3a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.1635792029680491e-7
+    },
+    {
+      attacker: '1b, 1t, 11a',
+      defender: '',
+      attacker_casualty: '2f, 2a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 3.267848303802431e-9
+    },
+    {
+      attacker: '1t, 12a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 1a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.5695985625723476e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 8a',
+      defender: '',
+      attacker_casualty: '5a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000002132610718880559
+    },
+    {
+      attacker: '1b, 1f, 1t, 9a',
+      defender: '',
+      attacker_casualty: '1f, 4a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.2663779462676549e-7
+    },
+    {
+      attacker: '1b, 1t, 10a',
+      defender: '',
+      attacker_casualty: '2f, 3a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 6.744825093572845e-9
+    },
+    {
+      attacker: '1t, 11a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 2a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 3.7055149811956544e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 7a',
+      defender: '',
+      attacker_casualty: '6a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000037317462030237446
+    },
+    {
+      attacker: '1b, 1f, 1t, 8a',
+      defender: '',
+      attacker_casualty: '1f, 5a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.1792019831824833e-7
+    },
+    {
+      attacker: '1b, 1t, 9a',
+      defender: '',
+      attacker_casualty: '2f, 4a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.3117208148823336e-8
+    },
+    {
+      attacker: '1t, 10a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 3a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 7.758009479331864e-11
+    },
+    {
+      attacker: '1b, 2f, 1t, 6a',
+      defender: '',
+      attacker_casualty: '7a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000006217516686421232
+    },
+    {
+      attacker: '1b, 1f, 1t, 7a',
+      defender: '',
+      attacker_casualty: '1f, 6a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 7.305639164532218e-7
+    },
+    {
+      attacker: '1b, 1t, 8a',
+      defender: '',
+      attacker_casualty: '2f, 5a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.406826765743624e-8
+    },
+    {
+      attacker: '1t, 9a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 4a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.497814177307645e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 5a',
+      defender: '',
+      attacker_casualty: '8a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000009869088785257173
+    },
+    {
+      attacker: '1b, 1f, 1t, 6a',
+      defender: '',
+      attacker_casualty: '1f, 7a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000012114160541612416
+    },
+    {
+      attacker: '1b, 1t, 7a',
+      defender: '',
+      attacker_casualty: '2f, 6a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.169527113783018e-8
+    },
+    {
+      attacker: '1t, 8a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 5a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.6984180796167675e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 4a',
+      defender: '',
+      attacker_casualty: '9a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000014929412012420467
+    },
+    {
+      attacker: '1b, 1f, 1t, 5a',
+      defender: '',
+      attacker_casualty: '1f, 8a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000019063372225421184
+    },
+    {
+      attacker: '1b, 1t, 6a',
+      defender: '',
+      attacker_casualty: '2f, 7a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 6.823645934593872e-8
+    },
+    {
+      attacker: '1t, 7a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 6a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 4.5552603767394895e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 3a',
+      defender: '',
+      attacker_casualty: '10a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000021535612431306084
+    },
+    {
+      attacker: '1b, 1f, 1t, 4a',
+      defender: '',
+      attacker_casualty: '1f, 9a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000028486422887066286
+    },
+    {
+      attacker: '1b, 1t, 5a',
+      defender: '',
+      attacker_casualty: '2f, 8a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.0555569260313445e-7
+    },
+    {
+      attacker: '1t, 6a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 7a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 7.215188690195417e-10
+    },
+    {
+      attacker: '1b, 2f, 1t, 2a',
+      defender: '',
+      attacker_casualty: '11a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000296444440880109
+    },
+    {
+      attacker: '1b, 1f, 1t, 3a',
+      defender: '',
+      attacker_casualty: '1f, 10a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000004044312486738867
+    },
+    {
+      attacker: '1b, 1t, 4a',
+      defender: '',
+      attacker_casualty: '2f, 9a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.543785624729977e-7
+    },
+    {
+      attacker: '1t, 5a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 8a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.0719597375366145e-9
+    },
+    {
+      attacker: '1b, 2f, 1t, 1a',
+      defender: '',
+      attacker_casualty: '12a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.00003895549222323131
+    },
+    {
+      attacker: '1b, 1f, 1t, 2a',
+      defender: '',
+      attacker_casualty: '1f, 11a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.0000054546646663496315
+    },
+    {
+      attacker: '1b, 1t, 3a',
+      defender: '',
+      attacker_casualty: '2f, 10a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.1331025005342512e-7
+    },
+    {
+      attacker: '1t, 4a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 9a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.490597123948836e-9
+    },
+    {
+      attacker: '1b, 2f, 1t',
+      defender: '',
+      attacker_casualty: '13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000048832695881235166
+    },
+    {
+      attacker: '1b, 1f, 1t, 1a',
+      defender: '',
+      attacker_casualty: '1f, 12a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.00000697825600576004
+    },
+    {
+      attacker: '1b, 1t, 2a',
+      defender: '',
+      attacker_casualty: '2f, 11a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.777776519754247e-7
+    },
+    {
+      attacker: '1t, 3a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 10a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 1.9306080934856773e-9
+    },
+    {
+      attacker: '1b, 2f',
+      defender: '',
+      attacker_casualty: '1t, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.00005780357450503832
+    },
+    {
+      attacker: '1b, 1f, 1t',
+      defender: '',
+      attacker_casualty: '1f, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000008437975146628565
+    },
+    {
+      attacker: '1b, 1t, 1a',
+      defender: '',
+      attacker_casualty: '2f, 12a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 3.392471991348406e-7
+    },
+    {
+      attacker: '1t, 2a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 11a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.3077020040586643e-9
+    },
+    {
+      attacker: '1b, 1f',
+      defender: '',
+      attacker_casualty: '1f, 1t, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.00007212611693339993
+    },
+    {
+      attacker: '1b, 1t',
+      defender: '',
+      attacker_casualty: '2f, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 3.8514188156361277e-7
+    },
+    {
+      attacker: '1t, 1a',
+      defender: '',
+      attacker_casualty: '1b, 2f, 12a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.499891080494874e-9
+    },
+    {
+      attacker: '1b',
+      defender: '',
+      attacker_casualty: '2f, 1t, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.00006859834661990259
+    },
+    {
+      attacker: '1t',
+      defender: '',
+      attacker_casualty: '1b, 2f, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 2.353903301374965e-9
+    },
+    {
+      attacker: '',
+      defender: '',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '5f, 9t, 3c, 5a, 20i',
+      prob: 0.000039931403087399946
+    },
+    {
+      attacker: '',
+      defender: '1f',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '4f, 9t, 3c, 5a, 20i',
+      prob: 0.00009615433629209988
+    },
+    {
+      attacker: '',
+      defender: '2f',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '3f, 9t, 3c, 5a, 20i',
+      prob: 0.0001617516508073229
+    },
+    {
+      attacker: '',
+      defender: '3f',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '2f, 9t, 3c, 5a, 20i',
+      prob: 0.0002531800005816817
+    },
+    {
+      attacker: '',
+      defender: '4f',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '1f, 9t, 3c, 5a, 20i',
+      prob: 0.00038589784769476574
+    },
+    {
+      attacker: '',
+      defender: '5f',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '9t, 3c, 5a, 20i',
+      prob: 0.0005844755374816664
+    },
+    {
+      attacker: '',
+      defender: '5f, 1t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '8t, 3c, 5a, 20i',
+      prob: 0.0008878088621036354
+    },
+    {
+      attacker: '',
+      defender: '5f, 2t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '7t, 3c, 5a, 20i',
+      prob: 0.0013503357324271372
+    },
+    {
+      attacker: '',
+      defender: '5f, 3t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '6t, 3c, 5a, 20i',
+      prob: 0.0020442973437021237
+    },
+    {
+      attacker: '',
+      defender: '5f, 4t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '5t, 3c, 5a, 20i',
+      prob: 0.0030586928241974234
+    },
+    {
+      attacker: '',
+      defender: '5f, 5t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '4t, 3c, 5a, 20i',
+      prob: 0.004494496323403109
+    },
+    {
+      attacker: '',
+      defender: '5f, 6t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '3t, 3c, 5a, 20i',
+      prob: 0.006466675046921163
+    },
+    {
+      attacker: '',
+      defender: '5f, 7t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '2t, 3c, 5a, 20i',
+      prob: 0.009129587469739067
+    },
+    {
+      attacker: '',
+      defender: '5f, 8t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '1t, 3c, 5a, 20i',
+      prob: 0.012716578338599701
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '3c, 5a, 20i',
+      prob: 0.01753794711061311
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 1c',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '2c, 5a, 20i',
+      prob: 0.023892869114023763
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 2c',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '1c, 5a, 20i',
+      prob: 0.03192907364568823
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 3c',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '5a, 20i',
+      prob: 0.04152373539260376
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 3c, 1a',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '4a, 20i',
+      prob: 0.05221517399557626
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 3c, 2a',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '3a, 20i',
+      prob: 0.06319000651568751
+    },
+    {
+      attacker: '',
+      defender: '5f, 9t, 3c, 3a',
+      attacker_casualty: '1b, 2f, 1t, 13a, 16i',
+      defender_casualty: '2a, 20i',
+      prob: 0.07335746430335328
+    },
+    ... 22 more items
+  ],
+  att_cas: [
+    {
+      remain: 'bfftaaaaaaaaaaaaaiiiiiiii',
+      casualty: 'iiiiiiii',
+      prob: 1.407810468928899e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaiiiiiii',
+      casualty: 'iiiiiiiii',
+      prob: 1.0444006362428713e-11
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaiiiiii',
+      casualty: 'iiiiiiiiii',
+      prob: 5.443788172472401e-11
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaiiiiiii',
+      casualty: 'fiiiiiiiii',
+      prob: 1.3993821018862832e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaiiiii',
+      casualty: 'iiiiiiiiiii',
+      prob: 2.2611039150199915e-10
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaiiiiii',
+      casualty: 'fiiiiiiiiii',
+      prob: 9.174983283340384e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaiiii',
+      casualty: 'iiiiiiiiiiii',
+      prob: 8.2433214874933e-10
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaiiiii',
+      casualty: 'fiiiiiiiiiii',
+      prob: 4.3238832724094155e-11
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaiii',
+      casualty: 'iiiiiiiiiiiii',
+      prob: 2.7128151682738076e-9
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaiiii',
+      casualty: 'fiiiiiiiiiiii',
+      prob: 1.620130805021606e-10
+    },
+    {
+      remain: 'btaaaaaaaaaaaaaiiiii',
+      casualty: 'ffiiiiiiiiiii',
+      prob: 1.342613048478741e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaaii',
+      casualty: 'iiiiiiiiiiiiii',
+      prob: 8.129572704658253e-9
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaiii',
+      casualty: 'fiiiiiiiiiiiii',
+      prob: 5.33292356265093e-10
+    },
+    {
+      remain: 'btaaaaaaaaaaaaaiiii',
+      casualty: 'ffiiiiiiiiiiii',
+      prob: 7.318540252918729e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaai',
+      casualty: 'iiiiiiiiiiiiiii',
+      prob: 2.232035489122205e-8
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaaii',
+      casualty: 'fiiiiiiiiiiiiii',
+      prob: 1.5908888886347426e-9
+    },
+    {
+      remain: 'btaaaaaaaaaaaaaiii',
+      casualty: 'ffiiiiiiiiiiiii',
+      prob: 2.939694405784229e-11
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaaa',
+      casualty: 'iiiiiiiiiiiiiiii',
+      prob: 5.6482483087721115e-8
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaai',
+      casualty: 'fiiiiiiiiiiiiiii',
+      prob: 4.34790762604422e-9
+    },
+    {
+      remain: 'btaaaaaaaaaaaaaii',
+      casualty: 'ffiiiiiiiiiiiiii',
+      prob: 9.157064164970669e-11
+    },
+    {
+      remain: 'bfftaaaaaaaaaaaa',
+      casualty: 'aiiiiiiiiiiiiiiii',
+      prob: 1.3255012030306507e-7
+    },
+    {
+      remain: 'bftaaaaaaaaaaaaa',
+      casualty: 'fiiiiiiiiiiiiiiii',
+      prob: 1.0968685123180889e-8
+    },
+    {
+      remain: 'btaaaaaaaaaaaaai',
+      casualty: 'ffiiiiiiiiiiiiiii',
+      prob: 2.5142050510259627e-10
+    },
+    {
+      remain: 'bfftaaaaaaaaaaa',
+      casualty: 'aaiiiiiiiiiiiiiiii',
+      prob: 2.9028764354735043e-7
+    },
+    {
+      remain: 'bftaaaaaaaaaaaa',
+      casualty: 'faiiiiiiiiiiiiiiii',
+      prob: 2.5719517327388702e-8
+    },
+    {
+      remain: 'btaaaaaaaaaaaaa',
+      casualty: 'ffiiiiiiiiiiiiiiii',
+      prob: 6.342579330294638e-10
+    },
+    {
+      remain: 'bfftaaaaaaaaaa',
+      casualty: 'aaaiiiiiiiiiiiiiiii',
+      prob: 5.969104653380232e-7
+    },
+    {
+      remain: 'bftaaaaaaaaaaa',
+      casualty: 'faaiiiiiiiiiiiiiiii',
+      prob: 5.64106897279163e-8
+    },
+    {
+      remain: 'btaaaaaaaaaaaa',
+      casualty: 'ffaiiiiiiiiiiiiiiii',
+      prob: 1.4880845863403382e-9
+    },
+    {
+      remain: 'taaaaaaaaaaaaa',
+      casualty: 'bffiiiiiiiiiiiiiiii',
+      prob: 4.8827104936858995e-12
+    },
+    {
+      remain: 'bfftaaaaaaaaa',
+      casualty: 'aaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000011587365447791285
+    },
+    {
+      remain: 'bftaaaaaaaaaa',
+      casualty: 'faaaiiiiiiiiiiiiiiii',
+      prob: 1.1635792029680491e-7
+    },
+    {
+      remain: 'btaaaaaaaaaaa',
+      casualty: 'ffaaiiiiiiiiiiiiiiii',
+      prob: 3.267848303802431e-9
+    },
+    {
+      remain: 'taaaaaaaaaaaa',
+      casualty: 'bffaiiiiiiiiiiiiiiii',
+      prob: 1.5695985625723476e-11
+    },
+    {
+      remain: 'bfftaaaaaaaa',
+      casualty: 'aaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000002132610718880559
+    },
+    {
+      remain: 'bftaaaaaaaaa',
+      casualty: 'faaaaiiiiiiiiiiiiiiii',
+      prob: 2.2663779462676549e-7
+    },
+    {
+      remain: 'btaaaaaaaaaa',
+      casualty: 'ffaaaiiiiiiiiiiiiiiii',
+      prob: 6.744825093572845e-9
+    },
+    {
+      remain: 'taaaaaaaaaaa',
+      casualty: 'bffaaiiiiiiiiiiiiiiii',
+      prob: 3.7055149811956544e-11
+    },
+    {
+      remain: 'bfftaaaaaaa',
+      casualty: 'aaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000037317462030237446
+    },
+    {
+      remain: 'bftaaaaaaaa',
+      casualty: 'faaaaaiiiiiiiiiiiiiiii',
+      prob: 4.1792019831824833e-7
+    },
+    {
+      remain: 'btaaaaaaaaa',
+      casualty: 'ffaaaaiiiiiiiiiiiiiiii',
+      prob: 1.3117208148823336e-8
+    },
+    {
+      remain: 'taaaaaaaaaa',
+      casualty: 'bffaaaiiiiiiiiiiiiiiii',
+      prob: 7.758009479331864e-11
+    },
+    {
+      remain: 'bfftaaaaaa',
+      casualty: 'aaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000006217516686421232
+    },
+    {
+      remain: 'bftaaaaaaa',
+      casualty: 'faaaaaaiiiiiiiiiiiiiiii',
+      prob: 7.305639164532218e-7
+    },
+    {
+      remain: 'btaaaaaaaa',
+      casualty: 'ffaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.406826765743624e-8
+    },
+    {
+      remain: 'taaaaaaaaa',
+      casualty: 'bffaaaaiiiiiiiiiiiiiiii',
+      prob: 1.497814177307645e-10
+    },
+    {
+      remain: 'bfftaaaaa',
+      casualty: 'aaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000009869088785257173
+    },
+    {
+      remain: 'bftaaaaaa',
+      casualty: 'faaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000012114160541612416
+    },
+    {
+      remain: 'btaaaaaaa',
+      casualty: 'ffaaaaaaiiiiiiiiiiiiiiii',
+      prob: 4.169527113783018e-8
+    },
+    {
+      remain: 'taaaaaaaa',
+      casualty: 'bffaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.6984180796167675e-10
+    },
+    {
+      remain: 'bfftaaaa',
+      casualty: 'aaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000014929412012420467
+    },
+    {
+      remain: 'bftaaaaa',
+      casualty: 'faaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000019063372225421184
+    },
+    {
+      remain: 'btaaaaaa',
+      casualty: 'ffaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 6.823645934593872e-8
+    },
+    {
+      remain: 'taaaaaaa',
+      casualty: 'bffaaaaaaiiiiiiiiiiiiiiii',
+      prob: 4.5552603767394895e-10
+    },
+    {
+      remain: 'bfftaaa',
+      casualty: 'aaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000021535612431306084
+    },
+    {
+      remain: 'bftaaaa',
+      casualty: 'faaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000028486422887066286
+    },
+    {
+      remain: 'btaaaaa',
+      casualty: 'ffaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 1.0555569260313445e-7
+    },
+    {
+      remain: 'taaaaaa',
+      casualty: 'bffaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 7.215188690195417e-10
+    },
+    {
+      remain: 'bfftaa',
+      casualty: 'aaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000296444440880109
+    },
+    {
+      remain: 'bftaaa',
+      casualty: 'faaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000004044312486738867
+    },
+    {
+      remain: 'btaaaa',
+      casualty: 'ffaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 1.543785624729977e-7
+    },
+    {
+      remain: 'taaaaa',
+      casualty: 'bffaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 1.0719597375366145e-9
+    },
+    {
+      remain: 'bffta',
+      casualty: 'aaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.00003895549222323131
+    },
+    {
+      remain: 'bftaa',
+      casualty: 'faaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.0000054546646663496315
+    },
+    {
+      remain: 'btaaa',
+      casualty: 'ffaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.1331025005342512e-7
+    },
+    {
+      remain: 'taaaa',
+      casualty: 'bffaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 1.490597123948836e-9
+    },
+    {
+      remain: 'bfft',
+      casualty: 'aaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000048832695881235166
+    },
+    {
+      remain: 'bfta',
+      casualty: 'faaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.00000697825600576004
+    },
+    {
+      remain: 'btaa',
+      casualty: 'ffaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.777776519754247e-7
+    },
+    {
+      remain: 'taaa',
+      casualty: 'bffaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 1.9306080934856773e-9
+    },
+    {
+      remain: 'bff',
+      casualty: 'taaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.00005780357450503832
+    },
+    {
+      remain: 'bft',
+      casualty: 'faaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.000008437975146628565
+    },
+    {
+      remain: 'bta',
+      casualty: 'ffaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 3.392471991348406e-7
+    },
+    {
+      remain: 'taa',
+      casualty: 'bffaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.3077020040586643e-9
+    },
+    {
+      remain: 'bf',
+      casualty: 'ftaaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.00007212611693339993
+    },
+    {
+      remain: 'bt',
+      casualty: 'ffaaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 3.8514188156361277e-7
+    },
+    {
+      remain: 'ta',
+      casualty: 'bffaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.499891080494874e-9
+    },
+    {
+      remain: 'b',
+      casualty: 'fftaaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.00006859834661990259
+    },
+    {
+      remain: 't',
+      casualty: 'bffaaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 2.353903301374965e-9
+    },
+    {
+      remain: '',
+      casualty: 'bfftaaaaaaaaaaaaaiiiiiiiiiiiiiiii',
+      prob: 0.9995892327286642
+    }
+  ],
+  def_cas: [
+    {
+      remain: '',
+      casualty: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0004506986084681642
+    },
+    {
+      remain: 'f',
+      casualty: 'fffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.00009615433629209988
+    },
+    {
+      remain: 'ff',
+      casualty: 'ffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0001617516508073229
+    },
+    {
+      remain: 'fff',
+      casualty: 'fftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0002531800005816817
+    },
+    {
+      remain: 'ffff',
+      casualty: 'ftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.00038589784769476574
+    },
+    {
+      remain: 'fffff',
+      casualty: 'tttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0005844755374816664
+    },
+    {
+      remain: 'ffffft',
+      casualty: 'ttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0008878088621036354
+    },
+    {
+      remain: 'ffffftt',
+      casualty: 'tttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0013503357324271372
+    },
+    {
+      remain: 'fffffttt',
+      casualty: 'ttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0020442973437021237
+    },
+    {
+      remain: 'ffffftttt',
+      casualty: 'tttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.0030586928241974234
+    },
+    {
+      remain: 'fffffttttt',
+      casualty: 'ttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.004494496323403109
+    },
+    {
+      remain: 'ffffftttttt',
+      casualty: 'tttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.006466675046921163
+    },
+    {
+      remain: 'fffffttttttt',
+      casualty: 'ttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.009129587469739067
+    },
+    {
+      remain: 'ffffftttttttt',
+      casualty: 'tcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.012716578338599701
+    },
+    {
+      remain: 'fffffttttttttt',
+      casualty: 'cccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.01753794711061311
+    },
+    {
+      remain: 'ffffftttttttttc',
+      casualty: 'ccaaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.023892869114023763
+    },
+    {
+      remain: 'ffffftttttttttcc',
+      casualty: 'caaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.03192907364568823
+    },
+    {
+      remain: 'ffffftttttttttccc',
+      casualty: 'aaaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.04152373539260376
+    },
+    {
+      remain: 'ffffftttttttttccca',
+      casualty: 'aaaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.05221517399557626
+    },
+    {
+      remain: 'ffffftttttttttcccaa',
+      casualty: 'aaaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.06319000651568751
+    },
+    {
+      remain: 'ffffftttttttttcccaaa',
+      casualty: 'aaiiiiiiiiiiiiiiiiiiii',
+      prob: 0.07335746430335328
+    },
+    {
+      remain: 'ffffftttttttttcccaaaa',
+      casualty: 'aiiiiiiiiiiiiiiiiiiii',
+      prob: 0.08152019529658666
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaa',
+      casualty: 'iiiiiiiiiiiiiiiiiiii',
+      prob: 0.0865918944668218
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaai',
+      casualty: 'iiiiiiiiiiiiiiiiiii',
+      prob: 0.08779641686089924
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaii',
+      casualty: 'iiiiiiiiiiiiiiiiii',
+      prob: 0.0848062026774565
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiii',
+      casualty: 'iiiiiiiiiiiiiiiii',
+      prob: 0.07781103928308589
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiii',
+      casualty: 'iiiiiiiiiiiiiiii',
+      prob: 0.06752242202392965
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiii',
+      casualty: 'iiiiiiiiiiiiiii',
+      prob: 0.055103772497310556
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiii',
+      casualty: 'iiiiiiiiiiiiii',
+      prob: 0.04200065281504582
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiii',
+      casualty: 'iiiiiiiiiiiii',
+      prob: 0.02966823004048708
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiii',
+      casualty: 'iiiiiiiiiiii',
+      prob: 0.019258503944289577
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiii',
+      casualty: 'iiiiiiiiiii',
+      prob: 0.011385538035336424
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiii',
+      casualty: 'iiiiiiiiii',
+      prob: 0.006072119222485466
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiii',
+      casualty: 'iiiiiiiii',
+      prob: 0.0028912710442473098
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiii',
+      casualty: 'iiiiiiii',
+      prob: 0.001214980896128693
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiii',
+      casualty: 'iiiiiii',
+      prob: 0.00044455641891291134
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiii',
+      casualty: 'iiiiii',
+      prob: 0.00013932823117704745
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiii',
+      casualty: 'iiiii',
+      prob: 0.0000366285817360393
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiii',
+      casualty: 'iiii',
+      prob: 0.000007852956648606181
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'iii',
+      prob: 0.0000013184383550207496
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'ii',
+      prob: 1.6258590343826103e-7
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiii',
+      casualty: 'i',
+      prob: 1.309957511287289e-8
+    },
+    {
+      remain: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+      casualty: '',
+      prob: 5.176609630580208e-10
+    }
+  ],
+  takesTerritory: [ 0.00021223916732242338, 0, 0 ]
+} wave 0
+[
+  {
+    remain: 'ffff',
+    casualty: 'ffffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0002384594411457408
+  },
+  {
+    remain: 'fffff',
+    casualty: 'fffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.00009615433629209988
+  },
+  {
+    remain: 'ffffff',
+    casualty: 'ffftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0001617516508073229
+  },
+  {
+    remain: 'fffffff',
+    casualty: 'fftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0002531800005816817
+  },
+  {
+    remain: 'ffffffff',
+    casualty: 'ftttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.00038589784769476574
+  },
+  {
+    remain: 'fffffffff',
+    casualty: 'tttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0005844755374816664
+  },
+  {
+    remain: 'ffffffffft',
+    casualty: 'ttttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0008878088621036354
+  },
+  {
+    remain: 'ffffffffftt',
+    casualty: 'tttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0013503357324271372
+  },
+  {
+    remain: 'fffffffffttt',
+    casualty: 'ttttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0020442973437021237
+  },
+  {
+    remain: 'ffffffffftttt',
+    casualty: 'tttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.0030586928241974234
+  },
+  {
+    remain: 'fffffffffttttt',
+    casualty: 'ttttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.004494496323403109
+  },
+  {
+    remain: 'ffffffffftttttt',
+    casualty: 'tttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.006466675046921163
+  },
+  {
+    remain: 'fffffffffttttttt',
+    casualty: 'ttcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.009129587469739067
+  },
+  {
+    remain: 'ffffffffftttttttt',
+    casualty: 'tcccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.012716578338599701
+  },
+  {
+    remain: 'fffffffffttttttttt',
+    casualty: 'cccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.01753794711061311
+  },
+  {
+    remain: 'ffffffffftttttttttc',
+    casualty: 'ccaaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.023892869114023763
+  },
+  {
+    remain: 'ffffffffftttttttttcc',
+    casualty: 'caaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.03192907364568823
+  },
+  {
+    remain: 'ffffffffftttttttttccc',
+    casualty: 'aaaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.04152373539260376
+  },
+  {
+    remain: 'ffffffffftttttttttaccc',
+    casualty: 'aaaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.05221517399557626
+  },
+  {
+    remain: 'ffffffffftttttttttaaccc',
+    casualty: 'aaaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.06319000651568751
+  },
+  {
+    remain: 'ffffffffftttttttttaaaccc',
+    casualty: 'aaiiiiiiiiiiiiiiiiiiii',
+    prob: 0.07335746430335328
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaccc',
+    casualty: 'aiiiiiiiiiiiiiiiiiiii',
+    prob: 0.08152019529658666
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaccc',
+    casualty: 'iiiiiiiiiiiiiiiiiiii',
+    prob: 0.0865918944668218
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiccc',
+    casualty: 'iiiiiiiiiiiiiiiiiii',
+    prob: 0.08779641686089924
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiccc',
+    casualty: 'iiiiiiiiiiiiiiiiii',
+    prob: 0.0848062026774565
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiccc',
+    casualty: 'iiiiiiiiiiiiiiiii',
+    prob: 0.07781103928308589
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiccc',
+    casualty: 'iiiiiiiiiiiiiiii',
+    prob: 0.06752242202392965
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiccc',
+    casualty: 'iiiiiiiiiiiiiii',
+    prob: 0.055103772497310556
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiccc',
+    casualty: 'iiiiiiiiiiiiii',
+    prob: 0.04200065281504582
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiccc',
+    casualty: 'iiiiiiiiiiiii',
+    prob: 0.02966823004048708
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiccc',
+    casualty: 'iiiiiiiiiiii',
+    prob: 0.019258503944289577
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiccc',
+    casualty: 'iiiiiiiiiii',
+    prob: 0.011385538035336424
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiccc',
+    casualty: 'iiiiiiiiii',
+    prob: 0.006072119222485466
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiccc',
+    casualty: 'iiiiiiiii',
+    prob: 0.0028912710442473098
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiccc',
+    casualty: 'iiiiiiii',
+    prob: 0.001214980896128693
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiccc',
+    casualty: 'iiiiiii',
+    prob: 0.00044455641891291134
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiccc',
+    casualty: 'iiiiii',
+    prob: 0.00013932823117704745
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiccc',
+    casualty: 'iiiii',
+    prob: 0.0000366285817360393
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiccc',
+    casualty: 'iiii',
+    prob: 0.000007852956648606181
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiccc',
+    casualty: 'iii',
+    prob: 0.0000013184383550207496
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiccc',
+    casualty: 'ii',
+    prob: 1.6258590343826103e-7
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiccc',
+    casualty: 'i',
+    prob: 1.309957511287289e-8
+  },
+  {
+    remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+    casualty: '',
+    prob: 5.176609630580208e-10
+  }
+] defend_add_reinforce
+ make_unit_group
+bffff make_unit_group
+taaaaddddiiiiiiiiiiiiiiiiiCB naval_unit_group_construct
+taaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+5 num_shots
+tbffffaaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+tbfffaaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+tbffaaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+tbfaaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+tbaaaaddddiiiiiiiiiiiiiiiiiCB make_unit_group
+ make_unit_group
+0:  1t, 1b, 4f, 4a, 4d, 17i, 1C, 1B 0 5 28 0 false
+1:  1t, 1b, 3f, 4a, 4d, 17i, 1C, 1B 0 4 28 0 false
+2:  1t, 1b, 4f, 4a, 4d, 17i, 1C 0 5 27 0 false
+3:  1t, 1b, 2f, 4a, 4d, 17i, 1C, 1B 0 3 28 0 false
+4:  1t, 1b, 1f, 4a, 4d, 17i, 1C, 1B 0 2 28 0 false
+5:  1t, 1b, 3f, 4a, 4d, 17i, 1C 0 4 27 0 false
+6:  1t, 1b, 4f, 4a, 4d, 17i 0 5 26 0 false
+7:  1t, 1b, 4f, 4a, 4d, 16i 0 5 25 0 false
+8:  1t, 1b, 4f, 4a, 4d, 15i 0 5 24 0 false
+9:  1t, 1b, 4a, 4d, 17i, 1C, 1B 0 1 28 0 false
+10:  1t, 1b, 2f, 4a, 4d, 17i, 1C 0 3 27 0 false
+11:  1t, 1b, 4f, 4a, 4d, 14i 0 5 23 0 false
+12:  1t, 1b, 3f, 4a, 4d, 17i 0 4 26 0 false
+13:  1t, 1b, 4f, 4a, 4d, 13i 0 5 22 0 false
+14:  1t, 1b, 3f, 4a, 4d, 16i 0 4 25 0 false
+15:  1t, 1b, 4f, 4a, 4d, 12i 0 5 21 0 false
+16:  1t, 1b, 3f, 4a, 4d, 15i 0 4 24 0 false
+17:  1t, 1b, 1f, 4a, 4d, 17i, 1C 0 2 27 0 false
+18:  1t, 1b, 4f, 4a, 4d, 11i 0 5 20 0 false
+19:  1t, 1b, 3f, 4a, 4d, 14i 0 4 23 0 false
+20:  1t, 1b, 2f, 4a, 4d, 17i 0 3 26 0 false
+21:  1t, 4a, 4d, 17i, 1C, 1B 0 0 28 0 false
+22:  1t, 1b, 4f, 4a, 4d, 10i 0 5 19 0 false
+23:  1t, 1b, 3f, 4a, 4d, 13i 0 4 22 0 false
+24:  1t, 1b, 2f, 4a, 4d, 16i 0 3 25 0 false
+25:  1t, 1b, 4f, 4a, 4d, 9i 0 5 18 0 false
+26:  1t, 1b, 3f, 4a, 4d, 12i 0 4 21 0 false
+27:  1t, 1b, 2f, 4a, 4d, 15i 0 3 24 0 false
+28:  1t, 1b, 4f, 4a, 4d, 8i 0 5 17 0 false
+29:  1t, 1b, 4a, 4d, 17i, 1C 0 1 27 0 false
+30:  1t, 1b, 3f, 4a, 4d, 11i 0 4 20 0 false
+31:  1t, 1b, 2f, 4a, 4d, 14i 0 3 23 0 false
+32:  1t, 1b, 1f, 4a, 4d, 17i 0 2 26 0 false
+33:  1t, 1b, 4f, 4a, 4d, 7i 0 5 16 0 false
+34:  1t, 1b, 3f, 4a, 4d, 10i 0 4 19 0 false
+35:  1t, 1b, 2f, 4a, 4d, 13i 0 3 22 0 false
+36:  1t, 1b, 1f, 4a, 4d, 16i 0 2 25 0 false
+37:  1t, 1b, 4f, 4a, 4d, 6i 0 5 15 0 false
+38:  1t, 1b, 3f, 4a, 4d, 9i 0 4 18 0 false
+39:  1t, 1b, 2f, 4a, 4d, 12i 0 3 21 0 false
+40:  1t, 1b, 1f, 4a, 4d, 15i 0 2 24 0 false
+41:  1t, 1b, 4f, 4a, 4d, 5i 0 5 14 0 false
+42:  1t, 1b, 3f, 4a, 4d, 8i 0 4 17 0 false
+43:  1t, 1b, 2f, 4a, 4d, 11i 0 3 20 0 false
+44:  1t, 1b, 1f, 4a, 4d, 14i 0 2 23 0 false
+45:  1t, 1b, 4f, 4a, 4d, 4i 0 5 13 0 false
+46:  1t, 1b, 3f, 4a, 4d, 7i 0 4 16 0 false
+47:  1t, 1b, 4a, 4d, 17i 0 1 26 0 false
+48:  1t, 4a, 4d, 17i, 1C 0 0 27 0 false
+49:  1t, 1b, 2f, 4a, 4d, 10i 0 3 19 0 false
+50:  1t, 1b, 1f, 4a, 4d, 13i 0 2 22 0 false
+51:  1t, 1b, 4f, 4a, 4d, 3i 0 5 12 0 false
+52:  1t, 1b, 3f, 4a, 4d, 6i 0 4 15 0 false
+53:  1t, 1b, 4a, 4d, 16i 0 1 25 0 false
+54:  1t, 1b, 2f, 4a, 4d, 9i 0 3 18 0 false
+55:  1t, 1b, 1f, 4a, 4d, 12i 0 2 21 0 false
+56:  1t, 1b, 4f, 4a, 4d, 2i 0 5 11 0 false
+57:  1t, 1b, 4a, 4d, 15i 0 1 24 0 false
+58:  1t, 1b, 3f, 4a, 4d, 5i 0 4 14 0 false
+59:  1t, 1b, 2f, 4a, 4d, 8i 0 3 17 0 false
+60:  1t, 1b, 4f, 4a, 4d, 1i 0 5 10 0 false
+61:  1t, 1b, 1f, 4a, 4d, 11i 0 2 20 0 false
+62:  1t, 1b, 3f, 4a, 4d, 4i 0 4 13 0 false
+63:  1t, 1b, 4a, 4d, 14i 0 1 23 0 false
+64:  1t, 1b, 2f, 4a, 4d, 7i 0 3 16 0 false
+65:  1t, 1b, 4f, 4a, 4d 0 5 9 0 false
+66:  1t, 1b, 1f, 4a, 4d, 10i 0 2 19 0 false
+67:  1t, 1b, 4a, 4d, 13i 0 1 22 0 false
+68:  1t, 1b, 3f, 4a, 4d, 3i 0 4 12 0 false
+69:  1t, 4a, 4d, 17i 0 0 26 0 false
+70:  1t, 1b, 2f, 4a, 4d, 6i 0 3 15 0 false
+71:  1t, 1b, 4f, 4a, 3d 0 5 8 0 false
+72:  1t, 1b, 1f, 4a, 4d, 9i 0 2 18 0 false
+73:  1t, 1b, 4a, 4d, 12i 0 1 21 0 false
+74:  1t, 4a, 4d, 16i 0 0 25 0 false
+75:  1t, 1b, 3f, 4a, 4d, 2i 0 4 11 0 false
+76:  1t, 1b, 2f, 4a, 4d, 5i 0 3 14 0 false
+77:  1t, 1b, 1f, 4a, 4d, 8i 0 2 17 0 false
+78:  1t, 1b, 4f, 4a, 2d 0 5 7 0 false
+79:  1t, 4a, 4d, 15i 0 0 24 0 false
+80:  1t, 1b, 3f, 4a, 4d, 1i 0 4 10 0 false
+81:  1t, 1b, 4a, 4d, 11i 0 1 20 0 false
+82:  1t, 1b, 2f, 4a, 4d, 4i 0 3 13 0 false
+83:  1t, 1b, 4f, 4a, 1d 0 5 6 0 false
+84:  1t, 1b, 1f, 4a, 4d, 7i 0 2 16 0 false
+85:  1t, 1b, 3f, 4a, 4d 0 4 9 0 false
+86:  1t, 1b, 4a, 4d, 10i 0 1 19 0 false
+87:  1t, 4a, 4d, 14i 0 0 23 0 false
+88:  1t, 1b, 2f, 4a, 4d, 3i 0 3 12 0 false
+89:  1t, 1b, 1f, 4a, 4d, 6i 0 2 15 0 false
+90:  1t, 1b, 4f, 4a 0 5 5 0 false
+91:  1t, 1b, 4a, 4d, 9i 0 1 18 0 false
+92:  1t, 4a, 4d, 13i 0 0 22 0 false
+93:  1t, 1b, 3f, 4a, 3d 0 4 8 0 false
+94:  1t, 1b, 2f, 4a, 4d, 2i 0 3 11 0 false
+95:  1t, 1b, 1f, 4a, 4d, 5i 0 2 14 0 false
+96:  1t, 1b, 3f, 4a, 2d 0 4 7 0 false
+97:  1t, 1b, 4f, 3a 0 5 4 0 false
+98:  1t, 4a, 4d, 12i 0 0 21 0 false
+99:  1t, 1b, 4a, 4d, 8i 0 1 17 0 false
+100:  1t, 1b, 2f, 4a, 4d, 1i 0 3 10 0 false
+101:  1t, 1b, 1f, 4a, 4d, 4i 0 2 13 0 false
+102:  1t, 1b, 4a, 4d, 7i 0 1 16 0 false
+103:  1t, 1b, 3f, 4a, 1d 0 4 6 0 false
+104:  1t, 4a, 4d, 11i 0 0 20 0 false
+105:  1t, 1b, 2f, 4a, 4d 0 3 9 0 false
+106:  1t, 1b, 4f, 2a 0 5 3 0 false
+107:  1t, 1b, 1f, 4a, 4d, 3i 0 2 12 0 false
+108:  1t, 4a, 4d, 10i 0 0 19 0 false
+109:  1t, 1b, 3f, 4a 0 4 5 0 false
+110:  1t, 1b, 4a, 4d, 6i 0 1 15 0 false
+111:  1t, 1b, 2f, 4a, 3d 0 3 8 0 false
+112:  1t, 1b, 1f, 4a, 4d, 2i 0 2 11 0 false
+113:  1t, 1b, 4f, 1a 0 5 2 0 false
+114:  1t, 1b, 4a, 4d, 5i 0 1 14 0 false
+115:  1t, 4a, 4d, 9i 0 0 18 0 false
+116:  1t, 1b, 3f, 3a 0 4 4 0 false
+117:  1t, 1b, 2f, 4a, 2d 0 3 7 0 false
+118:  1t, 1b, 1f, 4a, 4d, 1i 0 2 10 0 false
+119:  1t, 4a, 4d, 8i 0 0 17 0 false
+120:  1t, 1b, 4a, 4d, 4i 0 1 13 0 false
+121:  1t, 1b, 4f 0 5 1 0 false
+122:  1t, 1b, 2f, 4a, 1d 0 3 6 0 false
+123:  1t, 1b, 3f, 2a 0 4 3 0 false
+124:  1t, 1b, 1f, 4a, 4d 0 2 9 0 false
+125:  1t, 1b, 4a, 4d, 3i 0 1 12 0 false
+126:  1t, 4a, 4d, 7i 0 0 16 0 false
+127:  1t, 1b, 2f, 4a 0 3 5 0 false
+128:  1t, 1b, 1f, 4a, 3d 0 2 8 0 false
+129:  1t, 1b, 4a, 4d, 2i 0 1 11 0 false
+130:  1t, 1b, 3f, 1a 0 4 2 0 false
+131:  1b, 4f 0 5 0 0 false
+132:  1t, 4a, 4d, 6i 0 0 15 0 false
+133:  1t, 1b, 2f, 3a 0 3 4 0 false
+134:  1t, 1b, 1f, 4a, 2d 0 2 7 0 false
+135:  1t, 1b, 4a, 4d, 1i 0 1 10 0 false
+136:  1t, 4a, 4d, 5i 0 0 14 0 false
+137:  1t, 1b, 3f 0 4 1 0 false
+138:  1t, 1b, 1f, 4a, 1d 0 2 6 0 false
+139:  1t, 1b, 4a, 4d 0 1 9 0 false
+140:  1t, 1b, 2f, 2a 0 3 3 0 false
+141:  1t, 4a, 4d, 4i 0 0 13 0 false
+142:  1t, 1b, 1f, 4a 0 2 5 0 false
+143:  1t, 4a, 4d, 3i 0 0 12 0 false
+144:  1t, 1b, 4a, 3d 0 1 8 0 false
+145:  1t, 1b, 2f, 1a 0 3 2 0 false
+146:  1b, 3f 0 4 0 0 false
+147:  1t, 4a, 4d, 2i 0 0 11 0 false
+148:  1t, 1b, 4a, 2d 0 1 7 0 false
+149:  1t, 1b, 1f, 3a 0 2 4 0 false
+150:  1t, 1b, 2f 0 3 1 0 false
+151:  1t, 1b, 4a, 1d 0 1 6 0 false
+152:  1t, 4a, 4d, 1i 0 0 10 0 false
+153:  1t, 1b, 1f, 2a 0 2 3 0 false
+154:  1t, 4a, 4d 0 0 9 0 false
+155:  1t, 1b, 4a 0 1 5 0 false
+156:  1t, 1b, 1f, 1a 0 2 2 0 false
+157:  1b, 2f 0 3 0 0 false
+158:  1t, 4a, 3d 0 0 8 0 false
+159:  1t, 1b, 3a 0 1 4 0 false
+160:  1t, 4a, 2d 0 0 7 0 false
+161:  1t, 1b, 1f 0 2 1 0 false
+162:  1t, 1b, 2a 0 1 3 0 false
+163:  1t, 4a, 1d 0 0 6 0 false
+164:  1t, 1b, 1a 0 1 2 0 false
+165:  1t, 4a 0 0 5 0 false
+166:  1b, 1f 0 2 0 0 false
+167:  1t, 3a 0 0 4 0 false
+168:  1t, 1b 0 1 1 0 false
+169:  1t, 2a 0 0 3 0 false
+170:  1b 0 1 0 0 false
+171:  1t, 1a 0 0 2 0 false
+172:  1t 0 0 1 0 false
+173:   0 0 0 0 false
+ make_unit_group
+fffffffff make_unit_group
+tttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc naval_unit_group_construct
+tttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiiccc make_unit_group
+ffffffffftttttttttaaaaaiiccc make_unit_group
+ffffffffftttttttttaaaaaiccc make_unit_group
+ffffffffftttttttttaaaaaccc make_unit_group
+ffffffffftttttttttaaaaccc make_unit_group
+ffffffffftttttttttaaaccc make_unit_group
+ffffffffftttttttttaaccc make_unit_group
+ffffffffftttttttttaccc make_unit_group
+ffffffffftttttttttccc make_unit_group
+ make_unit_group
+0:  9f, 9t, 5a, 20i, 3c 0 9 37 0 false
+1:  9f, 9t, 5a, 19i, 3c 0 9 36 0 false
+2:  9f, 9t, 5a, 20i, 2c 0 9 36 0 false
+3:  9f, 9t, 5a, 18i, 3c 0 9 35 0 false
+4:  9f, 9t, 5a, 19i, 2c 0 9 35 0 false
+5:  9f, 9t, 5a, 17i, 3c 0 9 34 0 false
+6:  9f, 9t, 5a, 20i, 1c 0 9 35 0 false
+7:  9f, 9t, 5a, 18i, 2c 0 9 34 0 false
+8:  9f, 9t, 5a, 16i, 3c 0 9 33 0 false
+9:  9f, 9t, 5a, 19i, 1c 0 9 34 0 false
+10:  9f, 9t, 5a, 17i, 2c 0 9 33 0 false
+11:  9f, 9t, 5a, 20i 0 9 34 0 false
+12:  9f, 9t, 5a, 15i, 3c 0 9 32 0 false
+13:  9f, 9t, 5a, 18i, 1c 0 9 33 0 false
+14:  9f, 9t, 5a, 16i, 2c 0 9 32 0 false
+15:  9f, 9t, 5a, 14i, 3c 0 9 31 0 false
+16:  9f, 9t, 5a, 19i 0 9 33 0 false
+17:  9f, 9t, 5a, 17i, 1c 0 9 32 0 false
+18:  9f, 9t, 5a, 15i, 2c 0 9 31 0 false
+19:  9f, 9t, 5a, 13i, 3c 0 9 30 0 false
+20:  9f, 9t, 5a, 18i 0 9 32 0 false
+21:  9f, 9t, 5a, 16i, 1c 0 9 31 0 false
+22:  9f, 9t, 5a, 14i, 2c 0 9 30 0 false
+23:  9f, 9t, 5a, 12i, 3c 0 9 29 0 false
+24:  9f, 9t, 5a, 17i 0 9 31 0 false
+25:  9f, 9t, 5a, 15i, 1c 0 9 30 0 false
+26:  9f, 9t, 5a, 13i, 2c 0 9 29 0 false
+27:  9f, 9t, 5a, 11i, 3c 0 9 28 0 false
+28:  9f, 9t, 5a, 16i 0 9 30 0 false
+29:  9f, 9t, 5a, 14i, 1c 0 9 29 0 false
+30:  9f, 9t, 5a, 12i, 2c 0 9 28 0 false
+31:  9f, 9t, 5a, 10i, 3c 0 9 27 0 false
+32:  9f, 9t, 5a, 15i 0 9 29 0 false
+33:  9f, 9t, 5a, 13i, 1c 0 9 28 0 false
+34:  9f, 9t, 5a, 11i, 2c 0 9 27 0 false
+35:  9f, 9t, 5a, 9i, 3c 0 9 26 0 false
+36:  9f, 9t, 5a, 14i 0 9 28 0 false
+37:  9f, 9t, 5a, 12i, 1c 0 9 27 0 false
+38:  9f, 9t, 5a, 10i, 2c 0 9 26 0 false
+39:  9f, 9t, 5a, 8i, 3c 0 9 25 0 false
+40:  9f, 9t, 5a, 13i 0 9 27 0 false
+41:  9f, 9t, 5a, 11i, 1c 0 9 26 0 false
+42:  9f, 9t, 5a, 9i, 2c 0 9 25 0 false
+43:  9f, 9t, 5a, 12i 0 9 26 0 false
+44:  9f, 9t, 5a, 7i, 3c 0 9 24 0 false
+45:  9f, 9t, 5a, 10i, 1c 0 9 25 0 false
+46:  9f, 9t, 5a, 8i, 2c 0 9 24 0 false
+47:  9f, 9t, 5a, 11i 0 9 25 0 false
+48:  9f, 9t, 5a, 6i, 3c 0 9 23 0 false
+49:  9f, 9t, 5a, 9i, 1c 0 9 24 0 false
+50:  9f, 9t, 5a, 7i, 2c 0 9 23 0 false
+51:  9f, 9t, 5a, 10i 0 9 24 0 false
+52:  9f, 9t, 5a, 5i, 3c 0 9 22 0 false
+53:  9f, 9t, 5a, 8i, 1c 0 9 23 0 false
+54:  9f, 9t, 5a, 6i, 2c 0 9 22 0 false
+55:  9f, 9t, 5a, 9i 0 9 23 0 false
+56:  9f, 9t, 5a, 4i, 3c 0 9 21 0 false
+57:  9f, 9t, 5a, 7i, 1c 0 9 22 0 false
+58:  9f, 9t, 5a, 5i, 2c 0 9 21 0 false
+59:  9f, 9t, 5a, 8i 0 9 22 0 false
+60:  9f, 9t, 5a, 3i, 3c 0 9 20 0 false
+61:  9f, 9t, 5a, 6i, 1c 0 9 21 0 false
+62:  9f, 9t, 5a, 4i, 2c 0 9 20 0 false
+63:  9f, 9t, 5a, 2i, 3c 0 9 19 0 false
+64:  9f, 9t, 5a, 7i 0 9 21 0 false
+65:  9f, 9t, 5a, 5i, 1c 0 9 20 0 false
+66:  9f, 9t, 5a, 3i, 2c 0 9 19 0 false
+67:  9f, 9t, 5a, 1i, 3c 0 9 18 0 false
+68:  9f, 9t, 5a, 6i 0 9 20 0 false
+69:  9f, 9t, 5a, 4i, 1c 0 9 19 0 false
+70:  9f, 9t, 5a, 2i, 2c 0 9 18 0 false
+71:  9f, 9t, 5a, 3c 0 9 17 0 false
+72:  9f, 9t, 5a, 5i 0 9 19 0 false
+73:  9f, 9t, 5a, 3i, 1c 0 9 18 0 false
+74:  9f, 9t, 5a, 1i, 2c 0 9 17 0 false
+75:  9f, 9t, 5a, 4i 0 9 18 0 false
+76:  9f, 9t, 4a, 3c 0 9 16 0 false
+77:  9f, 9t, 5a, 2i, 1c 0 9 17 0 false
+78:  9f, 9t, 5a, 2c 0 9 16 0 false
+79:  9f, 9t, 5a, 3i 0 9 17 0 false
+80:  9f, 9t, 5a, 1i, 1c 0 9 16 0 false
+81:  9f, 9t, 3a, 3c 0 9 15 0 false
+82:  9f, 9t, 4a, 2c 0 9 15 0 false
+83:  9f, 9t, 5a, 2i 0 9 16 0 false
+84:  9f, 9t, 5a, 1c 0 9 15 0 false
+85:  9f, 9t, 2a, 3c 0 9 14 0 false
+86:  9f, 9t, 5a, 1i 0 9 15 0 false
+87:  9f, 9t, 3a, 2c 0 9 14 0 false
+88:  9f, 9t, 4a, 1c 0 9 14 0 false
+89:  9f, 9t, 5a 0 9 14 0 false
+90:  9f, 9t, 1a, 3c 0 9 13 0 false
+91:  9f, 9t, 2a, 2c 0 9 13 0 false
+92:  9f, 9t, 3a, 1c 0 9 13 0 false
+93:  9f, 9t, 4a 0 9 13 0 false
+94:  9f, 9t, 3c 0 9 12 0 false
+95:  9f, 9t, 1a, 2c 0 9 12 0 false
+96:  9f, 9t, 2a, 1c 0 9 12 0 false
+97:  9f, 9t, 3a 0 9 12 0 false
+98:  9f, 9t, 2c 0 9 11 0 false
+99:  9f, 9t, 1a, 1c 0 9 11 0 false
+100:  9f, 9t, 2a 0 9 11 0 false
+101:  9f, 9t, 1c 0 9 10 0 false
+102:  9f, 9t, 1a 0 9 10 0 false
+103:  9f, 9t 0 9 9 0 false
+104:  9f, 8t 0 9 8 0 false
+105:  9f, 7t 0 9 7 0 false
+106:  9f, 6t 0 9 6 0 false
+107:  9f, 5t 0 9 5 0 false
+108:  9f, 4t 0 9 4 0 false
+109:  9f, 3t 0 9 3 0 false
+110:  9f, 2t 0 9 2 0 false
+111:  9f, 1t 0 9 1 0 false
+112:  9f 0 9 0 0 false
+113:  8f 0 8 0 0 false
+114:  7f 0 7 0 0 false
+115:  6f 0 6 0 0 false
+116:  5f 0 5 0 0 false
+117:  4f 0 4 0 0 false
+118:  3f 0 3 0 0 false
+119:  2f 0 2 0 0 false
+120:  1f 0 1 0 0 false
+121:   0 0 0 0 false
+ccccc make_unit_group
+0 0 0.5787037037037038 i, n, prob -- solveAA
+1 1 0.34722222222222227 i, n, prob -- solveAA
+2 3 0.06944444444444445 i, n, prob -- solveAA
+3 4 0.004629629629629629 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+0 0 0.401877572016461 i, n, prob -- solveAA
+1 1 0.401877572016461 i, n, prob -- solveAA
+2 3 0.16075102880658437 i, n, prob -- solveAA
+3 4 0.03215020576131687 i, n, prob -- solveAA
+4 9 0.003215020576131687 i, n, prob -- solveAA
+5 21 0.00012860082304526747 i, n, prob -- solveAA
+252 number of results
+attackers = tbffffaaaaiiiiiiiiiiiiiiiiiiiiiCB
+defenders = ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc
+attackers = 1t, 1b, 4f, 4a, 21i, 1C, 1B
+defenders = 9f, 9t, 5a, 20i, 3c
+result:  P[6][121] 1t, 1b, 4f, 4a, 21i vs.  (loss  0 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000037576009425998726 cumm(0.0000037576009425998726) rcumm(0.9997877602950471) (-31.33578431372549)
+result:  P[7][121] 1t, 1b, 4f, 4a, 20i vs.  (loss 1i 3 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00003337998380495057 cumm(0.00003713758474755044) rcumm(0.9997840026941045) (-30.32843137254902)
+result:  P[12][121] 1t, 1b, 3f, 4a, 21i vs.  (loss 1f 10 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.3406377024019965e-12 cumm(0.00003713758608818815) rcumm(0.9997506227102996) (-30.311274509803923)
+result:  P[8][121] 1t, 1b, 4f, 4a, 19i vs.  (loss 2i 6 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00012313656316444185 cumm(0.00016027414925263) rcumm(0.999750622708959) (-29.32107843137255)
+result:  P[14][121] 1t, 1b, 3f, 4a, 20i vs.  (loss 1f, 1i 13 vs. 9f, 9t, 5a, 20i, 3c 239)= 5.168781885580646e-11 cumm(0.00016027420094044884) rcumm(0.9996274861457946) (-29.30392156862745)
+result:  P[11][121] 1t, 1b, 4f, 4a, 18i vs.  (loss 3i 9 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0002621261871195493 cumm(0.00042240038805999817) rcumm(0.9996274860941068) (-28.313725490196077)
+result:  P[16][121] 1t, 1b, 3f, 4a, 19i vs.  (loss 1f, 2i 16 vs. 9f, 9t, 5a, 20i, 3c 239)= 8.434363020821897e-10 cumm(0.00042240123149630025) rcumm(0.9993653599069873) (-28.29656862745098)
+result:  P[24][121] 1t, 1b, 2f, 4a, 20i vs.  (loss 2f, 1i 23 vs. 9f, 9t, 5a, 20i, 3c 239)= 7.344190847086187e-12 cumm(0.0004224012388404911) rcumm(0.999365359063551) (-28.279411764705884)
+result:  P[13][121] 1t, 1b, 4f, 4a, 17i vs.  (loss 4i 12 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0004249494903772149 cumm(0.0008473507292177059) rcumm(0.9993653590562067) (-27.306372549019606)
+result:  P[19][121] 1t, 1b, 3f, 4a, 18i vs.  (loss 1f, 3i 19 vs. 9f, 9t, 5a, 20i, 3c 239)= 8.784313506553755e-9 cumm(0.0008473595135312125) rcumm(0.9989404095658295) (-27.28921568627451)
+result:  P[27][121] 1t, 1b, 2f, 4a, 19i vs.  (loss 2f, 2i 26 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.2861331681300166e-10 cumm(0.0008473596421445293) rcumm(0.998940400781516) (-27.272058823529413)
+result:  P[15][121] 1t, 1b, 4f, 4a, 16i vs.  (loss 5i 15 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0006807297321212797 cumm(0.001528089374265809) rcumm(0.9989404006529027) (-26.29901960784314)
+result:  P[23][121] 1t, 1b, 3f, 4a, 17i vs.  (loss 1f, 4i 22 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.622768554845534e-8 cumm(0.0015281556019513575) rcumm(0.9982596709207814) (-26.28186274509804)
+result:  P[31][121] 1t, 1b, 2f, 4a, 18i vs.  (loss 2f, 3i 29 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.390196113621332e-9 cumm(0.001528156992147471) rcumm(0.9982596046930958) (-26.264705882352942)
+result:  P[40][121] 1t, 1b, 1f, 4a, 19i vs.  (loss 3f, 2i 36 vs. 9f, 9t, 5a, 20i, 3c 239)= 8.994602968466952e-12 cumm(0.001528157001142074) rcumm(0.9982596033028998) (-26.247549019607842)
+result:  P[18][121] 1t, 1b, 4f, 4a, 15i vs.  (loss 6i 18 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0010791235175936988 cumm(0.002607280518735773) rcumm(0.9982596032939052) (-25.291666666666668)
+result:  P[26][121] 1t, 1b, 3f, 4a, 16i vs.  (loss 1f, 5i 25 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.8548591193439845e-7 cumm(0.0026076660046477074) rcumm(0.9971804797763115) (-25.274509803921568)
+result:  P[35][121] 1t, 1b, 2f, 4a, 17i vs.  (loss 2f, 4i 32 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.0835092934017583e-8 cumm(0.0026076768397406414) rcumm(0.9971800942903996) (-25.25735294117647)
+result:  P[44][121] 1t, 1b, 1f, 4a, 18i vs.  (loss 3f, 3i 39 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.0469812089723787e-10 cumm(0.002607676944438762) rcumm(0.9971800834553066) (-25.24019607843137)
+result:  P[22][121] 1t, 1b, 4f, 4a, 14i vs.  (loss 7i 21 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0015734597656090032 cumm(0.004181136710047766) rcumm(0.9971800833506085) (-24.284313725490197)
+result:  P[30][121] 1t, 1b, 3f, 4a, 15i vs.  (loss 1f, 6i 28 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000018041267221282418 cumm(0.004182940836769894) rcumm(0.9956066235849995) (-24.267156862745097)
+result:  P[39][121] 1t, 1b, 2f, 4a, 16i vs.  (loss 2f, 5i 35 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.515405861206905e-8 cumm(0.004183005990828506) rcumm(0.9956048194582774) (-24.25)
+result:  P[50][121] 1t, 1b, 1f, 4a, 17i vs.  (loss 3f, 4i 42 vs. 9f, 9t, 5a, 20i, 3c 239)= 8.447335393663407e-10 cumm(0.004183006835562045) rcumm(0.9956047543042188) (-24.232843137254903)
+result:  P[63][121] 1t, 1b, 4a, 18i vs.  (loss 4f, 3i 49 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.4638602608558508e-12 cumm(0.004183006839025906) rcumm(0.9956047534594853) (-24.215686274509803)
+result:  P[25][121] 1t, 1b, 4f, 4a, 13i vs.  (loss 8i 24 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.002165626173723874 cumm(0.00634863301274978) rcumm(0.9956047534560214) (-23.276960784313726)
+result:  P[34][121] 1t, 1b, 3f, 4a, 14i vs.  (loss 1f, 7i 31 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000006982356665164632 cumm(0.006355615369414944) rcumm(0.9934391272822976) (-23.25980392156863)
+result:  P[43][121] 1t, 1b, 2f, 4a, 15i vs.  (loss 2f, 6i 38 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.1483378678443355e-7 cumm(0.006355930203201729) rcumm(0.9934321449256324) (-23.24264705882353)
+result:  P[55][121] 1t, 1b, 1f, 4a, 16i vs.  (loss 3f, 5i 45 vs. 9f, 9t, 5a, 20i, 3c 239)= 5.23367738150361e-9 cumm(0.00635593543687911) rcumm(0.9934318300918455) (-23.225490196078432)
+result:  P[67][121] 1t, 1b, 4a, 17i vs.  (loss 4f, 4i 52 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.205841096176772e-11 cumm(0.006355935468937521) rcumm(0.9934318248581682) (-23.208333333333332)
+result:  P[28][121] 1t, 1b, 4f, 4a, 12i vs.  (loss 9i 27 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.002888953906692011 cumm(0.009244889375629532) rcumm(0.9934318248261098) (-22.269607843137255)
+result:  P[38][121] 1t, 1b, 3f, 4a, 13i vs.  (loss 1f, 8i 34 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00002281456347221225 cumm(0.009267703939101745) rcumm(0.9905428709194178) (-22.252450980392158)
+result:  P[49][121] 1t, 1b, 2f, 4a, 14i vs.  (loss 2f, 7i 41 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000001257340962938554 cumm(0.009268961280064682) rcumm(0.9905200563559456) (-22.235294117647058)
+result:  P[61][121] 1t, 1b, 1f, 4a, 15i vs.  (loss 3f, 6i 48 vs. 9f, 9t, 5a, 20i, 3c 239)= 2.603388038331137e-8 cumm(0.009268987313945065) rcumm(0.9905187990149827) (-22.21813725490196)
+result:  P[73][121] 1t, 1b, 4a, 16i vs.  (loss 4f, 5i 55 vs. 9f, 9t, 5a, 20i, 3c 239)= 2.076397805243475e-10 cumm(0.009268987521584846) rcumm(0.9905187729811024) (-22.20098039215686)
+result:  P[33][121] 1t, 1b, 4f, 4a, 11i vs.  (loss 10i 30 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0037791747684472214 cumm(0.013048162290032066) rcumm(0.9905187727734626) (-21.262254901960784)
+result:  P[42][121] 1t, 1b, 3f, 4a, 12i vs.  (loss 1f, 9i 37 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000639680562803144 cumm(0.013112130346312381) rcumm(0.9867395980050153) (-21.245098039215687)
+result:  P[54][121] 1t, 1b, 2f, 4a, 13i vs.  (loss 2f, 8i 44 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000004237967666203106 cumm(0.013116368313978584) rcumm(0.986675629948735) (-21.227941176470587)
+result:  P[66][121] 1t, 1b, 1f, 4a, 14i vs.  (loss 3f, 7i 51 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.0699600292845351e-7 cumm(0.013116475309981513) rcumm(0.9866713919810688) (-21.21078431372549)
+result:  P[81][121] 1t, 1b, 4a, 15i vs.  (loss 4f, 6i 58 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.0597583725007072e-9 cumm(0.013116476369739886) rcumm(0.9866712849850658) (-21.193627450980394)
+result:  P[98][121] 1t, 4a, 16i vs.  (loss 1b, 4f, 5i 67 vs. 9f, 9t, 5a, 20i, 3c 239)= 2.2340912659993918e-12 cumm(0.013116476371973978) rcumm(0.9866712839253075) (-21.17156862745098)
+result:  P[37][121] 1t, 1b, 4f, 4a, 10i vs.  (loss 11i 33 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.004829376880770036 cumm(0.017945853252744014) rcumm(0.9866712839230734) (-20.254901960784313)
+result:  P[46][121] 1t, 1b, 3f, 4a, 11i vs.  (loss 1f, 10i 40 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0001560191367371797 cumm(0.018101872389481195) rcumm(0.9818419070423033) (-20.237745098039216)
+result:  P[59][121] 1t, 1b, 2f, 4a, 12i vs.  (loss 2f, 9i 47 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000012259042536818295 cumm(0.018114131432018014) rcumm(0.9816858879055662) (-20.220588235294116)
+result:  P[72][121] 1t, 1b, 1f, 4a, 13i vs.  (loss 3f, 8i 54 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.712067150158513e-7 cumm(0.01811450263873303) rcumm(0.9816736288630294) (-20.20343137254902)
+result:  P[86][121] 1t, 1b, 4a, 14i vs.  (loss 4f, 7i 61 vs. 9f, 9t, 5a, 20i, 3c 239)= 4.4587477080860266e-9 cumm(0.018114507097480737) rcumm(0.9816732576563144) (-20.186274509803923)
+result:  P[104][121] 1t, 4a, 15i vs.  (loss 1b, 4f, 6i 70 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.3821353184674122e-11 cumm(0.01811450711130209) rcumm(0.9816732531975667) (-20.16421568627451)
+result:  P[41][121] 1t, 1b, 4f, 4a, 9i vs.  (loss 12i 36 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00597887459574908 cumm(0.02409338170705117) rcumm(0.9816732531837453) (-19.247549019607842)
+result:  P[52][121] 1t, 1b, 3f, 4a, 10i vs.  (loss 1f, 11i 43 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0003351124121976242 cumm(0.024428494119248797) rcumm(0.9756943785879962) (-19.230392156862745)
+result:  P[64][121] 1t, 1b, 2f, 4a, 11i vs.  (loss 2f, 10i 50 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00003087117038595307 cumm(0.02445936528963475) rcumm(0.9753592661757986) (-19.21323529411765)
+result:  P[77][121] 1t, 1b, 1f, 4a, 12i vs.  (loss 3f, 9i 57 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000011061731002326763 cumm(0.024460471462734983) rcumm(0.9753283950054127) (-19.19607843137255)
+result:  P[91][121] 1t, 1b, 4a, 13i vs.  (loss 4f, 8i 64 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.5846371814790043e-8 cumm(0.0244604873091068) rcumm(0.9753272888323125) (-19.17892156862745)
+result:  P[108][121] 1t, 4a, 14i vs.  (loss 1b, 4f, 7i 73 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.14117630206833e-11 cumm(0.024460487370518563) rcumm(0.9753272729859407) (-19.15686274509804)
+result:  P[45][121] 1t, 1b, 4f, 4a, 8i vs.  (loss 13i 39 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.007133400724860966 cumm(0.03159388809537953) rcumm(0.9753272729245289) (-18.24019607843137)
+result:  P[58][121] 1t, 1b, 3f, 4a, 9i vs.  (loss 1f, 12i 46 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0006414401935785036 cumm(0.03223532828895803) rcumm(0.9681938721996679) (-18.223039215686274)
+result:  P[70][121] 1t, 1b, 2f, 4a, 10i vs.  (loss 2f, 11i 53 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00006856694067665278 cumm(0.032303895229634685) rcumm(0.9675524320060894) (-18.205882352941178)
+result:  P[84][121] 1t, 1b, 1f, 4a, 11i vs.  (loss 3f, 10i 60 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00000287412219173401 cumm(0.03230676935182642) rcumm(0.9674838650654127) (-18.188725490196077)
+result:  P[99][121] 1t, 1b, 4a, 12i vs.  (loss 4f, 9i 67 vs. 9f, 9t, 5a, 20i, 3c 239)= 4.844633124617681e-8 cumm(0.032306817798157667) rcumm(0.967480990943221) (-18.17156862745098)
+result:  P[115][121] 1t, 4a, 13i vs.  (loss 1b, 4f, 8i 76 vs. 9f, 9t, 5a, 20i, 3c 239)= 2.2305490168185297e-10 cumm(0.03230681802121257) rcumm(0.9674809424968898) (-18.149509803921568)
+result:  P[51][121] 1t, 1b, 4f, 4a, 7i vs.  (loss 14i 42 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.008198811455226109 cumm(0.040505629476438675) rcumm(0.9674809422738349) (-17.232843137254903)
+result:  P[62][121] 1t, 1b, 3f, 4a, 8i vs.  (loss 1f, 13i 49 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0011074647762764796 cumm(0.04161309425271516) rcumm(0.9592821308186087) (-17.215686274509803)
+result:  P[76][121] 1t, 1b, 2f, 4a, 9i vs.  (loss 2f, 12i 56 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0001360241923679129 cumm(0.04174911844508307) rcumm(0.9581746660423323) (-17.198529411764707)
+result:  P[89][121] 1t, 1b, 1f, 4a, 10i vs.  (loss 3f, 11i 63 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000066011619897839846 cumm(0.041755719607072854) rcumm(0.9580386418499643) (-17.181372549019606)
+result:  P[102][121] 1t, 1b, 4a, 11i vs.  (loss 4f, 10i 70 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.294132872756734e-7 cumm(0.04175584902036013) rcumm(0.9580320406879745) (-17.16421568627451)
+result:  P[119][121] 1t, 4a, 12i vs.  (loss 1b, 4f, 9i 79 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.941463811045379e-10 cumm(0.04175584971450651) rcumm(0.9580319112746872) (-17.142156862745097)
+result:  P[56][121] 1t, 1b, 4f, 4a, 6i vs.  (loss 15i 45 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.009115701487643797 cumm(0.050871551202150304) rcumm(0.9580319105805408) (-16.225490196078432)
+result:  P[68][121] 1t, 1b, 3f, 4a, 7i vs.  (loss 1f, 14i 52 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0017465334205390873 cumm(0.05261808462268939) rcumm(0.948916209092897) (-16.208333333333332)
+result:  P[82][121] 1t, 1b, 2f, 4a, 8i vs.  (loss 2f, 13i 59 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00024406652031529208 cumm(0.05286215114300468) rcumm(0.9471696756723579) (-16.191176470588236)
+result:  P[95][121] 1t, 1b, 1f, 4a, 9i vs.  (loss 3f, 12i 66 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000013577568664354156 cumm(0.05287572871166903) rcumm(0.9469256091520426) (-16.17401960784314)
+result:  P[110][121] 1t, 1b, 4a, 10i vs.  (loss 4f, 11i 73 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.063308006714077e-7 cumm(0.0528760350424697) rcumm(0.9469120315833782) (-16.15686274509804)
+result:  P[126][121] 1t, 4a, 11i vs.  (loss 1b, 4f, 10i 82 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.890811475506855e-9 cumm(0.052876036933281176) rcumm(0.9469117252525775) (-16.13480392156863)
+result:  P[60][121] 1t, 1b, 4f, 4a, 5i vs.  (loss 16i 48 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00987602935043748 cumm(0.06275206628371865) rcumm(0.946911723361766) (-15.218137254901961)
+result:  P[75][121] 1t, 1b, 3f, 4a, 6i vs.  (loss 1f, 15i 55 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0025483220787786975 cumm(0.06530038836249735) rcumm(0.9370356940113285) (-15.200980392156863)
+result:  P[88][121] 1t, 1b, 2f, 4a, 7i vs.  (loss 2f, 14i 62 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0004010415423537922 cumm(0.06570142990485114) rcumm(0.9344873719325498) (-15.183823529411764)
+result:  P[101][121] 1t, 1b, 1f, 4a, 8i vs.  (loss 3f, 13i 69 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000025323120113725306 cumm(0.06572675302496488) rcumm(0.9340863303901961) (-15.166666666666666)
+result:  P[114][121] 1t, 1b, 4a, 9i vs.  (loss 4f, 12i 76 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.508988781166178e-7 cumm(0.06572740392384299) rcumm(0.9340610072700823) (-15.14950980392157)
+result:  P[132][121] 1t, 4a, 10i vs.  (loss 1b, 4f, 11i 85 vs. 9f, 9t, 5a, 20i, 3c 239)= 4.574513803737229e-9 cumm(0.0657274084983568) rcumm(0.9340603563712042) (-15.127450980392156)
+result:  P[65][121] 1t, 1b, 4f, 4a, 4i vs.  (loss 17i 51 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.010510963713990386 cumm(0.0762383722123472) rcumm(0.9340603517966904) (-14.21078431372549)
+result:  P[80][121] 1t, 1b, 3f, 4a, 5i vs.  (loss 1f, 16i 58 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.003482207964033395 cumm(0.07972058017638059) rcumm(0.9235493880827) (-14.193627450980392)
+result:  P[94][121] 1t, 1b, 2f, 4a, 6i vs.  (loss 2f, 15i 65 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0006106297150683384 cumm(0.08033120989144893) rcumm(0.9200671801186666) (-14.176470588235293)
+result:  P[107][121] 1t, 1b, 1f, 4a, 7i vs.  (loss 3f, 14i 72 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00004332624618847709 cumm(0.08037453613763741) rcumm(0.9194565504035983) (-14.159313725490197)
+result:  P[120][121] 1t, 1b, 4a, 8i vs.  (loss 4f, 13i 79 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0000012562388153683804 cumm(0.08037579237645279) rcumm(0.9194132241574098) (-14.142156862745098)
+result:  P[136][121] 1t, 4a, 9i vs.  (loss 1b, 4f, 12i 88 vs. 9f, 9t, 5a, 20i, 3c 239)= 9.953340089786034e-9 cumm(0.08037580232979288) rcumm(0.9194119679185944) (-14.120098039215685)
+result:  P[71][121] 1t, 1b, 4f, 4a, 3i vs.  (loss 18i 54 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011056781369658092 cumm(0.09143258369945098) rcumm(0.9194119579652543) (-13.20343137254902)
+result:  P[85][121] 1t, 1b, 3f, 4a, 4i vs.  (loss 1f, 17i 61 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.004503318874747771 cumm(0.09593590257419875) rcumm(0.9083551765955963) (-13.186274509803921)
+result:  P[100][121] 1t, 1b, 2f, 4a, 5i vs.  (loss 2f, 16i 68 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000870509093041493 cumm(0.09680641166724024) rcumm(0.9038518577208485) (-13.169117647058824)
+result:  P[112][121] 1t, 1b, 1f, 4a, 6i vs.  (loss 3f, 15i 75 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00006870524166785874 cumm(0.0968751169089081) rcumm(0.902981348627807) (-13.151960784313726)
+result:  P[125][121] 1t, 1b, 4a, 7i vs.  (loss 4f, 14i 82 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000002225336224304623 cumm(0.0968773422451324) rcumm(0.9029126433861391) (-13.134803921568627)
+result:  P[141][121] 1t, 4a, 8i vs.  (loss 1b, 4f, 13i 91 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.9689243598403733e-8 cumm(0.096877361934376) rcumm(0.9029104180499148) (-13.112745098039216)
+result:  P[78][121] 1t, 1b, 4f, 4a, 2i vs.  (loss 19i 57 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011519167806764732 cumm(0.10839652974114074) rcumm(0.9029103983606712) (-12.196078431372548)
+result:  P[93][121] 1t, 1b, 3f, 4a, 3i vs.  (loss 1f, 18i 64 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0055547637354694595 cumm(0.11395129347661019) rcumm(0.8913912305539065) (-12.178921568627452)
+result:  P[105][121] 1t, 1b, 2f, 4a, 4i vs.  (loss 2f, 17i 71 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.001171642301858736 cumm(0.11512293577846892) rcumm(0.885836466818437) (-12.161764705882353)
+result:  P[118][121] 1t, 1b, 1f, 4a, 5i vs.  (loss 3f, 16i 78 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00010184617074722007 cumm(0.11522478194921615) rcumm(0.8846648245165782) (-12.144607843137255)
+result:  P[129][121] 1t, 1b, 4a, 6i vs.  (loss 4f, 15i 85 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000003650271824980525 cumm(0.11522843222104114) rcumm(0.884562978345831) (-12.127450980392156)
+result:  P[143][121] 1t, 4a, 7i vs.  (loss 1b, 4f, 14i 94 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.5740574823311166e-8 cumm(0.11522846796161595) rcumm(0.884559328074006) (-12.105392156862745)
+result:  P[83][121] 1t, 1b, 4f, 4a, 1i vs.  (loss 20i 60 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011860817886980757 cumm(0.12708928584859672) rcumm(0.8845592923334311) (-11.188725490196079)
+result:  P[96][121] 1t, 1b, 3f, 4a, 2i vs.  (loss 1f, 19i 67 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.006564296106515335 cumm(0.13365358195511204) rcumm(0.8726984744464503) (-11.17156862745098)
+result:  P[111][121] 1t, 1b, 2f, 4a, 3i vs.  (loss 2f, 18i 74 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0014976791238051907 cumm(0.13515126107891723) rcumm(0.866134178339935) (-11.154411764705882)
+result:  P[124][121] 1t, 1b, 1f, 4a, 4i vs.  (loss 3f, 17i 81 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00014209681620960178 cumm(0.13529335789512684) rcumm(0.8646364992161298) (-11.137254901960784)
+result:  P[135][121] 1t, 1b, 4a, 5i vs.  (loss 4f, 16i 88 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000005585333738315863 cumm(0.13529894322886515) rcumm(0.8644944023999203) (-11.120098039215685)
+result:  P[147][121] 1t, 4a, 6i vs.  (loss 1b, 4f, 15i 97 vs. 9f, 9t, 5a, 20i, 3c 239)= 6.000951585650788e-8 cumm(0.135299003238381) rcumm(0.864488817066182) (-11.098039215686274)
+result:  P[90][121] 1t, 1b, 4f, 4a vs.  (loss 21i 63 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.01202719285189863 cumm(0.14732619609027964) rcumm(0.8644887570566661) (-10.181372549019608)
+result:  P[103][121] 1t, 1b, 3f, 4a, 1i vs.  (loss 1f, 20i 70 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.007445908347380672 cumm(0.15477210443766032) rcumm(0.8524615642047674) (-10.16421568627451)
+result:  P[117][121] 1t, 1b, 2f, 4a, 2i vs.  (loss 2f, 19i 77 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00182423586654738 cumm(0.1565963403042077) rcumm(0.8450156558573867) (-10.147058823529411)
+result:  P[128][121] 1t, 1b, 1f, 4a, 3i vs.  (loss 3f, 18i 84 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00018754378852597778 cumm(0.15678388409273367) rcumm(0.8431914199908394) (-10.129901960784315)
+result:  P[139][121] 1t, 1b, 4a, 4i vs.  (loss 4f, 17i 91 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00000802247323578285 cumm(0.15679190656596945) rcumm(0.8430038762023134) (-10.112745098039216)
+result:  P[152][121] 1t, 4a, 5i vs.  (loss 1b, 4f, 16i 100 vs. 9f, 9t, 5a, 20i, 3c 239)= 9.38554177623221e-8 cumm(0.15679200042138722) rcumm(0.8429958537290776) (-10.090686274509803)
+result:  P[97][121] 1t, 1b, 4f, 3a vs.  (loss 1a, 21i 67 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011991669762923056 cumm(0.16878367018431029) rcumm(0.8429957598736598) (-9.17156862745098)
+result:  P[109][121] 1t, 1b, 3f, 4a vs.  (loss 1f, 21i 73 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.008122125277737154 cumm(0.17690579546204743) rcumm(0.8310040901107367) (-9.156862745098039)
+result:  P[122][121] 1t, 1b, 2f, 4a, 1i vs.  (loss 2f, 20i 80 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.002121037922283327 cumm(0.17902683338433076) rcumm(0.8228819648329996) (-9.139705882352942)
+result:  P[134][121] 1t, 1b, 1f, 4a, 2i vs.  (loss 3f, 19i 87 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00023483054766442537 cumm(0.1792616639319952) rcumm(0.8207609269107162) (-9.122549019607844)
+result:  P[144][121] 1t, 1b, 4a, 3i vs.  (loss 4f, 18i 94 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000010869863864531272 cumm(0.17927253379585972) rcumm(0.8205260963630518) (-9.105392156862745)
+result:  P[154][121] 1t, 4a, 4i vs.  (loss 1b, 4f, 17i 103 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.376459588179443e-7 cumm(0.17927267144181855) rcumm(0.8205152264991873) (-9.083333333333334)
+result:  P[106][121] 1t, 1b, 4f, 2a vs.  (loss 2a, 21i 71 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011777710342415508 cumm(0.19105038178423406) rcumm(0.8205150888532284) (-8.161764705882353)
+result:  P[116][121] 1t, 1b, 3f, 3a vs.  (loss 1f, 1a, 21i 77 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00855732565905308 cumm(0.19960770744328715) rcumm(0.808737378510813) (-8.147058823529411)
+result:  P[127][121] 1t, 1b, 2f, 4a vs.  (loss 2f, 21i 83 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0023609135706380824 cumm(0.20196862101392524) rcumm(0.8001800528517599) (-8.132352941176471)
+result:  P[138][121] 1t, 1b, 1f, 4a, 1i vs.  (loss 3f, 20i 90 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00027948903884601945 cumm(0.20224811005277127) rcumm(0.7978191392811218) (-8.115196078431373)
+result:  P[148][121] 1t, 1b, 4a, 2i vs.  (loss 4f, 19i 97 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00001392691137777037 cumm(0.20226203696414904) rcumm(0.7975396502422758) (-8.098039215686274)
+result:  P[158][121] 1t, 4a, 3i vs.  (loss 1b, 4f, 18i 106 vs. 9f, 9t, 5a, 20i, 3c 239)= 1.9008978507783411e-7 cumm(0.20226222705393412) rcumm(0.797525723330898) (-8.075980392156863)
+result:  P[113][121] 1t, 1b, 4f, 1a vs.  (loss 3a, 21i 75 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011439574604728837 cumm(0.21370180165866295) rcumm(0.797525533241113) (-7.151960784313726)
+result:  P[123][121] 1t, 1b, 3f, 2a vs.  (loss 1f, 2a, 21i 81 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.008767075282879047 cumm(0.222468876941542) rcumm(0.7860859586363841) (-7.137254901960785)
+result:  P[133][121] 1t, 1b, 2f, 3a vs.  (loss 2f, 1a, 21i 87 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0025301943971620267 cumm(0.22499907133870403) rcumm(0.7773188833535051) (-7.122549019607843)
+result:  P[142][121] 1t, 1b, 1f, 4a vs.  (loss 3f, 21i 93 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00031728616139349466 cumm(0.2253163575000975) rcumm(0.774788688956343) (-7.107843137254902)
+result:  P[151][121] 1t, 1b, 4a, 1i vs.  (loss 4f, 20i 100 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000016897992564077432 cumm(0.2253332554926616) rcumm(0.7744714027949495) (-7.090686274509804)
+result:  P[160][121] 1t, 4a, 2i vs.  (loss 1b, 4f, 19i 109 vs. 9f, 9t, 5a, 20i, 3c 239)= 2.471593562353458e-7 cumm(0.22533350265201782) rcumm(0.7744545048023854) (-7.068627450980392)
+result:  P[121][121] 1t, 1b, 4f vs.  (loss 4a, 21i 79 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.011023484983651449 cumm(0.23635698763566926) rcumm(0.7744542576430292) (-6.142156862745098)
+result:  P[130][121] 1t, 1b, 3f, 1a vs.  (loss 1f, 3a, 21i 85 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.008791154144816132 cumm(0.24514814178048538) rcumm(0.7634307726593778) (-6.127450980392156)
+result:  P[140][121] 1t, 1b, 2f, 2a vs.  (loss 2f, 2a, 21i 91 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0026289367256615197 cumm(0.2477770785061469) rcumm(0.7546396185145616) (-6.112745098039215)
+result:  P[149][121] 1t, 1b, 1f, 3a vs.  (loss 3f, 1a, 21i 97 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0003455444395473291 cumm(0.24812262294569423) rcumm(0.7520106817889001) (-6.098039215686274)
+result:  P[155][121] 1t, 1b, 4a vs.  (loss 4f, 21i 103 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000019475547188741376 cumm(0.24814209849288296) rcumm(0.7516651373493527) (-6.083333333333333)
+result:  P[163][121] 1t, 4a, 1i vs.  (loss 1b, 4f, 20i 112 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.023051948430049e-7 cumm(0.2481424007980778) rcumm(0.751645661802164) (-6.061274509803922)
+result:  P[137][121] 1t, 1b, 3f vs.  (loss 1f, 4a, 21i 89 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0191818956006627 cumm(0.2673242963987405) rcumm(0.7516453594969691) (-5.117647058823529)
+result:  P[145][121] 1t, 1b, 2f, 1a vs.  (loss 2f, 3a, 21i 95 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0026611087294359497 cumm(0.2699854051281764) rcumm(0.7324634638963063) (-5.102941176470588)
+result:  P[153][121] 1t, 1b, 1f, 2a vs.  (loss 3f, 2a, 21i 101 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0003629571479796058 cumm(0.27034836227615605) rcumm(0.7298023551668704) (-5.088235294117647)
+result:  P[159][121] 1t, 1b, 3a vs.  (loss 4f, 1a, 21i 107 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00002141299016381248 cumm(0.2703697752663199) rcumm(0.7294393980188908) (-5.073529411764706)
+result:  P[165][121] 1t, 4a vs.  (loss 1b, 4f, 21i 115 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.4811405698500065e-7 cumm(0.27037012338037686) rcumm(0.729417985028727) (-5.053921568627451)
+result:  P[150][121] 1t, 1b, 2f vs.  (loss 2f, 4a, 21i 99 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.02082517863342983 cumm(0.29119530201380667) rcumm(0.72941763691467) (-4.0931372549019605)
+result:  P[156][121] 1t, 1b, 1f, 1a vs.  (loss 3f, 3a, 21i 105 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.0003685202783785382 cumm(0.2915638222921852) rcumm(0.7085924582812402) (-4.078431372549019)
+result:  P[162][121] 1t, 1b, 2a vs.  (loss 4f, 2a, 21i 111 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.00002251814789183945 cumm(0.29158634044007703) rcumm(0.7082239380028617) (-4.063725490196078)
+result:  P[167][121] 1t, 3a vs.  (loss 1b, 4f, 1a, 21i 119 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.775028845727829e-7 cumm(0.2915867179429616) rcumm(0.7082014198549698) (-4.044117647058823)
+result:  P[161][121] 1t, 1b, 1f vs.  (loss 3f, 4a, 21i 109 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.019526630946174985 cumm(0.31111334888913655) rcumm(0.7082010423520851) (-3.0686274509803924)
+result:  P[164][121] 1t, 1b, 1a vs.  (loss 4f, 3a, 21i 115 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.000022627110344948987 cumm(0.3111359759994815) rcumm(0.6886744114059101) (-3.053921568627451)
+result:  P[169][121] 1t, 2a vs.  (loss 1b, 4f, 2a, 21i 123 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.839230437146274e-7 cumm(0.3111363599225252) rcumm(0.6886517842955652) (-3.034313725490196)
+result:  P[168][121] 1t, 1b vs.  (loss 4f, 4a, 21i 119 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.017027828270790947 cumm(0.32816418819331616) rcumm(0.6886514003725215) (-2.0441176470588234)
+result:  P[171][121] 1t, 1a vs.  (loss 1b, 4f, 3a, 21i 127 vs. 9f, 9t, 5a, 20i, 3c 239)= 3.613228750982019e-7 cumm(0.3281645495161913) rcumm(0.6716235721017305) (-2.0245098039215685)
+result:  P[172][121] 1t vs.  (loss 1b, 4f, 4a, 21i 131 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.012919408835912622 cumm(0.3410839583521039) rcumm(0.6716232107788555) (-1.0147058823529411)
+result:  P[173][121]  vs.  (loss 1b, 4f, 1t, 4a, 21i 137 vs. 9f, 9t, 5a, 20i, 3c 239)= 0.005932003046043321 cumm(0.3470159613981472) rcumm(0.6587038019429429) (0)
+result:  P[173][120]  vs. 1f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 8f, 9t, 5a, 20i, 3c 229)= 0.0151819098476691 cumm(0.3621978712458163) rcumm(0.6527717988968995) (1.0245098039215685)
+result:  P[173][119]  vs. 2f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 7f, 9t, 5a, 20i, 3c 219)= 0.021254202875977023 cumm(0.38345207412179333) rcumm(0.6375898890492304) (2.049019607843137)
+result:  P[173][118]  vs. 3f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 6f, 9t, 5a, 20i, 3c 209)= 0.02645375780114828 cumm(0.4099058319229416) rcumm(0.6163356861732534) (3.073529411764706)
+result:  P[173][117]  vs. 4f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 5f, 9t, 5a, 20i, 3c 199)= 0.031058805805195173 cumm(0.44096463772813677) rcumm(0.5898819283721052) (4.098039215686274)
+result:  P[173][116]  vs. 5f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 4f, 9t, 5a, 20i, 3c 189)= 0.03512648465617783 cumm(0.4760911223843146) rcumm(0.55882312256691) (5.122549019607843)
+result:  P[173][115]  vs. 6f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 3f, 9t, 5a, 20i, 3c 179)= 0.03870272438979433 cumm(0.5147938467741089) rcumm(0.5236966379107322) (6.147058823529412)
+result:  P[173][114]  vs. 7f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 2f, 9t, 5a, 20i, 3c 169)= 0.04174706458023538 cumm(0.5565409113543442) rcumm(0.4849939135209378) (7.171568627450981)
+result:  P[173][113]  vs. 8f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 1f, 9t, 5a, 20i, 3c 159)= 0.04410106892623787 cumm(0.6006419802805821) rcumm(0.44324684894070243) (8.196078431372548)
+result:  P[173][112]  vs. 9f (loss 1b, 4f, 1t, 4a, 21i 137 vs. 9t, 5a, 20i, 3c 149)= 0.04552497999911201 cumm(0.6461669602796941) rcumm(0.39914578001446455) (9.220588235294118)
+result:  P[173][111]  vs. 9f, 1t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 8t, 5a, 20i, 3c 143)= 0.04577862979437704 cumm(0.6919455900740712) rcumm(0.35362080001535257) (10.235294117647058)
+result:  P[173][110]  vs. 9f, 2t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 7t, 5a, 20i, 3c 137)= 0.04474301232291671 cumm(0.7366886023969879) rcumm(0.30784217022097554) (11.25)
+result:  P[173][109]  vs. 9f, 3t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 6t, 5a, 20i, 3c 131)= 0.04248593449469708 cumm(0.7791745368916849) rcumm(0.2630991578980588) (12.264705882352942)
+result:  P[173][108]  vs. 9f, 4t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 5t, 5a, 20i, 3c 125)= 0.039228203093638406 cumm(0.8184027399853233) rcumm(0.22061322340336176) (13.279411764705882)
+result:  P[173][107]  vs. 9f, 5t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 4t, 5a, 20i, 3c 119)= 0.03526928293506297 cumm(0.8536720229203862) rcumm(0.18138502030972337) (14.294117647058824)
+result:  P[173][106]  vs. 9f, 6t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 3t, 5a, 20i, 3c 113)= 0.0309198719147919 cumm(0.8845918948351782) rcumm(0.1461157373746604) (15.308823529411764)
+result:  P[173][105]  vs. 9f, 7t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 2t, 5a, 20i, 3c 107)= 0.026454665401165946 cumm(0.9110465602363441) rcumm(0.11519586545986851) (16.323529411764707)
+result:  P[173][104]  vs. 9f, 8t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 1t, 5a, 20i, 3c 101)= 0.022087779747456897 cumm(0.933134339983801) rcumm(0.08874120005870256) (17.33823529411765)
+result:  P[173][103]  vs. 9f, 9t (loss 1b, 4f, 1t, 4a, 21i 137 vs. 5a, 20i, 3c 95)= 0.017971667428207792 cumm(0.9511060074120088) rcumm(0.06665342031124566) (18.352941176470587)
+result:  P[173][102]  vs. 9f, 9t, 1a (loss 1b, 4f, 1t, 4a, 21i 137 vs. 4a, 20i, 3c 91)= 0.014212673121832511 cumm(0.9653186805338413) rcumm(0.04868175288303786) (19.362745098039216)
+result:  P[173][100]  vs. 9f, 9t, 2a (loss 1b, 4f, 1t, 4a, 21i 137 vs. 3a, 20i, 3c 87)= 0.010886966438770986 cumm(0.9762056469726123) rcumm(0.03446907976120535) (20.372549019607842)
+result:  P[173][97]  vs. 9f, 9t, 3a (loss 1b, 4f, 1t, 4a, 21i 137 vs. 2a, 20i, 3c 83)= 0.008046007239358709 cumm(0.9842516542119709) rcumm(0.02358211332243436) (21.38235294117647)
+result:  P[173][93]  vs. 9f, 9t, 4a (loss 1b, 4f, 1t, 4a, 21i 137 vs. 1a, 20i, 3c 79)= 0.005713844445914115 cumm(0.9899654986578851) rcumm(0.015536106083075651) (22.392156862745097)
+result:  P[173][89]  vs. 9f, 9t, 5a (loss 1b, 4f, 1t, 4a, 21i 137 vs. 20i, 3c 75)= 0.003883323618855995 cumm(0.9938488222767411) rcumm(0.009822261637161538) (23.401960784313726)
+result:  P[173][86]  vs. 9f, 9t, 5a, 1i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 19i, 3c 72)= 0.0025161366654789974 cumm(0.9963649589422201) rcumm(0.005938938018305543) (24.409313725490197)
+result:  P[173][83]  vs. 9f, 9t, 5a, 2i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 18i, 3c 69)= 0.0015486291214470496 cumm(0.9979135880636671) rcumm(0.003422801352826546) (25.416666666666668)
+result:  P[173][79]  vs. 9f, 9t, 5a, 3i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 17i, 3c 66)= 0.0009023331894661672 cumm(0.9988159212531333) rcumm(0.0018741722313794962) (26.42401960784314)
+result:  P[173][75]  vs. 9f, 9t, 5a, 4i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 16i, 3c 63)= 0.0004961277081239379 cumm(0.9993120489612572) rcumm(0.0009718390419133289) (27.431372549019606)
+result:  P[173][72]  vs. 9f, 9t, 5a, 5i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 15i, 3c 60)= 0.0002566102504626416 cumm(0.9995686592117199) rcumm(0.00047571133378939096) (28.438725490196077)
+result:  P[173][68]  vs. 9f, 9t, 5a, 6i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 14i, 3c 57)= 0.00012446988170747628 cumm(0.9996931290934273) rcumm(0.00021910108332674934) (29.44607843137255)
+result:  P[173][64]  vs. 9f, 9t, 5a, 7i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 13i, 3c 54)= 0.0000564400620581664 cumm(0.9997495691554855) rcumm(0.00009463120161927306) (30.45343137254902)
+result:  P[173][59]  vs. 9f, 9t, 5a, 8i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 12i, 3c 51)= 0.000023844558279014344 cumm(0.9997734137137645) rcumm(0.00003819113956110666) (31.46078431372549)
+result:  P[173][55]  vs. 9f, 9t, 5a, 9i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 11i, 3c 48)= 0.000009351665475946822 cumm(0.9997827653792405) rcumm(0.000014346581282092311) (32.46813725490196)
+result:  P[173][51]  vs. 9f, 9t, 5a, 10i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 10i, 3c 45)= 0.000003390976626217518 cumm(0.9997861563558668) rcumm(0.000004994915806145489) (33.47549019607843)
+result:  P[173][47]  vs. 9f, 9t, 5a, 11i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 9i, 3c 42)= 0.0000011315920046950717 cumm(0.9997872879478714) rcumm(0.0000016039391799279711) (34.4828431372549)
+result:  P[173][43]  vs. 9f, 9t, 5a, 12i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 8i, 3c 39)= 3.45660091402641e-7 cumm(0.9997876336079629) rcumm(4.723471752328993e-7) (35.490196078431374)
+result:  P[173][40]  vs. 9f, 9t, 5a, 13i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 7i, 3c 36)= 9.603014393437529e-8 cumm(0.9997877296381068) rcumm(1.2668708383025834e-7) (36.497549019607845)
+result:  P[173][36]  vs. 9f, 9t, 5a, 14i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 6i, 3c 33)= 2.4064845755523972e-8 cumm(0.9997877537029526) rcumm(3.065693989588307e-8) (37.504901960784316)
+result:  P[173][32]  vs. 9f, 9t, 5a, 15i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 5i, 3c 30)= 5.371231484307109e-9 cumm(0.999787759074184) rcumm(6.592094140359099e-9) (38.51225490196079)
+result:  P[173][28]  vs. 9f, 9t, 5a, 16i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 4i, 3c 27)= 1.0403052929924375e-9 cumm(0.9997877601144893) rcumm(1.2208626560519895e-9) (39.51960784313726)
+result:  P[173][24]  vs. 9f, 9t, 5a, 17i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 3i, 3c 24)= 1.635225602281656e-10 cumm(0.9997877602780119) rcumm(1.8055736305955205e-10) (40.52696078431372)
+result:  P[173][20]  vs. 9f, 9t, 5a, 18i (loss 1b, 4f, 1t, 4a, 21i 137 vs. 2i, 3c 21)= 1.7034802831386456e-11 cumm(0.9997877602950467) rcumm(1.7034802831386456e-11) (41.53431372549019)
+attsurvive: 0.3410839583521039
+defsurvive: 0.6527717988968995
+{
+  attack: {
+    survives: [ 0.3410839583521039, 0, 0 ],
+    ipcLoss: [ 115.33347431205327, 0, 0 ]
+  },
+  defense: {
+    survives: [ 0.6527717988968995, 0, 0 ],
+    ipcLoss: [ 178.8572829253822, 0, 0 ]
+  },
+  casualtiesInfo: [
+    {
+      attacker: '1t, 1b, 4f, 4a, 21i',
+      defender: '',
+      attacker_casualty: '',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000037576009425998726
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 20i',
+      defender: '',
+      attacker_casualty: '1i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00003337998380495057
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 21i',
+      defender: '',
+      attacker_casualty: '1f',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.3406377024019965e-12
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 19i',
+      defender: '',
+      attacker_casualty: '2i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00012313656316444185
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 20i',
+      defender: '',
+      attacker_casualty: '1f, 1i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 5.168781885580646e-11
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 18i',
+      defender: '',
+      attacker_casualty: '3i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0002621261871195493
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 19i',
+      defender: '',
+      attacker_casualty: '1f, 2i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 8.434363020821897e-10
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 20i',
+      defender: '',
+      attacker_casualty: '2f, 1i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 7.344190847086187e-12
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 17i',
+      defender: '',
+      attacker_casualty: '4i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0004249494903772149
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 18i',
+      defender: '',
+      attacker_casualty: '1f, 3i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 8.784313506553755e-9
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 19i',
+      defender: '',
+      attacker_casualty: '2f, 2i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.2861331681300166e-10
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 16i',
+      defender: '',
+      attacker_casualty: '5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0006807297321212797
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 17i',
+      defender: '',
+      attacker_casualty: '1f, 4i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.622768554845534e-8
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 18i',
+      defender: '',
+      attacker_casualty: '2f, 3i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.390196113621332e-9
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 19i',
+      defender: '',
+      attacker_casualty: '3f, 2i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 8.994602968466952e-12
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 15i',
+      defender: '',
+      attacker_casualty: '6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0010791235175936988
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 16i',
+      defender: '',
+      attacker_casualty: '1f, 5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.8548591193439845e-7
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 17i',
+      defender: '',
+      attacker_casualty: '2f, 4i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.0835092934017583e-8
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 18i',
+      defender: '',
+      attacker_casualty: '3f, 3i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.0469812089723787e-10
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 14i',
+      defender: '',
+      attacker_casualty: '7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0015734597656090032
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 15i',
+      defender: '',
+      attacker_casualty: '1f, 6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000018041267221282418
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 16i',
+      defender: '',
+      attacker_casualty: '2f, 5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.515405861206905e-8
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 17i',
+      defender: '',
+      attacker_casualty: '3f, 4i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 8.447335393663407e-10
+    },
+    {
+      attacker: '1t, 1b, 4a, 18i',
+      defender: '',
+      attacker_casualty: '4f, 3i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.4638602608558508e-12
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 13i',
+      defender: '',
+      attacker_casualty: '8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.002165626173723874
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 14i',
+      defender: '',
+      attacker_casualty: '1f, 7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000006982356665164632
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 15i',
+      defender: '',
+      attacker_casualty: '2f, 6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.1483378678443355e-7
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 16i',
+      defender: '',
+      attacker_casualty: '3f, 5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 5.23367738150361e-9
+    },
+    {
+      attacker: '1t, 1b, 4a, 17i',
+      defender: '',
+      attacker_casualty: '4f, 4i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.205841096176772e-11
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 12i',
+      defender: '',
+      attacker_casualty: '9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.002888953906692011
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 13i',
+      defender: '',
+      attacker_casualty: '1f, 8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00002281456347221225
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 14i',
+      defender: '',
+      attacker_casualty: '2f, 7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000001257340962938554
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 15i',
+      defender: '',
+      attacker_casualty: '3f, 6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 2.603388038331137e-8
+    },
+    {
+      attacker: '1t, 1b, 4a, 16i',
+      defender: '',
+      attacker_casualty: '4f, 5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 2.076397805243475e-10
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 11i',
+      defender: '',
+      attacker_casualty: '10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0037791747684472214
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 12i',
+      defender: '',
+      attacker_casualty: '1f, 9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000639680562803144
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 13i',
+      defender: '',
+      attacker_casualty: '2f, 8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000004237967666203106
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 14i',
+      defender: '',
+      attacker_casualty: '3f, 7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.0699600292845351e-7
+    },
+    {
+      attacker: '1t, 1b, 4a, 15i',
+      defender: '',
+      attacker_casualty: '4f, 6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.0597583725007072e-9
+    },
+    {
+      attacker: '1t, 4a, 16i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 5i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 2.2340912659993918e-12
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 10i',
+      defender: '',
+      attacker_casualty: '11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.004829376880770036
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 11i',
+      defender: '',
+      attacker_casualty: '1f, 10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0001560191367371797
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 12i',
+      defender: '',
+      attacker_casualty: '2f, 9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000012259042536818295
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 13i',
+      defender: '',
+      attacker_casualty: '3f, 8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.712067150158513e-7
+    },
+    {
+      attacker: '1t, 1b, 4a, 14i',
+      defender: '',
+      attacker_casualty: '4f, 7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 4.4587477080860266e-9
+    },
+    {
+      attacker: '1t, 4a, 15i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 6i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.3821353184674122e-11
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 9i',
+      defender: '',
+      attacker_casualty: '12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00597887459574908
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 10i',
+      defender: '',
+      attacker_casualty: '1f, 11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0003351124121976242
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 11i',
+      defender: '',
+      attacker_casualty: '2f, 10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00003087117038595307
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 12i',
+      defender: '',
+      attacker_casualty: '3f, 9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000011061731002326763
+    },
+    {
+      attacker: '1t, 1b, 4a, 13i',
+      defender: '',
+      attacker_casualty: '4f, 8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.5846371814790043e-8
+    },
+    {
+      attacker: '1t, 4a, 14i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 7i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.14117630206833e-11
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 8i',
+      defender: '',
+      attacker_casualty: '13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.007133400724860966
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 9i',
+      defender: '',
+      attacker_casualty: '1f, 12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0006414401935785036
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 10i',
+      defender: '',
+      attacker_casualty: '2f, 11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00006856694067665278
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 11i',
+      defender: '',
+      attacker_casualty: '3f, 10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00000287412219173401
+    },
+    {
+      attacker: '1t, 1b, 4a, 12i',
+      defender: '',
+      attacker_casualty: '4f, 9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 4.844633124617681e-8
+    },
+    {
+      attacker: '1t, 4a, 13i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 8i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 2.2305490168185297e-10
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 7i',
+      defender: '',
+      attacker_casualty: '14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.008198811455226109
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 8i',
+      defender: '',
+      attacker_casualty: '1f, 13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0011074647762764796
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 9i',
+      defender: '',
+      attacker_casualty: '2f, 12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0001360241923679129
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 10i',
+      defender: '',
+      attacker_casualty: '3f, 11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000066011619897839846
+    },
+    {
+      attacker: '1t, 1b, 4a, 11i',
+      defender: '',
+      attacker_casualty: '4f, 10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.294132872756734e-7
+    },
+    {
+      attacker: '1t, 4a, 12i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 9i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.941463811045379e-10
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 6i',
+      defender: '',
+      attacker_casualty: '15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.009115701487643797
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 7i',
+      defender: '',
+      attacker_casualty: '1f, 14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0017465334205390873
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 8i',
+      defender: '',
+      attacker_casualty: '2f, 13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00024406652031529208
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 9i',
+      defender: '',
+      attacker_casualty: '3f, 12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000013577568664354156
+    },
+    {
+      attacker: '1t, 1b, 4a, 10i',
+      defender: '',
+      attacker_casualty: '4f, 11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.063308006714077e-7
+    },
+    {
+      attacker: '1t, 4a, 11i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 10i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.890811475506855e-9
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 5i',
+      defender: '',
+      attacker_casualty: '16i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00987602935043748
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 6i',
+      defender: '',
+      attacker_casualty: '1f, 15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0025483220787786975
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 7i',
+      defender: '',
+      attacker_casualty: '2f, 14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0004010415423537922
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 8i',
+      defender: '',
+      attacker_casualty: '3f, 13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000025323120113725306
+    },
+    {
+      attacker: '1t, 1b, 4a, 9i',
+      defender: '',
+      attacker_casualty: '4f, 12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.508988781166178e-7
+    },
+    {
+      attacker: '1t, 4a, 10i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 11i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 4.574513803737229e-9
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 4i',
+      defender: '',
+      attacker_casualty: '17i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.010510963713990386
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 5i',
+      defender: '',
+      attacker_casualty: '1f, 16i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.003482207964033395
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 6i',
+      defender: '',
+      attacker_casualty: '2f, 15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0006106297150683384
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 7i',
+      defender: '',
+      attacker_casualty: '3f, 14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00004332624618847709
+    },
+    {
+      attacker: '1t, 1b, 4a, 8i',
+      defender: '',
+      attacker_casualty: '4f, 13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0000012562388153683804
+    },
+    {
+      attacker: '1t, 4a, 9i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 12i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 9.953340089786034e-9
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 3i',
+      defender: '',
+      attacker_casualty: '18i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.011056781369658092
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 4i',
+      defender: '',
+      attacker_casualty: '1f, 17i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.004503318874747771
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 5i',
+      defender: '',
+      attacker_casualty: '2f, 16i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000870509093041493
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 6i',
+      defender: '',
+      attacker_casualty: '3f, 15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00006870524166785874
+    },
+    {
+      attacker: '1t, 1b, 4a, 7i',
+      defender: '',
+      attacker_casualty: '4f, 14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000002225336224304623
+    },
+    {
+      attacker: '1t, 4a, 8i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 13i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 1.9689243598403733e-8
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 2i',
+      defender: '',
+      attacker_casualty: '19i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.011519167806764732
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 3i',
+      defender: '',
+      attacker_casualty: '1f, 18i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0055547637354694595
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 4i',
+      defender: '',
+      attacker_casualty: '2f, 17i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.001171642301858736
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 5i',
+      defender: '',
+      attacker_casualty: '3f, 16i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00010184617074722007
+    },
+    {
+      attacker: '1t, 1b, 4a, 6i',
+      defender: '',
+      attacker_casualty: '4f, 15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000003650271824980525
+    },
+    {
+      attacker: '1t, 4a, 7i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 14i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 3.5740574823311166e-8
+    },
+    {
+      attacker: '1t, 1b, 4f, 4a, 1i',
+      defender: '',
+      attacker_casualty: '20i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.011860817886980757
+    },
+    {
+      attacker: '1t, 1b, 3f, 4a, 2i',
+      defender: '',
+      attacker_casualty: '1f, 19i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.006564296106515335
+    },
+    {
+      attacker: '1t, 1b, 2f, 4a, 3i',
+      defender: '',
+      attacker_casualty: '2f, 18i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.0014976791238051907
+    },
+    {
+      attacker: '1t, 1b, 1f, 4a, 4i',
+      defender: '',
+      attacker_casualty: '3f, 17i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.00014209681620960178
+    },
+    {
+      attacker: '1t, 1b, 4a, 5i',
+      defender: '',
+      attacker_casualty: '4f, 16i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 0.000005585333738315863
+    },
+    {
+      attacker: '1t, 4a, 6i',
+      defender: '',
+      attacker_casualty: '1b, 4f, 15i',
+      defender_casualty: '9f, 9t, 5a, 20i, 3c',
+      prob: 6.000951585650788e-8
+    },
+    ... 87 more items
+  ],
+  att_cas: [
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiiiiiiii',
+      casualty: '',
+      prob: 0.0000037576009425998726
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiiiiiii',
+      casualty: 'i',
+      prob: 0.00003337998380495057
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiiiiiiii',
+      casualty: 'f',
+      prob: 1.3406377024019965e-12
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiiiiii',
+      casualty: 'ii',
+      prob: 0.00012313656316444185
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiiiiiii',
+      casualty: 'fi',
+      prob: 5.168781885580646e-11
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'iii',
+      prob: 0.0002621261871195493
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiiiiii',
+      casualty: 'fii',
+      prob: 8.434363020821897e-10
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiiiiiiii',
+      casualty: 'ffi',
+      prob: 7.344190847086187e-12
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'iiii',
+      prob: 0.0004249494903772149
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'fiii',
+      prob: 8.784313506553755e-9
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiiiiiii',
+      casualty: 'ffii',
+      prob: 1.2861331681300166e-10
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiiii',
+      casualty: 'iiiii',
+      prob: 0.0006807297321212797
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'fiiii',
+      prob: 6.622768554845534e-8
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'ffiii',
+      prob: 1.390196113621332e-9
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiiiiiiii',
+      casualty: 'fffii',
+      prob: 8.994602968466952e-12
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiiii',
+      casualty: 'iiiiii',
+      prob: 0.0010791235175936988
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiiii',
+      casualty: 'fiiiii',
+      prob: 3.8548591193439845e-7
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'ffiiii',
+      prob: 1.0835092934017583e-8
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'fffiii',
+      prob: 1.0469812089723787e-10
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiiii',
+      casualty: 'iiiiiii',
+      prob: 0.0015734597656090032
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiiii',
+      casualty: 'fiiiiii',
+      prob: 0.0000018041267221282418
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiiii',
+      casualty: 'ffiiiii',
+      prob: 6.515405861206905e-8
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'fffiiii',
+      prob: 8.447335393663407e-10
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiiiiiiii',
+      casualty: 'ffffiii',
+      prob: 3.4638602608558508e-12
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiiii',
+      casualty: 'iiiiiiii',
+      prob: 0.002165626173723874
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiiii',
+      casualty: 'fiiiiiii',
+      prob: 0.000006982356665164632
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiiii',
+      casualty: 'ffiiiiii',
+      prob: 3.1483378678443355e-7
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiiiii',
+      casualty: 'fffiiiii',
+      prob: 5.23367738150361e-9
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiiiiiii',
+      casualty: 'ffffiiii',
+      prob: 3.205841096176772e-11
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiiii',
+      casualty: 'iiiiiiiii',
+      prob: 0.002888953906692011
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiiii',
+      casualty: 'fiiiiiiii',
+      prob: 0.00002281456347221225
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiiii',
+      casualty: 'ffiiiiiii',
+      prob: 0.000001257340962938554
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiiii',
+      casualty: 'fffiiiiii',
+      prob: 2.603388038331137e-8
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiiiiii',
+      casualty: 'ffffiiiii',
+      prob: 2.076397805243475e-10
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiiii',
+      casualty: 'iiiiiiiiii',
+      prob: 0.0037791747684472214
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiiii',
+      casualty: 'fiiiiiiiii',
+      prob: 0.0000639680562803144
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiiii',
+      casualty: 'ffiiiiiiii',
+      prob: 0.000004237967666203106
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiiii',
+      casualty: 'fffiiiiiii',
+      prob: 1.0699600292845351e-7
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiiiii',
+      casualty: 'ffffiiiiii',
+      prob: 1.0597583725007072e-9
+    },
+    {
+      remain: 'taaaaiiiiiiiiiiiiiiii',
+      casualty: 'bffffiiiii',
+      prob: 2.2340912659993918e-12
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiiii',
+      casualty: 'iiiiiiiiiii',
+      prob: 0.004829376880770036
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiiii',
+      casualty: 'fiiiiiiiiii',
+      prob: 0.0001560191367371797
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiiii',
+      casualty: 'ffiiiiiiiii',
+      prob: 0.000012259042536818295
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiiii',
+      casualty: 'fffiiiiiiii',
+      prob: 3.712067150158513e-7
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiiii',
+      casualty: 'ffffiiiiiii',
+      prob: 4.4587477080860266e-9
+    },
+    {
+      remain: 'taaaaiiiiiiiiiiiiiii',
+      casualty: 'bffffiiiiii',
+      prob: 1.3821353184674122e-11
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiiii',
+      casualty: 'iiiiiiiiiiii',
+      prob: 0.00597887459574908
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiiii',
+      casualty: 'fiiiiiiiiiii',
+      prob: 0.0003351124121976242
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiiii',
+      casualty: 'ffiiiiiiiiii',
+      prob: 0.00003087117038595307
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiiii',
+      casualty: 'fffiiiiiiiii',
+      prob: 0.0000011061731002326763
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiiii',
+      casualty: 'ffffiiiiiiii',
+      prob: 1.5846371814790043e-8
+    },
+    {
+      remain: 'taaaaiiiiiiiiiiiiii',
+      casualty: 'bffffiiiiiii',
+      prob: 6.14117630206833e-11
+    },
+    {
+      remain: 'tbffffaaaaiiiiiiii',
+      casualty: 'iiiiiiiiiiiii',
+      prob: 0.007133400724860966
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiiii',
+      casualty: 'fiiiiiiiiiiii',
+      prob: 0.0006414401935785036
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiiii',
+      casualty: 'ffiiiiiiiiiii',
+      prob: 0.00006856694067665278
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiiii',
+      casualty: 'fffiiiiiiiiii',
+      prob: 0.00000287412219173401
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiiii',
+      casualty: 'ffffiiiiiiiii',
+      prob: 4.844633124617681e-8
+    },
+    {
+      remain: 'taaaaiiiiiiiiiiiii',
+      casualty: 'bffffiiiiiiii',
+      prob: 2.2305490168185297e-10
+    },
+    {
+      remain: 'tbffffaaaaiiiiiii',
+      casualty: 'iiiiiiiiiiiiii',
+      prob: 0.008198811455226109
+    },
+    {
+      remain: 'tbfffaaaaiiiiiiii',
+      casualty: 'fiiiiiiiiiiiii',
+      prob: 0.0011074647762764796
+    },
+    {
+      remain: 'tbffaaaaiiiiiiiii',
+      casualty: 'ffiiiiiiiiiiii',
+      prob: 0.0001360241923679129
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiiii',
+      casualty: 'fffiiiiiiiiiii',
+      prob: 0.0000066011619897839846
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiiii',
+      casualty: 'ffffiiiiiiiiii',
+      prob: 1.294132872756734e-7
+    },
+    {
+      remain: 'taaaaiiiiiiiiiiii',
+      casualty: 'bffffiiiiiiiii',
+      prob: 6.941463811045379e-10
+    },
+    {
+      remain: 'tbffffaaaaiiiiii',
+      casualty: 'iiiiiiiiiiiiiii',
+      prob: 0.009115701487643797
+    },
+    {
+      remain: 'tbfffaaaaiiiiiii',
+      casualty: 'fiiiiiiiiiiiiii',
+      prob: 0.0017465334205390873
+    },
+    {
+      remain: 'tbffaaaaiiiiiiii',
+      casualty: 'ffiiiiiiiiiiiii',
+      prob: 0.00024406652031529208
+    },
+    {
+      remain: 'tbfaaaaiiiiiiiii',
+      casualty: 'fffiiiiiiiiiiii',
+      prob: 0.000013577568664354156
+    },
+    {
+      remain: 'tbaaaaiiiiiiiiii',
+      casualty: 'ffffiiiiiiiiiii',
+      prob: 3.063308006714077e-7
+    },
+    {
+      remain: 'taaaaiiiiiiiiiii',
+      casualty: 'bffffiiiiiiiiii',
+      prob: 1.890811475506855e-9
+    },
+    {
+      remain: 'tbffffaaaaiiiii',
+      casualty: 'iiiiiiiiiiiiiiii',
+      prob: 0.00987602935043748
+    },
+    {
+      remain: 'tbfffaaaaiiiiii',
+      casualty: 'fiiiiiiiiiiiiiii',
+      prob: 0.0025483220787786975
+    },
+    {
+      remain: 'tbffaaaaiiiiiii',
+      casualty: 'ffiiiiiiiiiiiiii',
+      prob: 0.0004010415423537922
+    },
+    {
+      remain: 'tbfaaaaiiiiiiii',
+      casualty: 'fffiiiiiiiiiiiii',
+      prob: 0.000025323120113725306
+    },
+    {
+      remain: 'tbaaaaiiiiiiiii',
+      casualty: 'ffffiiiiiiiiiiii',
+      prob: 6.508988781166178e-7
+    },
+    {
+      remain: 'taaaaiiiiiiiiii',
+      casualty: 'bffffiiiiiiiiiii',
+      prob: 4.574513803737229e-9
+    },
+    {
+      remain: 'tbffffaaaaiiii',
+      casualty: 'iiiiiiiiiiiiiiiii',
+      prob: 0.010510963713990386
+    },
+    {
+      remain: 'tbfffaaaaiiiii',
+      casualty: 'fiiiiiiiiiiiiiiii',
+      prob: 0.003482207964033395
+    },
+    {
+      remain: 'tbffaaaaiiiiii',
+      casualty: 'ffiiiiiiiiiiiiiii',
+      prob: 0.0006106297150683384
+    },
+    {
+      remain: 'tbfaaaaiiiiiii',
+      casualty: 'fffiiiiiiiiiiiiii',
+      prob: 0.00004332624618847709
+    },
+    {
+      remain: 'tbaaaaiiiiiiii',
+      casualty: 'ffffiiiiiiiiiiiii',
+      prob: 0.0000012562388153683804
+    },
+    {
+      remain: 'taaaaiiiiiiiii',
+      casualty: 'bffffiiiiiiiiiiii',
+      prob: 9.953340089786034e-9
+    },
+    {
+      remain: 'tbffffaaaaiii',
+      casualty: 'iiiiiiiiiiiiiiiiii',
+      prob: 0.011056781369658092
+    },
+    {
+      remain: 'tbfffaaaaiiii',
+      casualty: 'fiiiiiiiiiiiiiiiii',
+      prob: 0.004503318874747771
+    },
+    {
+      remain: 'tbffaaaaiiiii',
+      casualty: 'ffiiiiiiiiiiiiiiii',
+      prob: 0.000870509093041493
+    },
+    {
+      remain: 'tbfaaaaiiiiii',
+      casualty: 'fffiiiiiiiiiiiiiii',
+      prob: 0.00006870524166785874
+    },
+    {
+      remain: 'tbaaaaiiiiiii',
+      casualty: 'ffffiiiiiiiiiiiiii',
+      prob: 0.000002225336224304623
+    },
+    {
+      remain: 'taaaaiiiiiiii',
+      casualty: 'bffffiiiiiiiiiiiii',
+      prob: 1.9689243598403733e-8
+    },
+    {
+      remain: 'tbffffaaaaii',
+      casualty: 'iiiiiiiiiiiiiiiiiii',
+      prob: 0.011519167806764732
+    },
+    {
+      remain: 'tbfffaaaaiii',
+      casualty: 'fiiiiiiiiiiiiiiiiii',
+      prob: 0.0055547637354694595
+    },
+    {
+      remain: 'tbffaaaaiiii',
+      casualty: 'ffiiiiiiiiiiiiiiiii',
+      prob: 0.001171642301858736
+    },
+    {
+      remain: 'tbfaaaaiiiii',
+      casualty: 'fffiiiiiiiiiiiiiiii',
+      prob: 0.00010184617074722007
+    },
+    {
+      remain: 'tbaaaaiiiiii',
+      casualty: 'ffffiiiiiiiiiiiiiii',
+      prob: 0.000003650271824980525
+    },
+    {
+      remain: 'taaaaiiiiiii',
+      casualty: 'bffffiiiiiiiiiiiiii',
+      prob: 3.5740574823311166e-8
+    },
+    {
+      remain: 'tbffffaaaai',
+      casualty: 'iiiiiiiiiiiiiiiiiiii',
+      prob: 0.011860817886980757
+    },
+    {
+      remain: 'tbfffaaaaii',
+      casualty: 'fiiiiiiiiiiiiiiiiiii',
+      prob: 0.006564296106515335
+    },
+    {
+      remain: 'tbffaaaaiii',
+      casualty: 'ffiiiiiiiiiiiiiiiiii',
+      prob: 0.0014976791238051907
+    },
+    {
+      remain: 'tbfaaaaiiii',
+      casualty: 'fffiiiiiiiiiiiiiiiii',
+      prob: 0.00014209681620960178
+    },
+    {
+      remain: 'tbaaaaiiiii',
+      casualty: 'ffffiiiiiiiiiiiiiiii',
+      prob: 0.000005585333738315863
+    },
+    {
+      remain: 'taaaaiiiiii',
+      casualty: 'bffffiiiiiiiiiiiiiii',
+      prob: 6.000951585650788e-8
+    },
+    ... 46 more items
+  ],
+  def_cas: [
+    {
+      remain: '',
+      casualty: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.3470159613981472
+    },
+    {
+      remain: 'f',
+      casualty: 'fffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.0151819098476691
+    },
+    {
+      remain: 'ff',
+      casualty: 'ffffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.021254202875977023
+    },
+    {
+      remain: 'fff',
+      casualty: 'fffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.02645375780114828
+    },
+    {
+      remain: 'ffff',
+      casualty: 'ffffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.031058805805195173
+    },
+    {
+      remain: 'fffff',
+      casualty: 'fffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.03512648465617783
+    },
+    {
+      remain: 'ffffff',
+      casualty: 'ffftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.03870272438979433
+    },
+    {
+      remain: 'fffffff',
+      casualty: 'fftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04174706458023538
+    },
+    {
+      remain: 'ffffffff',
+      casualty: 'ftttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04410106892623787
+    },
+    {
+      remain: 'fffffffff',
+      casualty: 'tttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04552497999911201
+    },
+    {
+      remain: 'ffffffffft',
+      casualty: 'ttttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04577862979437704
+    },
+    {
+      remain: 'ffffffffftt',
+      casualty: 'tttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04474301232291671
+    },
+    {
+      remain: 'fffffffffttt',
+      casualty: 'ttttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.04248593449469708
+    },
+    {
+      remain: 'ffffffffftttt',
+      casualty: 'tttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.039228203093638406
+    },
+    {
+      remain: 'fffffffffttttt',
+      casualty: 'ttttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.03526928293506297
+    },
+    {
+      remain: 'ffffffffftttttt',
+      casualty: 'tttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.0309198719147919
+    },
+    {
+      remain: 'fffffffffttttttt',
+      casualty: 'ttaaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.026454665401165946
+    },
+    {
+      remain: 'ffffffffftttttttt',
+      casualty: 'taaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.022087779747456897
+    },
+    {
+      remain: 'fffffffffttttttttt',
+      casualty: 'aaaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.017971667428207792
+    },
+    {
+      remain: 'ffffffffftttttttttc',
+      casualty: 'aaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'fffffffffttttttttta',
+      casualty: 'aaaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.014212673121832511
+    },
+    {
+      remain: 'ffffffffftttttttttcc',
+      casualty: 'aaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttac',
+      casualty: 'aaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaa',
+      casualty: 'aaaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.010886966438770986
+    },
+    {
+      remain: 'ffffffffftttttttttccc',
+      casualty: 'aaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttacc',
+      casualty: 'aaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaac',
+      casualty: 'aaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaa',
+      casualty: 'aaiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.008046007239358709
+    },
+    {
+      remain: 'ffffffffftttttttttaccc',
+      casualty: 'aiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaacc',
+      casualty: 'aiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaac',
+      casualty: 'aiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaa',
+      casualty: 'aiiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.005713844445914115
+    },
+    {
+      remain: 'ffffffffftttttttttaaccc',
+      casualty: 'iiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaacc',
+      casualty: 'iiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaac',
+      casualty: 'iiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaa',
+      casualty: 'iiiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.003883323618855995
+    },
+    {
+      remain: 'ffffffffftttttttttaaaccc',
+      casualty: 'iiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaacc',
+      casualty: 'iiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaac',
+      casualty: 'iiiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaai',
+      casualty: 'iiiiiiiiiiiiiiiiiiiccc',
+      prob: 0.0025161366654789974
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaccc',
+      casualty: 'iiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaacc',
+      casualty: 'iiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaic',
+      casualty: 'iiiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaii',
+      casualty: 'iiiiiiiiiiiiiiiiiiccc',
+      prob: 0.0015486291214470496
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaccc',
+      casualty: 'iiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaicc',
+      casualty: 'iiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiic',
+      casualty: 'iiiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiii',
+      casualty: 'iiiiiiiiiiiiiiiiiccc',
+      prob: 0.0009023331894661672
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiccc',
+      casualty: 'iiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiicc',
+      casualty: 'iiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiic',
+      casualty: 'iiiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiii',
+      casualty: 'iiiiiiiiiiiiiiiiccc',
+      prob: 0.0004961277081239379
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiccc',
+      casualty: 'iiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiicc',
+      casualty: 'iiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiic',
+      casualty: 'iiiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiii',
+      casualty: 'iiiiiiiiiiiiiiiccc',
+      prob: 0.0002566102504626416
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiccc',
+      casualty: 'iiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiicc',
+      casualty: 'iiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiic',
+      casualty: 'iiiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiii',
+      casualty: 'iiiiiiiiiiiiiiccc',
+      prob: 0.00012446988170747628
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiccc',
+      casualty: 'iiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiicc',
+      casualty: 'iiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiic',
+      casualty: 'iiiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiii',
+      casualty: 'iiiiiiiiiiiiiccc',
+      prob: 0.0000564400620581664
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiccc',
+      casualty: 'iiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiicc',
+      casualty: 'iiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiic',
+      casualty: 'iiiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiii',
+      casualty: 'iiiiiiiiiiiiccc',
+      prob: 0.000023844558279014344
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiccc',
+      casualty: 'iiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiicc',
+      casualty: 'iiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiic',
+      casualty: 'iiiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiii',
+      casualty: 'iiiiiiiiiiiccc',
+      prob: 0.000009351665475946822
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiccc',
+      casualty: 'iiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiicc',
+      casualty: 'iiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiic',
+      casualty: 'iiiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiii',
+      casualty: 'iiiiiiiiiiccc',
+      prob: 0.000003390976626217518
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiccc',
+      casualty: 'iiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiicc',
+      casualty: 'iiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiic',
+      casualty: 'iiiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiii',
+      casualty: 'iiiiiiiiiccc',
+      prob: 0.0000011315920046950717
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiccc',
+      casualty: 'iiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiicc',
+      casualty: 'iiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiic',
+      casualty: 'iiiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiii',
+      casualty: 'iiiiiiiiccc',
+      prob: 3.45660091402641e-7
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiccc',
+      casualty: 'iiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiicc',
+      casualty: 'iiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiic',
+      casualty: 'iiiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiii',
+      casualty: 'iiiiiiiccc',
+      prob: 9.603014393437529e-8
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiccc',
+      casualty: 'iiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiicc',
+      casualty: 'iiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiic',
+      casualty: 'iiiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiii',
+      casualty: 'iiiiiiccc',
+      prob: 2.4064845755523972e-8
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiccc',
+      casualty: 'iiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiicc',
+      casualty: 'iiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiic',
+      casualty: 'iiiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiii',
+      casualty: 'iiiiiccc',
+      prob: 5.371231484307109e-9
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiccc',
+      casualty: 'iiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiicc',
+      casualty: 'iiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiic',
+      casualty: 'iiiiccc',
+      prob: 0
+    },
+    {
+      remain: 'ffffffffftttttttttaaaaaiiiiiiiiiiiiiiii',
+      casualty: 'iiiiccc',
+      prob: 1.0403052929924375e-9
+    },
+    ... 7 more items
+  ],
+  takesTerritory: [ 0.3410839583521039, 0, 0 ]
+} wave 1
+output {
+  out: {
+    attack: { survives: [Array], ipcLoss: [Array] },
+    defense: { survives: [Array], ipcLoss: [Array] },
+    casualtiesInfo: [],
+    att_cas: [],
+    def_cas: [],
+    takesTerritory: [ 0.00021223916732242338, 0.34129619751942636 ]
+  },
+  output: [
+    {
+      attack: [Object],
+      defense: [Object],
+      casualtiesInfo: [Array],
+      att_cas: [Array],
+      def_cas: [Array],
+      takesTerritory: [Array]
+    },
+    {
+      attack: [Object],
+      defense: [Object],
+      casualtiesInfo: [Array],
+      att_cas: [Array],
+      def_cas: [Array],
+      takesTerritory: [Array]
+    }
+  ]
+}
+out {
+  attack: {
+    survives: [ 0.00041076720538076424, 0.3410839583521039 ],
+    ipcLoss: [ 137.98623425860112, 115.33347431205327 ]
+  },
+  defense: {
+    survives: [ 0.9995493013255767, 0.6527717988968995 ],
+    ipcLoss: [ 62.15348491239068, 116.74603360728868 ]
+  },
+  casualtiesInfo: [],
+  att_cas: [],
+  def_cas: [],
+  takesTerritory: [ 0.00021223916732242338, 0.34129619751942636 ]
+}
+Execution Time: 97.887ms
