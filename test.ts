@@ -2863,7 +2863,6 @@ function run3(argc : number, argv : string[]) {
 	let attackers3 = argv[i++];
 	let defenders3 = argv[i++];
 	let def_ool3 = argv[i++];
-	let retreat_threshold = parseInt(argv[i++]);
 	let in_progress = parseInt(argv[i++]) > 0;
 	let retreat1 = parseInt(argv[i++]);
 	let retreat2 = parseInt(argv[i++]);
