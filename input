@@ -1,0 +1,491 @@
+0 
+1e-12
+1e-12
+0
+1b, 2f, 1t, 13a, 16i, 1C
+5f, 9t, 3c, 5a, 20i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1t, 1b, 4f, 4a, 21i, 1C, 1B
+4f
+ftaibc
+
+
+ftaibc
+0		;; in progress
+0		;; retreat_threshold 1
+0		;; retreat_threshold 2
+0		;; retreat_threshold 3
+
+
+
+
+
+
+
+0 
+0 
+1e-12
+1e-12
+0
+12f, 5i
+12i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+
+
+ftaibc
+
+
+ftaibc
+0		;; in progress
+12		;; retreat_threshold 1
+0		;; retreat_threshold 2
+0		;; retreat_threshold 3
+
+
+
+
+0 
+1e-12
+1e-12
+0
+1b, 2f, 1t, 13a, 16i, 1C
+5f, 9t, 3c, 5a, 20i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1t, 1b, 4f, 4a, 21i, 1C, 1B
+4f
+ftaibc
+
+
+ftaibc
+
+
+
+
+0 
+1e-12
+1e-12
+0
+1i
+1i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1i
+
+ftcaib
+1i
+1i
+ftaibc
+
+0 
+1e-12
+1e-12
+0
+2f, 1a, 2i
+1c, 8i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+2f, 1a, 2i
+1f
+ftcaib
+2f, 1a, 2i
+1f
+ftaibc
+
+
+0 
+1e-12
+1e-12
+0
+1f, 2a, 4i
+3t, 1c, 10i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1f, 2a, 4i
+1f
+ftcaib
+1f, 2a, 4i
+1f
+ftaibc
+
+
+0 
+1e-12
+1e-12
+0
+1f, 2a, 4i
+3t, 10i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1f, 2a, 4i
+1f
+ftcaib
+1f, 2a, 4i
+1f
+ftaibc
+
+
+100i, 40a, 120t, 40f
+100i, 40a, 120t, 40f
+
+
+20f, 60t, 20a, 100i				;; wave 1 attack
+20f, 60t, 20a, 100i, 5c			;; wave 1 defend
+20f, 60t, 20a, 100i				;; wave 2 attack
+20f, 60t, 20a, 100i, 5c			;; wave 2 defend reinforce
+20f, 60t, 20a, 100i				;; wave 3 attack
+20f, 60t, 20a, 100i, 5c			;; wave 3 defend reinforce
+0								;; strafe
+1								;; num times
+1
+10f, 10S
+10f, 10D, 10S
+10f, 10S
+10f, 10D, 10S
+
+30f, 30S
+20f, 20D, 20S
+2f, 1S
+1B, 1D, 1S
+2f, 1C, 2S
+1B, 1D, 1S
+2f, 1C, 2S
+1B, 1D, 1S
+
+15f, 20S
+10f, 10D, 15S
+20f, 1D, 20S
+10f, 10A, 10S
+30f, 30S, 1D
+20f, 20D, 20S
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+1e-12
+1
+30f, 30S
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i, 10c
+20f, 20S
+10f, 10A, 10S
+30f, 30S
+20f, 10A, 10D, 20S
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i, 3c
+20f, 20S
+10f, 10D, 20S
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i, 3c
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+1
+50f, 50S
+25f, 25D, 25S
+1e-9
+1e-12
+1
+30f, 30S
+20f, 20D, 20S
+20f, 20S
+10f, 15D, 15S
+0
+
+20f, 20S
+10f, 15D, 15S
+// 
+1
+20f, 20D, 20S
+20f, 20D, 20S
+
+//
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+
+0
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+
+1b, 4f, 1S
+3T, 2f, 1A, 3D
+1b, 9a, 9i
+8f, 2t ,9i
+30f, 30D, 30S
+30f, 15A, 15D, 30S
+20f, 20D, 20S
+20f, 10A, 10D, 20S
+2f, 2C, 1S, 1A
+1B, 2f, 1A
+1B
+1B
+30f, 30D, 30S
+30f, 15A, 15D, 30S
+10A, 10b, 20f, 20D, 20S
+10A, 20f, 20D, 20S
+10f, 30t, 10a, 50i
+10f, 30t, 10a, 50i, 2c
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+1t, 2b, 6f, 17t, 6a, 13i
+4f, 2b, 4t, 7a, 32i, 2c
+6f, 15t, 10i
+2f, 1t, 2a, 30i
+1f, 1t, 2a, 20i
+9t, 8i, 1c
+1f, 1t, 2a, 19i
+8i, 9t, 1c
+6f, 9t, 12i
+5f, 1b, 1t, 2a, 12i, 1c
+1b, 4f, 6t, 2a, 7i
+3t, 5a, 14i
+1t, 1a, 8i
+5i
+3b, 4f, 15t, 4a, 14i
+7f, 6b, 2a, 28i,2c
+3b, 4f, 11t, 2a, 7i
+3f, 4b, 3a, 20i, 2c
+2b, 4f, 9a, 2i
+1f, 2a, 13i, 2c
+
+1f,4t, 2a, 9i
+4t, 8i, 1c
+
+5f, 9t, 4a, 25i, 
+4f, 1t, 1b, 2a, 35i, 2c
+5f, 9t, 9a, 36i, 
+9f, 1t, 1b, 2a, 42i, 2c
+
+5f, 1b, 1t, 2a, 16i, 2c
+
+1t, 4f, 1i, 1B, 1C
+3f, 1t, 3i, 1b, 1c
+#ger att w. rus
+
+1b, 3f, 1t, 2a, 7i, 1B, 2C
+15i, 1c
+
+1b, 3f, 1t, 2a, 7i, 1B, 2C
+17i
+1b, 3f, 1t, 2a, 7i, 1B, 2C
+16i, 1c
+3t, 8i
+1f, 2a, 3i
+1b, 3f, 1t, 2a, 7i, 1B, 2C
+16i, 1c
+
+9t, 2a, 17i, 2c
+2f, 6t, 4a, 12i, 2c
+0
+
+1b, 4f, 1t, 1a, 6i
+2f, 1a, 12i, 1c
+0
+2f, 17t, 1a, 21i
+3f, 1a, 34i, 3b, 2c
+0
+2f, 17t, 1a, 15i
+3f, 1a, 31i, 3b, 2c
+2f, 4i
+1f, 1t, 3i
+
+2b, 6f, 18t, 10i
+2f, 5t, 2a, 21i, 2c
+0
+1a, 3i
+1a, 2i
+1b, 6f,10t, 7i
+1a, 2a, 6i
+10t, 7i
+4t, 6i, 1c
+4f, 1D
+1C, 1A
+2f, 12i
+10a, 1a, 4i, 1c
+3f, 3t, 2a, 10i
+4f, 6t, 7i
+1b, 1t, 1a, 2i
+ftai
+2t, 3i
+2f, 3a, 4i
+4a, 4i
+4f, 2i
+0
+
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i, 5c
+0
+
+3f, 3t, 7a, 34i
+15t, 9a, 25i,1c
+0
+
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i, 3c
+40f, 120t, 40a, 200i, 5c
+0
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i, 3c
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i, 5c
+0
+80f, 240t, 80a, 400i
+80f, 240t, 80a, 400i, 10c
+0
+
+2f, 4t, 6a, 24i
+3f, 11t, 2a, 14i, 1c
+399i
+399b
+
+CCCCCfffffAASSS			;; initial
+CCCCCfffffAASS			;; normal OOL
+CCCCCfffffAAS
+CCCCCfffffAA
+CCCCCfffffA
+CCCCCfffff
+CCCCCffff
+CCCCCfff
+CCCCCff
+CCCCCf
+CCCCC
+CCCC
+CCC
+CC
+C
+
+				;; normal OOL
+CCCCCfffffASSS			;; fighter hits skip subs...  (1)
+CCCCCfffffASSS			(2)
+CCCCCfffffSSS			(3)
+CCCCCffffSSS			(4)
+CCCCCfffSSS			(5)	
+CCCCCffSSS			(6)	
+CCCCCfSSS			(7)	
+CCCCCSSS			(8)	
+CCCCSSS				(9)	
+CCCSSS				(10)
+CCSSS				(11)
+CSSS				(12)	
+SSS				(13)
+CCCCCfffffAASSS			;; sub hits skip fighters
+CCCCfffff
+CCCfffff
+CCfffff
+Cfffff
+fffff
+				;; combined.... 
+CCCCffff			;; (4) + sub
+CCCffff
+CCffff
+Cffff
+ffff
+
+CCCCfff  			;; (5)+ sub	
+CCCfff  	
+CCfff 
+Cfff  
+fff  
+
+CCCCff  			;; (5)+ sub	
+CCCff  	
+CCff 
+Cff  
+ff  
+
+CCCCf 			;; (5)+ sub	
+CCCf 	
+CCf
+Cf 
+f 
+
+399i
+399b
+0
+40f, 120t, 40a, 199i
+40f, 120t, 40a, 199i
+
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+2f, 1a, 4a, 20i
+3f, 5t, 5i, 2c
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i, 5c
+
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i, 3c
+80f, 240t, 80a, 400i
+80f, 240t, 80a, 400i, 10c
+
+
+2f, 3t, 1a, 3i
+1f, 1b, 1t, 1a, 3i, c
+
+10b, 10f, 30t, 10a, 50i
+10f, 30t, 10a, 50i, 5c
+80f, 240t, 80a, 400i
+80f, 240t, 80a, 400i
+10f, 30t, 10a, 50i
+10f, 30t, 10a, 50i
+10f, 30t, 10a, 100i
+
+20f, 60t, 20a, 100i
+20f, 60t, 20a, 100i
+
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
+
+80f, 240t, 80a, 400i
+80f, 240t, 80a, 400i
+
+
+1f, 25t, 9a, 12i
+7f, 4b, 3t, 4a, 41i
+
+20f, 10t, 40a, 200i
+30f, 50a, 50i, 10c
+20f, 80t, 20a, 100i
+20f, 60t, 20a, 100i, 10c
+fftaaaaddddiiiiiiiiiiiiiiii
+fffaaaaaiiiii
+ffffffffffffffffffffttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+ffffffffffffffffffffttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+ii
+i
+ii
+i
+
+
+fftiii
+ffbtiii
