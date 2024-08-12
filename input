@@ -1,15 +1,26 @@
-0 
-1e-12
-1e-12
-0
-1b, 2f, 1t, 13a, 16i, 1C
-5f, 9t, 3c, 5a, 20i
+0								;; is multiwave
+0 								;; debug
+1e-12							;; report threshold
+1e-12							;; prune threshold
+1								;; is naval
+30f, 30S
+20f, 20D, 20S
 0								;; strafe
 1								;; num times
+0								;; retreat threshold
+0								;; in progress
 0	;; att dlast
 0	;; att submerge
 0	;; def dlast
 0	;; def submerge
+
+
+
+
+
+
+
+
 1t, 1b, 4f, 4a, 21i, 1C, 1B
 4f
 ftaibc

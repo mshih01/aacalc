@@ -12,112 +12,28 @@ const rl = readline.createInterface({
   terminal: false
 });
 
-
-let input = []
-let debug = 0
-let report_prune_threshold = -1;
-let prune_threshold = -1;
-let early_prune_threshold = -1;
-let isnaval = 0;
-let att_destroyer_last = 0;
-let def_destroyer_last = 0;
-let att_submerge = 0;
-let def_submerge = 0;
-let attackers = "";
-let defenders = "";
-let att_ool = "";
-let def_ool2= "";
-let def_ool3= "";
-let attackers2 = "";
-let defenders2 = "";
-let attackers3 = "";
-let defenders3 = "";
-let strafe_threshold = -1;
-let retreat_threshold1 = -1;
-let retreat_threshold2 = -1;
-let retreat_threshold3 = -1;
-let i = 0;
-let num_runs = 1;
-let in_progress = false;
+let argc : number  = 0;
+let argv : string[] = [];
 
 rl.on('line', (line) => {
-	switch (i) {
-		case 0: 
-			debug = parseInt(line);
-			break;
-		case 1:
-			report_prune_threshold = parseFloat(line);
-			break;
-		case 2:
-			prune_threshold = parseFloat(line);
-			early_prune_threshold = prune_threshold / 10;
-			break;
-		case 3:
-			isnaval = parseInt(line);
-			break;
-		case 4:
-			attackers = line;
-			break;
-		case 5:
-			defenders = line;
-			break;
-		case 6:
-			strafe_threshold = parseFloat(line);
-			break;
-        case 7:
-			num_runs = Math.max(parseInt(line), 1);
-			break;
-		case 8: 
-			att_destroyer_last = Math.max(parseInt(line), 0);
-			break;
-		case 9: 
-			att_submerge = Math.max(parseInt(line), 0);
-			break;
-		case 10: 
-			def_destroyer_last = Math.max(parseInt(line), 0);
-			break;
-		case 11: 
-			def_submerge = Math.max(parseInt(line), 0);
-			break;
-		case 12: 
-			attackers2 = line;
-			break;
-		case 13: 
-			defenders2 = line;
-			break;
-		case 14: 
-			def_ool2 = line;
-			break;
-		case 15: 
-			attackers3 = line;
-			break;
-		case 16: 
-			defenders3 = line;
-			break;
-		case 17: 
-			def_ool3 = line;
-			break;
-		case 18: 
-			in_progress = parseInt(line) > 0;
-			break;
-		case 19: 
-			retreat_threshold1 = parseInt(line);
-			break;
-		case 20: 
-			retreat_threshold2 = parseInt(line);
-			break;
-		case 21: 
-			retreat_threshold3 = parseInt(line);
-			break;
-    }
-	i++;
+	argv[argc++] = line;
 });
 
 rl.once('close', () => {
 	console.log("done");
-	//run();
+	let mode = parseInt(argv[0]);
+	switch(mode) {
+		case 0: 
+			// single wave
+			run2(argc, argv);	
+			break;
+		case 1: 
+			// multiwave
+			run3(argc, argv);
+			break;
+	}
 	//run2();
-	run3();
+	//run3();
      // end of input
  });
 
@@ -643,24 +559,12 @@ function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) :
 function remove_subhits( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-	//let n = Math.min(hits, node.nsubArr.length-1);
-*/
 	let n = hits;
 	return node.nsubArr[n];	
 }
 function remove_aahits( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-	//let n = Math.min(hits, node.naaArr.length-1);
-*/
 	let n = hits;
 	return node.naaArr[n];	
 }
@@ -668,12 +572,6 @@ function remove_aahits( group : naval_unit_group, hits : number, index : number)
 function remove_dlast_subhits( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-	//let n = Math.min(hits, node.ndlastsubArr.length-1);
-*/
 	let n = hits;
 	return node.ndlastsubArr[n];	
 }
@@ -682,17 +580,10 @@ function remove_dlast_subhits( group : naval_unit_group, hits : number, index : 
 function remove_planehits( group : naval_unit_group, destroyer : boolean, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-*/
 	if (!destroyer) {
-		//let n = Math.min(hits, node.nairArr.length-1);
 		let n = hits;
 		return node.nairArr[n];	
 	} else {
-		//let n = Math.min(hits, node.nnavalArr.length-1);
 		let n = hits;
 		return node.nnavalArr[n];	
 	}
@@ -701,17 +592,10 @@ function remove_planehits( group : naval_unit_group, destroyer : boolean, hits :
 function remove_dlast_planehits( group : naval_unit_group, destroyer : boolean, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-*/
 	if (!destroyer) {
-		//let n = Math.min(hits, node.ndlastairArr.length-1);
 		let n = hits;
 		return node.ndlastairArr[n];	
 	} else {
-		//let n = Math.min(hits, node.ndlastnavalArr.length-1);
 		let n = hits;
 		return node.ndlastnavalArr[n];	
 	}
@@ -721,12 +605,6 @@ function remove_dlast_planehits( group : naval_unit_group, destroyer : boolean, 
 function remove_navalhits( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-*/
-	//let n = Math.min(hits, node.nnavalArr.length-1);
 	let n = hits;
 	return node.nnavalArr[n];	
 }
@@ -734,12 +612,6 @@ function remove_navalhits( group : naval_unit_group, hits : number, index : numb
 function remove_dlast_navalhits( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-/*
-	if (node.N == 0) {
-		return index;
-	}
-*/
-	//let n = Math.min(hits, node.ndlastnavalArr.length-1);
 	let n = hits;
 	return node.ndlastnavalArr[n];	
 }
@@ -1266,8 +1138,8 @@ function retreat_subs(um : unit_manager, input_str : string) : [string, number]
 	return [out, num_subs];
 }
 
-function report_filter (p : number) : number {
-    if (p < report_prune_threshold) {
+function report_filter (threshold : number, p : number) : number {
+    if (p < threshold) {
 		return 0;
 	}
 	return p;
@@ -1357,7 +1229,7 @@ function collect_results(
     for (i = 0; i < N;i++) {
         for (j = 0; j < M; j++) {
             //let p = report_filter(P[i][j]);
-            let p = report_filter(problem.getP(i, j));
+            let p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
             if (p > 0) {
                 att_cost = get_cost_remain(problem.um, problem.att_data, i);
                 def_cost = get_cost_remain(problem.um, problem.def_data, j);
@@ -1419,7 +1291,7 @@ function collect_naval_results(
     for (i = 0; i < N;i++) {
         for (j = 0; j < M; j++) {
             //let p = report_filter(P[i][j]);
-            let p = report_filter(problem.getP(i, j));
+            let p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
             if (p > 0) {
                 att_cost = get_naval_cost_remain(problem.um, problem.att_data, i);
                 def_cost = get_naval_cost_remain(problem.um, problem.def_data, j);
@@ -1675,7 +1547,7 @@ function print_results(
         let  [def_loss, def_casualty] = get_cost(problem.um, problem.def_data, result.j)
         red_att_cas = get_reduced_group_string(att_casualty);
         red_def_cas = get_reduced_group_string(def_casualty);
-        let p = report_filter(result.p);
+        let p = report_filter(problem.report_prune_threshold, result.p);
 		let d_p = def_map.get(def);
 		if (d_p == undefined) {
 			def_map.set(def, p);
@@ -1837,7 +1709,7 @@ function print_naval_results(
         let  [def_loss, def_casualty] = get_naval_cost(problem, problem.def_data, result.j)
         red_att_cas = get_reduced_group_string(att_casualty);
         red_def_cas = get_reduced_group_string(def_casualty);
-        let p = report_filter(result.p);
+        let p = report_filter(problem.report_prune_threshold, result.p);
 		let d_p = def_map.get(result.j);
 		if (d_p == undefined) {
 			def_map.set(result.j, p);
@@ -2585,7 +2457,7 @@ function preparse_battleship(input : string , attdef : number) : string
 	return out;
 }
 
-function preparse(input : string, attdef : number, skipAA : boolean = false) : string
+function preparse(isnaval : boolean, input : string, attdef : number, skipAA : boolean = false) : string
 {
     let token_out = preparse_token(input, attdef);
     let art_out = preparse_artillery(token_out, attdef);
@@ -2598,88 +2470,6 @@ function preparse(input : string, attdef : number, skipAA : boolean = false) : s
 		return aa_out;
 	}
     return art_out;
-}
-
-function run() 
-{
-	console.time('Execution Time');
-	console.log(`debug = ${debug}`);
-	console.log(`report_prune_threshold = ${report_prune_threshold}`);
-	console.log(`prune_threshold = ${prune_threshold}`);
-	console.log(`isnaval = ${isnaval}`);
-	console.log(`attackers = ${attackers}`);
-	console.log(`defenders = ${defenders}`);
-	console.log(`strafe_threshold = ${strafe_threshold}`);
-	console.log(debug);
-
-	let attackers_internal = preparse(attackers, 0);
-	let defenders_internal = preparse(defenders, 1);
-
-	console.log(attackers_internal, `attackers_internal`);
-	console.log(defenders_internal, `defenders_internal`);
-
-	let um = new unit_manager();
-
-	if (!isnaval) {
-		console.time('init');
-		let myprob = new problem(um, attackers_internal, defenders_internal, 1.0);
-		myprob.set_prune_threshold(prune_threshold, early_prune_threshold, report_prune_threshold);
-		console.timeEnd('init');
-
-		let numAA = count_units(myprob.def_data.unit_str, 'c');
-		if (numAA > 0) {
-			for (let i = 0; i < num_runs; i++) {
-				console.time('solveAA');
-				solveAA(myprob, numAA);
-				console.timeEnd('solveAA');
-			}
-		} else {
-
-			for (let i = 0; i < num_runs; i++) {
-				console.time('solve');
-				solve(myprob, 0);
-				console.timeEnd('solve');
-			}
-			let problemArr : problem[];
-			problemArr = [];
-			problemArr.push(myprob);
-			let result_data : result_data_t[];
-			result_data = [];
-			
-			console.time('post');
-			collect_results(myprob, problemArr, 0, result_data);
-			print_results(myprob, problemArr, result_data);
-			console.timeEnd('post');
-		}
-	} else {
-		console.time('solve_sub');
-		console.time('init');
-		console.profile("solve_sub");
-		//debugger
-		let myprob = new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
-			att_destroyer_last > 0, att_submerge > 0, def_destroyer_last > 0, def_submerge > 0);
-		myprob.set_prune_threshold(prune_threshold, early_prune_threshold, report_prune_threshold);
-		console.timeEnd('init');
-		let problemArr : naval_problem[];
-		problemArr = [];
-		problemArr.push(myprob);
-		for (let i = 0; i < num_runs; i++) {
-			console.time('solve');
-			solve_sub( myprob, 0);
-			console.timeEnd('solve');
-	    }
-
-		let result_data : result_data_t[];
-		result_data = [];
-		console.time('post');
-		collect_naval_results(myprob, problemArr, 0, result_data);
-		print_naval_results(myprob, problemArr, result_data);
-		console.profileEnd();
-		console.timeEnd('post');
-		console.timeEnd('solve_sub');
-	}
-
-	console.timeEnd('Execution Time');
 }
 
 
@@ -2741,8 +2531,8 @@ function aacalc(
 {
 	let um = new unit_manager();
 
-	let attackers_internal = preparse(input.attacker, 0);
-	let defenders_internal = preparse(input.defender, 1, input.is_in_progress);
+	let attackers_internal = preparse(input.is_naval, input.attacker, 0);
+	let defenders_internal = preparse(input.is_naval, input.defender, 1, input.is_in_progress);
 	console.log(attackers_internal, "attackers_internal");
 	console.log(defenders_internal, "defenders_internal");
 	
@@ -2837,7 +2627,32 @@ function apply_ool(input : string, ool : string )  : string {
 	return out;
 }
 
-function run2() {
+function run2(argc : number, argv : string[]) {
+	let i = 1;
+	let debug = parseInt(argv[i++]);
+	let report_prune_threshold = parseFloat(argv[i++]);
+	let prune_threshold = parseFloat(argv[i++]);
+	let early_prune_threshold = prune_threshold/ 10;
+	let isnaval = parseInt(argv[i++]);
+	let attackers = argv[i++];
+	let defenders = argv[i++];
+	
+	let strafe_threshold = parseFloat(argv[i++]);
+	let num_runs = Math.max(parseInt(argv[i++]), 1);
+	let retreat_threshold = parseInt(argv[i++]);
+	let in_progress = parseInt(argv[i++]) > 0;
+
+	let att_destroyer_last = 0;
+	let def_destroyer_last = 0;
+	let att_submerge = 0;
+	let def_submerge = 0;
+	if (isnaval > 0) {
+		att_destroyer_last = Math.max(parseInt(argv[i++]), 0);
+		att_submerge = Math.max(parseInt(argv[i++]), 0);
+		def_destroyer_last = Math.max(parseInt(argv[i++]), 0);
+		def_submerge = Math.max(parseInt(argv[i++]), 0);
+	}
+
 	console.time('Execution Time');
 	console.log(`debug = ${debug}`);
 	console.log(`report_prune_threshold = ${report_prune_threshold}`);
@@ -2847,16 +2662,8 @@ function run2() {
 	console.log(`attackers = ${attackers}`);
 	console.log(`defenders = ${defenders}`);
 	console.log(`strafe_threshold = ${strafe_threshold}`);
-	console.log(`retreat_threshold = ${retreat_threshold1}`);
+	console.log(`retreat_threshold = ${retreat_threshold}`);
 	console.log(debug);
-
-
-/*
-	let attackers_token = preparse_token(attackers, 0);
-	let defenders_token = preparse_token(defenders, 1);
-	let attackers_ool = apply_ool(attackers_token, att_ool);
-	let defenders_ool = apply_ool(defenders_token, def_ool);
-*/
 
 	let input : aacalc_input;
 	input = { attacker: attackers, defender: defenders, debug : debug > 0, prune_threshold : prune_threshold, 
@@ -2867,7 +2674,7 @@ function run2() {
 			att_submerge_sub : att_submerge > 0, 
 			def_submerge_sub : def_submerge > 0, 
 			num_runs : num_runs,
-			retreat_threshold : retreat_threshold1,
+			retreat_threshold : retreat_threshold,
 			strafe_threshold : -1,
 			strafe_attpower_threshold : 0,
 			strafe_num_threshold : 0,
@@ -2922,7 +2729,7 @@ function multiwave(
 	let um3 = new unit_manager();
 	let output : aacalc_output[] = [];
 
-	for (i = 0; i < input.wave_info.length; i++) {
+	for (let i = 0; i < input.wave_info.length; i++) {
 		umarr.push (new unit_manager());
 		let um = umarr[i];
 		let wave = input.wave_info[i];
@@ -2959,14 +2766,14 @@ function multiwave(
 			}
 			let defender = apply_ool(defend_add_reinforce[defend_add_reinforce.length-1].remain + 
 						defend_add_reinforce[defend_add_reinforce.length-1].casualty, wave.def_ool);
-			defenders_internal = preparse(defender, 1);
+			defenders_internal = preparse(input.is_naval, defender, 1);
 
 		} else {
 			let defenders_token = preparse_token(wave.defender, 1);
 			let defenders_ool = apply_ool(defenders_token, wave.def_ool);
-			defenders_internal = preparse(defenders_ool, 1);
+			defenders_internal = preparse(input.is_naval, defenders_ool, 1);
 		}
-		let attackers_internal = preparse(wave.attacker, 0);
+		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
 
 		console.log(defend_add_reinforce, "defend_add_reinforce");
 		probArr.push(new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
@@ -2992,7 +2799,7 @@ function multiwave(
 	let attipc : number[] = [];
 	let defipc : number[] = [];
 	let atttakes : number[] = [];
-	for (i = 0; i < input.wave_info.length; i++) {
+	for (let i = 0; i < input.wave_info.length; i++) {
 		let att_survives = output[i].attack.survives[0]
 		let def_survives = output[i].defense.survives[0]
 		let att_ipcLoss = output[i].attack.ipcLoss[0]
@@ -3027,7 +2834,41 @@ function multiwave(
 	return out;
 
 }
-function run3() {
+function run3(argc : number, argv : string[]) {
+	let i = 1;
+	let debug = parseInt(argv[i++]);
+	let report_prune_threshold = parseFloat(argv[i++]);
+	let prune_threshold = parseFloat(argv[i++]);
+	let early_prune_threshold = prune_threshold/ 10;
+	let isnaval = parseInt(argv[i++]);
+	let attackers = argv[i++];
+	let defenders = argv[i++];
+	
+	let strafe_threshold = parseFloat(argv[i++]);
+	let num_runs = Math.max(parseInt(argv[i++]), 1);
+
+	let att_destroyer_last = 0;
+	let def_destroyer_last = 0;
+	let att_submerge = 0;
+	let def_submerge = 0;
+	if (isnaval > 0) {
+		att_destroyer_last = Math.max(parseInt(argv[i++]), 0);
+		att_submerge = Math.max(parseInt(argv[i++]), 0);
+		def_destroyer_last = Math.max(parseInt(argv[i++]), 0);
+		def_submerge = Math.max(parseInt(argv[i++]), 0);
+	}
+	let attackers2 = argv[i++];
+	let defenders2 = argv[i++];
+	let def_ool2 = argv[i++];
+	let attackers3 = argv[i++];
+	let defenders3 = argv[i++];
+	let def_ool3 = argv[i++];
+	let retreat_threshold = parseInt(argv[i++]);
+	let in_progress = parseInt(argv[i++]) > 0;
+	let retreat1 = parseInt(argv[i++]);
+	let retreat2 = parseInt(argv[i++]);
+	let retreat3 = parseInt(argv[i++]);
+
 	console.time('Execution Time');
 
 	let input : multiwave_input;
@@ -3043,7 +2884,7 @@ function run3() {
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
-			  retreat_threshold : retreat_threshold1 };
+			  retreat_threshold : retreat1 };
 	wave2 = { attacker : attackers2, 
 			  defender : defenders2,
 			  def_ool : def_ool2,
@@ -3051,7 +2892,7 @@ function run3() {
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
-			  retreat_threshold : retreat_threshold2 };
+			  retreat_threshold : retreat2};
 	wave3 = { attacker : attackers3, 
 			  defender : defenders3,
 			  def_ool : def_ool3,
@@ -3059,7 +2900,7 @@ function run3() {
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
-			  retreat_threshold : retreat_threshold3 };
+			  retreat_threshold : retreat3 };
 	wavearr.push(wave1);
 	if (attackers2.length > 0) {
 		wavearr.push(wave2);
