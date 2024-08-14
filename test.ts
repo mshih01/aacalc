@@ -32,9 +32,6 @@ rl.once('close', () => {
 			run3(argc, argv);
 			break;
 	}
-	//run2();
-	//run3();
-     // end of input
  });
 
 class unit_group_manager {
@@ -108,13 +105,40 @@ class unit_manager {
 	}
 }
 
+class table2d {
+	P : Array<number>;
+	a1sz : number;
+	a2sz : number;
+	constructor(i : number, j : number) {
+		this.a1sz = i;
+		this.a2sz = j;
+		this.P = [];
+	}
+	getIndex(i : number, j: number) : number {
+		return ((i * this.a2sz) + j);
+	}
+	get(i : number, j : number) : number {
+		let ii = this.getIndex(i, j);
+		return this.P[ii];
+	}
+	set(i : number, j : number, v : number) {
+		let ii = this.getIndex(i, j);
+		this.P[ii] = v;
+	}
+	geti(ii : number) : number {
+		return this.P[ii];
+	}
+	seti(ii : number, v : number) {
+		this.P[ii] = v;
+	}
+}
+
 
 class unit_group {
 	unit_str : string;
  	attdef	: number
 	size	: number
 	tbl_size : number
-    prob_table : number[][]
     max_prob_table : number[]
     prob_hits : number[]
 	first_destroyer_index : number
@@ -122,6 +146,8 @@ class unit_group {
 	pless	: number[][]
 	pgreater	: number[][]
 	prob_table2 : number[]
+	prob_table : table2d;
+
 	getIndex(i : number, j : number) : number {
 		return i * this.tbl_size + j;
 	}
@@ -139,13 +165,31 @@ class unit_group {
 		let ii = this.getIndex(i, j);
 		this.prob_table2[ii] = val;
 	}
+/*
+	getIndex(i : number, j : number) : number {
+		return this.prob_table.getIndex(i, j);
+	}
+	geti_prob_table(ii : number) : number {
+		return this.prob_table.geti(ii);
+	}
+	get_prob_table(i : number, j : number) : number {
+		return this.prob_table.get(i, j);
+	}
+	seti_prob_table(ii : number, val : number) {
+		this.prob_table.seti(ii, val);
+	}
+	set_prob_table(i : number, j : number, val : number) {
+		this.prob_table.set(i, j, val);
+	}
+*/
+
 	constructor(manager : unit_manager, input_str : string, attdef : number) {
 		this.unit_str = input_str;
 		this.size = input_str.length;
 		this.tbl_size = this.size + 1;
 		this.max_prob_table = []
-		this.prob_table = []
 		this.prob_table2 = []
+		this.prob_table = new table2d(this.tbl_size, this.tbl_size);
 		this.pless = []
 		this.pgreater = []
 		this.power = []
@@ -156,11 +200,9 @@ class unit_group {
 		let j : number;
 		console.log(input_str, "make_unit_group");
 		for (i = 0; i < this.tbl_size; i++) {
-			this.prob_table[i] = []
 			this.pless[i] = []
 			this.pgreater[i] = []
 			for (j = 0; j < this.tbl_size; j++) {
-				this.prob_table[i][j] = 0;
 				this.pless[i][j] = 0;
 				this.pgreater[i][j] = 0;
 				this.set_prob_table(i, j, 0);
@@ -197,9 +239,9 @@ class unit_group {
 		for (i = 0; i < this.tbl_size; i++) {
 			for (j = 0; j <= i; j++) {
 				if (j == 0) {
-					this.pless[i][j] = this.prob_table[i][j];
+					this.pless[i][j] = this.get_prob_table(i, j);
 				} else {
-					this.pless[i][j] = this.pless[i][j-1] + this.prob_table[i][j];
+					this.pless[i][j] = this.pless[i][j-1] + this.get_prob_table(i, j);
 				}
 			}
 		}
@@ -207,35 +249,28 @@ class unit_group {
 		for (i = 0; i < this.tbl_size; i++) {
 			for (j = i; j >= 0; j--) {
 				if (j == i) {
-					this.pgreater[i][j] = this.prob_table[i][j];
+					this.pgreater[i][j] = this.get_prob_table(i, j);
 				} else {
-					this.pgreater[i][j] = this.pgreater[i][j+1] + this.prob_table[i][j];
+					this.pgreater[i][j] = this.pgreater[i][j+1] + this.get_prob_table(i, j);
 				}
 
 			}
 		}
 	}
 	compute_prob_table() {
-		let P = this.prob_table;
 		let ph = this.prob_hits;
 		let tbl_sz = this.tbl_size;
 		let i, j;
-		P[0][0] = 1.0;
 		this.set_prob_table(0, 0, 1.0);
 		for (j =1; j < tbl_sz; j++) {
-			P[0][j] = 0.0;
 			this.set_prob_table(0, j, 0.0);
 		}
 		for (i = 1; i < tbl_sz; i++) {
-			P[i][0] = (1-ph[i]) * P[i-1][0];
 			this.set_prob_table(i, 0, (1-ph[i]) * this.get_prob_table(i-1,0));
 			for (j =1; j < tbl_sz; j++) {
 				if (j > i) {
-					P[i][j] = 0.0;
 					this.set_prob_table(i, j, 0.0);
 				} else {
-					P[i][j] = ph[i] * P[i-1][j-1] +
-					(1-ph[i]) * P[i-1][j];
 					this.set_prob_table(i, j, ph[i] * this.get_prob_table(i-1, j-1) + 
 												(1-ph[i]) * this.get_prob_table(i-1, j));
 				}
@@ -244,7 +279,7 @@ class unit_group {
 		for (i = 0; i < tbl_sz; i++) {
 			let maxp = -1;
 			for (j =0; j <= i; j++) {
-				maxp = Math.max(maxp, P[i][j]);
+				maxp = Math.max(maxp, this.get_prob_table(i, j));
 			}
 			this.max_prob_table[i] = maxp;
 		}
@@ -329,13 +364,11 @@ class naval_unit_group {
 		let planes = "";
 		for (let i = 0; i < input_str.length; i++) {
 			let ch = input_str.charAt(i);
-			//console.log(ch, `ch`);
 			if (isAir(this.um, ch)) {
 				planes += ch;
 			}
 		}
 		this.air_group = make_unit_group(um, planes, attdef);
-
 
 		let naval = "";
 		let first_destroyer_index = -1;
@@ -350,8 +383,6 @@ class naval_unit_group {
 				naval += ch;
 			}
 		}
-		console.log(naval, "naval_unit_group_construct");
-
 
 		this.naval_group = make_unit_group(um, naval, attdef);
 		this.naval_group.first_destroyer_index = first_destroyer_index;
@@ -362,10 +393,7 @@ class naval_unit_group {
 		} else {
 			this.dlast_group = this.naval_group;
 		}
-
-		//console.log(first_destroyer_index, "first_destroyer_index");
 		compute_remove_hits(this, max_remove_hits, numAA, cas );
-		//console.log("remove hits done");
 	}
 }
 
@@ -375,6 +403,8 @@ class naval_problem {
 	prob : number = 0;
 	att_data : naval_unit_group;
 	def_data : naval_unit_group;
+	N : number;
+	M : number;
 	P_1d : number[] = [];
 	def_cas : casualty_1d[] | undefined = undefined
 	prune_threshold : number = -1;
@@ -387,7 +417,7 @@ class naval_problem {
 	strafe_do_attpower_check : boolean = false;
 	strafe_attpower_threshold : number = 0;
 	getIndex(i : number, j : number) : number {
-		return i * this.def_data.nodeArr.length + j;
+		return i * this.M + j;
 	}
 	getiP(ii : number) : number {
 		return this.P_1d[ii];
@@ -430,6 +460,8 @@ class naval_problem {
 		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA);
 		//console.log(this.att_data, `att`);
 		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas);
+		this.N = this.att_data.nodeArr.length;
+		this.M = this.def_data.nodeArr.length;
 		//console.log(this.def_data, `def`);
 		this.prob = prob;
 		this.def_cas = def_cas;
@@ -576,31 +608,19 @@ function remove_dlast_subhits( group : naval_unit_group, hits : number, index : 
 	return node.ndlastsubArr[n];	
 }
 
-
-function remove_planehits( group : naval_unit_group, destroyer : boolean, hits : number, index : number) : number 
+function remove_planehits2( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-	if (!destroyer) {
-		let n = hits;
-		return node.nairArr[n];	
-	} else {
-		let n = hits;
-		return node.nnavalArr[n];	
-	}
+	let n = hits;
+	return node.nairArr[n];	
 }
 
-function remove_dlast_planehits( group : naval_unit_group, destroyer : boolean, hits : number, index : number) : number 
+function remove_dlast_planehits2( group : naval_unit_group, hits : number, index : number) : number 
 {
     let node = group.nodeArr[index];
-	if (!destroyer) {
-		let n = hits;
-		return node.ndlastairArr[n];	
-	} else {
-		let n = hits;
-		return node.ndlastnavalArr[n];	
-	}
+	let n = hits;
+	return node.ndlastairArr[n];	
 }
-
 
 function remove_navalhits( group : naval_unit_group, hits : number, index : number) : number 
 {
@@ -682,12 +702,6 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		return;
 	} 
 
-    let Pa_sub = problem.att_data.sub_group.prob_table;
-    let Pa_air = problem.att_data.air_group.prob_table;
-    let Pa_naval = problem.att_data.naval_group.prob_table;
-    let Pd_sub = problem.def_data.sub_group.prob_table;
-    let Pd_air = problem.def_data.air_group.prob_table;
-    let Pd_naval = problem.def_data.naval_group.prob_table;
     let att_sub = problem.att_data.sub_group;
     let att_air = problem.att_data.air_group;
     let att_naval = problem.att_data.naval_group;
@@ -778,35 +792,38 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
     let hasSubs = (N1 > 0 || M1 > 0);
     //hasSubs = true;
 
-	let def_remove_subhits_function;
-	let def_remove_planehits_function;
-	let def_remove_navalhits_function;
-	if (def_dlast) {
-		def_remove_subhits_function = remove_dlast_subhits;
-		def_remove_planehits_function = remove_dlast_planehits;
-		def_remove_navalhits_function = remove_dlast_navalhits;
-	} else {
-		def_remove_subhits_function = remove_subhits;
-		def_remove_planehits_function = remove_planehits;
-		def_remove_navalhits_function = remove_navalhits;
+	let def_remove_subhits_function = remove_dlast_subhits;
+	let def_remove_planehits_function = remove_dlast_planehits2;
+	let def_remove_navalhits_function = remove_dlast_navalhits;
+	if (!att_destroyer) {
+		def_remove_planehits_function = remove_dlast_navalhits;
+
 	}
-	let att_remove_subhits_function;
-	let att_remove_planehits_function;
-	let att_remove_navalhits_function;
-	if (att_dlast) {
-		att_remove_subhits_function = remove_dlast_subhits;
-		att_remove_planehits_function = remove_dlast_planehits;
-		att_remove_navalhits_function = remove_dlast_navalhits;
-	} else {
+	if (!def_dlast) {
+		def_remove_subhits_function = remove_dlast_subhits;
+		def_remove_planehits_function = remove_dlast_planehits2;
+		if (!att_destroyer) {
+			def_remove_planehits_function = remove_dlast_navalhits;
+		}
+		def_remove_navalhits_function = remove_dlast_navalhits;
+	}
+	let att_remove_subhits_function = remove_dlast_subhits;
+	let att_remove_planehits_function = remove_dlast_planehits2;
+	let att_remove_navalhits_function = remove_dlast_navalhits;
+	if ( !def_destroyer) {
+	    att_remove_planehits_function = remove_dlast_navalhits;
+	}
+	if (!att_dlast) {
 		att_remove_subhits_function = remove_subhits;
-		att_remove_planehits_function = remove_planehits;
+		att_remove_planehits_function = remove_planehits2;
 		att_remove_navalhits_function = remove_navalhits;
+		if ( !def_destroyer) {
+			att_remove_planehits_function = remove_navalhits;
+		}
 	}
 	problem.setP(N, M, 0);
 
     if (!hasSubs && attnode.nosub_group != undefined && defnode.nosub_group != undefined ) {
-        let Pa_nosub = attnode.nosub_group.prob_table;
-        let Pd_nosub = defnode.nosub_group.prob_table;
         let att_nosub = attnode.nosub_group;
         let def_nosub = defnode.nosub_group;
         let i, j;
@@ -911,13 +928,13 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
                     if (p2 < ept1) {
                         continue;
                     }
-					let m2 = def_remove_planehits_function(problem.def_data, att_destroyer, i2, m);
+					let m2 = def_remove_planehits_function(problem.def_data, i2, m);
                     for (j2 = 0; j2 <= newM2; j2++) {
                         p3 = p2 * def_air.get_prob_table(newM2, j2);
                         if (p3 < ept2) {
                             continue;
                         }
-						let n2 = att_remove_planehits_function(problem.att_data, def_destroyer, j2, n);
+						let n2 = att_remove_planehits_function(problem.att_data, j2, n);
                         for (i3 = 0; i3 <= newN3; i3++) {
                             p4 = p3 * att_naval.get_prob_table(newN3, i3);
                             if (p4 < ept3) {
@@ -971,8 +988,6 @@ function solve_one_state(problem : problem, N : number, M : number, allow_same_s
 		}
 	}
 
-	let Pa = problem.att_data.prob_table;
-	let Pd = problem.def_data.prob_table;
 	let att_data = problem.att_data;
 	let def_data = problem.def_data;
 
@@ -1787,7 +1802,6 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
     }
 	let aa_data = make_unit_group(myprob.um, aashots, 2);
 
-	let P = aa_data.prob_table;
     let N = aa_data.tbl_size;
 
 
@@ -1798,7 +1812,7 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
 
     for (let i = 0; i < N; i++) {
 		console.log(i, `solveAA i`);
-		let prob = P[N-1][i];
+		let prob = aa_data.get_prob_table(N-1, i);
 		if ( i > 0) {
 			let cas;
 			[att_str, cas] = remove_one_plane(myprob.um, att_str);
@@ -1842,10 +1856,9 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 			let aa_data = make_unit_group(problem.um, aashots, 2);
 
-			let P = aa_data.prob_table;
 			let N = aa_data.tbl_size;
 			for (let i = 0; i < N; i++) {
-				let prob = P[N-1][i];
+				let prob = aa_data.get_prob_table(N-1, i);
 				let n = remove_aahits( problem.att_data, i, 0);
 				problem.setP(n, 0, problem.prob * prob);
 				console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
@@ -1865,7 +1878,6 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				aashots = aashots + 'c';
 			}
 			aa_data = make_unit_group(problem.um, aashots, 2);
-			P = aa_data.prob_table;
 			N = aa_data.tbl_size;
 		}
 		for (let i = 0; i < problem.def_cas.length; i++) {
