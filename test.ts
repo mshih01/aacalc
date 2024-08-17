@@ -73,25 +73,25 @@ class unit_manager {
 		this.unit_group_manager = new unit_group_manager();
 	}
 	init_units() {
-		this.make_unit('e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
-		this.make_unit('c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
-		this.make_unit('i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
-		this.make_unit('a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
-		this.make_unit('d', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
-		this.make_unit('t', 't', 3, 3, 6, 1, true, false, false, false, false, false);
-		this.make_unit('f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
-		this.make_unit('b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
-		this.make_unit('A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
-		this.make_unit('C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
-		this.make_unit('D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
-		this.make_unit('S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
-		this.make_unit('B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
-		this.make_unit('E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
-		this.make_unit('T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
+		this.make_unit("AA", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
+		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
+		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
+		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
+		this.make_unit("Art", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
+		this.make_unit("Tnk", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
+		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
+		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
+		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
+		this.make_unit("Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
+		this.make_unit("Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
+		this.make_unit("Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
+		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
+		this.make_unit("Bat", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
+		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
 	}
-	make_unit(ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
+	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
-		let unit = new unit_stat(ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
+		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
 		this.unit_stats.set(ch, unit);
 		this.rev_map.set(ch2, ch);
 	}
@@ -266,7 +266,7 @@ class naval_unit_graph_node {
 	ndlastnavalArr : number[] = [];
 	nosub_group : unit_group | undefined= undefined;
 	numBB : number = 0;
-	constructor( um : unit_manager, unit_str : string, num_submerge : number) {
+	constructor( um : unit_manager, unit_str : string, num_submerge : number, is_nonaval : boolean) {
 		this.unit_str = unit_str;
 		this.N = unit_str.length;
 		this.num_subs = count_units(unit_str, 'S');
@@ -276,6 +276,11 @@ class naval_unit_graph_node {
 		this.num_dest = count_units(this.unit_str, 'D');
 		this.num_submerge = num_submerge;
 		this.cost = get_cost_from_str(um, unit_str, num_submerge);
+		if (is_nonaval) {
+			if (this.num_naval == 0) {
+				this.cost += (this.num_subs * 1000);
+			}
+		}
 	}
 }
 
@@ -289,6 +294,7 @@ class naval_unit_group {
 	num_naval : number = 0;
 	num_air : number = 0;
 	num_aashot : number = 0;
+	is_nonaval : boolean;
 	sub_group : unit_group;
 	naval_group : unit_group;
 	air_group : unit_group;
@@ -298,7 +304,8 @@ class naval_unit_group {
 
 	constructor (um : unit_manager, input_str : string, attdef : number, dest_last : boolean, submerge : boolean, 
 						max_remove_hits : number, numAA : number = 0,
-						cas : casualty_1d[] | undefined = undefined) {
+						cas : casualty_1d[] | undefined = undefined, 
+					    is_nonaval : boolean = false) {
 		this.um = um;
 		this.unit_str = input_str;
 		this.attdef = attdef;
@@ -307,6 +314,7 @@ class naval_unit_group {
 		this.num_subs = count_units(input_str, 'S');
 		this.num_air = count_units(input_str, 'f') + count_units(input_str, 'b');
 		this.num_naval = input_str.length - this.num_subs - this.num_air;
+		this.is_nonaval = is_nonaval;
 		let subs = ""
 		for (let i = 0; i < this.num_subs; i++) {
 			subs += 'S';
@@ -355,9 +363,11 @@ class naval_problem {
 	prob : number = 0;
 	att_data : naval_unit_group;
 	def_data : naval_unit_group;
+	is_nonaval : boolean;
 	N : number;
 	M : number;
 	P_1d : number[] = [];
+	nonavalproblem : naval_problem | undefined = undefined;
 	def_cas : casualty_1d[] | undefined = undefined
 	prune_threshold : number = -1;
 	early_prune_threshold : number = -1;
@@ -368,6 +378,10 @@ class naval_problem {
 	strafe_do_num_check : boolean = false;
 	strafe_do_attpower_check : boolean = false;
 	strafe_attpower_threshold : number = 0;
+	attmap : Map<string, number>;
+	defmap : Map<string, number>;
+	attmap2 : Map<string, number>;
+	defmap2 : Map<string, number>;
 	getIndex(i : number, j : number) : number {
 		return i * this.M + j;
 	}
@@ -393,7 +407,8 @@ class naval_problem {
     constructor(um : unit_manager, att_str : string, def_str : string, prob : number,
 			att_dest_last : boolean, att_submerge : boolean , def_dest_last : boolean , def_submerge : boolean,
 			is_naval : boolean = true,
-			def_cas	: casualty_1d[] | undefined = undefined
+			def_cas	: casualty_1d[] | undefined = undefined,
+			is_nonaval : boolean = false
 			 ) {
 		
 		this.um = um;
@@ -418,7 +433,73 @@ class naval_problem {
 		this.prob = prob;
 		this.def_cas = def_cas;
 		this.is_naval = is_naval;
+		this.is_nonaval = is_nonaval;
+		this.attmap = new Map();
+		this.defmap = new Map();
+		this.attmap2 = new Map();
+		this.defmap2 = new Map();
+		if (is_naval && !is_nonaval) {
+			if (!att_submerge &&
+				!def_submerge && 
+				(this.att_data.num_subs > 0) &&
+				(this.att_data.num_air > 0) &&
+				(this.def_data.num_subs > 0) &&
+				(this.def_data.num_air > 0) 
+				) {
+				let att = this.att_data.sub_group.unit_str + 
+						this.att_data.air_group.unit_str;
+				let def = this.def_data.sub_group.unit_str + 
+						this.def_data.air_group.unit_str;
+				this.nonavalproblem = new naval_problem(
+						um, att, def, 0.0, 
+						false, false, false, false, true,
+						undefined, true);
+				if (this.nonavalproblem != undefined) {
+					for (let i = 0 ; i < this.att_data.nodeArr.length; i++) {
+						let node = this.att_data.nodeArr[i];
+						if (node.num_naval == 0) {
+							let key : string = node.num_subs + "," + node.num_air;
+							this.attmap.set(key, i);
+						}
+					}
+					for (let i = 0 ; i < this.def_data.nodeArr.length; i++) {
+						let node = this.def_data.nodeArr[i];
+						if (node.num_naval == 0) {
+							let key : string = node.num_subs + "," + node.num_air;
+							this.defmap.set(key, i);
+						}
+					}
+					for (let i = 0 ; i < this.nonavalproblem.att_data.nodeArr.length; i++) {
+						let node = this.nonavalproblem.att_data.nodeArr[i];
+						let key : string = node.num_subs + "," + node.num_air;
+						this.attmap2.set(key, i);
+					}
+					for (let i = 0 ; i < this.nonavalproblem.def_data.nodeArr.length; i++) {
+						let node = this.nonavalproblem.def_data.nodeArr[i];
+						let key : string = node.num_subs + "," + node.num_air;
+						this.defmap2.set(key, i);
+					}
+				}
+			}
+		}
 		//console.log(this, `make_problem`);
+	}
+	setNoNavalP(N1 : number, M1 : number, N2 : number, M2 : number, p : number) {
+		if (this.nonavalproblem != undefined) {
+			let key1 : string = N1 + "," + N2;
+			let key2 : string = M1 + "," + M2;
+			let i = this.attmap2.get(key1);
+			let j = this.defmap2.get(key2);
+			if (i != undefined && j != undefined) {
+				let ii  = this.nonavalproblem.getIndex(i, j);
+				this.nonavalproblem.setiP(ii, this.nonavalproblem.getiP(ii) + p);
+			} else {
+				throw new Error();
+			}
+		} else {
+			console.log("nonavalproblem");
+			throw new Error();
+		}
 	}
 }
 
@@ -499,6 +580,7 @@ class result_data_t {
 }
 
 class unit_stat {
+	fullname : string;
 	ch : string;
 	ch2 : string;
 	att : number;
@@ -511,8 +593,9 @@ class unit_stat {
 	isAir : boolean;
 	isAA : boolean;
 	isBombard : boolean;
-	constructor(ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
+	constructor(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
 			isLand : boolean, isSub : boolean, isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
+		this.fullname = fullname;
 		this.ch = ch;
 		this.ch2 = ch2;
 		this.att = att;
@@ -780,7 +863,48 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				problem.setiP(ii, problem.getiP(ii) + prob);
             }
         }
-    } else {        /*  i att hits, j def hits */
+	} else if (true && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+		if (true && problem.nonavalproblem != undefined) {
+			problem.setNoNavalP(N1, M1, N2, M2, p_init);
+		} else {
+			if (N1 > 0 && M1 > 0) {
+				let P0 = att_sub.get_prob_table(N1, 0) * def_sub.get_prob_table(M1, 0);
+				let r = p_init * 1/(1-P0);
+				if (allow_same_state) {
+					r = p_init;
+				}
+				for (let i1 = 0; i1 <= N1; i1++) {
+					let m = def_remove_subhits_function(defnode, i1);
+					let p1 =  att_sub.get_prob_table(N1, i1) * r;
+					for (let j1 = 0; j1 <= M1; j1++) {
+						let n = att_remove_subhits_function(attnode, j1);
+						let p2 = p1 * def_sub.get_prob_table(M1, j1);
+						let ii = problem.getIndex(n, m);
+						problem.setiP(ii, problem.getiP(ii) + p2);
+					}
+				}
+			} else if (N2 > 0 && M2 > 0) {
+				let P0 = att_air.get_prob_table(N2, 0) * def_air.get_prob_table(M2, 0);
+				let r = p_init * 1/(1-P0);
+				if (allow_same_state) {
+					r = p_init;
+				}
+				for (let i2 = 0; i2 <= N2; i2++) {
+					let m = def_remove_planehits_function(defnode, false, i2);
+					let p1 =  att_air.get_prob_table(N2, i2) * r;
+					for (let j2 = 0; j2 <= M2; j2++) {
+						let n = att_remove_planehits_function(attnode, false, j2);
+						let p2 = p1 * def_air.get_prob_table(M2, j2);
+						let ii = problem.getIndex(n, m);
+						problem.setiP(ii, problem.getiP(ii) + p2);
+					}
+				}
+			} else {
+				console.log("unexpected -- nonaval resolution");
+				throw new Error();
+			}
+		}
+	} else {
 		if (true && (N1 * M1 > 2)) {
 			let m = remove_subhits2(defnode, N1);
 			let n = remove_subhits2(attnode, M1);
@@ -1780,18 +1904,22 @@ function print_naval_results(
 	def_cas_1d = [];
 
 	for (let [i, p] of att_map) {
+		//console.log(i, p, "i, p");
         let att = get_naval_group_string(baseproblem.um, baseproblem.att_data, i);
         let  [att_loss, att_cas] = get_naval_cost(baseproblem, baseproblem.att_data, i)
 		let cas : casualty_1d = { remain : att, casualty : att_cas, prob : p}
 		att_cas_1d.push(cas);
 	}
+	//console.log("att_cas_1d", JSON.stringify(att_cas_1d, null, 4));
 
 	for (let [j, p] of def_map) {
+		//console.log(j, p, "j, p");
         let def = get_naval_group_string(baseproblem.um, baseproblem.def_data, j);
         let  [def_loss, def_cas] = get_naval_cost(baseproblem, baseproblem.def_data, j)
 		let cas : casualty_1d = { remain : def, casualty : def_cas, prob : p}
 		def_cas_1d.push(cas);
 	}
+	//console.log("def_cas_1d", JSON.stringify(def_cas_1d, null, 4));
 	
 	//console.log(casualties);
     let output : aacalc_output = {
@@ -1867,6 +1995,17 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			problem.setP(i, j, 0.0);
         }
 	}
+	if (problem.nonavalproblem != undefined) {
+		problem.nonavalproblem.P_1d = [];
+		let N = problem.nonavalproblem.att_data.nodeArr.length;
+		let M = problem.nonavalproblem.def_data.nodeArr.length;
+		let i, j;
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < M; j++) {
+				problem.nonavalproblem.setP(i, j, 0.0);
+			}
+		}
+	}
 
 	if (problem.def_cas == undefined) {
 		/* initial seed */
@@ -1925,13 +2064,6 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		}	
 	}
 
-/*
-    for (i = 0; i < N ; i++) {
-        for (j = 0; j < M ; j++) {
-			console.log(i, j, problem.getP(i, j), "i, j, p");
-		}
-	}
-*/
 	// naval bombard
 	
 	if (!problem.is_naval) {
@@ -1954,8 +2086,42 @@ function solve_sub(problem : naval_problem, skipAA : number)
             solve_one_naval_state(problem, i, j, false, 0);
         }
     }
-}
+	if (problem.nonavalproblem != undefined) {
+		let N = problem.nonavalproblem.att_data.nodeArr.length;
+		let M = problem.nonavalproblem.def_data.nodeArr.length;
+		let i, j;
 
+		for (i = 0; i < N; i++) {
+			for (j = 0; j < M; j++) {
+				solve_one_naval_state(problem.nonavalproblem, i, j, false, 0);
+			}
+		}
+		// map back to parent problem
+		let sum = 0;
+		for (i = 0; i < N; i++) {
+			let attnode = problem.nonavalproblem.att_data.nodeArr[i];
+			let key : string = attnode.num_subs + "," + attnode.num_air;
+			let ii = problem.attmap.get(key);
+			for (j = 0; j < M; j++) {
+				let node = problem.nonavalproblem.def_data.nodeArr[j];
+				let key2 : string = node.num_subs + "," + node.num_air;
+				let jj = problem.defmap.get(key2);
+				let p = problem.nonavalproblem.getP(i, j)
+				if (p > 0) {
+				    //console.log(attnode.num_subs, attnode.num_air, node.num_subs, node.num_air, p, "p here");
+					if (ii == undefined || jj == undefined) {
+						console.log(key, key2, "key, key2");
+						throw new Error();
+					}
+					let iii = problem.getIndex(ii, jj);
+					problem.setiP(iii, problem.getiP(iii) + p);
+					sum += p;
+				}
+			}
+		}
+		console.log(sum, "sum");
+	}
+}
 
 
 function solve(problem : problem, skipAA : number) 
@@ -2010,7 +2176,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
     // root node
     let s = naval_group.unit_str;
     //printf ("%s", s);
-    let node = new naval_unit_graph_node(naval_group.um, s, 0);
+    let node = new naval_unit_graph_node(naval_group.um, s, 0, naval_group.is_nonaval);
 	node.dlast = false;
 
 	let nodeVec : naval_unit_graph_node[];
@@ -2041,7 +2207,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				let cas;
 				[att_str, cas] = remove_one_plane(naval_group.um, att_str);
 				att_cas += cas;
-				nnode = new naval_unit_graph_node(naval_group.um, att_str, 0);
+				nnode = new naval_unit_graph_node(naval_group.um, att_str, 0, naval_group.is_nonaval);
 				myheap.push(nnode);
 				mymap.set(att_str+ 0, nnode);
 				prev.next_aahit = nnode;
@@ -2057,7 +2223,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let key = s + 0;
 			let ii = mymap.get(key);
 			if (ii == undefined) {
-				let newnode = new naval_unit_graph_node(naval_group.um, s, 0);
+				let newnode = new naval_unit_graph_node(naval_group.um, s, 0, naval_group.is_nonaval);
 				if (newnode.num_naval > 0) {
 					newnode.dlast = node.dlast;
 				} else {
@@ -2101,7 +2267,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		let key = s + node.num_submerge;
 		let ii = mymap.get(key);
         if (ii == undefined) {
-			newnode = new naval_unit_graph_node(naval_group.um, s, node.num_submerge);
+			newnode = new naval_unit_graph_node(naval_group.um, s, node.num_submerge, naval_group.is_nonaval);
 			if (newnode.num_naval > 0) {
 				newnode.dlast = node.dlast;
 			} else {
@@ -2123,7 +2289,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
             let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2+node.num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
@@ -2144,7 +2310,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
             let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2+node.num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
@@ -2182,7 +2348,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2+node.num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
 				node2.dlast = true;
 				mymap.set(s2+node.num_submerge, node2);
 				myheap.push(node2);
@@ -2201,7 +2367,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2+node.num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
 				node2.dlast = true;
 				mymap.set(s2+ node.num_submerge, node2);
 				myheap.push(node2);
@@ -2220,7 +2386,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2+node.num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
 				node2.dlast = true;
 				mymap.set(s2+ node.num_submerge, node2);
 				myheap.push(node2);
@@ -2236,7 +2402,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let node2 : naval_unit_graph_node;
 			let ii = mymap.get(s2 + num_submerge);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, num_submerge);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, num_submerge, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
@@ -2723,6 +2889,9 @@ function run2(argc : number, argv : string[]) {
 	let output = aacalc(input) 
 
 	console.log ("output", output)
+	console.log ("casualtiesInfo", JSON.stringify(output.casualtiesInfo, null, 4))
+	console.log ("att_cas", JSON.stringify(output.att_cas, null, 4))
+	console.log ("def_cas", JSON.stringify(output.def_cas, null, 4))
 
 	console.timeEnd('Execution Time');
 }
