@@ -70,37 +70,40 @@ class unit_manager {
 	unit_stats : Map<string, unit_stat> ;
 	rev_map : Map<string, string>;
 	rev_map2 : Map<string, string>;
+	rev_map3 : Map<UnitIdentifier, string>;
 	unit_group_manager : unit_group_manager;
 	constructor() {
 		this.unit_stats = new Map();
 		this.rev_map = new Map();
 		this.rev_map2 = new Map();
+		this.rev_map3 = new Map();
 		this.init_units();
 		this.unit_group_manager = new unit_group_manager();
 	}
 	init_units() {
-		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
-		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
-		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
-		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
-		this.make_unit("", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
-		this.make_unit("Tnk", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
-		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
-		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
-		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
-		this.make_unit("Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
-		this.make_unit("Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
-		this.make_unit("Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
-		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
-		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
-		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
+		this.make_unit("internal", "", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
+		this.make_unit("aa", "AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
+		this.make_unit("inf", "Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
+		this.make_unit("art", "Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
+		this.make_unit("internal", "", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
+		this.make_unit("arm", "Tnk", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
+		this.make_unit("fig","Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
+		this.make_unit("bom", "Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
+		this.make_unit("acc", "ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
+		this.make_unit("cru", "Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
+		this.make_unit("des", "Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
+		this.make_unit("sub", "Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
+		this.make_unit("bat", "Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
+		this.make_unit("bat1", "", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
+		this.make_unit("tra", "Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
 	}
-	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
+	make_unit(id : UnitIdentifier, fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
-		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
+		let unit = new unit_stat(id, fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
 		this.unit_stats.set(ch, unit);
 		this.rev_map.set(ch2, ch);
 		this.rev_map2.set(fullname, ch);
+		this.rev_map3.set(id, ch);
 	}
 	get_stat(ch : string) : unit_stat {
 		let v = this.unit_stats.get(ch);
@@ -587,6 +590,7 @@ class result_data_t {
 }
 
 class unit_stat {
+	id : UnitIdentifier;
 	fullname : string;
 	ch : string;
 	ch2 : string;
@@ -600,8 +604,9 @@ class unit_stat {
 	isAir : boolean;
 	isAA : boolean;
 	isBombard : boolean;
-	constructor(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
+	constructor(id : UnitIdentifier, fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
 			isLand : boolean, isSub : boolean, isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
+		this.id = id;
 		this.fullname = fullname;
 		this.ch = ch;
 		this.ch2 = ch2;
@@ -1560,6 +1565,29 @@ function get_reduced_group_string(input : string) :
 	return out.substring(0, out.length - 2);
 }
 
+
+function get_external_unit_str(um : unit_manager, input : string) :
+		string
+{
+	let map : Map<string, number> = new Map();
+
+	for (var char of input) {
+		let v = map.get(char);
+		if (v != undefined) {
+			map.set(char, v + 1);
+		} else {
+			map.set(char, 1);
+		}
+	}
+
+	let out = ""
+	map.forEach((value : number, key : string) => {
+		let stat = um.get_stat(key);
+		
+		out = out + value + stat.fullname + ", "
+	})
+	return out.substring(0, out.length - 2);
+}
 
 
 
@@ -2735,16 +2763,17 @@ interface aacalc_output {
 }
 
 function make_unit_group_string(
-		units : UnitInput[],	// array of [unit, count] pairs
-		ool : string[],		// array of order of loss
+		units : UnitSubgroup[],	// array of [unit, count] pairs
+		ool : UnitIdentifier[],		// array of order of loss
 		takes : number,		// number of land units to take with
+		aa_last : boolean,		// take aa as second last casualty for defender
 		is_naval : boolean
 		) : [string, string]		// unit_str , ool_str
 {
 	let um = new unit_manager();
 	let unitstr = "";
-	for (var unit of units) {
-		let ch = um.rev_map2.get(unit.fullname);
+	for (let unit of units) {
+		let ch = um.rev_map3.get(unit.unitId);
 		if (ch == undefined) {
 			throw new Error("make unit group string failed");
 		}
@@ -2754,8 +2783,9 @@ function make_unit_group_string(
 	}
 	
 	let oolstr = "";
-	for (var uname of ool) {
-		let ch = um.rev_map2.get(uname);
+	for (let i  = ool.length-1 ; i >= 0; i--) {
+		let unit = ool[i];
+		let ch = um.rev_map3.get(unit);
 		if (ch == undefined) {
 			throw new Error("make unit group string failed");
 		}
@@ -2763,6 +2793,9 @@ function make_unit_group_string(
 	}
 	if (!is_naval) {
 		oolstr += "BC"
+	}
+	if (is_naval) {
+		oolstr = "T" + oolstr;
 	}
     let out = apply_ool(unitstr, oolstr);
 	if (!is_naval && takes > 0) {
@@ -2868,7 +2901,7 @@ function aacalc(
 }
 
 // 
-function apply_ool(input : string, ool : string )  : string {
+function apply_ool(input : string, ool : string, aalast : boolean = false)  : string {
 	if (ool == "") {
 		return input;
 	}
@@ -2963,38 +2996,6 @@ function run2(argc : number, argv : string[]) {
 }
 
 
-interface UnitInput {
-    fullname : string,		// e.g. Inf, Arm, Fig, Bom, AA, Bat, Cru, Sub, Des, Tra, ACC
-	count : number
-}
-
-interface UnitGroup {
-	units : UnitInput[],
-	ool :   string[]		// units as above
-	takes : number,			// number of land unto take as ttacker
-	aaLast : boolean		// aa last as defender
-}
-
-interface WaveInput {
-	attack : 	UnitGroup,
-	defense : 	UnitGroup,
-	att_submerge : boolean,
-	def_submerge : boolean,
-	att_dest_last : boolean,
-	def_dest_last : boolean,
-	retreat_threshold : number		// retreat if <= number of units remaining.
-}
-
-interface MultiwaveInput {
-	wave_info : WaveInput[];
-	debug	: boolean;
-	prune_threshold : number;
-	report_prune_threshold : number;
-	is_naval : boolean;
-	num_runs	: number;
-}
-
-
 interface wave_input {
 	attacker : string;
 	defender : string;
@@ -3020,6 +3021,7 @@ interface multiwave_output {
 	out : aacalc_output;
 	output : aacalc_output[]
 }
+
 
 function multiwave(
 		input : multiwave_input
@@ -3122,6 +3124,7 @@ function multiwave(
 		defipc.push(def_ipcLoss);
 		atttakes.push(att_takes);
 	}
+	let att_cas : casualty_1d[];
 
 	let out2 : aacalc_output = {
 		attack : { survives : attsurvive, ipcLoss : attipc },
@@ -3138,7 +3141,8 @@ function multiwave(
 	return out;
 
 }
-function run3(argc : number, argv : string[]) {
+function run3(argc : number, argv : string[]) 
+{
 	let i = 1;
 	let debug = parseInt(argv[i++]);
 	let report_prune_threshold = parseFloat(argv[i++]);
@@ -3230,34 +3234,244 @@ function run3(argc : number, argv : string[]) {
 
 	console.timeEnd('Execution Time');
 }
-function run4(argc : number, argv : string[]) {
+function run4(argc : number, argv : string[]) 
+{
 	let i = 1;
 	let N = parseInt(argv[i++]);		// number of units
 
-	let units : UnitInput[] = [];	
-	let ool : string[] = [];
+	let units : UnitSubgroup[] = [];	
+	let ool : UnitIdentifier[] = [];
 
+	let um = new unit_manager();
 	for (let j = 0; j < N; j++) {
 		let uname = argv[i++];
 		let count = parseInt(argv[i++]);
-		let unit = { fullname : uname, count: count };
+		
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			throw new Error("rev_map3 failed");
+		}
+		let stat = um.get_stat(ch);
+		if (stat == undefined) {
+			throw new Error("stat failed");
+		}
+		let unit : UnitSubgroup = { unitId : stat.id, count: count };
 		units.push(unit);
 	}
 
 	let M = parseInt(argv[i++]);		// number of ool entries
 	for (let j = 0; j < M; j++) {
 		let uname = argv[i++];
-		ool.push(uname);
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			throw new Error("rev_map3 failed");
+		}
+		let stat = um.get_stat(ch);
+		if (stat == undefined) {
+			throw new Error("stat failed");
+		}
+		ool.push(stat.id);
 	}
 	let takes = parseInt(argv[i++]);
+	let aalast = parseInt(argv[i++]) > 9;
 	let isnaval = parseInt(argv[i++]) > 0;
 	
 	console.log(units, "units");
 	console.log(ool, "ool");
 	console.log(takes, "takes");
+	console.log(aalast, "aalast");
 	console.log(isnaval, "isnaval");
 	let unitstr = make_unit_group_string(
-		units, ool, takes, isnaval);
+		units, ool, takes, aalast, isnaval);
 
 	console.log(unitstr, "unit_str, ool_str");
+
+	let input : MultiwaveInput;
+	let waves : WaveInput[] = [];
+	let wave : WaveInput;
+	let att : UnitGroup;
+	let def : UnitGroup;
+	att = {	
+		units : units,
+		ool : ool,
+		takes : takes,	
+		aaLast : false
+	}
+	def = {	
+		units : units,
+		ool : ool,
+		takes : 0,	
+		aaLast : aalast
+	}
+	
+	wave = {
+		attack : att,
+		defense : def,
+		att_submerge : false,
+		def_submerge : false,
+		att_dest_last : false,
+		def_dest_last : false,
+		retreat_threshold : 0
+	}
+	
+	waves.push(wave);
+	input = {
+		wave_info : waves,
+		debug : false,
+		prune_threshold : 1e-12,	
+		report_prune_threshold : 1e-12,	
+		is_naval : isnaval,
+		num_runs : 1
+	}
+		
+	let output = multiwaveExternal(input);
+	console.log(JSON.stringify(output, null, 4));
 }
+
+
+
+type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a" | "internal";
+
+interface UnitSubgroup {
+    unitId : UnitIdentifier,		
+	count : number
+}
+
+interface UnitGroup {
+	units : UnitSubgroup[],
+	ool :   UnitIdentifier[]		// units as above
+	takes : number,			// number of land unto take as attacker
+	aaLast : boolean		// aa last as defender
+}
+
+interface WaveInput {
+	attack : 	UnitGroup,
+	defense : 	UnitGroup,
+	att_submerge : boolean,
+	def_submerge : boolean,
+	att_dest_last : boolean,
+	def_dest_last : boolean,
+	retreat_threshold : number		// retreat if <= number of units remaining.
+}
+
+interface MultiwaveInput {
+	wave_info : WaveInput[];
+	debug	: boolean;
+	prune_threshold : number;
+	report_prune_threshold : number;
+	is_naval : boolean;
+	num_runs	: number;
+}
+
+type Side = "attack" | "defense"
+export type CasualtiesInfo = Record<Side, Record<string, CasualtyInfo>>;
+
+export interface CasualtyInfo {
+  casualties: string
+  survivors: string
+  retreaters: string
+  amount: number
+  ipcLoss: number
+}
+
+interface CalcInfo {
+	survives : number[] 
+	ipcLoss : number[]
+}
+
+interface MultiwaveOutput {
+	attack : CalcInfo;
+	defense : CalcInfo;
+	casualtiesInfo : CasualtiesInfo;
+	takesTerritory : number[];
+	rounds : number[];
+	waves : number;
+}
+
+function multiwaveExternal(
+		input : MultiwaveInput
+		) 
+   : MultiwaveOutput
+{
+	let internal_input : multiwave_input;
+
+	let wavearr : wave_input[] = [];
+	for (let i = 0; i < input.wave_info.length; i++) { 
+		let wave = input.wave_info[i];
+		let [att_unitstr, att_oolstr] = make_unit_group_string(
+			wave.attack.units, wave.attack.ool, wave.attack.takes, false, input.is_naval);
+		let [def_unitstr, def_oolstr] = make_unit_group_string(
+			wave.defense.units, wave.defense.ool, 0, wave.defense.aaLast, input.is_naval);
+		
+		let internal_wave = { attacker : att_unitstr, 
+			  defender : def_unitstr,
+			  def_ool : def_oolstr,
+			  att_submerge : wave.att_submerge,
+			  def_submerge : wave.def_submerge,
+			  att_dest_last : wave.att_dest_last,
+			  def_dest_last : wave.def_dest_last,
+			  retreat_threshold : wave.retreat_threshold };
+		
+		wavearr.push(internal_wave);
+	}
+
+	internal_input = {
+		wave_info : wavearr,
+		debug	: input.debug,
+		prune_threshold : input.prune_threshold,
+		report_prune_threshold : input.report_prune_threshold,
+		is_naval : input.is_naval,
+		num_runs	: input.num_runs
+		}
+
+	let internal_output = multiwave(internal_input);
+    let out : MultiwaveOutput;
+	let rounds : number[] = [];
+	for (let i = 0; i < internal_output.output.length; i++) {
+		rounds.push(-1);
+	}
+	let casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
+	let att : Record<string, CasualtyInfo> = {};
+	let def : Record<string, CasualtyInfo> = {};
+   
+	let lastWave = internal_output.output.length - 1;
+	let lastOutput = internal_output.output[lastWave];
+	let um = new unit_manager();
+	for (let i = 0; i < lastOutput.att_cas.length; i++) {
+		let cas = lastOutput.att_cas[i];
+		let casualty : CasualtyInfo;
+		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+					survivors :  get_external_unit_str(um, cas.remain),
+					retreaters : "",
+					amount : 	cas.prob,	
+					ipcLoss :    get_cost_from_str(um, cas.casualty)
+					}
+		att[i] = casualty;	
+	}
+	for (let i = 0; i < lastOutput.def_cas.length; i++) {
+		let cas = lastOutput.def_cas[i];
+		let casualty : CasualtyInfo;
+		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+					survivors :  get_external_unit_str(um, cas.remain),
+					retreaters : "",
+					amount : 	cas.prob,	
+					ipcLoss :    get_cost_from_str(um, cas.casualty)
+					}
+		def[i] = casualty;	
+	}
+	casualtiesInfo["attack"] = att;
+	casualtiesInfo["defense"] = def;
+	
+	out = {
+		attack : internal_output.out.attack,
+		defense : internal_output.out.defense,
+		waves : internal_output.output.length,		
+		takesTerritory : internal_output.out.takesTerritory,
+		rounds : rounds,
+		casualtiesInfo : casualtiesInfo
+	}
+	
+    return out;
+}
+
+
