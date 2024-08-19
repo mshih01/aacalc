@@ -3,18 +3,18 @@
 1e-12							;; report threshold
 1e-12							;; prune threshold
 0								;; is naval
-1a, 20f, 19a, 100i
+20f, 20a, 100i
 20f, 20a, 100i, 4c
 0								;; strafe
 1							;; num times
-1a, 20f, 9a, 30i
+1a, 20f, 9a, 40i
 4f
 ftaibc
 
 
 ftaibc
 0
-0
+5
 0
 0
 

@@ -5,14 +5,6 @@ import {unit_manager,
 		multiwave_input, wave_input, multiwave,
 		aacalc_input, aacalc_output, aacalc} from "./solve";
 
-import {UnitIdentifier, UnitSubgroup,
-		make_unit_group_string,
-		UnitIdentifier2UnitMap, 
-		Unit2UnitIdentifierMap,
-        MultiwaveInput, WaveInput, UnitGroup, multiwaveExternal } from "./external";
-
-
-
 const stdin: any = process.stdin;
 
 const epsilon : number = 1e-9;
@@ -41,7 +33,6 @@ rl.once('close', () => {
             run3(argc, argv);
             break;
         case 2:
-            run4(argc, argv);
             // example parse unit iniput
             break;
     }
@@ -143,106 +134,6 @@ function run3(argc : number, argv : string[])
 	console.timeEnd('Execution Time');
 }
 
-
-function run4(argc : number, argv : string[]) 
-{
-	let i = 1;
-	let N = parseInt(argv[i++]);		// number of units
-
-	let units : UnitSubgroup[] = [];	
-	let ool : UnitIdentifier[] = [];
-
-	let um = new unit_manager();
-	for (let j = 0; j < N; j++) {
-		let uname = argv[i++];
-		let count = parseInt(argv[i++]);
-		
-		let ch = um.rev_map2.get(uname);
-		if (ch == undefined) {
-			console.log(ch, "units");
-			throw new Error("rev_map3 failed");
-		}
-		let id = Unit2UnitIdentifierMap.get(ch);
-		if (id == undefined) {
-			throw new Error("id failed");
-		}
-		let unit : UnitSubgroup = { unitId : id, count: count };
-		units.push(unit);
-	}
-
-	let M = parseInt(argv[i++]);		// number of ool entries
-	for (let j = 0; j < M; j++) {
-		let uname = argv[i++];
-		let ch = um.rev_map2.get(uname);
-		if (ch == undefined) {
-			console.log(ch, "ool");
-			throw new Error("rev_map3 failed");
-		}
-		let id = Unit2UnitIdentifierMap.get(ch);
-		if (id == undefined) {
-			throw new Error("id failed");
-		}
-		ool.push(id);
-	}
-	let takes = parseInt(argv[i++]);
-	let aalast = parseInt(argv[i++]) > 9;
-	let isnaval = parseInt(argv[i++]) > 0;
-	
-	console.log(units, "units");
-	console.log(ool, "ool");
-	console.log(takes, "takes");
-	console.log(aalast, "aalast");
-	console.log(isnaval, "isnaval");
-	let unitstr = make_unit_group_string(
-		units, ool, takes, aalast, isnaval);
-
-	console.log(unitstr, "unit_str, ool_str");
-
-	let input : MultiwaveInput;
-	let waves : WaveInput[] = [];
-	let wave : WaveInput;
-	let att : UnitGroup;
-	let def : UnitGroup;
-	att = {	
-		units : units,
-		ool : ool,
-		takes : takes,	
-		aaLast : false
-	}
-	def = {	
-		units : units,
-		ool : ool,
-		takes : 0,	
-		aaLast : aalast
-	}
-	
-	wave = {
-		attack : att,
-		defense : def,
-		att_submerge : false,
-		def_submerge : false,
-		att_dest_last : false,
-		def_dest_last : false,
-		retreat_threshold : 0
-	}
-	
-	waves.push(wave);
-	input = {
-		wave_info : waves,
-		debug : false,
-		prune_threshold : 1e-12,	
-		report_prune_threshold : 1e-12,	
-		is_naval : isnaval,
-		num_runs : 1
-	}
-		
-	console.log(JSON.stringify(input, null, 4));
-	let output = multiwaveExternal(input);
-	console.log(JSON.stringify(input, null, 4));
-	console.log(JSON.stringify(output, null, 4));
-}
-
-
 function run2(argc : number, argv : string[]) {
 	let i = 1;
 	let debug = parseInt(argv[i++]);
@@ -301,7 +192,7 @@ function run2(argc : number, argv : string[]) {
 	
 	let output = aacalc(input) 
 
-	console.log ("output", output)
+	console.log ("output", JSON.stringify(output, null, 4))
     console.log ("casualtiesInfo", JSON.stringify(output.casualtiesInfo, null, 4))
     console.log ("att_cas", JSON.stringify(output.att_cas, null, 4))
     console.log ("def_cas", JSON.stringify(output.def_cas, null, 4))

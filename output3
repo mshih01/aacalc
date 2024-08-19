@@ -5270,7 +5270,7 @@ defsurvive: 0.7737696568587512
     },
     ... 249 more items
   ],
-  takesTerritory: [ 0, 0, 0 ]
+  takesTerritory: [ 0.005407564673380124, 0, 0 ]
 } wave 0
 output {
   out: {
@@ -5279,7 +5279,7 @@ output {
     casualtiesInfo: [],
     att_cas: [],
     def_cas: [],
-    takesTerritory: [ 0 ]
+    takesTerritory: [ 0.005407564673380124 ]
   },
   output: [
     {
@@ -5301,6 +5301,6 @@ out {
   casualtiesInfo: [],
   att_cas: [],
   def_cas: [],
-  takesTerritory: [ 0 ]
+  takesTerritory: [ 0.005407564673380124 ]
 }
-Execution Time: 306.017ms
+Execution Time: 321.786ms

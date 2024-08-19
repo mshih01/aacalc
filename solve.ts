@@ -1171,7 +1171,7 @@ function hasLand(um : unit_manager, input : string) : boolean {
 		}
 	}
 	return false;
-}
+}  
 
 function remove_one_plane(um : unit_manager, input_str : string) : [string, string]
 {
@@ -1885,7 +1885,7 @@ function print_naval_results(
         if (p > 0) {
 			totalattloss += (att_loss * p);
 			totaldefloss += (def_loss * p);
-			if (hasLand(problem.um, att)) {
+			if (!baseproblem.is_naval && hasLand(problem.um, att)  && def.length == 0) {
 				takes += p;
 			}
 			//console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} = ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
@@ -2922,6 +2922,7 @@ export function multiwave(
 			defend_add_reinforce));
 		let myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
+		myprob.retreat_threshold = wave.retreat_threshold;
 		let problemArr : naval_problem[];
 		problemArr = [];
 		problemArr.push(myprob);
