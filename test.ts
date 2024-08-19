@@ -86,7 +86,7 @@ class unit_manager {
 		this.make_unit("inf", "Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
 		this.make_unit("art", "Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
 		this.make_unit("internal", "", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
-		this.make_unit("arm", "Tnk", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
+		this.make_unit("arm", "Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
 		this.make_unit("fig","Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
 		this.make_unit("bom", "Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
 		this.make_unit("acc", "ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
@@ -1584,7 +1584,7 @@ function get_external_unit_str(um : unit_manager, input : string) :
 	map.forEach((value : number, key : string) => {
 		let stat = um.get_stat(key);
 		
-		out = out + value + stat.fullname + ", "
+		out = out + value + " " + stat.fullname + ", "
 	})
 	return out.substring(0, out.length - 2);
 }
@@ -3249,6 +3249,7 @@ function run4(argc : number, argv : string[])
 		
 		let ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
+			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
 		let stat = um.get_stat(ch);
@@ -3264,6 +3265,7 @@ function run4(argc : number, argv : string[])
 		let uname = argv[i++];
 		let ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
+			console.log(ch, "ool");
 			throw new Error("rev_map3 failed");
 		}
 		let stat = um.get_stat(ch);
