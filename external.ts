@@ -8,6 +8,8 @@ import {unit_manager,
 
 export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a";
 
+export type Army = Partial<Record<UnitIdentifier, number>>;
+
 export const  UnitIdentifier2UnitMap : Record<UnitIdentifier, string> = {
 		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "B", 
 		ic : "", inf_a: "i", art_a : "a", arm_a : "t", bat1: "B"}
@@ -20,13 +22,8 @@ export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 			["d", "inf"], ["T", "tra"], ["e", "aa"]
 		]);
 
-export interface UnitSubgroup {
-    unitId : UnitIdentifier,		
-	count : number
-}
-
 export interface UnitGroup {
-	units : UnitSubgroup[],
+	units : Army,
 	ool :   UnitIdentifier[]		// units as above
 	takes : number,			// number of land unto take as attacker
 	aaLast : boolean		// aa last as defender
@@ -164,7 +161,7 @@ export function multiwaveExternal(
 
 
 export function make_unit_group_string(
-		units : UnitSubgroup[],	// array of [unit, count] pairs
+		units : Army,
 		ool : UnitIdentifier[],		// array of order of loss
 		takes : number,		// number of land units to take with
 		aa_last : boolean,		// take aa as second last casualty for defender
@@ -174,14 +171,18 @@ export function make_unit_group_string(
 
 	let unitstr = "";
 	let um = new unit_manager();
-	for (let unit of units) {
-		let ch = UnitIdentifier2UnitMap[unit.unitId];
-		if (ch == undefined) {
-			throw new Error("make unit group string failed");
-		}
-		for (let i = 0; i < unit.count; i++) {
-			unitstr += ch;
-		}
+
+	for (const [uid , count ] of Object.entries(units)) {
+        if (count == 0) {
+            continue;
+        }
+        let ch = UnitIdentifier2UnitMap[<UnitIdentifier>uid];
+        if (ch == undefined) {
+            throw new Error("make unit group string failed");
+        }
+        for (let i = 0; i < count; i++) {
+            unitstr += ch;
+        }
 	}
 	
 	let oolstr = "";
@@ -227,4 +228,6 @@ export function make_unit_group_string(
 	}
 	return [out, oolstr];
 }
+
+
 

@@ -4,7 +4,8 @@ import * as readline from 'readline';
 import {unit_manager, 
 		} from "./solve";
 
-import {UnitIdentifier, UnitSubgroup, 
+import {UnitIdentifier, 
+		Army,
 		UnitIdentifier2UnitMap,
 		Unit2UnitIdentifierMap,
 		make_unit_group_string,
@@ -48,7 +49,7 @@ function run4(argc : number, argv : string[])
 	let i = 1;
 	let N = parseInt(argv[i++]);		// number of units
 
-	let units : UnitSubgroup[] = [];	
+	let units : Army = {};
 	let ool : UnitIdentifier[] = [];
 
 	let um = new unit_manager();
@@ -65,8 +66,7 @@ function run4(argc : number, argv : string[])
         if (id == undefined) {
             throw new Error("id failed");
         }
-		let unit : UnitSubgroup = { unitId : id, count: count };
-		units.push(unit);
+		units[id] = count;
 	}
 
 	let M = parseInt(argv[i++]);		// number of ool entries
