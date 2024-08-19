@@ -1,51 +1,24 @@
-1								;; is multiwave
+0								;; is multiwave
 0 								;; debug
 1e-12							;; report threshold
 1e-12							;; prune threshold
-0								;; is naval
-1a, 20f, 19a, 100i
-20f, 20a, 100i, 4c
+1								;; is naval
+40f, 120t, 40a, 200i
+40f, 120t, 40a, 200i
 0								;; strafe
 1							;; num times
-1a, 20f, 9a, 30i
-4f
-ftaibc
-
-
-ftaibc
-0
-0
-0
-0
+0								;; retreat threshold
+0								;; in progress
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
 
 
 
 
 
-1a, 20f, 20t, 19a, 60i
-20f, 20t, 20a, 60i, 5c
-10b, 20f, 10A, 20S
-20f, 10A, 20D, 20S
 
-50f, 50S
-50f, 50S
-10A, 10b, 20f, 20S
-10A, 20f, 20D, 20S
-
-20f, 10C, 10A, 20S
-20f, 10C, 10A, 20S
-20f, 5C, 5A, 20S
-20f, 5C, 5A, 20S
-
-
-10f, 5C, 5A, 10S
-10f, 5C, 5A, 10S
-
-10f, 5C, 5A, 10S
-10f, 5C, 5A, 10S
-
-75f, 75S
-75f, 5A, 5D, 75S
 
 
 1t, 1b, 4f, 4a, 21i, 1C, 1B
