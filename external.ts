@@ -6,7 +6,19 @@ import {unit_manager,
 		get_external_unit_str,	
 		get_cost_from_str } from "./solve";
 
-export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a" | "internal";
+export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a";
+
+export const  UnitIdentifier2UnitMap : Record<UnitIdentifier, string> = {
+		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "B", 
+		ic : "", inf_a: "i", art_a : "a", arm_a : "t", bat1: "B"}
+
+export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
+		[
+			["c", "aa"], ["i", "inf"], ["a", "art"], ["t", "arm"],
+			["f", "fig"], ["b", "bom"], ["S", "sub"], ["D", "des"],
+			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"],
+			["d", "inf"], ["T", "tra"], ["e", "aa"]
+		]);
 
 export interface UnitSubgroup {
     unitId : UnitIdentifier,		
@@ -159,10 +171,11 @@ export function make_unit_group_string(
 		is_naval : boolean
 		) : [string, string]		// unit_str , ool_str
 {
-	let um = new unit_manager();
+
 	let unitstr = "";
+	let um = new unit_manager();
 	for (let unit of units) {
-		let ch = um.rev_map3.get(unit.unitId);
+		let ch = UnitIdentifier2UnitMap[unit.unitId];
 		if (ch == undefined) {
 			throw new Error("make unit group string failed");
 		}
@@ -174,7 +187,7 @@ export function make_unit_group_string(
 	let oolstr = "";
 	for (let i  = ool.length-1 ; i >= 0; i--) {
 		let unit = ool[i];
-		let ch = um.rev_map3.get(unit);
+		let ch = UnitIdentifier2UnitMap[unit];
 		if (ch == undefined) {
 			throw new Error("make unit group string failed");
 		}

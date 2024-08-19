@@ -1,10 +1,13 @@
 
 import * as readline from 'readline';
 
-import {unit_manager, make_unit_group_string
+import {unit_manager, 
 		} from "./solve";
 
 import {UnitIdentifier, UnitSubgroup, 
+		UnitIdentifier2UnitMap,
+		Unit2UnitIdentifierMap,
+		make_unit_group_string,
 		MultiwaveInput, WaveInput, UnitGroup, multiwaveExternal } from "./external";
 
 
@@ -58,11 +61,11 @@ function run4(argc : number, argv : string[])
 			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
-		let stat = um.get_stat(ch);
-		if (stat == undefined) {
-			throw new Error("stat failed");
-		}
-		let unit : UnitSubgroup = { unitId : stat.id, count: count };
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		let unit : UnitSubgroup = { unitId : id, count: count };
 		units.push(unit);
 	}
 
@@ -74,11 +77,11 @@ function run4(argc : number, argv : string[])
 			console.log(ch, "ool");
 			throw new Error("rev_map3 failed");
 		}
-		let stat = um.get_stat(ch);
-		if (stat == undefined) {
-			throw new Error("stat failed");
-		}
-		ool.push(stat.id);
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		ool.push(id);
 	}
 	let takes = parseInt(argv[i++]);
 	let aalast = parseInt(argv[i++]) > 9;

@@ -1,7 +1,7 @@
 
 import { Heap } from 'heap-js';
 
-import { UnitIdentifier, UnitSubgroup  } from "./external";
+import { UnitIdentifier } from "./external";
 
 const epsilon : number = 1e-9;
 
@@ -48,29 +48,28 @@ export class unit_manager {
 		this.unit_group_manager = new unit_group_manager();
 	}
 	init_units() {
-		this.make_unit("internal", "", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
-		this.make_unit("aa", "AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
-		this.make_unit("inf", "Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
-		this.make_unit("art", "Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
-		this.make_unit("internal", "", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
-		this.make_unit("arm", "Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
-		this.make_unit("fig","Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
-		this.make_unit("bom", "Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
-		this.make_unit("acc", "ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
-		this.make_unit("cru", "Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
-		this.make_unit("des", "Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
-		this.make_unit("sub", "Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
-		this.make_unit("bat", "Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
-		this.make_unit("bat1", "", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
-		this.make_unit("tra", "Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
+		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
+		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
+		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
+		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
+		this.make_unit("", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
+		this.make_unit("Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
+		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
+		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
+		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
+		this.make_unit("Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
+		this.make_unit("Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
+		this.make_unit("Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
+		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
+		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
+		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
 	}
-	make_unit(id : UnitIdentifier, fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
+	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
-		let unit = new unit_stat(id, fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
+		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
 		this.unit_stats.set(ch, unit);
 		this.rev_map.set(ch2, ch);
 		this.rev_map2.set(fullname, ch);
-		this.rev_map3.set(id, ch);
 	}
 	get_stat(ch : string) : unit_stat {
 		let v = this.unit_stats.get(ch);
@@ -557,7 +556,6 @@ class result_data_t {
 }
 
 class unit_stat {
-	id : UnitIdentifier;
 	fullname : string;
 	ch : string;
 	ch2 : string;
@@ -571,9 +569,8 @@ class unit_stat {
 	isAir : boolean;
 	isAA : boolean;
 	isBombard : boolean;
-	constructor(id : UnitIdentifier, fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
+	constructor(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
 			isLand : boolean, isSub : boolean, isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
-		this.id = id;
 		this.fullname = fullname;
 		this.ch = ch;
 		this.ch2 = ch2;
@@ -2727,70 +2724,6 @@ export interface aacalc_output {
 	att_cas : casualty_1d[]
 	def_cas : casualty_1d[]
 	takesTerritory : number[]
-}
-
-export function make_unit_group_string(
-		units : UnitSubgroup[],	// array of [unit, count] pairs
-		ool : UnitIdentifier[],		// array of order of loss
-		takes : number,		// number of land units to take with
-		aa_last : boolean,		// take aa as second last casualty for defender
-		is_naval : boolean
-		) : [string, string]		// unit_str , ool_str
-{
-	let um = new unit_manager();
-	let unitstr = "";
-	for (let unit of units) {
-		let ch = um.rev_map3.get(unit.unitId);
-		if (ch == undefined) {
-			throw new Error("make unit group string failed");
-		}
-		for (let i = 0; i < unit.count; i++) {
-			unitstr += ch;
-		}
-	}
-	
-	let oolstr = "";
-	for (let i  = ool.length-1 ; i >= 0; i--) {
-		let unit = ool[i];
-		let ch = um.rev_map3.get(unit);
-		if (ch == undefined) {
-			throw new Error("make unit group string failed");
-		}
-		oolstr += ch;
-	}
-	if (!is_naval) {
-		oolstr += "BC"
-	}
-	if (is_naval) {
-		oolstr = "T" + oolstr;
-	}
-    let out = apply_ool(unitstr, oolstr);
-	if (!is_naval && takes > 0) {
-		// move takes land units to the front.
-		let head = ""
-		let remains = out;
-		for (let i = 0; i < takes; i++) {
-			let j;
-			let found = false;
-			let ch;
-			for (j = 0; j < remains.length; j++) {
-				ch = remains.charAt(j);
-				let stat = um.get_stat(ch);
-				if (stat == undefined) {
-					throw new Error("make unit group string failed");
-				}
-				if (stat.isLand) {
-					found = true;
-					remains = remains.substr(0, j) + remains.substr(j+1)
-					head += ch;
-					break;
-				}
-			}
-			out = head + remains;
-			console.log(out);
-		}
-	}
-	return [out, oolstr];
 }
 
 export function aacalc(

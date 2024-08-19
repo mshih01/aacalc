@@ -6,17 +6,14 @@ external.ts		-- external interfaces for multiwaveExternal
 test.ts			-- command line testing code.
 test2.ts		-- example for multiwaveExternal
 
-usage:
+examples:
 
-node test.js < inputfile > outputfile
-
-input, input3 are example input files.
-output, output3 are example output files
-
-## test the multiwaveExternal interface
-## code is in run4().. 
+## test the multiwaveExternal interface / run4()
 node test2.js < input7 > output7
 
 
-## multiwave() command line
+## multiwave() command line / run3()
 node test.js < input > output
+
+## aacalc() command line / run2()
+node test.js < input2 > output2
