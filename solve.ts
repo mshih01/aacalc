@@ -2835,6 +2835,7 @@ export interface wave_input {
 	attacker : string;
 	defender : string;
 	def_ool : string;
+	def_aalast : boolean;
 	att_submerge : boolean;
 	def_submerge : boolean;
 	att_dest_last : boolean;
@@ -2895,23 +2896,23 @@ export function multiwave(
 					p1 = cas.prob;
 					p2 = 0;
 				}
-				let newcasstr = apply_ool(cas.remain + def_token, wave.def_ool);
+				let newcasstr = apply_ool(cas.remain + def_token, wave.def_ool, wave.def_aalast);
 			
 				let newcasualty : casualty_1d = { remain : newcasstr, casualty : cas.casualty, prob : p1}
 				defend_add_reinforce.push(newcasualty);
 				if (p2 > 0) {
-					let newcasstr = apply_ool(cas.remain, wave.def_ool);
+					let newcasstr = apply_ool(cas.remain, wave.def_ool, wave.def_aalast);
 					let newcasualty : casualty_1d = { remain : newcasstr, casualty : cas.casualty, prob : p2}
 					//defend_add_reinforce.push(newcasualty);
 				}
 			}
 			let defender = apply_ool(defend_add_reinforce[defend_add_reinforce.length-1].remain + 
-						defend_add_reinforce[defend_add_reinforce.length-1].casualty, wave.def_ool);
+						defend_add_reinforce[defend_add_reinforce.length-1].casualty, wave.def_ool, wave.def_aalast);
 			defenders_internal = preparse(input.is_naval, defender, 1);
 
 		} else {
 			let defenders_token = preparse_token(wave.defender, 1);
-			let defenders_ool = apply_ool(defenders_token, wave.def_ool);
+			let defenders_ool = apply_ool(defenders_token, wave.def_ool, wave.def_aalast);
 			defenders_internal = preparse(input.is_naval, defenders_ool, 1);
 		}
 		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
@@ -2951,7 +2952,7 @@ export function multiwave(
 			for (let j = 0 ; j < i; j++) {
 				def_ipcLoss += (output[j].takesTerritory[0] * get_cost_from_str(probArr[j].um, probArr[j].def_data.unit_str, 0));
 			}
-			def_ipcLoss -= defipc[i-1];
+			//def_ipcLoss -= defipc[i-1];
 			att_takes += atttakes[i-1];
 		}
 		attsurvive.push(att_survives);

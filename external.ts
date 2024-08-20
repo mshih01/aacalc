@@ -91,6 +91,7 @@ export function multiwaveExternal(
 		let internal_wave = { attacker : att_unitstr, 
 			  defender : def_unitstr,
 			  def_ool : def_oolstr,
+			  def_aalast : wave.defense.aaLast,
 			  att_submerge : wave.att_submerge,
 			  def_submerge : wave.def_submerge,
 			  att_dest_last : wave.att_dest_last,
@@ -200,7 +201,7 @@ export function make_unit_group_string(
 	if (is_naval) {
 		oolstr = "T" + oolstr;
 	}
-    let out = apply_ool(unitstr, oolstr);
+    let out = apply_ool(unitstr, oolstr, aa_last);
 	if (!is_naval && takes > 0) {
 		// move takes land units to the front.
 		let head = ""
