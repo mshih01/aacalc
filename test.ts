@@ -74,6 +74,10 @@ function run3(argc : number, argv : string[])
 	let retreat1 = parseInt(argv[i++]);
 	let retreat2 = parseInt(argv[i++]);
 	let retreat3 = parseInt(argv[i++]);
+	let aalast1 = parseInt(argv[i++]) > 0;
+	let aalast2 = parseInt(argv[i++]) > 0;
+	let aalast3 = parseInt(argv[i++]) > 0;
+
 
 	console.time('Execution Time');
 
@@ -86,7 +90,7 @@ function run3(argc : number, argv : string[])
 	wave1 = { attacker : attackers, 
 			  defender : defenders,
 			  def_ool : "",
-			  def_aalast : false, 
+			  def_aalast : aalast1, 
 			  att_submerge : false,
 			  def_submerge : false,
 			  att_dest_last : false,
@@ -95,7 +99,7 @@ function run3(argc : number, argv : string[])
 	wave2 = { attacker : attackers2, 
 			  defender : defenders2,
 			  def_ool : def_ool2,
-			  def_aalast : false, 
+			  def_aalast : aalast2, 
 			  att_submerge : false,
 			  def_submerge : false,
 			  att_dest_last : false,
@@ -104,7 +108,7 @@ function run3(argc : number, argv : string[])
 	wave3 = { attacker : attackers3, 
 			  defender : defenders3,
 			  def_ool : def_ool3,
-			  def_aalast : false, 
+			  def_aalast : aalast3, 
 			  att_submerge : false,
 			  def_submerge : false,
 			  att_dest_last : false,

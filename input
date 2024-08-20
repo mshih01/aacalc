@@ -4,20 +4,23 @@
 1e-12							;; prune threshold
 0								;; is naval
 20f, 20a, 100i
-20f, 20a, 100i, 4c
+20f, 5c, 20a, 100i
 0								;; strafe
 1							;; num times
-1a, 20f, 9a, 40i
+1a, 20f, 19a, 50i
 4f
 ftaibc
 
 
 ftaibc
 0
-5
 0
 0
-
+0
+1
+1
+0
+0
 
 
 
