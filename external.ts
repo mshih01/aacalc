@@ -205,6 +205,17 @@ export function make_unit_group_string(
 	if (is_naval) {
 		oolstr = "T" + oolstr;
 	}
+    let mymap : Map<string, number> = new Map();
+	let ool2 = "";
+	for (const ch of oolstr) {
+		if (mymap.has(ch)) {
+			continue;
+		}	
+		mymap.set(ch, 1);
+		ool2 += ch;
+	}
+	oolstr = ool2;
+	
     let out = apply_ool(unitstr, oolstr, aa_last);
 	if (!is_naval && takes > 0) {
 		// move takes land units to the front.
