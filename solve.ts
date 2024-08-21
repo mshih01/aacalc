@@ -3009,6 +3009,7 @@ export function multiwave(
 				def_ipcLoss += (output[j].takesTerritory[0] * get_cost_from_str(probArr[j].um, probArr[j].def_data.unit_str, 0));
 			}
 			//def_ipcLoss -= defipc[i-1];
+			att_ipcLoss += attipc[i-1];
 			att_survives += atttakes[i-1];
 			att_takes += atttakes[i-1];
 		}
