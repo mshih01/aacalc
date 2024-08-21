@@ -118,7 +118,7 @@ export function multiwaveExternal(
     let out : MultiwaveOutput;
 	let rounds : number[] = [];
 	for (let i = 0; i < internal_output.output.length; i++) {
-		rounds.push(-1);
+		rounds.push(internal_output.output[i].rounds);
 	}
 	let casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
 	let att : Record<string, CasualtyInfo> = {};

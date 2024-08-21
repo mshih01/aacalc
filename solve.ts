@@ -342,6 +342,7 @@ class naval_problem {
 	def_data : naval_unit_group;
 	is_nonaval : boolean;
 	rounds : number = -1;
+	average_rounds : number = -1;
 	N : number;
 	M : number;
 	P_1d : number[] = [];
@@ -649,6 +650,48 @@ function remove_dlast_navalhits2( node : naval_unit_graph_node, hits : number) :
 {
 	let n = hits;
 	return node.ndlastnavalArr[n];	
+}
+
+function is_terminal_state(problem : naval_problem, N : number, M : number) : boolean 
+{
+    let attnode = problem.att_data.nodeArr[N];
+    let defnode = problem.def_data.nodeArr[M];
+    if (attnode.N == 0 || defnode.N == 0) {
+        return true;
+    }
+	if (problem.retreat_threshold > 0) {
+		if (attnode.N <= problem.retreat_threshold) {
+			return true;
+		}
+	}
+    let N1 = attnode.num_subs;
+    let N2 = attnode.num_air;
+    let N3 = attnode.num_naval;
+    let M1 = defnode.num_subs;
+    let M2 = defnode.num_air;
+    let M3 = defnode.num_naval;
+	if ((N1 > 0 && N2 == 0 && N3 == 0) && (M1 == 0 && M2 > 0 && M3 == 0)) {
+        return true;
+	}
+	if ((M1 > 0 && M2 == 0 && M3 == 0) && (N1 == 0 && N2 > 0 && N3 == 0)) {
+        return true;
+	}
+	return false;
+}
+
+function get_terminal_state_prob(problem : naval_problem) : number {
+	let N = problem.att_data.nodeArr.length;
+	let M = problem.def_data.nodeArr.length;
+	let prob = 0;
+
+	for (let i = 0; i < N ; i++) {
+		for (let j = 0; j < M ; j++) {
+			if (is_terminal_state(problem, i, j)) {
+				prob += problem.getP(i, j);
+			}
+		}
+	}
+	return prob;
 }
 
 function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number)
@@ -1787,6 +1830,7 @@ function print_results(
 				casualtiesInfo : casualties,	
 				att_cas : att_cas_1d,	
 				def_cas : def_cas_1d,	
+				rounds : -1,
 				takesTerritory : [takes, 0, 0]
 			};
 
@@ -1947,6 +1991,7 @@ function print_naval_results(
 				casualtiesInfo : casualties,	
 				att_cas : att_cas_1d,	
 				def_cas : def_cas_1d,	
+				rounds : baseproblem.average_rounds,
 				takesTerritory : [takes, 0, 0]
 			};
 
@@ -2109,6 +2154,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 
 	if (problem.rounds > 0) {
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
+		let prob_ends : number[] = [];
 		console.log(rounds, "rounds");
 		for (let ii = 0; ii < rounds; ii++) {
 			for (i = N-1; i >= 0 ; i--) {
@@ -2116,7 +2162,20 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					solve_one_naval_state(problem, i, j, true, 0);
 				}
 			}
+			let p = get_terminal_state_prob(problem);
+			prob_ends.push(p);
+			if (p == prob_ends[ii-1]) {
+				break;
+			}
 		}
+		console.log(prob_ends.length, "stopped after rounds");
+		let sum = 0.0
+		for (let i = 0; i < prob_ends.length; i++) {
+			let p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
+			sum += ((i+1) * p);
+		}
+		console.log(sum, "average rounds");
+		problem.average_rounds = sum;
     } else {
 		for (i = 0; i < N ; i++) {
 			for (j = 0; j < M ; j++) {
@@ -2762,6 +2821,7 @@ export interface aacalc_output {
 	casualtiesInfo : casualty_2d[]
 	att_cas : casualty_1d[]
 	def_cas : casualty_1d[]
+	rounds : number;
 	takesTerritory : number[]
 }
 
@@ -3027,6 +3087,7 @@ export function multiwave(
 		casualtiesInfo : [],
 		att_cas : [],
 		def_cas : [],
+		rounds : -1,
 		takesTerritory : atttakes
 	}
 
