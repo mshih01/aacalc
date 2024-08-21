@@ -1173,6 +1173,18 @@ function hasLand(um : unit_manager, input : string) : boolean {
 	return false;
 }  
 
+function hasNonAAUnit(um : unit_manager, input : string) : boolean {
+	for (let i = input.length-1; i >= 0; i--) {
+		let ch = input.charAt(i);
+		let stat = um.get_stat(ch);
+		if (!stat.isAA) {
+			return true;
+		}
+	}
+	return false;
+}  
+
+
 function remove_one_plane(um : unit_manager, input_str : string) : [string, string]
 {
 	let N = input_str.length;
@@ -2009,7 +2021,10 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	if (problem.def_cas == undefined) {
 		/* initial seed */
 		problem.setP(0, 0, problem.prob);
-		if (problem.att_data.num_aashot > 0) {
+		let doAA = !problem.is_naval &&
+				problem.att_data.num_aashot > 0 && 
+				hasNonAAUnit(problem.um, problem.def_data.unit_str);
+		if (doAA) {
 			let aashots = ""
 			for (let i =0; i < problem.att_data.num_aashot; i++) {
 				aashots = aashots + 'c';
@@ -2048,12 +2063,15 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				problem.setP(0, ii, problem.def_cas[i].prob);
 				let p = problem.def_cas[i].prob;
 				let numAA = count_units(problem.def_cas[i].remain, "c");
-
-				if (numAA > 0 && problem.att_data.num_aashot > 0 && N != undefined && P != undefined) {
+				let doAA = !problem.is_naval &&
+						numAA > 0 && 
+						problem.att_data.num_aashot > 0 && 
+						hasNonAAUnit(problem.um, problem.def_cas[i].remain);
+				if (doAA && N != undefined && aa_data != undefined) {
 					let NN = Math.min(numAA * 3 + 1, N);
 					
 					for (let i = 0; i < NN; i++) {
-						let prob = P[NN-1][i];
+						let prob = aa_data.get_prob_table(NN-1, i);
 						let n = remove_aahits( problem.att_data, i, 0);
 						problem.setP(n, ii, p * prob);
 						console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
@@ -2746,6 +2764,9 @@ export function aacalc(
 		console.timeEnd('init');
 
 		let numAA = count_units(myprob.def_data.unit_str, 'c');
+		let doAA = 
+				numAA > 0 && 
+				hasNonAAUnit(myprob.um, myprob.def_data.unit_str);
 		if (numAA > 0) {
 			console.time('solveAA');
 			let output = solveAA(myprob, numAA);
@@ -2826,7 +2847,7 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 			out += ch;
 		}
 	}
-	if (aalast) {
+	if (aalast && out.length > 2) {
 		// move aa's to the second to last
 		for (let i = 0; i < out.length; i++) {
 			let ch = out.charAt(i);
@@ -2962,6 +2983,7 @@ export function multiwave(
 				def_ipcLoss += (output[j].takesTerritory[0] * get_cost_from_str(probArr[j].um, probArr[j].def_data.unit_str, 0));
 			}
 			//def_ipcLoss -= defipc[i-1];
+			att_survives += atttakes[i-1];
 			att_takes += atttakes[i-1];
 		}
 		attsurvive.push(att_survives);
