@@ -11,7 +11,7 @@ export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub
 export type Army = Partial<Record<UnitIdentifier, number>>;
 
 export const  UnitIdentifier2UnitMap : Record<UnitIdentifier, string> = {
-		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "B", 
+		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "F", 
 		ic : "", inf_a: "i", art_a : "a", arm_a : "t", bat1: "B"}
 
 export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
@@ -19,7 +19,7 @@ export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 			["c", "aa"], ["i", "inf"], ["a", "art"], ["t", "arm"],
 			["f", "fig"], ["b", "bom"], ["S", "sub"], ["D", "des"],
 			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"],
-			["d", "inf"], ["T", "tra"], ["e", "aa"]
+			["d", "inf"], ["T", "tra"], ["e", "aa"], ["F", "dbat"]
 		]);
 
 export interface UnitGroup {
@@ -36,6 +36,7 @@ export interface WaveInput {
 	def_submerge : boolean,
 	att_dest_last : boolean,
 	def_dest_last : boolean,
+	rounds : number,		// -1 means all rounds
 	retreat_threshold : number		// retreat if <= number of units remaining.
 }
 
@@ -45,6 +46,7 @@ export interface MultiwaveInput {
 	prune_threshold : number;
 	report_prune_threshold : number;
 	is_naval : boolean;
+	in_progress : boolean;
 	num_runs	: number;
 }
 
@@ -96,6 +98,7 @@ export function multiwaveExternal(
 			  def_submerge : wave.def_submerge,
 			  att_dest_last : wave.att_dest_last,
 			  def_dest_last : wave.def_dest_last,
+			  rounds : wave.rounds,
 			  retreat_threshold : wave.retreat_threshold };
 		
 		wavearr.push(internal_wave);
@@ -107,6 +110,7 @@ export function multiwaveExternal(
 		prune_threshold : input.prune_threshold,
 		report_prune_threshold : input.report_prune_threshold,
 		is_naval : input.is_naval,
+		in_progress : input.in_progress,
 		num_runs	: input.num_runs
 		}
 

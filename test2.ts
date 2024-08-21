@@ -122,6 +122,7 @@ function run4(argc : number, argv : string[])
 		def_submerge : false,
 		att_dest_last : false,
 		def_dest_last : false,
+		rounds : -1,
 		retreat_threshold : 0
 	}
 	
@@ -132,6 +133,7 @@ function run4(argc : number, argv : string[])
 		prune_threshold : 1e-12,	
 		report_prune_threshold : 1e-12,	
 		is_naval : isnaval,
+		in_progress : false, 
 		num_runs : 1
 	}
 		

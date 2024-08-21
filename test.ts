@@ -77,6 +77,9 @@ function run3(argc : number, argv : string[])
 	let aalast1 = parseInt(argv[i++]) > 0;
 	let aalast2 = parseInt(argv[i++]) > 0;
 	let aalast3 = parseInt(argv[i++]) > 0;
+	let rounds1 = parseInt(argv[i++]);
+	let rounds2 = parseInt(argv[i++]);
+	let rounds3 = parseInt(argv[i++]);
 
 
 	console.time('Execution Time');
@@ -95,6 +98,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
+			  rounds : rounds1,
 			  retreat_threshold : retreat1 };
 	wave2 = { attacker : attackers2, 
 			  defender : defenders2,
@@ -104,6 +108,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
+			  rounds : rounds2,
 			  retreat_threshold : retreat2};
 	wave3 = { attacker : attackers3, 
 			  defender : defenders3,
@@ -113,6 +118,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
+			  rounds : rounds3,
 			  retreat_threshold : retreat3 };
 	wavearr.push(wave1);
 	if (attackers2.length > 0) {
@@ -128,6 +134,7 @@ function run3(argc : number, argv : string[])
 		prune_threshold : prune_threshold,
 		report_prune_threshold : report_prune_threshold,
 		is_naval : isnaval > 0,
+		in_progress : in_progress,
 		num_runs	: num_runs
 		}
 			  	

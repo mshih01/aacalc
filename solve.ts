@@ -63,6 +63,7 @@ export class unit_manager {
 		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
 		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
 		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
+		this.make_unit("DBat", 'F', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
 	}
 	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
@@ -340,6 +341,7 @@ class naval_problem {
 	att_data : naval_unit_group;
 	def_data : naval_unit_group;
 	is_nonaval : boolean;
+	rounds : number = -1;
 	N : number;
 	M : number;
 	P_1d : number[] = [];
@@ -1581,7 +1583,8 @@ function get_cost(um: unit_manager, group : unit_group, ii : number, cas : strin
 			continue;
 		}
 		if (skipBombard) {
-			if ((ch == "B") || (ch == "C")) {
+			let stat = um.get_stat(ch);
+			if (stat.isBombard) {
 				continue;
 			}
 		}
@@ -1794,7 +1797,8 @@ function print_results(
 function print_naval_results(
 		baseproblem : naval_problem,
 		problemArr : naval_problem[],
-		resultArr : result_data_t[]) : aacalc_output
+		resultArr : result_data_t[], 
+		doMerge : boolean = true ) : aacalc_output
 {
 	console.log(resultArr.length, `number of results`);
 
@@ -1810,8 +1814,12 @@ function print_naval_results(
 			}
 		});
 	
-    let mergedArr = merge_results(sortedArr);
-    //let mergedArr = sortedArr;
+	let mergedArr;
+	if (doMerge) {
+        mergedArr = merge_results(sortedArr);
+	} else{
+		mergedArr = sortedArr;
+    }
 
 	let N = baseproblem.att_data.nodeArr.length;
 	let M = baseproblem.def_data.nodeArr.length;
@@ -2083,6 +2091,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 
 	// naval bombard
 	
+	let didBombard = false;
 	if (!problem.is_naval) {
 		let numBombard = 
 				count_units(problem.att_data.unit_str, 'B') + 
@@ -2094,15 +2103,27 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					solve_one_naval_state(problem, i, j, true, numBombard);
 				}
 			}
+			didBombard = true;
 		}
 	}
 
-
-    for (i = 0; i < N ; i++) {
-        for (j = 0; j < M ; j++) {
-            solve_one_naval_state(problem, i, j, false, 0);
-        }
-    }
+	if (problem.rounds > 0) {
+		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
+		console.log(rounds, "rounds");
+		for (let ii = 0; ii < rounds; ii++) {
+			for (i = N-1; i >= 0 ; i--) {
+				for (j = M-1; j >= 0 ; j--) {
+					solve_one_naval_state(problem, i, j, true, 0);
+				}
+			}
+		}
+    } else {
+		for (i = 0; i < N ; i++) {
+			for (j = 0; j < M ; j++) {
+				solve_one_naval_state(problem, i, j, false, 0);
+			}
+		}
+	}
 	if (problem.nonavalproblem != undefined) {
 		let N = problem.nonavalproblem.att_data.nodeArr.length;
 		let M = problem.nonavalproblem.def_data.nodeArr.length;
@@ -2871,6 +2892,7 @@ export interface wave_input {
 	att_dest_last : boolean;
 	def_dest_last : boolean;
 	retreat_threshold : number;
+	rounds : number;
 }
 
 
@@ -2880,6 +2902,7 @@ export interface multiwave_input {
 	prune_threshold : number;
 	report_prune_threshold : number;
 	is_naval : boolean;
+	in_progress : boolean;
 	num_runs	: number;
 }
 
@@ -2943,7 +2966,8 @@ export function multiwave(
 		} else {
 			let defenders_token = preparse_token(wave.defender, 1);
 			let defenders_ool = apply_ool(defenders_token, wave.def_ool, wave.def_aalast);
-			defenders_internal = preparse(input.is_naval, defenders_ool, 1);
+			let skipAA = input.in_progress;
+			defenders_internal = preparse(input.is_naval, defenders_ool, 1, skipAA);
 		}
 		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
 
@@ -2954,6 +2978,7 @@ export function multiwave(
 		let myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		myprob.retreat_threshold = wave.retreat_threshold;
+		myprob.rounds = wave.rounds;
 		let problemArr : naval_problem[];
 		problemArr = [];
 		problemArr.push(myprob);
@@ -2962,7 +2987,8 @@ export function multiwave(
 		let result_data : result_data_t[];
 		result_data = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
-		let out = print_naval_results(myprob, problemArr, result_data);
+		let doMerge = myprob.rounds < 0;
+		let out = print_naval_results(myprob, problemArr, result_data, doMerge);
 		output.push(out);
 		console.log(out, "wave", i);
 	}
