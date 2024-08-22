@@ -884,7 +884,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				problem.setiP(ii, problem.getiP(ii) + prob);
             }
         }
-	} else if (true && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+	} else if (problem.rounds < 0 && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
 		if (true && problem.nonavalproblem != undefined) {
 			problem.setNoNavalP(N1, M1, N2, M2, p_init);
 		} else {
