@@ -884,7 +884,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				problem.setiP(ii, problem.getiP(ii) + prob);
             }
         }
-	} else if (problem.rounds < 0 && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+	} else if (true && problem.rounds < 0 && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
 		if (true && problem.nonavalproblem != undefined) {
 			problem.setNoNavalP(N1, M1, N2, M2, p_init);
 		} else {
@@ -2168,6 +2168,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				break;
 			}
 		}
+		prob_ends[prob_ends.length-1] = 1.0;
 		console.log(prob_ends.length, "stopped after rounds");
 		let sum = 0.0
 		for (let i = 0; i < prob_ends.length; i++) {
