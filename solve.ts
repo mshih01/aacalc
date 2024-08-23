@@ -48,26 +48,30 @@ export class unit_manager {
 		this.unit_group_manager = new unit_group_manager();
 	}
 	init_units() {
-		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false);
-		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false);
-		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false);
-		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false);
-		this.make_unit("", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false);
-		this.make_unit("Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false);
-		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false);
-		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false);
-		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false);
-		this.make_unit("Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true);
-		this.make_unit("Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false);
-		this.make_unit("Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false);
-		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
-		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false);
-		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false);
-		this.make_unit("DBat", 'F', 'B', 4, 4, 20, 2, false, false, false, false, false, true);
+		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false, false);
+		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false, false);
+		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false, false);
+		this.make_unit("Inf_a", 'j', 'i', 1, 2, 3, 1, true, false, false, false, false, false, true);
+		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false, false);
+		this.make_unit("Art_a", 'g', 'a', 2, 2, 4, 1, true, false, false, false, false, false, true);
+		this.make_unit("", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false, false);
+		this.make_unit("", 'h', 'i', 2, 2, 3, 1, false, false, false, false, false, false, true);
+		this.make_unit("Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false, false);
+		this.make_unit("Arm_a", 'u', 't', 3, 3, 6, 1, true, false, false, false, false, false, true);
+		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false, false);
+		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false, false);
+		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false, false);
+		this.make_unit("Cru", 'C', 'C', 3, 3, 12, 1, false, false, false, false, false, true, false);
+		this.make_unit("Des", 'D', 'D', 2, 2, 8, 1, false, false, true, false, false, false, false);
+		this.make_unit("Sub", 'S', 'S', 2, 1, 6, 1, false, true, false, false, false, false, false);
+		this.make_unit("Bat", 'B', 'B', 4, 4, 20, 2, false, false, false, false, false, true, false);
+		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false, false);
+		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false, false);
+		this.make_unit("DBat", 'F', 'B', 4, 4, 20, 2, false, false, false, false, false, true, false);
 	}
 	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
-			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
-		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard);
+			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean, isAmphibious : boolean) {
+		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard, isAmphibious);
 		this.unit_stats.set(ch, unit);
 		this.rev_map.set(ch2, ch);
 		this.rev_map2.set(fullname, ch);
@@ -572,8 +576,10 @@ class unit_stat {
 	isAir : boolean;
 	isAA : boolean;
 	isBombard : boolean;
+	isAmphibious : boolean;
 	constructor(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, 
-			isLand : boolean, isSub : boolean, isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean) {
+			isLand : boolean, isSub : boolean, isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean,
+			isAmphibious : boolean) {
 		this.fullname = fullname;
 		this.ch = ch;
 		this.ch2 = ch2;
@@ -586,6 +592,7 @@ class unit_stat {
 		this.isAir = isAir;
 		this.isAA = isAA;
 		this.isBombard = isBombard;
+		this.isAmphibious = isAmphibious;
 		this.isLand = isLand;
 	}
 }
@@ -959,6 +966,18 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				return;
 			}
 		}
+		// if not first strike && other side doesn't have planes -- then treat sub his as unconstrained and remove last
+		let attack_sub_unconstrained = false; 
+		let defend_sub_unconstrained = false; 
+		if (N1 > 0 && def_destroyer && M2 == 0 && N2 > 0) {
+			attack_sub_unconstrained = true;
+		} 
+		if (M1 > 0 && att_destroyer && N2 == 0 && M2 > 0) {
+			defend_sub_unconstrained = true;
+		} 
+		//console.log(attack_sub_unconstrained, defend_sub_unconstrained, "attack_sub_unconstrained, defend_sub_unconstrained");
+		//attack_sub_unconstrained = false; 
+		//defend_sub_unconstrained = false; 
         for (i1 = 0; i1 <= N1; i1++) {
             newN1 = N1;
             newN2 = N2;
@@ -966,19 +985,19 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
             newM1 = M1;
             newM2 = M2;
             newM3 = M3;
-			let m = def_remove_subhits_function(defnode, i1);
-			let defnode2 = problem.def_data.nodeArr[m];
+			let defnode2 = attack_sub_unconstrained ? defnode : problem.def_data.nodeArr[def_remove_subhits_function(defnode, i1)];
+			let att_sub_unconstrained_hits = attack_sub_unconstrained ? i1 : 0;
             if (!def_destroyer)  {
 				if (defnode2 == undefined) {
-					console.log(i1, M, m, problem.def_data.nodeArr[M], problem.def_data.nodeArr[M].nsubArr,  "undefined remove sub");
+					console.log(i1, M, problem.def_data.nodeArr[M], problem.def_data.nodeArr[M].nsubArr,  "undefined remove sub");
 				}
                 newM1 = defnode2.num_subs;
                 newM2 = defnode2.num_air;
                 newM3 = defnode2.num_naval;
             }
             for (j1 = 0; j1 <= M1; j1++) {
-				let n = att_remove_subhits_function(attnode, j1);
-				let attnode2 = problem.att_data.nodeArr[n];
+				let attnode2 = defend_sub_unconstrained ? attnode : problem.att_data.nodeArr[att_remove_subhits_function(attnode, j1)];
+			    let def_sub_unconstrained_hits = defend_sub_unconstrained ? j1 : 0;
                 if (!att_destroyer) {
                     newN1 = attnode2.num_subs;
                     newN2 = attnode2.num_air;
@@ -1021,9 +1040,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 							if (p1 < ept5) {
 								continue;
 							}
-							let m = def_remove_navalhits_function(defnode2, i);
+							let m = def_remove_navalhits_function(defnode2, i + att_sub_unconstrained_hits);
 							for (j = 0; j <= MMM; j++) {
-								let p2 = p1 * def_nosub.get_prob_table(MMM, j);
+								let p2 = p1 * def_nosub.get_prob_table(MMM, j + def_sub_unconstrained_hits);
 								if (p2 < ept4) {
 									continue;
 								}
@@ -1044,7 +1063,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 							if (p1 < ept5) {
 								continue;
 							}
-							let m = def_remove_navalhits_function(defnode2, i);
+							let m = def_remove_navalhits_function(defnode2, i );
 							for (j2 = 0; j2 <= newM2; j2++) {
 								p3 = p1 * def_air.get_prob_table(newM2, j2);
 								if (p3 < ept3) {
@@ -1057,7 +1076,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 										if (p5 < ept4) {
 											continue;
 										}
-										let n3 = att_remove_navalhits_function(attnode3, j3);
+										let n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
 										let ii = problem.getIndex(n3, m);
 										problem.setiP(ii, problem.getiP(ii) + p5);
 									}
@@ -1075,7 +1094,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 							if (p1 < ept6) {
 								continue;
 							}
-							let n = att_remove_navalhits_function(attnode2, j );
+							let n = att_remove_navalhits_function(attnode2, j);
 							for (i2 = 0; i2 <= newN2; i2++) {
 								p3 = p1 * att_air.get_prob_table(newN2, i2);
 								if (p3 < ept7) {
@@ -1088,7 +1107,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 										if (p5 < ept4) {
 											continue;
 										}
-										let m3 = def_remove_navalhits_function(defnode3, i3);
+										let m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
 											let ii = problem.getIndex(n, m3);
 											problem.setiP(ii, problem.getiP(ii) + p5);
 									}
@@ -1115,13 +1134,13 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 								if (p4 < ept3) {
 									continue;
 								}
-								let m3 = def_remove_navalhits_function(defnode3, i3);
+								let m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
 								for (j3 = 0; j3 <= newM3; j3++) {
 									p5 = p4 * def_naval.get_prob_table(newM3, j3);
 									if (p5 < ept4) {
 										continue;
 									}
-									let n3 = att_remove_navalhits_function(attnode3, j3);
+									let n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
 									let ii = problem.getIndex(n3, m3);
 									problem.setiP(ii, problem.getiP(ii) + p5);
 								}
@@ -2645,7 +2664,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		let red_str = get_reduced_group_string(node.unit_str);
 
 		console.log(`${node.index}:  ${red_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast}`);
-		//console.log(node);
+//		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
+//			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
+//		}
     }
 }
 
@@ -2713,7 +2734,7 @@ function preparse_artillery(input : string , attdef : number) : string
     let size = input.length + 1;
 	let out = input;
 
-    let numArt = count_units(input, 'a');
+    let numArt = count_units(input, 'a') + count_units(input, 'g');
     let cnt = 0;
     let ch : string
     for (let i = 0; i < out.length; i++) {
@@ -2726,6 +2747,19 @@ function preparse_artillery(input : string , attdef : number) : string
 								out.substring(i+1, out.length);
 				} else {
 					newout = 'd' + 	out.substring(1, out.length);
+				}
+				out = newout;
+				cnt++;
+			}
+		}
+		if (ch == 'j') {
+			if (cnt < numArt) {
+				let newout;
+				if (i > 0) {
+					newout = out.substring(0, i) + 'h' + 	
+								out.substring(i+1, out.length);
+				} else {
+					newout = 'h' + 	out.substring(1, out.length);
 				}
 				out = newout;
 				cnt++;
@@ -2985,6 +3019,8 @@ export function multiwave(
 	let um3 = new unit_manager();
 	let output : aacalc_output[] = [];
 
+	for (let runs = 0 ; runs < input.num_runs; runs++) {
+
 	for (let i = 0; i < input.wave_info.length; i++) {
 		umarr.push (new unit_manager());
 		let um = umarr[i];
@@ -3053,6 +3089,8 @@ export function multiwave(
 		output.push(out);
 		console.log(out, "wave", i);
 	}
+
+    }
 
 	let attsurvive : number[] = [];
 	let defsurvive : number[] = [];
