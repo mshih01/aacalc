@@ -37,6 +37,7 @@ export interface WaveInput {
 	def_submerge : boolean,
 	att_dest_last : boolean,
 	def_dest_last : boolean,
+	is_crash_fighters : boolean,
 	rounds : number,		// -1 means all rounds
 	retreat_threshold : number		// retreat if <= number of units remaining.
 }
@@ -99,6 +100,7 @@ export function multiwaveExternal(
 			  def_submerge : wave.def_submerge,
 			  att_dest_last : wave.att_dest_last,
 			  def_dest_last : wave.def_dest_last,
+			  is_crash_fighters : wave.is_crash_fighters,
 			  rounds : wave.rounds,
 			  retreat_threshold : wave.retreat_threshold };
 		

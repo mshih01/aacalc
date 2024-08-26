@@ -241,6 +241,7 @@ class naval_unit_graph_node {
     next_dlast_navalhit : naval_unit_graph_node | undefined = undefined;
     next_submerge : naval_unit_graph_node | undefined = undefined;
     next_retreat_amphibious : naval_unit_graph_node | undefined = undefined;
+    next_crash_fighters : naval_unit_graph_node | undefined = undefined;
 	naaArr : number[] = [];
 	nsubArr : number[] = [];
 	nairArr : number[] = [];
@@ -274,6 +275,7 @@ class naval_unit_group {
 	attdef : number = 0;
 	destroyer_last : boolean = false;
 	submerge_sub : boolean = false;
+	is_crash_fighters : boolean = false;
 	num_subs : number = 0;
 	num_naval : number = 0;
 	num_air : number = 0;
@@ -290,7 +292,8 @@ class naval_unit_group {
 						max_remove_hits : number, numAA : number ,
 						cas : casualty_1d[] | undefined , 
 					    is_nonaval : boolean , 	
-						is_amphibious : boolean) {
+						is_amphibious : boolean, 	
+						crash_fighters : boolean) {
 		this.um = um;
 		this.unit_str = input_str;
 		this.attdef = attdef;
@@ -300,6 +303,7 @@ class naval_unit_group {
 		this.num_air = count_units(input_str, 'f') + count_units(input_str, 'b');
 		this.num_naval = input_str.length - this.num_subs - this.num_air;
 		this.is_nonaval = is_nonaval;
+		this.is_crash_fighters = crash_fighters;
 		let subs = ""
 		for (let i = 0; i < this.num_subs; i++) {
 			subs += 'S';
@@ -351,6 +355,7 @@ class naval_problem {
 	is_nonaval : boolean;
 	is_retreat : boolean;			// rounds > 0 || retreat_threshold
 	is_amphibious : boolean;		// attacker has amphibious units... and is_retreat
+	is_crash_fighters : boolean;
 	rounds : number = -1;
 	average_rounds : number = -1;
 	N : number;
@@ -401,6 +406,7 @@ class naval_problem {
 			att_dest_last : boolean, att_submerge : boolean , def_dest_last : boolean , def_submerge : boolean,
 			rounds : number, 
 			retreat_threshold : number,
+			is_crash_fighters : boolean,
 			is_naval : boolean = true,
 			def_cas	: casualty_1d[] | undefined = undefined,
 			is_nonaval : boolean = false
@@ -421,11 +427,12 @@ class naval_problem {
 
 		this.is_retreat = ((rounds > 0) && (rounds < 100)) || (retreat_threshold > 0);
 		this.retreat_threshold = retreat_threshold;
+		this.is_crash_fighters = is_crash_fighters;
 		this.rounds = rounds;
 		this.is_amphibious = this.is_retreat && hasAmphibious (um, att_str);
-		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA, undefined, is_nonaval, this.is_amphibious);
+		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA, undefined, is_nonaval, this.is_amphibious, false);
 		//console.log(this.att_data, `att`);
-		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas, is_nonaval, false);
+		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas, is_nonaval, false, this.is_crash_fighters);
 		this.N = this.att_data.nodeArr.length;
 		this.M = this.def_data.nodeArr.length;
 
@@ -452,7 +459,7 @@ class naval_problem {
 						this.def_data.air_group.unit_str;
 				this.nonavalproblem = new naval_problem(
 						um, att, def, 0.0, 
-						false, false, false, false, -1, 0, true,
+						false, false, false, false, -1, 0, false, true,
 						undefined, true);
 				if (this.nonavalproblem != undefined) {
 					for (let i = 0 ; i < this.att_data.nodeArr.length; i++) {
@@ -760,6 +767,29 @@ function retreat_one_naval_state(problem : naval_problem, N : number, M : number
 		problem.setP(N, M, 0);
 		return;
 	} 
+}
+
+function do_crash_fighters(problem : naval_problem)
+{
+    let N = problem.att_data.nodeArr.length;
+    let M = problem.def_data.nodeArr.length;
+	for (let i = 0; i < N; i++) {
+		for (let j = 0; j < M; j++) {
+			let attnode = problem.att_data.nodeArr[i];
+			let defnode = problem.def_data.nodeArr[j];
+			let p = problem.getP(i, j);
+			if (p == 0) {
+				continue;
+			}
+			if (defnode.next_crash_fighters != undefined) {
+				problem.setP(i, j, 0);
+				let n = attnode.index;
+				let m = defnode.next_crash_fighters.index;
+				let ii = problem.getIndex(n, m);
+				problem.setiP(ii, problem.getiP(ii) + p);
+			}
+		}
+	}
 }
 
 function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
@@ -1439,6 +1469,29 @@ function retreat_subs(um : unit_manager, input_str : string) : [string, number, 
 		}
 	}
 	return [out, num_subs, subs];
+}
+
+function crash_fighters(um : unit_manager, input_str : string) : string
+{
+	let num_acc = count_units(input_str, 'A');
+	let max_num_fighters = num_acc * 2;
+
+	let N = input_str.length;
+	let out = ""
+	let num_fighters = 0;
+	for (let i = 0; i < N; i++) {
+		let ch = input_str.charAt(i);
+		let stat = um.get_stat(ch);
+		if (!stat.isAir) {
+			out = out + ch;
+		} else {
+			num_fighters++;
+			if (num_fighters <= max_num_fighters) {
+				out = out + ch;
+			} 
+		}
+	}
+	return out;
 }
 
 function retreat_non_amphibious(um : unit_manager, input_str : string) : [string, string]
@@ -2400,6 +2453,16 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 		}
 	}
+
+	if (problem.is_crash_fighters) {
+		console.log("before crash")
+		collect_and_print_results(problem);
+		do_crash_fighters(problem);
+		console.log("after crash")
+		collect_and_print_results(problem);
+	}
+
+
 	if (problem.nonavalproblem != undefined) {
 		let N = problem.nonavalproblem.att_data.nodeArr.length;
 		let M = problem.nonavalproblem.def_data.nodeArr.length;
@@ -2766,6 +2829,27 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				node.next_retreat_amphibious = node2;
 			}
 		}
+		if (naval_group.is_crash_fighters) {	
+			let s2 = crash_fighters(naval_group.um, node.unit_str);
+			let node2 : naval_unit_graph_node;
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
+			if (ii == undefined) {
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
+				if (node2.num_naval > 0) {
+					node2.dlast = node.dlast;
+				} else {
+					node2.dlast = false;
+				}
+				mymap.set(key, node2);
+				myheap.push(node2);
+				//console.log (node2, "push 6");
+				//console.log (node2.index, "push 6");
+			} else {
+				node2 = ii;
+			}
+			node.next_crash_fighters = node2;
+		}
     }
 
 	//console.log("done queue");
@@ -2900,6 +2984,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 //		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
 //			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
 //		}
+		if (node.next_crash_fighters != undefined) {
+			console.log(node.index, node.next_crash_fighters.index);
+		}
     }
 }
 
@@ -3149,7 +3236,7 @@ export function aacalc(
 		//debugger
 		let myprob = new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
 			input.att_destroyer_last, input.att_submerge_sub, input.def_destroyer_last, input.def_submerge_sub, 
-			-1 /* rounds */, input.retreat_threshold);
+			-1 /* rounds */, input.retreat_threshold, false );
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		console.timeEnd('init');
 		let problemArr : naval_problem[];
@@ -3222,6 +3309,7 @@ export interface wave_input {
 	def_submerge : boolean;
 	att_dest_last : boolean;
 	def_dest_last : boolean;
+	is_crash_fighters : boolean;
 	retreat_threshold : number;
 	rounds : number;
 }
@@ -3323,7 +3411,7 @@ export function multiwave(
 		console.log(defend_add_reinforce, "defend_add_reinforce");
 		probArr.push(new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
 			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, 	
-			wave.rounds, wave.retreat_threshold, input.is_naval,
+			wave.rounds, wave.retreat_threshold, wave.is_crash_fighters, input.is_naval,
 			defend_add_reinforce));
 		let myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);

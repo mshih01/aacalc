@@ -120,6 +120,7 @@ function run4(argc : number, argv : string[])
 	let isnaval = parseInt(argv[i++]) > 0;
 	let rounds = parseInt(argv[i++]);
 	let retreat_threshold = parseInt(argv[i++]);
+	let crash = parseInt(argv[i++]) >  0;
 	
 	console.log(units, "units");
 	console.log(ool, "ool");
@@ -159,6 +160,7 @@ function run4(argc : number, argv : string[])
 		def_submerge : false,
 		att_dest_last : false,
 		def_dest_last : false,
+		is_crash_fighters : crash,
 		rounds : rounds,
 		retreat_threshold : retreat_threshold
 	}

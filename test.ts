@@ -80,6 +80,10 @@ function run3(argc : number, argv : string[])
 	let rounds1 = parseInt(argv[i++]);
 	let rounds2 = parseInt(argv[i++]);
 	let rounds3 = parseInt(argv[i++]);
+	let crash1 = parseInt(argv[i++]) > 0;
+	let crash2 = parseInt(argv[i++]) > 0;
+	let crash3 = parseInt(argv[i++]) > 0;
+
 
 
 	console.time('Execution Time');
@@ -98,6 +102,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : def_submerge,
 			  att_dest_last : att_destroyer_last,
 			  def_dest_last : def_destroyer_last,
+			  is_crash_fighters : crash1,
 			  rounds : rounds1,
 			  retreat_threshold : retreat1 };
 	wave2 = { attacker : attackers2, 
@@ -108,6 +113,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
+			  is_crash_fighters : crash2,
 			  rounds : rounds2,
 			  retreat_threshold : retreat2};
 	wave3 = { attacker : attackers3, 
@@ -118,6 +124,7 @@ function run3(argc : number, argv : string[])
 			  def_submerge : false,
 			  att_dest_last : false,
 			  def_dest_last : false,
+			  is_crash_fighters : crash3,
 			  rounds : rounds3,
 			  retreat_threshold : retreat3 };
 	wavearr.push(wave1);
