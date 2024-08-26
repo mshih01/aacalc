@@ -51,6 +51,8 @@ function run4(argc : number, argv : string[])
 
 	let units : Army = {};
 	let ool : UnitIdentifier[] = [];
+	let units2 : Army = {};
+	let ool2 : UnitIdentifier[] = [];
 
 	let um = new unit_manager();
 	for (let j = 0; j < N; j++) {
@@ -83,9 +85,41 @@ function run4(argc : number, argv : string[])
         }
 		ool.push(id);
 	}
+	let N2 = parseInt(argv[i++]);		// number of units
+	for (let j = 0; j < N2; j++) {
+		let uname = argv[i++];
+		let count = parseInt(argv[i++]);
+		
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			console.log(ch, "units");
+			throw new Error("rev_map3 failed");
+		}
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		units2[id] = count;
+	}
+	let M2 = parseInt(argv[i++]);		// number of ool entries
+	for (let j = 0; j < M2; j++) {
+		let uname = argv[i++];
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			console.log(ch, "ool");
+			throw new Error("rev_map3 failed");
+		}
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		ool2.push(id);
+	}
 	let takes = parseInt(argv[i++]);
 	let aalast = parseInt(argv[i++]) > 9;
 	let isnaval = parseInt(argv[i++]) > 0;
+	let rounds = parseInt(argv[i++]);
+	let retreat_threshold = parseInt(argv[i++]);
 	
 	console.log(units, "units");
 	console.log(ool, "ool");
@@ -94,8 +128,11 @@ function run4(argc : number, argv : string[])
 	console.log(isnaval, "isnaval");
 	let unitstr = make_unit_group_string(
 		units, ool, takes, aalast, isnaval);
+	let unitstr2 = make_unit_group_string(
+		units2, ool2, takes, aalast, isnaval);
 
 	console.log(unitstr, "unit_str, ool_str");
+	console.log(unitstr2, "unit_str, ool_str");
 
 	let input : MultiwaveInput;
 	let waves : WaveInput[] = [];
@@ -109,8 +146,8 @@ function run4(argc : number, argv : string[])
 		aaLast : false
 	}
 	def = {	
-		units : units,
-		ool : ool,
+		units : units2,
+		ool : ool2,
 		takes : 0,	
 		aaLast : aalast
 	}
@@ -122,8 +159,8 @@ function run4(argc : number, argv : string[])
 		def_submerge : false,
 		att_dest_last : false,
 		def_dest_last : false,
-		rounds : -1,
-		retreat_threshold : 0
+		rounds : rounds,
+		retreat_threshold : retreat_threshold
 	}
 	
 	waves.push(wave);

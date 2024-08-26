@@ -12,14 +12,15 @@ export type Army = Partial<Record<UnitIdentifier, number>>;
 
 export const  UnitIdentifier2UnitMap : Record<UnitIdentifier, string> = {
 		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "F", 
-		ic : "", inf_a: "i", art_a : "a", arm_a : "t", bat1: "B"}
+		ic : "", inf_a: "j", art_a : "g", arm_a : "u", bat1: "B"}
 
 export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 		[
 			["c", "aa"], ["i", "inf"], ["a", "art"], ["t", "arm"],
 			["f", "fig"], ["b", "bom"], ["S", "sub"], ["D", "des"],
 			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"],
-			["d", "inf"], ["T", "tra"], ["e", "aa"], ["F", "dbat"]
+			["d", "inf"], ["T", "tra"], ["e", "aa"], ["F", "dbat"],
+			["g", "art_a"], ["j", "inf_a"], ["u", "arm_a"]
 		]);
 
 export interface UnitGroup {
@@ -132,7 +133,7 @@ export function multiwaveExternal(
 		let casualty : CasualtyInfo;
 		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
-					retreaters : "",
+					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
 					ipcLoss :    get_cost_from_str(um, cas.casualty)
 					}
@@ -143,7 +144,7 @@ export function multiwaveExternal(
 		let casualty : CasualtyInfo;
 		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
-					retreaters : "",
+					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
 					ipcLoss :    get_cost_from_str(um, cas.casualty)
 					}

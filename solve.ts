@@ -51,13 +51,13 @@ export class unit_manager {
 		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false, false);
 		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false, false);
 		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false, false);
-		this.make_unit("Inf_a", 'j', 'i', 1, 2, 3, 1, true, false, false, false, false, false, true);
+		this.make_unit("Inf_a", 'j', 'j', 1, 2, 3, 1, true, false, false, false, false, false, true);
 		this.make_unit("Art", 'a', 'a', 2, 2, 4, 1, true, false, false, false, false, false, false);
-		this.make_unit("Art_a", 'g', 'a', 2, 2, 4, 1, true, false, false, false, false, false, true);
+		this.make_unit("Art_a", 'g', 'g', 2, 2, 4, 1, true, false, false, false, false, false, true);
 		this.make_unit("", 'd', 'i', 2, 2, 3, 1, false, false, false, false, false, false, false);
-		this.make_unit("", 'h', 'i', 2, 2, 3, 1, false, false, false, false, false, false, true);
+		this.make_unit("", 'h', 'j', 2, 2, 3, 1, false, false, false, false, false, false, true);
 		this.make_unit("Arm", 't', 't', 3, 3, 6, 1, true, false, false, false, false, false, false);
-		this.make_unit("Arm_a", 'u', 't', 3, 3, 6, 1, true, false, false, false, false, false, true);
+		this.make_unit("Arm_a", 'u', 'u', 3, 3, 6, 1, true, false, false, false, false, false, true);
 		this.make_unit("Fig", 'f', 'f', 3, 4, 10, 1, false, false, false, true, false, false, false);
 		this.make_unit("Bom", 'b', 'b', 4, 1, 12, 1, false, false, false, true, false, false, false);
 		this.make_unit("ACC", 'A', 'A', 1, 2, 14, 1, false, false, false, false, false, false, false);
@@ -68,6 +68,7 @@ export class unit_manager {
 		this.make_unit("", 'E', 'E', 0, 0, 0, 2, false, false, false, false, false, false, false);
 		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false, false);
 		this.make_unit("DBat", 'F', 'B', 4, 4, 20, 2, false, false, false, false, false, true, false);
+		this.make_unit("+", '+', '+', 0, 0, 0, 0, false, false, false, false, false, false, false);
 	}
 	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean, isAmphibious : boolean) {
@@ -222,12 +223,12 @@ class unit_group {
 
 class naval_unit_graph_node {
 	unit_str : string;
+	retreat : string = "";
 	N		: number;
 	num_subs : number;
 	num_air : number;
 	num_naval : number;
 	num_dest : number;
-	num_submerge : number;
 	cost : number;
 	dlast : boolean = false;
 	index : number = 0;
@@ -237,7 +238,9 @@ class naval_unit_graph_node {
     next_navalhit : naval_unit_graph_node | undefined = undefined;
     next_dlast_subhit : naval_unit_graph_node | undefined = undefined;
     next_dlast_airhit : naval_unit_graph_node | undefined = undefined;
-    next_dlast_navalhit : naval_unit_graph_node | undefined = undefined;    next_submerge : naval_unit_graph_node | undefined = undefined;
+    next_dlast_navalhit : naval_unit_graph_node | undefined = undefined;
+    next_submerge : naval_unit_graph_node | undefined = undefined;
+    next_retreat_amphibious : naval_unit_graph_node | undefined = undefined;
 	naaArr : number[] = [];
 	nsubArr : number[] = [];
 	nairArr : number[] = [];
@@ -247,16 +250,16 @@ class naval_unit_graph_node {
 	ndlastnavalArr : number[] = [];
 	nosub_group : unit_group | undefined= undefined;
 	numBB : number = 0;
-	constructor( um : unit_manager, unit_str : string, num_submerge : number, is_nonaval : boolean) {
+	constructor( um : unit_manager, unit_str : string, retreat : string, is_nonaval : boolean) {
 		this.unit_str = unit_str;
+		this.retreat = retreat;
 		this.N = unit_str.length;
 		this.num_subs = count_units(unit_str, 'S');
 		this.num_air = count_units(unit_str, 'f') + count_units(unit_str, 'b');
 		this.num_naval = this.N - this.num_subs - this.num_air;
 		this.numBB = count_units(this.unit_str, 'E');
 		this.num_dest = count_units(this.unit_str, 'D');
-		this.num_submerge = num_submerge;
-		this.cost = get_cost_from_str(um, unit_str, num_submerge);
+		this.cost = get_cost_from_str(um, unit_str, "");
 		if (is_nonaval) {
 			if (this.num_naval == 0) {
 				this.cost += (this.num_subs * 1000);
@@ -284,9 +287,10 @@ class naval_unit_group {
 	nodeArr : naval_unit_graph_node[] = [];
 
 	constructor (um : unit_manager, input_str : string, attdef : number, dest_last : boolean, submerge : boolean, 
-						max_remove_hits : number, numAA : number = 0,
-						cas : casualty_1d[] | undefined = undefined, 
-					    is_nonaval : boolean = false) {
+						max_remove_hits : number, numAA : number ,
+						cas : casualty_1d[] | undefined , 
+					    is_nonaval : boolean , 	
+						is_amphibious : boolean) {
 		this.um = um;
 		this.unit_str = input_str;
 		this.attdef = attdef;
@@ -334,7 +338,7 @@ class naval_unit_group {
 		} else {
 			this.dlast_group = this.naval_group;
 		}
-		compute_remove_hits(this, max_remove_hits, numAA, cas );
+		compute_remove_hits(this, max_remove_hits, numAA, cas, is_amphibious );
 	}
 }
 
@@ -345,10 +349,13 @@ class naval_problem {
 	att_data : naval_unit_group;
 	def_data : naval_unit_group;
 	is_nonaval : boolean;
+	is_retreat : boolean;			// rounds > 0 || retreat_threshold
+	is_amphibious : boolean;		// attacker has amphibious units... and is_retreat
 	rounds : number = -1;
 	average_rounds : number = -1;
 	N : number;
 	M : number;
+	debug_level : number = 0;
 	P_1d : number[] = [];
 	nonavalproblem : naval_problem | undefined = undefined;
 	def_cas : casualty_1d[] | undefined = undefined
@@ -387,8 +394,13 @@ class naval_problem {
 		this.early_prune_threshold = ept;
 		this.report_prune_threshold = rpt;
 	}
+	isEarlyRetreat() {
+		return this.att_data.submerge_sub || this.def_data.submerge_sub
+	}
     constructor(um : unit_manager, att_str : string, def_str : string, prob : number,
 			att_dest_last : boolean, att_submerge : boolean , def_dest_last : boolean , def_submerge : boolean,
+			rounds : number, 
+			retreat_threshold : number,
 			is_naval : boolean = true,
 			def_cas	: casualty_1d[] | undefined = undefined,
 			is_nonaval : boolean = false
@@ -407,11 +419,16 @@ class naval_problem {
 			max_def_hits += numBombard;
 		}
 
-		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA);
+		this.is_retreat = ((rounds > 0) && (rounds < 100)) || (retreat_threshold > 0);
+		this.retreat_threshold = retreat_threshold;
+		this.rounds = rounds;
+		this.is_amphibious = this.is_retreat && hasAmphibious (um, att_str);
+		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA, undefined, is_nonaval, this.is_amphibious);
 		//console.log(this.att_data, `att`);
-		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas);
+		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas, is_nonaval, false);
 		this.N = this.att_data.nodeArr.length;
 		this.M = this.def_data.nodeArr.length;
+
 		//console.log(this.def_data, `def`);
 		this.prob = prob;
 		this.def_cas = def_cas;
@@ -435,7 +452,7 @@ class naval_problem {
 						this.def_data.air_group.unit_str;
 				this.nonavalproblem = new naval_problem(
 						um, att, def, 0.0, 
-						false, false, false, false, true,
+						false, false, false, false, -1, 0, true,
 						undefined, true);
 				if (this.nonavalproblem != undefined) {
 					for (let i = 0 ; i < this.att_data.nodeArr.length; i++) {
@@ -485,8 +502,6 @@ class naval_problem {
 		}
 	}
 }
-
-
 
 class problem {
 	um : unit_manager;
@@ -659,7 +674,20 @@ function remove_dlast_navalhits2( node : naval_unit_graph_node, hits : number) :
 	return node.ndlastnavalArr[n];	
 }
 
-function is_terminal_state(problem : naval_problem, N : number, M : number) : boolean 
+function is_terminal_state(problem : naval_problem, N : number, M : number, debug : boolean) : boolean 
+{
+	let out = is_terminal_state_helper(problem, N, M);
+	if (debug) {
+		if (!out) {
+			let attnode = problem.att_data.nodeArr[N];
+			let defnode = problem.def_data.nodeArr[M];
+			console.log(attnode.unit_str, ":", attnode.retreat, defnode.unit_str, "here");
+		}
+	}
+	return out;
+}
+
+function is_terminal_state_helper(problem : naval_problem, N : number, M : number) : boolean 
 {
     let attnode = problem.att_data.nodeArr[N];
     let defnode = problem.def_data.nodeArr[M];
@@ -668,6 +696,13 @@ function is_terminal_state(problem : naval_problem, N : number, M : number) : bo
     }
 	if (problem.retreat_threshold > 0) {
 		if (attnode.N <= problem.retreat_threshold) {
+			if (problem.is_amphibious) {
+				if (attnode.next_retreat_amphibious == undefined && 
+					attnode.N == 0) {
+					return true;
+				}
+				return false;
+			} 
 			return true;
 		}
 	}
@@ -686,22 +721,49 @@ function is_terminal_state(problem : naval_problem, N : number, M : number) : bo
 	return false;
 }
 
-function get_terminal_state_prob(problem : naval_problem) : number {
+function get_terminal_state_prob(problem : naval_problem, debug : boolean = false) : number {
 	let N = problem.att_data.nodeArr.length;
 	let M = problem.def_data.nodeArr.length;
 	let prob = 0;
 
 	for (let i = 0; i < N ; i++) {
 		for (let j = 0; j < M ; j++) {
-			if (is_terminal_state(problem, i, j)) {
-				prob += problem.getP(i, j);
+			let p = problem.getP(i, j);
+			if (p > 0) {
+				if (is_terminal_state(problem, i, j, debug)) {
+					prob += p;
+				}
 			}
 		}
 	}
 	return prob;
 }
 
-function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number)
+// if attackers and defenders exist.
+	// 1.  remove move the remaining non-amphibous attackers to retreat state.
+function retreat_one_naval_state(problem : naval_problem, N : number, M : number) 
+{
+    let attnode = problem.att_data.nodeArr[N];
+    let defnode = problem.def_data.nodeArr[M];
+
+    let p_init = problem.getP(N, M);
+
+	if (p_init == 0) {
+	    return;
+	}
+
+	if (attnode.N > 0 && defnode.N > 0 && attnode.retreat.length == 0 && attnode.next_retreat_amphibious != undefined) {
+		let n = attnode.next_retreat_amphibious.index;
+		let m = defnode.index;
+		let ii = problem.getIndex(n, m);
+		problem.setiP(ii, problem.getiP(ii) + p_init);
+		problem.setP(N, M, 0);
+		return;
+	} 
+}
+
+function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
+				do_retreat_only : boolean, disable_retreat : boolean)
 {
     let attnode = problem.att_data.nodeArr[N];
     let defnode = problem.def_data.nodeArr[M];
@@ -716,9 +778,20 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 	if (p_init == 0) {
 	    return;
 	}
-	if (problem.retreat_threshold > 0) {
+	if (!disable_retreat && problem.retreat_threshold > 0) {
 		if (attnode.N <= problem.retreat_threshold) {
-			return;
+			if (problem.is_amphibious) {
+				if (attnode.N > 0 && defnode.N > 0 && attnode.retreat.length == 0 && attnode.next_retreat_amphibious != undefined) {
+					let n = attnode.next_retreat_amphibious.index;
+					let m = defnode.index;
+					let ii = problem.getIndex(n, m);
+					problem.setiP(ii, problem.getiP(ii) + p_init);
+					problem.setP(N, M, 0);
+					return;
+				}
+			} else {
+				return;
+			}
 		}
 	}
 
@@ -764,6 +837,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		problem.setP(N, M, 0);
 		return;
 	} 
+	if (do_retreat_only) {
+		return;
+	}
 
     let att_sub = problem.att_data.sub_group;
     let att_air = problem.att_data.air_group;
@@ -868,6 +944,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		att_remove_navalhits_function = remove_navalhits2;
 	}
 	problem.setP(N, M, 0);
+	let sum = 0.0;
 
     if (!hasSubs && attnode.nosub_group != undefined && defnode.nosub_group != undefined ) {
         let att_nosub = attnode.nosub_group;
@@ -891,7 +968,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				problem.setiP(ii, problem.getiP(ii) + prob);
             }
         }
-	} else if (true && problem.rounds < 0 && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+	} else if (true && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
 		if (true && problem.nonavalproblem != undefined) {
 			problem.setNoNavalP(N1, M1, N2, M2, p_init);
 		} else {
@@ -1042,11 +1119,11 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 							}
 							let m = def_remove_navalhits_function(defnode2, i + att_sub_unconstrained_hits);
 							for (j = 0; j <= MMM; j++) {
-								let p2 = p1 * def_nosub.get_prob_table(MMM, j + def_sub_unconstrained_hits);
+								let p2 = p1 * def_nosub.get_prob_table(MMM, j );
 								if (p2 < ept4) {
 									continue;
 								}
-								let n = att_remove_navalhits_function(attnode2, j );
+								let n = att_remove_navalhits_function(attnode2, j + def_sub_unconstrained_hits );
 								let ii = problem.getIndex(n, m);
 								problem.setiP(ii, problem.getiP(ii) + p2);
 							}
@@ -1237,6 +1314,17 @@ function hasLand(um : unit_manager, input : string) : boolean {
 	return false;
 }  
 
+function hasAmphibious(um : unit_manager, input : string) : boolean {
+	for (let i = input.length-1; i >= 0; i--) {
+		let ch = input.charAt(i);
+		let stat = um.get_stat(ch);
+		if (stat.isAmphibious) {
+			return true;
+		}
+	}
+	return false;
+}  
+
 function hasNonAAUnit(um : unit_manager, input : string) : boolean {
 	for (let i = input.length-1; i >= 0; i--) {
 		let ch = input.charAt(i);
@@ -1335,10 +1423,11 @@ function remove_one_notsub(um : unit_manager, input_str : string, skipd : boolea
 
 	return input_str;
 }
-function retreat_subs(um : unit_manager, input_str : string) : [string, number]
+function retreat_subs(um : unit_manager, input_str : string) : [string, number, string]
 {
 	let N = input_str.length;
 	let out = ""
+	let subs = ""
 	let num_subs = 0;
 	for (let i = 0; i < N; i++) {
 		let ch = input_str.charAt(i);
@@ -1346,10 +1435,29 @@ function retreat_subs(um : unit_manager, input_str : string) : [string, number]
 			out = out + ch;
 		} else {
 			num_subs++;
+			subs += "S"
 		}
 	}
-	return [out, num_subs];
+	return [out, num_subs, subs];
 }
+
+function retreat_non_amphibious(um : unit_manager, input_str : string) : [string, string]
+{
+	let N = input_str.length;
+	let out = ""
+	let retreat = ""
+	for (let i = 0; i < N; i++) {
+		let ch = input_str.charAt(i);
+		let stat = um.get_stat(ch);
+		if (stat.isAmphibious) {
+			out += ch;
+		} else {
+			retreat += ch;
+		}
+	}
+	return [out, retreat];
+}
+
 
 function report_filter (threshold : number, p : number) : number {
     if (p < threshold) {
@@ -1358,7 +1466,7 @@ function report_filter (threshold : number, p : number) : number {
 	return p;
 }
 
-export function get_cost_from_str(um : unit_manager, s : string, num_submerge : number = 0) : number
+export function get_cost_from_str(um : unit_manager, s : string, retreat : string = "") : number
 {
     let cost = 0;
     let i;
@@ -1368,7 +1476,11 @@ export function get_cost_from_str(um : unit_manager, s : string, num_submerge : 
 		let stat = um.get_stat(ch);
         cost += stat.cost;
     }
-	cost += (num_submerge * um.get_stat("S").cost);
+    for (i = 0; i < retreat.length; i++) {
+        let ch = retreat.charAt(i);
+		let stat = um.get_stat(ch);
+        cost += stat.cost;
+	}
     return cost;
 }
 
@@ -1390,10 +1502,8 @@ function get_naval_cost_remain(um : unit_manager, group : naval_unit_group, ii :
 {
     let node = group.nodeArr[ii];
 	let cost = 0;
-	if (node.num_submerge > 0) {
-		let stat = um.get_stat("S");
-		cost += stat.cost * node.num_submerge;
-		//console.log(ii, node, cost, "cost remain");
+	if (node.retreat.length > 0) {
+		cost += get_cost_from_str(um, node.retreat);
 	}
 	if (node.dlast && group.dlast_group != undefined) {
 		return 	cost + get_cost_remain(um, group.sub_group, node.num_subs) + 
@@ -1564,14 +1674,12 @@ function get_group_string(um : unit_manager, group : unit_group, sz : number) :
 }
 
 function get_naval_group_string(um : unit_manager, group : naval_unit_group, sz : number) : 
-		string
+		[string, string]
 {
 	let out = "";
 	let node = group.nodeArr[sz];
-	if (node.num_submerge > 0) {
-		for (let i = 0; i < node.num_submerge; i++) {
-			out += "S";
-		}
+	if (node.retreat.length > 0) {
+		out += node.retreat;
 	}
 	let out1 = ""
 	for (const ch of node.unit_str) {
@@ -1581,7 +1689,7 @@ function get_naval_group_string(um : unit_manager, group : naval_unit_group, sz 
 		let stat = um.get_stat(ch);
 		out1 += stat.ch2;
 	}
-	return out1 + out;
+	return [out1, out];
 }
 
 function get_reduced_group_string(input : string) :
@@ -1673,21 +1781,47 @@ function get_naval_cost(problem : naval_problem, group : naval_unit_group, ii : 
 		skipBombard = true;
 	}
     let node = group.nodeArr[ii];
-	let c1, c2, c3 : number;
-	let subcas, aircas, navalcas : string;
-	[c1, subcas] = get_cost(problem.um, group.sub_group, node.num_subs);
-	[c2, aircas] = get_cost(problem.um, group.air_group, node.num_air);
-	if (node.num_submerge > 0) {
-		let stat = problem.um.get_stat("S");
-		c1 -= stat.cost * node.num_submerge;
-		subcas = subcas.substring(node.num_submerge);
+	let mymap : Map<string, number> = new Map();
+	let units_remain = node.unit_str + node.retreat;
+	let baseunits =  group.nodeArr[0].unit_str;
+
+	for (const ch of baseunits) {
+		let stat = problem.um.get_stat(ch);
+		let ch2 = stat.ch2;
+		let cnt = mymap.get(ch2);
+		if (cnt == undefined) {
+			mymap.set(ch2, 1);
+		} else {
+			mymap.set(ch2, cnt + 1);
+		}
 	}
-	if (!node.dlast || group.dlast_group == undefined) {
-		[c3, navalcas] = get_cost(problem.um, group.naval_group, node.num_naval, "", skipBombard);
-	} else {
-		[c3, navalcas] = get_cost(problem.um, group.dlast_group, node.num_naval, "", skipBombard);
-	} 
-	return [c1+c2+c3, subcas+aircas+navalcas];
+	
+	for (const ch of units_remain) {
+		let stat = problem.um.get_stat(ch);
+		let ch2 = stat.ch2;
+		let cnt = mymap.get(ch2);
+		if (cnt == undefined) {
+			console.log ("fatal");
+			throw new Error();
+		} else {
+			mymap.set(ch2, cnt -1);
+		}
+	}
+
+	let casualty = "";
+	let cost = 0;
+	for (let [ch2, cnt] of mymap) {
+		let stat = problem.um.get_stat(ch2);
+		if (skipBombard && stat.isBombard) {
+			continue;
+		}
+		cost += stat.cost * cnt;	
+		for (let i = 0 ; i < cnt; i++) {
+			casualty += ch2;
+		}
+	}
+	
+	return [cost, casualty];
 }
 
 function print_results(
@@ -1805,7 +1939,9 @@ function print_results(
 			}
 			totalattloss += (att_loss * p);
 			totaldefloss += (def_loss * p);
-			let cas : casualty_2d = { attacker : red_att, defender : red_def, attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
+			let cas : casualty_2d = { attacker : red_att, defender : red_def, 
+						attacker_retreat : "", defender_retreat: "",
+						attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
 			casualties.push( cas );
 			console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
         }
@@ -1822,7 +1958,7 @@ function print_results(
 	for (let [att, p] of att_map) {
 		let att_cas = att_cas_map.get(att);
 		if (att_cas != undefined) {
-			let cas : casualty_1d = { remain : att, casualty : att_cas, prob : p}
+			let cas : casualty_1d = { remain : att, casualty : att_cas, prob : p, retreat: ""}
 			att_cas_1d.push(cas);
 		} else {
 			console.log("FATAL -- undefind");
@@ -1833,7 +1969,7 @@ function print_results(
 	for (let [def, p] of def_map) {
 		let def_cas = def_cas_map.get(def);
 		if (def_cas != undefined) {
-			let cas : casualty_1d = { remain : def, casualty : def_cas, prob : p}
+			let cas : casualty_1d = { remain : def, casualty : def_cas, prob : p, retreat: ""}
 			def_cas_1d.push(cas);
 		} else {
 			console.log("FATAL -- undefind");
@@ -1888,6 +2024,8 @@ function print_naval_results(
 	let M = baseproblem.def_data.nodeArr.length;
     let att : string;
     let def : string;
+    let retreat_att : string;
+    let retreat_def : string;
     let red_att : string;
     let red_def : string;
     let att_casualty : string;
@@ -1895,8 +2033,8 @@ function print_naval_results(
     let red_att_cas : string;
     let red_def_cas : string;
 
-    att = get_naval_group_string(baseproblem.um, baseproblem.att_data, 0);
-    def = get_naval_group_string(baseproblem.um, baseproblem.def_data, 0);
+    [att, retreat_att] = get_naval_group_string(baseproblem.um, baseproblem.att_data, 0);
+    [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, 0);
 	red_att = get_reduced_group_string(att);
 	red_def = get_reduced_group_string(def);
 	console.log(`attackers = ${att}`);
@@ -1944,8 +2082,10 @@ function print_naval_results(
     for (let ii = 0; ii < mergedArr.length; ii++) {
         let result = mergedArr[ii];
         let problem = problemArr[result.problem_index];
-        att = get_naval_group_string(problem.um, problem.att_data, result.i);
-        def = get_naval_group_string(problem.um, problem.def_data, result.j);
+        [att, retreat_att] = get_naval_group_string(problem.um, problem.att_data, result.i);
+        [def, retreat_def] = get_naval_group_string(problem.um, problem.def_data, result.j);
+        let red_retreat_att = get_reduced_group_string(retreat_att);
+        let red_retreat_def = get_reduced_group_string(retreat_def);
         red_att = get_reduced_group_string(att);
         red_def = get_reduced_group_string(def);
         let  [att_loss, att_casualty] = get_naval_cost(problem, problem.att_data, result.i)
@@ -1972,8 +2112,10 @@ function print_naval_results(
 				takes += p;
 			}
 			//console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} = ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
-			console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
-			let cas : casualty_2d = { attacker : red_att, defender : red_def, attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
+			console.log(`result:  P[%d][%d] ${red_att}:${red_retreat_att} vs. ${red_def}:${red_retreat_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
+			let cas : casualty_2d = { attacker : red_att, defender : red_def, 
+					attacker_retreat : red_retreat_att, defender_retreat : red_retreat_def,
+					attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
 			casualties.push( cas );
         }
     }
@@ -1987,18 +2129,18 @@ function print_naval_results(
 
 	for (let [i, p] of att_map) {
 		//console.log(i, p, "i, p");
-        let att = get_naval_group_string(baseproblem.um, baseproblem.att_data, i);
+        let [att, retreat_att] = get_naval_group_string(baseproblem.um, baseproblem.att_data, i);
         let  [att_loss, att_cas] = get_naval_cost(baseproblem, baseproblem.att_data, i)
-		let cas : casualty_1d = { remain : att, casualty : att_cas, prob : p}
+		let cas : casualty_1d = { remain : att, retreat: retreat_att, casualty : att_cas, prob : p}
 		att_cas_1d.push(cas);
 	}
 	//console.log("att_cas_1d", JSON.stringify(att_cas_1d, null, 4));
 
 	for (let [j, p] of def_map) {
 		//console.log(j, p, "j, p");
-        let def = get_naval_group_string(baseproblem.um, baseproblem.def_data, j);
+        let [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, j);
         let  [def_loss, def_cas] = get_naval_cost(baseproblem, baseproblem.def_data, j)
-		let cas : casualty_1d = { remain : def, casualty : def_cas, prob : p}
+		let cas : casualty_1d = { remain : def, retreat: retreat_def, casualty : def_cas, prob : p}
 		def_cas_1d.push(cas);
 	}
 	//console.log("def_cas_1d", JSON.stringify(def_cas_1d, null, 4));
@@ -2164,7 +2306,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		if (numBombard > 0)  {
 			for (i = N-1; i >= 0 ; i--) {
 				for (j = M-1; j >= 0 ; j--) {
-					solve_one_naval_state(problem, i, j, true, numBombard);
+					solve_one_naval_state(problem, i, j, true, numBombard, false, false);
 				}
 			}
 			didBombard = true;
@@ -2175,20 +2317,75 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
 		let prob_ends : number[] = [];
 		console.log(rounds, "rounds");
+		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious;
+		if (didBombard) {
+			if (needs_early_retreat) {
+				for (i = N-1; i >= 0 ; i--) {
+					for (j = M-1; j >= 0 ; j--) {
+						solve_one_naval_state(problem, i, j, true, 0, true, false);
+					}
+				}
+			}
+			let p = get_terminal_state_prob(problem, true);
+			prob_ends.push(p);
+			console.log(prob_ends, "prob ends");
+		}
 		for (let ii = 0; ii < rounds; ii++) {
 			for (i = N-1; i >= 0 ; i--) {
 				for (j = M-1; j >= 0 ; j--) {
-					solve_one_naval_state(problem, i, j, true, 0);
+					solve_one_naval_state(problem, i, j, true, 0, false, false);
 				}
 			}
-			let p = get_terminal_state_prob(problem);
+			if (needs_early_retreat) {
+				for (i = N-1; i >= 0 ; i--) {
+					for (j = M-1; j >= 0 ; j--) {
+						solve_one_naval_state(problem, i, j, true, 0, true, false);
+					}
+				}
+			}
+			let debug = false && prob_ends.length == 8;
+			let p = get_terminal_state_prob(problem, debug);
 			prob_ends.push(p);
+			if (false || debug) {
+				console.log (ii, "round", prob_ends);
+				collect_and_print_results(problem);
+			}
 			if (p == prob_ends[ii-1]) {
 				break;
 			}
 		}
-		prob_ends[prob_ends.length-1] = 1.0;
+		if (problem.is_amphibious && prob_ends.length >= rounds ) {
+			
+			// for each state
+				// if attackers and defenders exist.
+					// 1.  remove move the remaining non-amphibous attackers to retreat state.
+			
+			for (let i = N-1; i >= 0 ; i--) {
+				for (let j = M-1; j >= 0 ; j--) {
+					retreat_one_naval_state(problem, i, j);
+				}
+			}
+			let p = get_terminal_state_prob(problem);
+			prob_ends[prob_ends.length-1] = p;
+			// evaluate infinite rounds -- with retreat disabled. -- remaining attackers are not allowed to retreat.
+			for (let ii = 0; ii < 100; ii++) {
+				for (i = N-1; i >= 0 ; i--) {
+					for (j = M-1; j >= 0 ; j--) {
+						solve_one_naval_state(problem, i, j, true, 0, false, true);
+					}
+				}
+				let p = get_terminal_state_prob(problem);
+				prob_ends.push(p);
+				if (p == prob_ends[prob_ends.length-2]) {
+					break;
+				}
+			}
+		}
+		if (!problem.is_amphibious) {
+			prob_ends[prob_ends.length-1] = 1.0;
+		}
 		console.log(prob_ends.length, "stopped after rounds");
+		console.log(prob_ends, "stopped after rounds");
 		let sum = 0.0
 		for (let i = 0; i < prob_ends.length; i++) {
 			let p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
@@ -2199,7 +2396,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
     } else {
 		for (i = 0; i < N ; i++) {
 			for (j = 0; j < M ; j++) {
-				solve_one_naval_state(problem, i, j, false, 0);
+				solve_one_naval_state(problem, i, j, false, 0, false, false);
 			}
 		}
 	}
@@ -2210,7 +2407,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 
 		for (i = 0; i < N; i++) {
 			for (j = 0; j < M; j++) {
-				solve_one_naval_state(problem.nonavalproblem, i, j, false, 0);
+				solve_one_naval_state(problem.nonavalproblem, i, j, false, 0, false, false);
 			}
 		}
 		// map back to parent problem
@@ -2280,7 +2477,12 @@ function solve(problem : problem, skipAA : number)
 
 
 
-function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : number, numAA : number, cas : casualty_1d[] | undefined = undefined)
+function make_node_key(s : string, retreat : string) {
+	return s + ";" + retreat;
+}
+
+function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : number, numAA : number, cas : casualty_1d[] | undefined,
+					is_amphibious : boolean )
 {
     // compute next state graph
     // start with initial state.
@@ -2293,7 +2495,8 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
     // root node
     let s = naval_group.unit_str;
     //printf ("%s", s);
-    let node = new naval_unit_graph_node(naval_group.um, s, 0, naval_group.is_nonaval);
+	//console.log(naval_group);
+    let node = new naval_unit_graph_node(naval_group.um, s, "", naval_group.is_nonaval);
 	node.dlast = false;
 
 	let nodeVec : naval_unit_graph_node[];
@@ -2304,7 +2507,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 	// information to uniquely identify a node
 	const mycompare = (a : naval_unit_graph_node , b : naval_unit_graph_node) => b.cost - a.cost;
 	let myheap = new Heap(mycompare);
-    mymap.set(s+ 0, node);
+    mymap.set(make_node_key(s, ""), node);
 	myheap.push(node);
 
 	if (numAA > 0 && naval_group.attdef == 0) {
@@ -2324,9 +2527,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				let cas;
 				[att_str, cas] = remove_one_plane(naval_group.um, att_str);
 				att_cas += cas;
-				nnode = new naval_unit_graph_node(naval_group.um, att_str, 0, naval_group.is_nonaval);
+				nnode = new naval_unit_graph_node(naval_group.um, att_str, "", naval_group.is_nonaval);
 				myheap.push(nnode);
-				mymap.set(att_str+ 0, nnode);
+				mymap.set(make_node_key(att_str,""), nnode);
 				prev.next_aahit = nnode;
 			}
 			prev = nnode;
@@ -2337,10 +2540,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 	if (cas != undefined) {
 		for (let i = 0; i < cas.length; i++) {
 			let s = cas[i].remain;
-			let key = s + 0;
+			let key = make_node_key(s, "");
 			let ii = mymap.get(key);
 			if (ii == undefined) {
-				let newnode = new naval_unit_graph_node(naval_group.um, s, 0, naval_group.is_nonaval);
+				let newnode = new naval_unit_graph_node(naval_group.um, s, "", naval_group.is_nonaval);
 				if (newnode.num_naval > 0) {
 					newnode.dlast = node.dlast;
 				} else {
@@ -2381,10 +2584,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 
 		let newnode : naval_unit_graph_node;
 		
-		let key = s + node.num_submerge;
+		let key = make_node_key(s, node.retreat);
 		let ii = mymap.get(key);
         if (ii == undefined) {
-			newnode = new naval_unit_graph_node(naval_group.um, s, node.num_submerge, naval_group.is_nonaval);
+			newnode = new naval_unit_graph_node(naval_group.um, s, node.retreat, naval_group.is_nonaval);
 			if (newnode.num_naval > 0) {
 				newnode.dlast = node.dlast;
 			} else {
@@ -2404,15 +2607,16 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
         } else {
 			let s2 = remove_one_notplane(naval_group.um, node.unit_str, false);
             let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2+node.num_submerge);
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
 					node2.dlast = false;
 				}
-				mymap.set(s2+node.num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2.index, "push 1");
 			} else {
@@ -2425,15 +2629,16 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
         } else {
             let s2 = remove_one_notsub(naval_group.um, node.unit_str, false);
             let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2+node.num_submerge);
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
 					node2.dlast = false;
 				}
-				mymap.set(s2+node.num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2.index, "push 2");
 			} else {
@@ -2463,11 +2668,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			// next naval
 			let s2 = remove_one_notdestroyer(naval_group.um, node.unit_str);
 			let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2+node.num_submerge);
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
-				mymap.set(s2+node.num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2, "push 3");
 				//console.log (node2.index, "push 3");
@@ -2482,11 +2688,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			// next air
 			let s2 = remove_one_notsub(naval_group.um, node.unit_str, true);
 			let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2+node.num_submerge);
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
-				mymap.set(s2+ node.num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2, "push 4");
 				//console.log (node2.index, "push 4");
@@ -2501,11 +2708,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			// next sub
 			let s2 = remove_one_notplane(naval_group.um, node.unit_str, true);
 			let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2+node.num_submerge);
+			let key = make_node_key(s2, node.retreat);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, node.num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
-				mymap.set(s2+ node.num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2, "push 5");
 				//console.log (node2.index, "push 5");
@@ -2514,18 +2722,19 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			}
 			node.next_dlast_subhit = node2;
 		}
-		if (naval_group.submerge_sub && node.num_subs > 0 && node.num_submerge == 0) {
-			let [s2, num_submerge] = retreat_subs(naval_group.um, node.unit_str);
+		if (naval_group.submerge_sub && node.num_subs > 0 && node.retreat.length == 0) {
+			let [s2, num_submerge, subs] = retreat_subs(naval_group.um, node.unit_str);
 			let node2 : naval_unit_graph_node;
-			let ii = mymap.get(s2 + num_submerge);
+			let key = make_node_key(s2, subs);
+			let ii = mymap.get(key);
 			if (ii == undefined) {
-				node2 = new naval_unit_graph_node(naval_group.um, s2, num_submerge, naval_group.is_nonaval);
+				node2 = new naval_unit_graph_node(naval_group.um, s2, subs, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
 					node2.dlast = node.dlast;
 				} else {
 					node2.dlast = false;
 				}
-				mymap.set(s2+ num_submerge, node2);
+				mymap.set(key, node2);
 				myheap.push(node2);
 				//console.log (node2, "push 6");
 				//console.log (node2.index, "push 6");
@@ -2533,6 +2742,29 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				node2 = ii;
 			}
 			node.next_submerge = node2;
+		}
+		if (is_amphibious && node.unit_str.length > 0 && node.retreat.length == 0) {
+			let [s2, amphibious] = retreat_non_amphibious(naval_group.um, node.unit_str);
+			if (true || hasAmphibious (naval_group.um, s2)) {
+				let node2 : naval_unit_graph_node;
+				let key = make_node_key(s2, amphibious);
+				let ii = mymap.get(key);
+				if (ii == undefined) {
+					node2 = new naval_unit_graph_node(naval_group.um, s2, amphibious, naval_group.is_nonaval);
+					if (node2.num_naval > 0) {
+						node2.dlast = node.dlast;
+					} else {
+						node2.dlast = false;
+					}
+					mymap.set(key, node2);
+					myheap.push(node2);
+					//console.log (node2, "push 6");
+					//console.log (node2.index, "push 6");
+				} else {
+					node2 = ii;
+				}
+				node.next_retreat_amphibious = node2;
+			}
 		}
     }
 
@@ -2641,7 +2873,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
         if (node.num_subs == 0) {
             node.nosub_group = make_unit_group(naval_group.um, node.unit_str, naval_group.attdef);
         } else {
-			let [s2, n2] = retreat_subs(naval_group.um, node.unit_str);
+			let [s2, n2, subs] = retreat_subs(naval_group.um, node.unit_str);
             node.nosub_group = make_unit_group(naval_group.um, s2, naval_group.attdef);
 		}
     }
@@ -2662,8 +2894,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
     for (let i = 0; i < naval_group.nodeArr.length; i++) {
         node = naval_group.nodeArr[i];
 		let red_str = get_reduced_group_string(node.unit_str);
+		let red_retreat_str = get_reduced_group_string(node.retreat);
 
-		console.log(`${node.index}:  ${red_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast}`);
+		console.log(`${node.index}:  ${red_str}:${red_retreat_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast} ${node.cost}`);
 //		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
 //			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
 //		}
@@ -2838,6 +3071,8 @@ interface aacalc_info {
 interface casualty_2d {
 	attacker : string;
 	defender : string;	
+	attacker_retreat : string;
+	defender_retreat : string;
 	attacker_casualty : string;
 	defender_casualty : string;	
 	prob : number;
@@ -2845,6 +3080,7 @@ interface casualty_2d {
 
 interface casualty_1d {
 	remain : string;
+	retreat : string;
 	casualty : string;
 	prob : number;
 }
@@ -2912,8 +3148,8 @@ export function aacalc(
 		console.profile("solve_sub");
 		//debugger
 		let myprob = new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
-			input.att_destroyer_last, input.att_submerge_sub, input.def_destroyer_last, input.def_submerge_sub);
-		myprob.retreat_threshold = input.retreat_threshold;
+			input.att_destroyer_last, input.att_submerge_sub, input.def_destroyer_last, input.def_submerge_sub, 
+			-1 /* rounds */, input.retreat_threshold);
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		console.timeEnd('init');
 		let problemArr : naval_problem[];
@@ -3007,6 +3243,21 @@ export interface multiwave_output {
 }
 
 
+function collect_and_print_results(
+	problem : naval_problem) 
+{
+	let problemArr : naval_problem[];
+	problemArr = [];
+	problemArr.push(problem);
+	let result_data : result_data_t[];
+	result_data = [];
+	collect_naval_results(problem, problemArr, 0, result_data);
+	let skipMerge = problem.is_retreat;
+	console.log (skipMerge, "skipMerge");
+	let out = print_naval_results(problem, problemArr, result_data, !skipMerge);
+	console.log(out);
+}
+
 export function multiwave(
 		input : multiwave_input
 		) 
@@ -3048,11 +3299,12 @@ export function multiwave(
 				}
 				let newcasstr = apply_ool(cas.remain + def_token, wave.def_ool, wave.def_aalast);
 			
-				let newcasualty : casualty_1d = { remain : newcasstr, casualty : cas.casualty, prob : p1}
+				// TODO... should submerged subs fight in the second wave... probably true
+				let newcasualty : casualty_1d = { remain : newcasstr, retreat: "", casualty : cas.casualty, prob : p1}
 				defend_add_reinforce.push(newcasualty);
 				if (p2 > 0) {
 					let newcasstr = apply_ool(cas.remain, wave.def_ool, wave.def_aalast);
-					let newcasualty : casualty_1d = { remain : newcasstr, casualty : cas.casualty, prob : p2}
+					let newcasualty : casualty_1d = { remain : newcasstr, retreat : "", casualty : cas.casualty, prob : p2}
 					//defend_add_reinforce.push(newcasualty);
 				}
 			}
@@ -3070,22 +3322,23 @@ export function multiwave(
 
 		console.log(defend_add_reinforce, "defend_add_reinforce");
 		probArr.push(new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
-			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, input.is_naval,
+			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, 	
+			wave.rounds, wave.retreat_threshold, input.is_naval,
 			defend_add_reinforce));
 		let myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
-		myprob.retreat_threshold = wave.retreat_threshold;
-		myprob.rounds = wave.rounds;
 		let problemArr : naval_problem[];
 		problemArr = [];
 		problemArr.push(myprob);
+		//console.log(myprob);
 		solve_sub( myprob, 0);
 
 		let result_data : result_data_t[];
 		result_data = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
-		let doMerge = myprob.rounds < 0;
-		let out = print_naval_results(myprob, problemArr, result_data, doMerge);
+		let skipMerge = myprob.is_retreat;
+		console.log (skipMerge, "skipMerge");
+		let out = print_naval_results(myprob, problemArr, result_data, !skipMerge);
 		output.push(out);
 		console.log(out, "wave", i);
 	}
@@ -3105,7 +3358,7 @@ export function multiwave(
 		let att_takes = output[i].takesTerritory[0]
 		if (i > 0) {
 			for (let j = 0 ; j < i; j++) {
-				def_ipcLoss += (output[j].takesTerritory[0] * get_cost_from_str(probArr[j].um, probArr[j].def_data.unit_str, 0));
+				def_ipcLoss += (output[j].takesTerritory[0] * get_cost_from_str(probArr[j].um, probArr[j].def_data.unit_str, ""));
 			}
 			//def_ipcLoss -= defipc[i-1];
 			att_ipcLoss += attipc[i-1];

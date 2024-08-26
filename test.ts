@@ -54,15 +54,15 @@ function run3(argc : number, argv : string[])
 	let strafe_threshold = parseFloat(argv[i++]);
 	let num_runs = Math.max(parseInt(argv[i++]), 1);
 
-	let att_destroyer_last = 0;
-	let def_destroyer_last = 0;
-	let att_submerge = 0;
-	let def_submerge = 0;
+	let att_destroyer_last = false;
+	let def_destroyer_last = false;
+	let att_submerge = false;
+	let def_submerge = false;
 	if (isnaval > 0) {
-		att_destroyer_last = Math.max(parseInt(argv[i++]), 0);
-		att_submerge = Math.max(parseInt(argv[i++]), 0);
-		def_destroyer_last = Math.max(parseInt(argv[i++]), 0);
-		def_submerge = Math.max(parseInt(argv[i++]), 0);
+		att_destroyer_last = parseInt(argv[i++]) > 0;
+		att_submerge = parseInt(argv[i++]) > 0;
+		def_destroyer_last = parseInt(argv[i++]) > 0;
+		def_submerge = parseInt(argv[i++]) > 0;
 	}
 	let attackers2 = argv[i++];
 	let defenders2 = argv[i++];
@@ -94,10 +94,10 @@ function run3(argc : number, argv : string[])
 			  defender : defenders,
 			  def_ool : "",
 			  def_aalast : aalast1, 
-			  att_submerge : false,
-			  def_submerge : false,
-			  att_dest_last : false,
-			  def_dest_last : false,
+			  att_submerge : att_submerge,
+			  def_submerge : def_submerge,
+			  att_dest_last : att_destroyer_last,
+			  def_dest_last : def_destroyer_last,
 			  rounds : rounds1,
 			  retreat_threshold : retreat1 };
 	wave2 = { attacker : attackers2, 
