@@ -1,37 +1,40 @@
 done
-{ dbat: 1 } units
+{ sub: 10, bat: 10 } units
 [
-  'sub',  'des',
-  'cru',  'fig',
-  'acc',  'bat',
-  'dbat'
+  'sub', 'des',
+  'cru', 'acc',
+  'fig', 'bom',
+  'bat'
 ] ool
 0 takes
 false aalast
 true isnaval
-[ 'F', 'TFBAfCDS' ] unit_str, ool_str
+[ 'BBBBBBBBBBSSSSSSSSSS', 'TBbfACDS' ] unit_str, ool_str
+[ 'BBBBBBBBBBSSSSSSSSSS', 'TBAfCDS' ] unit_str, ool_str
 {
     "wave_info": [
         {
             "attack": {
                 "units": {
-                    "dbat": 1
+                    "sub": 10,
+                    "bat": 10
                 },
                 "ool": [
                     "sub",
                     "des",
                     "cru",
-                    "fig",
                     "acc",
-                    "bat",
-                    "dbat"
+                    "fig",
+                    "bom",
+                    "bat"
                 ],
                 "takes": 0,
                 "aaLast": false
             },
             "defense": {
                 "units": {
-                    "dbat": 1
+                    "sub": 10,
+                    "bat": 10
                 },
                 "ool": [
                     "sub",
@@ -39,8 +42,7 @@ true isnaval
                     "cru",
                     "fig",
                     "acc",
-                    "bat",
-                    "dbat"
+                    "bat"
                 ],
                 "takes": 0,
                 "aaLast": false
@@ -49,7 +51,8 @@ true isnaval
             "def_submerge": false,
             "att_dest_last": false,
             "def_dest_last": false,
-            "rounds": -1,
+            "is_crash_fighters": false,
+            "rounds": 100,
             "retreat_threshold": 0
         }
     ],
@@ -58,89 +61,33 @@ true isnaval
     "report_prune_threshold": 1e-12,
     "is_naval": true,
     "in_progress": false,
-    "num_runs": 1
+    "num_runs": 1,
+    "verbose_level": 0
 }
-undefined defend_add_reinforce
- make_unit_group
- make_unit_group
-F make_unit_group
- make_unit_group
-0:  1F 0 0 1 0 false
-1:   0 0 0 0 false
- make_unit_group
- make_unit_group
-F make_unit_group
- make_unit_group
-0:  1F 0 0 1 0 false
-1:   0 0 0 0 false
-3 number of results
-attackers = B
-defenders = B
-attackers = 1B
-defenders = 1B
-result:  P[0][1] 1B vs.  (loss  0 vs. 1B 20)= 0.25 cumm(0.25) rcumm(1) (-1.5)
-result:  P[1][1]  vs.  (loss 1B 20 vs. 1B 20)= 0.5 cumm(0.75) rcumm(0.75) (0)
-result:  P[1][0]  vs. 1B (loss 1B 20 vs.  0)= 0.25 cumm(1) rcumm(0.25) (1.5)
-attsurvive: 0.25
-defsurvive: 0.25
-{
-  attack: { survives: [ 0.25, 0, 0 ], ipcLoss: [ 15, 0, 0 ] },
-  defense: { survives: [ 0.25, 0, 0 ], ipcLoss: [ 15, 0, 0 ] },
-  casualtiesInfo: [
-    {
-      attacker: '1B',
-      defender: '',
-      attacker_casualty: '',
-      defender_casualty: '1B',
-      prob: 0.25
-    },
-    {
-      attacker: '',
-      defender: '',
-      attacker_casualty: '1B',
-      defender_casualty: '1B',
-      prob: 0.5
-    },
-    {
-      attacker: '',
-      defender: '1B',
-      attacker_casualty: '1B',
-      defender_casualty: '',
-      prob: 0.25
-    }
-  ],
-  att_cas: [
-    { remain: 'B', casualty: '', prob: 0.25 },
-    { remain: '', casualty: 'B', prob: 0.75 }
-  ],
-  def_cas: [
-    { remain: '', casualty: 'B', prob: 0.75 },
-    { remain: 'B', casualty: '', prob: 0.25 }
-  ],
-  takesTerritory: [ 0, 0, 0 ]
-} wave 0
 {
     "wave_info": [
         {
             "attack": {
                 "units": {
-                    "dbat": 1
+                    "sub": 10,
+                    "bat": 10
                 },
                 "ool": [
                     "sub",
                     "des",
                     "cru",
-                    "fig",
                     "acc",
-                    "bat",
-                    "dbat"
+                    "fig",
+                    "bom",
+                    "bat"
                 ],
                 "takes": 0,
                 "aaLast": false
             },
             "defense": {
                 "units": {
-                    "dbat": 1
+                    "sub": 10,
+                    "bat": 10
                 },
                 "ool": [
                     "sub",
@@ -148,8 +95,7 @@ defsurvive: 0.25
                     "cru",
                     "fig",
                     "acc",
-                    "bat",
-                    "dbat"
+                    "bat"
                 ],
                 "takes": 0,
                 "aaLast": false
@@ -158,7 +104,8 @@ defsurvive: 0.25
             "def_submerge": false,
             "att_dest_last": false,
             "def_dest_last": false,
-            "rounds": -1,
+            "is_crash_fighters": false,
+            "rounds": 100,
             "retreat_threshold": 0
         }
     ],
@@ -167,23 +114,24 @@ defsurvive: 0.25
     "report_prune_threshold": 1e-12,
     "is_naval": true,
     "in_progress": false,
-    "num_runs": 1
+    "num_runs": 1,
+    "verbose_level": 0
 }
 {
     "attack": {
         "survives": [
-            0.25
+            0.785045644306524
         ],
         "ipcLoss": [
-            15
+            145.518327700801
         ]
     },
     "defense": {
         "survives": [
-            0.25
+            0.2015387892399474
         ],
         "ipcLoss": [
-            15
+            242.3648995989333
         ]
     },
     "waves": 1,
@@ -191,38 +139,409 @@ defsurvive: 0.25
         0
     ],
     "rounds": [
-        -1
+        3.8252141986453148
     ],
     "casualtiesInfo": {
         "attack": {
             "0": {
                 "casualties": "",
-                "survivors": "1 Bat",
+                "survivors": "10 Bat, 10 Sub",
                 "retreaters": "",
-                "amount": 0.25,
+                "amount": 0,
                 "ipcLoss": 0
             },
             "1": {
-                "casualties": "1 Bat",
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "2": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "3": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "4": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "5": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "6": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "7": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "8": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "9": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0.001218687320217431,
+                "ipcLoss": 0
+            },
+            "10": {
+                "casualties": "1 Sub",
+                "survivors": "10 Bat, 9 Sub",
+                "retreaters": "",
+                "amount": 0.0019349360988231209,
+                "ipcLoss": 6
+            },
+            "11": {
+                "casualties": "2 Sub",
+                "survivors": "10 Bat, 8 Sub",
+                "retreaters": "",
+                "amount": 0.003950485591082841,
+                "ipcLoss": 12
+            },
+            "12": {
+                "casualties": "3 Sub",
+                "survivors": "10 Bat, 7 Sub",
+                "retreaters": "",
+                "amount": 0.007262133358488421,
+                "ipcLoss": 18
+            },
+            "13": {
+                "casualties": "4 Sub",
+                "survivors": "10 Bat, 6 Sub",
+                "retreaters": "",
+                "amount": 0.012224359009149123,
+                "ipcLoss": 24
+            },
+            "14": {
+                "casualties": "5 Sub",
+                "survivors": "10 Bat, 5 Sub",
+                "retreaters": "",
+                "amount": 0.01902205168459303,
+                "ipcLoss": 30
+            },
+            "15": {
+                "casualties": "6 Sub",
+                "survivors": "10 Bat, 4 Sub",
+                "retreaters": "",
+                "amount": 0.02746835684526563,
+                "ipcLoss": 36
+            },
+            "16": {
+                "casualties": "7 Sub",
+                "survivors": "10 Bat, 3 Sub",
+                "retreaters": "",
+                "amount": 0.03682962634424454,
+                "ipcLoss": 42
+            },
+            "17": {
+                "casualties": "8 Sub",
+                "survivors": "10 Bat, 2 Sub",
+                "retreaters": "",
+                "amount": 0.0458545649510746,
+                "ipcLoss": 48
+            },
+            "18": {
+                "casualties": "9 Sub",
+                "survivors": "10 Bat, 1 Sub",
+                "retreaters": "",
+                "amount": 0.053143509445880054,
+                "ipcLoss": 54
+            },
+            "19": {
+                "casualties": "10 Sub",
+                "survivors": "10 Bat",
+                "retreaters": "",
+                "amount": 0.05776028792293294,
+                "ipcLoss": 60
+            },
+            "20": {
+                "casualties": "1 Bat, 10 Sub",
+                "survivors": "9 Bat",
+                "retreaters": "",
+                "amount": 0.06403778179660248,
+                "ipcLoss": 80
+            },
+            "21": {
+                "casualties": "2 Bat, 10 Sub",
+                "survivors": "8 Bat",
+                "retreaters": "",
+                "amount": 0.0681807251809055,
+                "ipcLoss": 100
+            },
+            "22": {
+                "casualties": "3 Bat, 10 Sub",
+                "survivors": "7 Bat",
+                "retreaters": "",
+                "amount": 0.07007736295021602,
+                "ipcLoss": 120
+            },
+            "23": {
+                "casualties": "4 Bat, 10 Sub",
+                "survivors": "6 Bat",
+                "retreaters": "",
+                "amount": 0.06954765050090397,
+                "ipcLoss": 140
+            },
+            "24": {
+                "casualties": "5 Bat, 10 Sub",
+                "survivors": "5 Bat",
+                "retreaters": "",
+                "amount": 0.06623329850146867,
+                "ipcLoss": 160
+            },
+            "25": {
+                "casualties": "6 Bat, 10 Sub",
+                "survivors": "4 Bat",
+                "retreaters": "",
+                "amount": 0.05995190809592421,
+                "ipcLoss": 180
+            },
+            "26": {
+                "casualties": "7 Bat, 10 Sub",
+                "survivors": "3 Bat",
+                "retreaters": "",
+                "amount": 0.051102013530949376,
+                "ipcLoss": 200
+            },
+            "27": {
+                "casualties": "8 Bat, 10 Sub",
+                "survivors": "2 Bat",
+                "retreaters": "",
+                "amount": 0.04054051231741879,
+                "ipcLoss": 220
+            },
+            "28": {
+                "casualties": "9 Bat, 10 Sub",
+                "survivors": "1 Bat",
+                "retreaters": "",
+                "amount": 0.028705392860383327,
+                "ipcLoss": 240
+            },
+            "29": {
+                "casualties": "10 Bat, 10 Sub",
                 "survivors": "",
                 "retreaters": "",
-                "amount": 0.75,
-                "ipcLoss": 20
+                "amount": 0.2149543308766362,
+                "ipcLoss": 260
             }
         },
         "defense": {
             "0": {
-                "casualties": "1 Bat",
+                "casualties": "10 Bat, 10 Sub",
                 "survivors": "",
                 "retreaters": "",
-                "amount": 0.75,
-                "ipcLoss": 20
+                "amount": 0.7984611859432128,
+                "ipcLoss": 260
             },
             "1": {
-                "casualties": "",
+                "casualties": "9 Bat, 10 Sub",
                 "survivors": "1 Bat",
                 "retreaters": "",
-                "amount": 0.25,
+                "amount": 0.02579056927824495,
+                "ipcLoss": 240
+            },
+            "2": {
+                "casualties": "8 Bat, 10 Sub",
+                "survivors": "2 Bat",
+                "retreaters": "",
+                "amount": 0.03073084294890345,
+                "ipcLoss": 220
+            },
+            "3": {
+                "casualties": "7 Bat, 10 Sub",
+                "survivors": "3 Bat",
+                "retreaters": "",
+                "amount": 0.031349002152921406,
+                "ipcLoss": 200
+            },
+            "4": {
+                "casualties": "6 Bat, 10 Sub",
+                "survivors": "4 Bat",
+                "retreaters": "",
+                "amount": 0.028838684070355922,
+                "ipcLoss": 180
+            },
+            "5": {
+                "casualties": "5 Bat, 10 Sub",
+                "survivors": "5 Bat",
+                "retreaters": "",
+                "amount": 0.024356396006966537,
+                "ipcLoss": 160
+            },
+            "6": {
+                "casualties": "4 Bat, 10 Sub",
+                "survivors": "6 Bat",
+                "retreaters": "",
+                "amount": 0.019124312624622306,
+                "ipcLoss": 140
+            },
+            "7": {
+                "casualties": "3 Bat, 10 Sub",
+                "survivors": "7 Bat",
+                "retreaters": "",
+                "amount": 0.014129603647503743,
+                "ipcLoss": 120
+            },
+            "8": {
+                "casualties": "2 Bat, 10 Sub",
+                "survivors": "8 Bat",
+                "retreaters": "",
+                "amount": 0.009926938545547945,
+                "ipcLoss": 100
+            },
+            "9": {
+                "casualties": "1 Bat, 10 Sub",
+                "survivors": "9 Bat",
+                "retreaters": "",
+                "amount": 0.0066760481770084005,
+                "ipcLoss": 80
+            },
+            "10": {
+                "casualties": "10 Sub",
+                "survivors": "10 Bat",
+                "retreaters": "",
+                "amount": 0.004307063862497989,
+                "ipcLoss": 60
+            },
+            "11": {
+                "casualties": "9 Sub",
+                "survivors": "10 Bat, 1 Sub",
+                "retreaters": "",
+                "amount": 0.0027659373027787773,
+                "ipcLoss": 54
+            },
+            "12": {
+                "casualties": "8 Sub",
+                "survivors": "10 Bat, 2 Sub",
+                "retreaters": "",
+                "amount": 0.001674888605080728,
+                "ipcLoss": 48
+            },
+            "13": {
+                "casualties": "7 Sub",
+                "survivors": "10 Bat, 3 Sub",
+                "retreaters": "",
+                "amount": 0.0009488484462338772,
+                "ipcLoss": 42
+            },
+            "14": {
+                "casualties": "6 Sub",
+                "survivors": "10 Bat, 4 Sub",
+                "retreaters": "",
+                "amount": 0.0004995958113877704,
+                "ipcLoss": 36
+            },
+            "15": {
+                "casualties": "5 Sub",
+                "survivors": "10 Bat, 5 Sub",
+                "retreaters": "",
+                "amount": 0.0002431277456384689,
+                "ipcLoss": 30
+            },
+            "16": {
+                "casualties": "4 Sub",
+                "survivors": "10 Bat, 6 Sub",
+                "retreaters": "",
+                "amount": 0.00010875809973476325,
+                "ipcLoss": 24
+            },
+            "17": {
+                "casualties": "3 Sub",
+                "survivors": "10 Bat, 7 Sub",
+                "retreaters": "",
+                "amount": 0.00004440724846241349,
+                "ipcLoss": 18
+            },
+            "18": {
+                "casualties": "2 Sub",
+                "survivors": "10 Bat, 8 Sub",
+                "retreaters": "",
+                "amount": 0.000016378707536049085,
+                "ipcLoss": 12
+            },
+            "19": {
+                "casualties": "1 Sub",
+                "survivors": "10 Bat, 9 Sub",
+                "retreaters": "",
+                "amount": 0.00000537585220849411,
+                "ipcLoss": 6
+            },
+            "20": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "21": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "22": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "23": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "24": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "25": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0,
+                "ipcLoss": 0
+            },
+            "26": {
+                "casualties": "",
+                "survivors": "10 Bat, 10 Sub",
+                "retreaters": "",
+                "amount": 0.0000020101063133884997,
                 "ipcLoss": 0
             }
         }

@@ -1,29 +1,227 @@
-1					;; is multiwave
-0 					;; debug
-1e-15				;; prune_threshold
-1e-15				;; report_prune_threshold
-1					;; is_naval
-20f, 20D, 20S
-20f, 20D, 20S
-0					;; strafe
-1					;; num times
-0					;; att dest last
-0					;; att submerge
-0					;; def dest last
-0					;; def submerge
+1								;; is multiwave
+0 								;; debug
+1e-12							;; report threshold
+1e-12							;; prune threshold
+1								;; is naval
+1f, 1D, 1S
+1f, 1D, 1S
+0								;; strafe
+1							;; num times
+1
+1
+0
+1
 
 
-TBfCADS
+ftaibc
 
 
-TBfCADS
-0					;; in progress
-0					;; retreat 1
-0					;; retreat 2
-0					;; retreat 3
+ftaibc
+0
+0
+0
+0
+0
+0
+0
+100
+-1
+-1
+0
+0
+0
+0
+0
 
+
+1f, 2g, 2i, 2j
+10i
+
+10f, 20a, 20g, 20i, 20j, 1C, 1B
+1f, 1g, 2i, 1j
+6i
+10f, 40a, 40i
+10f, 40a, 40i
+10f, 40a, 40i
+10f, 40a, 40i
+100i
+10f, 40a, 40i, 1C, 1B
+100i
+
+10f, 40a, 40i, 1C, 1B
+100i
+
+1a, 20f, 20t, 19a, 60i
+20f, 20t, 20a, 60i, 5c
+10b, 20f, 10A, 20S
+20f, 10A, 20D, 20S
+
+50f, 50S
+50f, 50S
+10A, 10b, 20f, 20S
+10A, 20f, 20D, 20S
+
+20f, 10C, 10A, 20S
+20f, 10C, 10A, 20S
+20f, 5C, 5A, 20S
+20f, 5C, 5A, 20S
+
+
+10f, 5C, 5A, 10S
+10f, 5C, 5A, 10S
+
+10f, 5C, 5A, 10S
+10f, 5C, 5A, 10S
+
+75f, 75S
+75f, 5A, 5D, 75S
+
+
+1t, 1b, 4f, 4a, 21i, 1C, 1B
+4f
+ftaibc
+
+
+ftaibc
+0		;; in progress
+0		;; retreat_threshold 1
+0		;; retreat_threshold 2
+0		;; retreat_threshold 3
+
+
+
+
+
+
+
+0 
+0 
+1e-12
+1e-12
+0
+12f, 5i
+12i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+
+
+ftaibc
+
+
+ftaibc
+0		;; in progress
+12		;; retreat_threshold 1
+0		;; retreat_threshold 2
+0		;; retreat_threshold 3
+
+
+
+
+0 
+1e-12
+1e-12
+0
+1b, 2f, 1t, 13a, 16i, 1C
+5f, 9t, 3c, 5a, 20i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1t, 1b, 4f, 4a, 21i, 1C, 1B
+4f
+ftaibc
+
+
+ftaibc
+
+
+
+
+0 
+1e-12
+1e-12
+0
+1i
+1i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1i
 
 ftcaib
+1i
+1i
+ftaibc
+
+0 
+1e-12
+1e-12
+0
+2f, 1a, 2i
+1c, 8i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+2f, 1a, 2i
+1f
+ftcaib
+2f, 1a, 2i
+1f
+ftaibc
+
+
+0 
+1e-12
+1e-12
+0
+1f, 2a, 4i
+3t, 1c, 10i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1f, 2a, 4i
+1f
+ftcaib
+1f, 2a, 4i
+1f
+ftaibc
+
+
+0 
+1e-12
+1e-12
+0
+1f, 2a, 4i
+3t, 10i
+0								;; strafe
+1								;; num times
+0	;; att dlast
+0	;; att submerge
+0	;; def dlast
+0	;; def submerge
+1f, 2a, 4i
+1f
+ftcaib
+1f, 2a, 4i
+1f
+ftaibc
+
+
 100i, 40a, 120t, 40f
 100i, 40a, 120t, 40f
 

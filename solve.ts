@@ -5,17 +5,19 @@ import { UnitIdentifier } from "./external";
 
 const epsilon : number = 1e-9;
 
+export type DiceMode = "Standard" | "Low Luck" | "Biased"
+
 class unit_group_manager {
     unit_group_arr : unit_group[];
 	mymap : Map<string, number>;
-	get_or_create_unit_group(um : unit_manager, input : string, attdef : number) : unit_group {
+	get_or_create_unit_group(um : unit_manager, input : string, attdef : number, diceMode : DiceMode) : unit_group {
 		let ug;
 		let ii = this.mymap.get(input+attdef);
 		if (ii == undefined) {
-			ug = new unit_group(um, input, attdef);
+			ug = new unit_group(um, input, attdef, diceMode);
 			if (ug == undefined) {
 				console.log(input+attdef, "ug manager FATAL -- undefind");
-				process.exit(1);
+				throw new Error();
 			}
 			for (let i = 1; i <= input.length; i++) {
 				let t = input.substring(0,i) + attdef;
@@ -39,13 +41,15 @@ export class unit_manager {
 	rev_map2 : Map<string, string>;
 	rev_map3 : Map<UnitIdentifier, string>;
 	unit_group_manager : unit_group_manager;
-	constructor() {
+	verbose_level : number;
+	constructor(verbose_level : number) {
 		this.unit_stats = new Map();
 		this.rev_map = new Map();
 		this.rev_map2 = new Map();
 		this.rev_map3 = new Map();
 		this.init_units();
 		this.unit_group_manager = new unit_group_manager();
+		this.verbose_level = verbose_level;
 	}
 	init_units() {
 		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false, false);
@@ -88,6 +92,7 @@ export class unit_manager {
 }
 
 class unit_group {
+	diceMode : DiceMode;
 	unit_str : string;
  	attdef	: number
 	size	: number
@@ -118,7 +123,8 @@ class unit_group {
 		this.prob_table2[ii] = val;
 	}
 
-	constructor(manager : unit_manager, input_str : string, attdef : number) {
+	constructor(manager : unit_manager, input_str : string, attdef : number, 
+				diceMode : DiceMode) {
 		this.unit_str = input_str;
 		this.size = input_str.length;
 		this.tbl_size = this.size + 1;
@@ -130,9 +136,12 @@ class unit_group {
 		this.attdef = attdef;
 		this.prob_hits = []
 		this.first_destroyer_index = -1;
+		this.diceMode = diceMode;
 		let i : number;
 		let j : number;
-		console.log(input_str, "make_unit_group");
+		if (manager.verbose_level > 0) {
+			console.log(input_str, "make_unit_group");
+		}
 		for (i = 0; i < this.tbl_size; i++) {
 			this.pless[i] = []
 			this.pgreater[i] = []
@@ -142,6 +151,8 @@ class unit_group {
 				this.set_prob_table(i, j, 0);
 			}
 		}
+		const biasedDice : number[] = [1, 2, 3, 2, 1, 1];
+		const biasedDiceProb : number[] = [1, 3, 6, 8, 9, 10];
 		for (i = 0; i < this.size; i++) {
 			let ii = i + 1;
 			let ch = this.unit_str.charAt(i);
@@ -160,12 +171,20 @@ class unit_group {
 				default:	
 					val = 1;
 			}
-			this.prob_hits[ii] = val / 6;
+			if (diceMode == "Standard") {
+				this.prob_hits[ii] = val / 6;
+			} else if (diceMode == "Biased") {
+				this.prob_hits[ii] = biasedDiceProb[val-1] / 10;
+			} else {	
+				// low luck
+				this.prob_hits[ii] = val / 6;
+			}	
 			if (i == 0) {
 				this.power[ii] = val;
 			} else {
 				this.power[ii] = this.power[ii-1] + val;
 			}
+			//console.log(this.prob_hits);
 		}
 		this.compute_prob_table();
 
@@ -272,6 +291,7 @@ class naval_unit_graph_node {
 class naval_unit_group {
 	um : unit_manager;
 	unit_str : string = "";
+	diceMode : DiceMode;
 	attdef : number = 0;
 	destroyer_last : boolean = false;
 	submerge_sub : boolean = false;
@@ -293,7 +313,8 @@ class naval_unit_group {
 						cas : casualty_1d[] | undefined , 
 					    is_nonaval : boolean , 	
 						is_amphibious : boolean, 	
-						crash_fighters : boolean) {
+						crash_fighters : boolean,
+						diceMode : DiceMode) {
 		this.um = um;
 		this.unit_str = input_str;
 		this.attdef = attdef;
@@ -304,11 +325,12 @@ class naval_unit_group {
 		this.num_naval = input_str.length - this.num_subs - this.num_air;
 		this.is_nonaval = is_nonaval;
 		this.is_crash_fighters = crash_fighters;
+		this.diceMode = diceMode;
 		let subs = ""
 		for (let i = 0; i < this.num_subs; i++) {
 			subs += 'S';
 		}
-		this.sub_group = make_unit_group(um, subs, attdef);
+		this.sub_group = make_unit_group(um, subs, attdef, this.diceMode);
 
 		let planes = "";
 		for (let i = 0; i < input_str.length; i++) {
@@ -317,7 +339,7 @@ class naval_unit_group {
 				planes += ch;
 			}
 		}
-		this.air_group = make_unit_group(um, planes, attdef);
+		this.air_group = make_unit_group(um, planes, attdef, this.diceMode);
 
 		let naval = "";
 		let first_destroyer_index = -1;
@@ -333,12 +355,12 @@ class naval_unit_group {
 			}
 		}
 
-		this.naval_group = make_unit_group(um, naval, attdef);
+		this.naval_group = make_unit_group(um, naval, attdef, this.diceMode);
 		this.naval_group.first_destroyer_index = first_destroyer_index;
 
 		if (first_destroyer_index >= 0) {
 			let destlast = "D" + naval.substr(0, first_destroyer_index) + naval.substr(first_destroyer_index+1);
-			this.dlast_group = make_unit_group(um, destlast, attdef);
+			this.dlast_group = make_unit_group(um, destlast, attdef, this.diceMode);
 		} else {
 			this.dlast_group = this.naval_group;
 		}
@@ -358,9 +380,11 @@ class naval_problem {
 	is_crash_fighters : boolean;
 	rounds : number = -1;
 	average_rounds : number = -1;
+	diceMode : DiceMode = "Standard";
 	N : number;
 	M : number;
 	debug_level : number = 0;
+	verbose_level : number = 0;
 	P_1d : number[] = [];
 	nonavalproblem : naval_problem | undefined = undefined;
 	def_cas : casualty_1d[] | undefined = undefined
@@ -402,17 +426,19 @@ class naval_problem {
 	isEarlyRetreat() {
 		return this.att_data.submerge_sub || this.def_data.submerge_sub
 	}
-    constructor(um : unit_manager, att_str : string, def_str : string, prob : number,
+    constructor(verbose_level : number, um : unit_manager, att_str : string, def_str : string, prob : number,
 			att_dest_last : boolean, att_submerge : boolean , def_dest_last : boolean , def_submerge : boolean,
 			rounds : number, 
 			retreat_threshold : number,
 			is_crash_fighters : boolean,
 			is_naval : boolean = true,
 			def_cas	: casualty_1d[] | undefined = undefined,
-			is_nonaval : boolean = false
+			is_nonaval : boolean = false,
+			diceMode : DiceMode = "Standard"
 			 ) {
 		
 		this.um = um;
+		this.verbose_level = verbose_level;
 
 		let numAA = count_units(def_str, 'c');
 		
@@ -425,14 +451,15 @@ class naval_problem {
 			max_def_hits += numBombard;
 		}
 
+		this.diceMode = diceMode;
 		this.is_retreat = ((rounds > 0) && (rounds < 100)) || (retreat_threshold > 0);
 		this.retreat_threshold = retreat_threshold;
 		this.is_crash_fighters = is_crash_fighters;
 		this.rounds = rounds;
 		this.is_amphibious = this.is_retreat && hasAmphibious (um, att_str);
-		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA, undefined, is_nonaval, this.is_amphibious, false);
+		this.att_data = new naval_unit_group(um, att_str, 0, att_dest_last, att_submerge, max_def_hits+ 2, numAA, undefined, is_nonaval, this.is_amphibious, false, diceMode);
 		//console.log(this.att_data, `att`);
-		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas, is_nonaval, false, this.is_crash_fighters);
+		this.def_data = new naval_unit_group(um, def_str, 1, def_dest_last, def_submerge, max_att_hits+ 2, 0, def_cas, is_nonaval, false, this.is_crash_fighters, diceMode);
 		this.N = this.att_data.nodeArr.length;
 		this.M = this.def_data.nodeArr.length;
 
@@ -458,9 +485,10 @@ class naval_problem {
 				let def = this.def_data.sub_group.unit_str + 
 						this.def_data.air_group.unit_str;
 				this.nonavalproblem = new naval_problem(
+						this.verbose_level,
 						um, att, def, 0.0, 
 						false, false, false, false, -1, 0, false, true,
-						undefined, true);
+						undefined, true, this.diceMode);
 				if (this.nonavalproblem != undefined) {
 					for (let i = 0 ; i < this.att_data.nodeArr.length; i++) {
 						let node = this.att_data.nodeArr[i];
@@ -551,9 +579,9 @@ class problem {
 
 	constructor(um : unit_manager, att_str : string, def_str : string, prob : number, cas : string = "") {
 		this.um = um;
-		this.att_data = new unit_group(um, att_str, 0);
+		this.att_data = new unit_group(um, att_str, 0, "Standard");
 		//console.log(p.att_data, `att`);
-		this.def_data = new unit_group(um, def_str, 1);
+		this.def_data = new unit_group(um, def_str, 1, "Standard");
 		//console.log(p.def_data, `def`);
 		this.prob = prob;
 		this.cas = cas;
@@ -1767,6 +1795,7 @@ function get_reduced_group_string(input : string) :
 }
 
 
+/*
 export function get_external_unit_str(um : unit_manager, input : string) :
 		string
 {
@@ -1789,6 +1818,7 @@ export function get_external_unit_str(um : unit_manager, input : string) :
 	})
 	return out.substring(0, out.length - 2);
 }
+*/
 
 
 
@@ -2052,7 +2082,9 @@ function print_naval_results(
 		resultArr : result_data_t[], 
 		doMerge : boolean = true ) : aacalc_output
 {
-	console.log(resultArr.length, `number of results`);
+	if (baseproblem.verbose_level > 0) {
+		console.log(resultArr.length, `number of results`);
+	}
 
 	let sortedArr = resultArr.sort((n1, n2) => {
 			let r1 = n1.cost;
@@ -2090,10 +2122,12 @@ function print_naval_results(
     [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, 0);
 	red_att = get_reduced_group_string(att);
 	red_def = get_reduced_group_string(def);
-	console.log(`attackers = ${att}`);
-	console.log(`defenders = ${def}`);
-	console.log(`attackers = ${red_att}`);
-	console.log(`defenders = ${red_def}`);
+	if (baseproblem.verbose_level > 0) {
+		console.log(`attackers = ${att}`);
+		console.log(`defenders = ${def}`);
+		console.log(`attackers = ${red_att}`);
+		console.log(`defenders = ${red_def}`);
+	}
 
     let sum = 0.0;
 
@@ -2164,16 +2198,16 @@ function print_naval_results(
 			if (!baseproblem.is_naval && hasLand(problem.um, att)  && def.length == 0) {
 				takes += p;
 			}
+			if (baseproblem.verbose_level > 0) {
 			//console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} = ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
-			console.log(`result:  P[%d][%d] ${red_att}:${red_retreat_att} vs. ${red_def}:${red_retreat_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
+				console.log(`result:  P[%d][%d] ${red_att}:${red_retreat_att} vs. ${red_def}:${red_retreat_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
+			}
 			let cas : casualty_2d = { attacker : red_att, defender : red_def, 
 					attacker_retreat : red_retreat_att, defender_retreat : red_retreat_def,
 					attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
 			casualties.push( cas );
         }
     }
-	console.log(`attsurvive: ${attsurvive}`);
-	console.log(`defsurvive: ${defsurvive}`);
 
 	let att_cas_1d : casualty_1d[];
 	att_cas_1d = [];
@@ -2228,7 +2262,7 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
     for (let i =0; i < num_shots; i++) {
     	aashots = aashots + 'c';
     }
-	let aa_data = make_unit_group(myprob.um, aashots, 2);
+	let aa_data = make_unit_group(myprob.um, aashots, 2, "Standard");
 
     let N = aa_data.tbl_size;
 
@@ -2296,14 +2330,16 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			for (let i =0; i < problem.att_data.num_aashot; i++) {
 				aashots = aashots + 'c';
 			}
-			let aa_data = make_unit_group(problem.um, aashots, 2);
+			let aa_data = make_unit_group(problem.um, aashots, 2, problem.diceMode);
 
 			let N = aa_data.tbl_size;
 			for (let i = 0; i < N; i++) {
 				let prob = aa_data.get_prob_table(N-1, i);
 				let n = remove_aahits( problem.att_data, i, 0);
 				problem.setP(n, 0, problem.prob * prob);
-				console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
+				if (problem.verbose_level > 0) {
+					console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
+				}
 			}
 		}
 	} else {
@@ -2319,7 +2355,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			for (let i =0; i < problem.att_data.num_aashot; i++) {
 				aashots = aashots + 'c';
 			}
-			aa_data = make_unit_group(problem.um, aashots, 2);
+			aa_data = make_unit_group(problem.um, aashots, 2, problem.diceMode);
 			N = aa_data.tbl_size;
 		}
 		for (let i = 0; i < problem.def_cas.length; i++) {
@@ -2341,7 +2377,9 @@ function solve_sub(problem : naval_problem, skipAA : number)
 						let prob = aa_data.get_prob_table(NN-1, i);
 						let n = remove_aahits( problem.att_data, i, 0);
 						problem.setP(n, ii, p * prob);
-						console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
+						if (problem.verbose_level > 0) {
+							console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
+						}
 					}
 				}
 			}
@@ -2369,7 +2407,9 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	if (problem.rounds > 0) {
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
 		let prob_ends : number[] = [];
-		console.log(rounds, "rounds");
+		if (problem.verbose_level > 0) {
+			console.log(rounds, "rounds");
+		}	
 		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious;
 		if (didBombard) {
 			if (needs_early_retreat) {
@@ -2381,7 +2421,9 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 			let p = get_terminal_state_prob(problem, true);
 			prob_ends.push(p);
-			console.log(prob_ends, "prob ends");
+			if (problem.verbose_level > 0) {
+				console.log(prob_ends, "prob ends");
+			}
 		}
 		for (let ii = 0; ii < rounds; ii++) {
 			for (i = N-1; i >= 0 ; i--) {
@@ -2437,14 +2479,18 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		if (!problem.is_amphibious) {
 			prob_ends[prob_ends.length-1] = 1.0;
 		}
-		console.log(prob_ends.length, "stopped after rounds");
-		console.log(prob_ends, "stopped after rounds");
+		if (problem.verbose_level > 0) {
+			console.log(prob_ends.length, "stopped after rounds");
+			console.log(prob_ends, "stopped after rounds");
+		}
 		let sum = 0.0
 		for (let i = 0; i < prob_ends.length; i++) {
 			let p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
 			sum += ((i+1) * p);
 		}
-		console.log(sum, "average rounds");
+		if (problem.verbose_level > 0) {
+			console.log(sum, "average rounds");
+		}
 		problem.average_rounds = sum;
     } else {
 		for (i = 0; i < N ; i++) {
@@ -2455,11 +2501,11 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	}
 
 	if (problem.is_crash_fighters) {
-		console.log("before crash")
-		collect_and_print_results(problem);
+		//console.log("before crash")
+		//collect_and_print_results(problem);
 		do_crash_fighters(problem);
-		console.log("after crash")
-		collect_and_print_results(problem);
+		//console.log("after crash")
+		//collect_and_print_results(problem);
 	}
 
 
@@ -2496,7 +2542,9 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				}
 			}
 		}
-		console.log(sum, "sum");
+		if (problem.verbose_level > 0) {
+			console.log(sum, "sum");
+		}
 	}
 }
 
@@ -2955,10 +3003,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		}
 
         if (node.num_subs == 0) {
-            node.nosub_group = make_unit_group(naval_group.um, node.unit_str, naval_group.attdef);
+            node.nosub_group = make_unit_group(naval_group.um, node.unit_str, naval_group.attdef, naval_group.diceMode);
         } else {
 			let [s2, n2, subs] = retreat_subs(naval_group.um, node.unit_str);
-            node.nosub_group = make_unit_group(naval_group.um, s2, naval_group.attdef);
+            node.nosub_group = make_unit_group(naval_group.um, s2, naval_group.attdef, naval_group.diceMode);
 		}
     }
 	// aahits
@@ -2980,19 +3028,23 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		let red_str = get_reduced_group_string(node.unit_str);
 		let red_retreat_str = get_reduced_group_string(node.retreat);
 
-		console.log(`${node.index}:  ${red_str}:${red_retreat_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast} ${node.cost}`);
-//		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
-//			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
-//		}
-		if (node.next_crash_fighters != undefined) {
-			console.log(node.index, node.next_crash_fighters.index);
+		if (naval_group.um.verbose_level > 0) {
+			console.log(`${node.index}:  ${red_str}:${red_retreat_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast} ${node.cost}`);
+	//		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
+	//			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
+	//		}
+			if (naval_group.um.verbose_level > 1) {
+				if (node.next_crash_fighters != undefined) {
+					console.log(node.index, node.next_crash_fighters.index);
+				}
+			}
 		}
     }
 }
 
-function make_unit_group(um : unit_manager, input_str : string, attdef : number) : unit_group 
+function make_unit_group(um : unit_manager, input_str : string, attdef : number, diceMode : DiceMode) : unit_group 
 {
-	return um.unit_group_manager.get_or_create_unit_group(um, input_str, attdef);
+	return um.unit_group_manager.get_or_create_unit_group(um, input_str, attdef, diceMode);
 }
 
 
@@ -3128,10 +3180,11 @@ function preparse(isnaval : boolean, input : string, attdef : number, skipAA : b
 }
 
 
-export interface aacalc_input {
+export interface aacalc_input { 
 	attacker : string;
 	defender : string; 
 	debug	: boolean;
+	diceMode : DiceMode;
 	prune_threshold : number;
 	report_prune_threshold : number;
 	is_naval : boolean;
@@ -3147,6 +3200,7 @@ export interface aacalc_input {
 	strafe_num_threshold : number;
 	strafe_do_num_check : boolean;
 	strafe_do_attpower_check : boolean;
+	verbose_level : number;
 }
 
 
@@ -3188,7 +3242,7 @@ export function aacalc(
 		) 
    : aacalc_output
 {
-	let um = new unit_manager();
+	let um = new unit_manager(input.verbose_level);
 
 	let attackers_internal = preparse(input.is_naval, input.attacker, 0);
 	let defenders_internal = preparse(input.is_naval, input.defender, 1, input.is_in_progress);
@@ -3234,7 +3288,7 @@ export function aacalc(
 		console.time('init');
 		console.profile("solve_sub");
 		//debugger
-		let myprob = new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
+		let myprob = new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
 			input.att_destroyer_last, input.att_submerge_sub, input.def_destroyer_last, input.def_submerge_sub, 
 			-1 /* rounds */, input.retreat_threshold, false );
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
@@ -3318,11 +3372,13 @@ export interface wave_input {
 export interface multiwave_input {
 	wave_info : wave_input[];
 	debug	: boolean;
+	diceMode : DiceMode;
 	prune_threshold : number;
 	report_prune_threshold : number;
 	is_naval : boolean;
 	in_progress : boolean;
 	num_runs	: number;
+	verbose_level	: number;
 }
 
 export interface multiwave_output {
@@ -3341,7 +3397,6 @@ function collect_and_print_results(
 	result_data = [];
 	collect_naval_results(problem, problemArr, 0, result_data);
 	let skipMerge = problem.is_retreat;
-	console.log (skipMerge, "skipMerge");
 	let out = print_naval_results(problem, problemArr, result_data, !skipMerge);
 	console.log(out);
 }
@@ -3353,15 +3408,15 @@ export function multiwave(
 {
 	let umarr : unit_manager[] = [];
 	let probArr : naval_problem[] = [];
-	let um = new unit_manager();
-	let um2 = new unit_manager();
-	let um3 = new unit_manager();
+	//let um = new unit_manager();
+	//let um2 = new unit_manager();
+	//let um3 = new unit_manager();
 	let output : aacalc_output[] = [];
 
 	for (let runs = 0 ; runs < input.num_runs; runs++) {
 
 	for (let i = 0; i < input.wave_info.length; i++) {
-		umarr.push (new unit_manager());
+		umarr.push (new unit_manager(input.verbose_level));
 		let um = umarr[i];
 		let wave = input.wave_info[i];
 
@@ -3408,11 +3463,13 @@ export function multiwave(
 		}
 		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
 
-		console.log(defend_add_reinforce, "defend_add_reinforce");
-		probArr.push(new naval_problem(um, attackers_internal, defenders_internal, 1.0, 
+		if (input.verbose_level > 0) {
+			console.log(defend_add_reinforce, "defend_add_reinforce");
+		}			
+		probArr.push(new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
 			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, 	
 			wave.rounds, wave.retreat_threshold, wave.is_crash_fighters, input.is_naval,
-			defend_add_reinforce));
+			defend_add_reinforce, false, input.diceMode));
 		let myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		let problemArr : naval_problem[];
@@ -3425,10 +3482,14 @@ export function multiwave(
 		result_data = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
 		let skipMerge = myprob.is_retreat;
-		console.log (skipMerge, "skipMerge");
+		if (input.verbose_level > 0) {
+			console.log (skipMerge, "skipMerge");
+		}
 		let out = print_naval_results(myprob, problemArr, result_data, !skipMerge);
 		output.push(out);
-		console.log(out, "wave", i);
+		if (input.verbose_level > 0) {
+			console.log(out, "wave", i);
+		}
 	}
 
     }

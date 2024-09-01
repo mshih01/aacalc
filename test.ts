@@ -2,6 +2,7 @@
 import * as readline from 'readline';
 
 import {unit_manager, 
+		DiceMode,
 		multiwave_input, wave_input, multiwave,
 		aacalc_input, aacalc_output, aacalc} from "./solve";
 
@@ -83,8 +84,22 @@ function run3(argc : number, argv : string[])
 	let crash1 = parseInt(argv[i++]) > 0;
 	let crash2 = parseInt(argv[i++]) > 0;
 	let crash3 = parseInt(argv[i++]) > 0;
-
-
+	let diceModeIn = parseInt(argv[i++]);
+	let diceMode : DiceMode;
+	switch (diceModeIn) {
+		case 0:
+			diceMode = "Standard";
+			break;
+		case 1: 
+			diceMode = "Biased";
+			break;
+		case 2: 
+			diceMode = "Low Luck";
+			break;
+		default:
+			diceMode = "Standard";
+	}
+	let verbose_level = parseInt(argv[i++]);
 
 	console.time('Execution Time');
 
@@ -142,15 +157,16 @@ function run3(argc : number, argv : string[])
 		report_prune_threshold : report_prune_threshold,
 		is_naval : isnaval > 0,
 		in_progress : in_progress,
-		num_runs	: num_runs
+		diceMode : diceMode,
+		num_runs	: num_runs,
+		verbose_level : verbose_level
 		}
 			  	
 	console.log("input", input);
 	
 	let output = multiwave(input) 
 
-	console.log ("output", output)
-	console.log ("out", output.out)
+	console.log ("output", JSON.stringify(output, null, 4))
 
 	console.timeEnd('Execution Time');
 }
@@ -180,6 +196,7 @@ function run2(argc : number, argv : string[]) {
 		def_destroyer_last = Math.max(parseInt(argv[i++]), 0);
 		def_submerge = Math.max(parseInt(argv[i++]), 0);
 	}
+	let verbose_level = parseInt(argv[i++]);
 
 	console.time('Execution Time');
 	console.log(`debug = ${debug}`);
@@ -202,12 +219,14 @@ function run2(argc : number, argv : string[]) {
 			att_submerge_sub : att_submerge > 0, 
 			def_submerge_sub : def_submerge > 0, 
 			num_runs : num_runs,
+			diceMode : "Standard",
 			retreat_threshold : retreat_threshold,
 			strafe_threshold : -1,
 			strafe_attpower_threshold : 0,
 			strafe_num_threshold : 0,
 			strafe_do_attpower_check : false,
-			strafe_do_num_check : false
+			strafe_do_num_check : false,
+			verbose_level : verbose_level
 			 }
 	console.log("input", input);
 	

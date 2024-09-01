@@ -47,6 +47,7 @@ rl.once('close', () => {
 function run4(argc : number, argv : string[]) 
 {
 	let i = 1;
+	let verbose_level = parseInt(argv[i++]);
 	let N = parseInt(argv[i++]);		// number of units
 
 	let units : Army = {};
@@ -54,7 +55,7 @@ function run4(argc : number, argv : string[])
 	let units2 : Army = {};
 	let ool2 : UnitIdentifier[] = [];
 
-	let um = new unit_manager();
+	let um = new unit_manager( verbose_level);
 	for (let j = 0; j < N; j++) {
 		let uname = argv[i++];
 		let count = parseInt(argv[i++]);
@@ -128,9 +129,9 @@ function run4(argc : number, argv : string[])
 	console.log(aalast, "aalast");
 	console.log(isnaval, "isnaval");
 	let unitstr = make_unit_group_string(
-		units, ool, takes, aalast, isnaval);
+		units, ool, takes, aalast, isnaval, verbose_level);
 	let unitstr2 = make_unit_group_string(
-		units2, ool2, takes, aalast, isnaval);
+		units2, ool2, takes, aalast, isnaval, verbose_level);
 
 	console.log(unitstr, "unit_str, ool_str");
 	console.log(unitstr2, "unit_str, ool_str");
@@ -173,7 +174,8 @@ function run4(argc : number, argv : string[])
 		report_prune_threshold : 1e-12,	
 		is_naval : isnaval,
 		in_progress : false, 
-		num_runs : 1
+		num_runs : 1,
+		verbose_level : verbose_level
 	}
 		
 	console.log(JSON.stringify(input, null, 4));

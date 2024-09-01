@@ -2,13 +2,17 @@
 0 								;; debug
 1e-12							;; report threshold
 1e-12							;; prune threshold
-0								;; is naval
-20f, 20a, 100i
-20f, 5c, 20a, 100i
+1								;; is naval
+1S
+2A, 4f
 0								;; strafe
 1							;; num times
-1a, 20f, 19a, 50i
-4f
+0
+0
+0
+0
+
+
 ftaibc
 
 
@@ -17,13 +21,38 @@ ftaibc
 0
 0
 0
+0
+0
+0
 1
+-1
+-1
 1
 0
 0
+0
+1
 
 
 
+
+
+1f, 2g, 2i, 2j
+10i
+
+10f, 20a, 20g, 20i, 20j, 1C, 1B
+1f, 1g, 2i, 1j
+6i
+10f, 40a, 40i
+10f, 40a, 40i
+10f, 40a, 40i
+10f, 40a, 40i
+100i
+10f, 40a, 40i, 1C, 1B
+100i
+
+10f, 40a, 40i, 1C, 1B
+100i
 
 1a, 20f, 20t, 19a, 60i
 20f, 20t, 20a, 60i, 5c

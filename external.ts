@@ -2,8 +2,8 @@
 
 import {unit_manager, 
 		apply_ool,
+		DiceMode,
         multiwave_input, wave_input, multiwave,
-		get_external_unit_str,	
 		get_cost_from_str } from "./solve";
 
 export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a";
@@ -18,9 +18,19 @@ export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 		[
 			["c", "aa"], ["i", "inf"], ["a", "art"], ["t", "arm"],
 			["f", "fig"], ["b", "bom"], ["S", "sub"], ["D", "des"],
-			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"],
+			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"], 
 			["d", "inf"], ["T", "tra"], ["e", "aa"], ["F", "dbat"],
 			["g", "art_a"], ["j", "inf_a"], ["u", "arm_a"]
+		]);
+
+
+export const  Unit2ExternalNameMap = new Map<string, string>(
+		[
+			["c", "AA"], ["i", "Inf"], ["a", "Art"], ["t", "Arm"],
+			["f", "Fig"], ["b", "Bom"], ["S", "Sub"], ["D", "Des"],
+			["C", "Cru"], ["A", "ACC"], ["B", "Bat"], /* ["E", "Bat"], intentional */
+			["d", "Inf"], ["T", "Tra"], ["e", "AA"], ["F", "DBat"],
+			["g", "Art*"], ["j", "Inf*"], ["u", "Arm*"]
 		]);
 
 export interface UnitGroup {
@@ -50,6 +60,7 @@ export interface MultiwaveInput {
 	is_naval : boolean;
 	in_progress : boolean;
 	num_runs	: number;
+	verbose_level : number;
 }
 
 export type Side = "attack" | "defense"
@@ -88,9 +99,9 @@ export function multiwaveExternal(
 	for (let i = 0; i < input.wave_info.length; i++) { 
 		let wave = input.wave_info[i];
 		let [att_unitstr, att_oolstr] = make_unit_group_string(
-			wave.attack.units, wave.attack.ool, wave.attack.takes, false, input.is_naval);
+			wave.attack.units, wave.attack.ool, wave.attack.takes, false, input.is_naval, input.verbose_level);
 		let [def_unitstr, def_oolstr] = make_unit_group_string(
-			wave.defense.units, wave.defense.ool, 0, wave.defense.aaLast, input.is_naval);
+			wave.defense.units, wave.defense.ool, 0, wave.defense.aaLast, input.is_naval, input.verbose_level);
 		
 		let internal_wave = { attacker : att_unitstr, 
 			  defender : def_unitstr,
@@ -108,12 +119,14 @@ export function multiwaveExternal(
 	}
 
 	internal_input = {
+		verbose_level : input.verbose_level,
 		wave_info : wavearr,
 		debug	: input.debug,
 		prune_threshold : input.prune_threshold,
 		report_prune_threshold : input.report_prune_threshold,
 		is_naval : input.is_naval,
 		in_progress : input.in_progress,
+		diceMode : "Standard",
 		num_runs	: input.num_runs
 		}
 
@@ -129,7 +142,7 @@ export function multiwaveExternal(
    
 	let lastWave = internal_output.output.length - 1;
 	let lastOutput = internal_output.output[lastWave];
-	let um = new unit_manager();
+	let um = new unit_manager(input.verbose_level);
 	for (let i = 0; i < lastOutput.att_cas.length; i++) {
 		let cas = lastOutput.att_cas[i];
 		let casualty : CasualtyInfo;
@@ -173,12 +186,13 @@ export function make_unit_group_string(
 		ool : UnitIdentifier[],		// array of order of loss
 		takes : number,		// number of land units to take with
 		aa_last : boolean,		// take aa as second last casualty for defender
-		is_naval : boolean
+		is_naval : boolean,
+		verbose_level : number
 		) : [string, string]		// unit_str , ool_str
 {
 
 	let unitstr = "";
-	let um = new unit_manager();
+	let um = new unit_manager(verbose_level);
 
 	for (const [uid , count ] of Object.entries(units)) {
         if (count == 0) {
@@ -242,11 +256,36 @@ export function make_unit_group_string(
 				}
 			}
 			out = head + remains;
-			console.log(out);
+			if (verbose_level > 0) {
+				console.log(out);
+			}
 		}
 	}
 	return [out, oolstr];
 }
 
 
+export function get_external_unit_str(um : unit_manager, input : string) :
+        string
+{
+    let map : Map<string, number> = new Map();
 
+    for (var char of input) {
+        let v = map.get(char);
+        if (v != undefined) {
+            map.set(char, v + 1);
+        } else {
+            map.set(char, 1);
+        }
+    }
+
+    let out = ""
+    map.forEach((value : number, key : string) => {
+		let externalName = Unit2ExternalNameMap.get(key);
+		if (externalName == undefined) {	
+			return;
+		}
+        out = out + value + " " + externalName + ", "
+    })
+    return out.substring(0, out.length - 2);
+}
