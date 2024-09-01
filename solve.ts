@@ -215,18 +215,46 @@ class unit_group {
 		let ph = this.prob_hits;
 		let tbl_sz = this.tbl_size;
 		let i, j;
-		this.set_prob_table(0, 0, 1.0);
-		for (j =1; j < tbl_sz; j++) {
-			this.set_prob_table(0, j, 0.0);
-		}
-		for (i = 1; i < tbl_sz; i++) {
-			this.set_prob_table(i, 0, (1-ph[i]) * this.get_prob_table(i-1,0));
+		if (this.diceMode == "Low Luck") {
+			this.set_prob_table(0, 0, 1.0);
 			for (j =1; j < tbl_sz; j++) {
-				if (j > i) {
-					this.set_prob_table(i, j, 0.0);
-				} else {
-					this.set_prob_table(i, j, ph[i] * this.get_prob_table(i-1, j-1) + 
-												(1-ph[i]) * this.get_prob_table(i-1, j));
+				this.set_prob_table(0, j, 0.0);
+			}
+			for (i = 1; i < tbl_sz; i++) {
+				let power = this.power[i];
+				let hits = Math.floor(power / 6);
+				let remainder = power % 6;
+				let probRemainderHits = remainder / 6;
+				let probRemainderMisses = 1-probRemainderHits;
+				for (j = 0; j < tbl_sz; j++) {
+					let p : number;
+					switch(j) {
+						case hits:
+							p = probRemainderMisses;
+							break;
+						case hits + 1:
+							p = probRemainderHits;
+							break;
+						default:
+							p = 0;
+					}
+					this.set_prob_table(i, j, p);
+				}	
+			}
+		} else {
+			this.set_prob_table(0, 0, 1.0);
+			for (j =1; j < tbl_sz; j++) {
+				this.set_prob_table(0, j, 0.0);
+			}
+			for (i = 1; i < tbl_sz; i++) {
+				this.set_prob_table(i, 0, (1-ph[i]) * this.get_prob_table(i-1,0));
+				for (j =1; j < tbl_sz; j++) {
+					if (j > i) {
+						this.set_prob_table(i, j, 0.0);
+					} else {
+						this.set_prob_table(i, j, ph[i] * this.get_prob_table(i-1, j-1) + 
+													(1-ph[i]) * this.get_prob_table(i-1, j));
+					}
 				}
 			}
 		}
@@ -2472,8 +2500,10 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				console.log (ii, "round", prob_ends);
 				collect_and_print_results(problem);
 			}
-			if (p == prob_ends[ii-1]) {
-				break;
+			if (p > 0) {
+				if (p == prob_ends[ii-1]) {
+					break;
+				}
 			}
 		}
 		if (problem.is_amphibious && prob_ends.length >= rounds ) {
