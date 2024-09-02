@@ -140,7 +140,7 @@ class unit_group {
 		this.diceMode = diceMode;
 		let i : number;
 		let j : number;
-		if (manager.verbose_level > 0) {
+		if (manager.verbose_level > 2) {
 			console.log(input_str, "make_unit_group");
 		}
 		for (i = 0; i < this.tbl_size; i++) {
@@ -2184,7 +2184,7 @@ function print_naval_results(
 		resultArr : result_data_t[], 
 		doMerge : boolean = true ) : aacalc_output
 {
-	if (baseproblem.verbose_level > 0) {
+	if (baseproblem.verbose_level > 2) {
 		console.log(resultArr.length, `number of results`);
 	}
 
@@ -2224,7 +2224,7 @@ function print_naval_results(
     [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, 0);
 	red_att = get_reduced_group_string(att);
 	red_def = get_reduced_group_string(def);
-	if (baseproblem.verbose_level > 0) {
+	if (baseproblem.verbose_level > 2) {
 		console.log(`attackers = ${att}`);
 		console.log(`defenders = ${def}`);
 		console.log(`attackers = ${red_att}`);
@@ -2300,7 +2300,7 @@ function print_naval_results(
 			if (!baseproblem.is_naval && hasLand(problem.um, att)  && def.length == 0) {
 				takes += p;
 			}
-			if (baseproblem.verbose_level > 0) {
+			if (baseproblem.verbose_level > 2) {
 			//console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} = ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
 				console.log(`result:  P[%d][%d] ${red_att}:${red_retreat_att} vs. ${red_def}:${red_retreat_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
 			}
@@ -2439,7 +2439,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				let prob = aa_data.get_prob_table(N-1, i);
 				let n = remove_aahits( problem.att_data, i, 0);
 				problem.setP(n, 0, problem.prob * prob);
-				if (problem.verbose_level > 0) {
+				if (problem.verbose_level > 2) {
 					console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
 				}
 			}
@@ -2479,7 +2479,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 						let prob = aa_data.get_prob_table(NN-1, i);
 						let n = remove_aahits( problem.att_data, i, 0);
 						problem.setP(n, ii, p * prob);
-						if (problem.verbose_level > 0) {
+						if (problem.verbose_level > 2) {
 							console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
 						}
 					}
@@ -2518,7 +2518,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
 		let prob_ends : number[] = [];
 		prob_ends.push(p0 + p1);
-		if (problem.verbose_level > 0) {
+		if (problem.verbose_level > 2) {
 			console.log(rounds, "rounds");
 		}	
 		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious || problem.hasNonCombat();
@@ -2532,7 +2532,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 			let p = get_terminal_state_prob(problem, false);
 			prob_ends.push(p + p0);
-			if (problem.verbose_level > 0) {
+			if (problem.verbose_level > 2) {
 				console.log(prob_ends, "prob ends");
 			}
 		}
@@ -2601,7 +2601,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		if (!problem.is_amphibious) {
 			prob_ends[prob_ends.length-1] = 1.0;
 		}
-		if (problem.verbose_level > 0) {
+		if (problem.verbose_level > 2) {
 			console.log(prob_ends.length, "stopped after rounds");
 			console.log(prob_ends, "stopped after rounds");
 		}
@@ -2610,7 +2610,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			let p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
 			sum += ((i) * p);
 		}
-		if (problem.verbose_level > 0) {
+		if (problem.verbose_level > 2) {
 			console.log(sum, "average rounds");
 		}
 		problem.average_rounds = sum;
@@ -2664,7 +2664,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				}
 			}
 		}
-		if (problem.verbose_level > 0) {
+		if (problem.verbose_level > 2) {
 			console.log(sum, "sum");
 		}
 	}
@@ -3172,12 +3172,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		let red_str = get_reduced_group_string(node.unit_str);
 		let red_retreat_str = get_reduced_group_string(node.retreat);
 
-		if (naval_group.um.verbose_level > 0) {
+		if (naval_group.um.verbose_level > 2) {
 			console.log(`${node.index}:  ${red_str}:${red_retreat_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast} ${node.cost}`);
 	//		if (node.next_subhit != undefined && node.next_airhit != undefined && node.next_navalhit != undefined){
 	//			console.log(node.index, node.next_subhit.index, node.next_airhit.index, node.next_navalhit.index);
 	//		}
-			if (naval_group.um.verbose_level > 1) {
+			if (naval_group.um.verbose_level > 3) {
 				if (node.next_crash_fighters != undefined) {
 					console.log(node.index, node.next_crash_fighters.index, "next crash fighter");
 				}
@@ -3610,7 +3610,7 @@ export function multiwave(
 		}
 		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
 
-		if (input.verbose_level > 0) {
+		if (input.verbose_level > 2) {
 			console.log(defend_add_reinforce, "defend_add_reinforce");
 		}			
 		probArr.push(new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
@@ -3629,12 +3629,12 @@ export function multiwave(
 		result_data = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
 		let skipMerge = myprob.is_retreat;
-		if (input.verbose_level > 0) {
+		if (input.verbose_level > 2) {
 			console.log (skipMerge, "skipMerge");
 		}
 		let out = print_naval_results(myprob, problemArr, result_data, !skipMerge);
 		output.push(out);
-		if (input.verbose_level > 0) {
+		if (input.verbose_level > 2) {
 			console.log(out, "wave", i);
 		}
 	}
