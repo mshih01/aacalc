@@ -2495,6 +2495,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		}
 	}
 
+	let p1 = get_terminal_state_prob(problem, false); // probability that the starting state is already terminal
 	// naval bombard
 	
 	let didBombard = false;
@@ -2516,8 +2517,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	if (problem.rounds > 0) {
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
 		let prob_ends : number[] = [];
-		let p = get_terminal_state_prob(problem, false);
-		prob_ends.push(p+p0);
+		prob_ends.push(p0 + p1);
 		if (problem.verbose_level > 0) {
 			console.log(rounds, "rounds");
 		}	
