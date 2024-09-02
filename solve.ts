@@ -900,6 +900,14 @@ function do_early_retreat(problem : naval_problem, N : number, M : number, allow
 		problem.setP(N, M, 0);
 		return;
 	} 
+	if (defnode.next_remove_noncombat != undefined) {
+		let n = attnode.index;
+		let m = defnode.next_remove_noncombat.index;
+		let ii = problem.getIndex(n, m);
+		problem.setiP(ii, problem.getiP(ii) + p_init);
+		problem.setP(N, M, 0);
+		return;
+	}
 }
 
 
@@ -2536,7 +2544,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				console.log(prob_ends, "prob ends");
 			}
 		}
-		if ( problem.isEarlyRetreat()) {
+		if ( problem.isEarlyRetreat() || problem.hasNonCombat()) {
 			for (i = N-1; i >= 0 ; i--) {
 				for (j = M-1; j >= 0 ; j--) {
 					do_early_retreat(problem, i, j, true, 0, true, false);
