@@ -53,7 +53,7 @@ export class unit_manager {
 		this.verbose_level = verbose_level;
 	}
 	init_units() {
-		this.make_unit("", 'e', 'c', 0, 0, 5, 1, true, false, false, false, true, false, false);
+		this.make_unit("", 'e', 'c', 0, 0, 5, 1, false, false, false, false, true, false, false);
 		this.make_unit("AA", 'c', 'c', 0, 0, 5, 1, false, false, false, false, true, false, false);
 		this.make_unit("Inf", 'i', 'i', 1, 2, 3, 1, true, false, false, false, false, false, false);
 		this.make_unit("Inf_a", 'j', 'j', 1, 2, 3, 1, true, false, false, false, false, false, true);
@@ -290,7 +290,7 @@ class naval_unit_graph_node {
     next_submerge : naval_unit_graph_node | undefined = undefined;
     next_retreat_amphibious : naval_unit_graph_node | undefined = undefined;
     next_crash_fighters : naval_unit_graph_node | undefined = undefined;
-    next_remove_transports : naval_unit_graph_node | undefined = undefined;
+    next_remove_noncombat : naval_unit_graph_node | undefined = undefined;
 	naaArr : number[] = [];
 	nsubArr : number[] = [];
 	nairArr : number[] = [];
@@ -456,8 +456,8 @@ class naval_problem {
 	isEarlyRetreat() {
 		return this.att_data.submerge_sub || this.def_data.submerge_sub
 	}
-	hasTransports() {
-		return count_units(this.def_data.unit_str, 'T') > 0;
+	hasNonCombat() {
+		return count_units(this.def_data.unit_str, 'T') > 0 || count_units(this.def_data.unit_str, 'c') > 0 ||  count_units(this.def_data.unit_str, 'e') > 0;
 	}
     constructor(verbose_level : number, um : unit_manager, att_str : string, def_str : string, prob : number,
 			att_dest_last : boolean, att_submerge : boolean , def_dest_last : boolean , def_submerge : boolean,
@@ -853,6 +853,56 @@ function do_crash_fighters(problem : naval_problem)
 	}
 }
 
+
+function do_early_retreat(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
+				do_retreat_only : boolean, disable_retreat : boolean) 
+{
+    let attnode = problem.att_data.nodeArr[N];
+    let defnode = problem.def_data.nodeArr[M];
+    if (attnode.N == 0 || defnode.N == 0) {
+        return;
+    }
+	//console.log(N, M, "solve_one_naval");
+    let p_init = problem.getP(N, M);
+
+	if (p_init == 0) {
+	    return;
+	}
+    let N1 = attnode.num_subs;
+    let N2 = attnode.num_air;
+    let N3 = attnode.num_naval;
+    let M1 = defnode.num_subs;
+    let M2 = defnode.num_air;
+    let M3 = defnode.num_naval;
+	let att_destroyer = hasDestroyer(problem.att_data, attnode);
+	let def_destroyer = hasDestroyer(problem.def_data, defnode);
+	let att_submerge = (problem.att_data.submerge_sub && N1 > 0 &&
+						!def_destroyer);
+	let def_submerge = (problem.def_data.submerge_sub && M1 > 0 &&
+						!att_destroyer);
+	if (att_submerge || def_submerge) {
+		let n = attnode.index;
+		let m = defnode.index;
+		if (att_submerge) {
+			if (attnode.next_submerge == undefined) {
+				throw new Error();
+			}
+			n = attnode.next_submerge.index;
+		}
+		if (def_submerge) {
+			if (defnode.next_submerge == undefined) {
+				throw new Error();
+			}
+			m = defnode.next_submerge.index;
+		}
+		let ii = problem.getIndex(n, m);
+		problem.setiP(ii, problem.getiP(ii) + p_init);
+		problem.setP(N, M, 0);
+		return;
+	} 
+}
+
+
 function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
 				do_retreat_only : boolean, disable_retreat : boolean)
 {
@@ -928,9 +978,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		problem.setP(N, M, 0);
 		return;
 	} 
-	if (defnode.next_remove_transports != undefined) {
+	if (defnode.next_remove_noncombat != undefined) {
 		let n = attnode.index;
-		let m = defnode.next_remove_transports.index;
+		let m = defnode.next_remove_noncombat.index;
 		let ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
@@ -1544,6 +1594,11 @@ function is_only_transports_remain(um : unit_manager, input_str : string) : bool
 {
 	let num_transports = count_units(input_str, 'T');
 	return (num_transports == input_str.length);
+}
+function is_only_aa_remain(um : unit_manager, input_str : string) : boolean
+{
+	let num_aa = count_units(input_str, 'c') + count_units(input_str, 'e');
+	return (num_aa == input_str.length);
 }
 
 function crash_fighters(um : unit_manager, input_str : string) : string
@@ -2461,11 +2516,12 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	if (problem.rounds > 0) {
 		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
 		let prob_ends : number[] = [];
-		prob_ends.push(p0);
+		let p = get_terminal_state_prob(problem, false);
+		prob_ends.push(p+p0);
 		if (problem.verbose_level > 0) {
 			console.log(rounds, "rounds");
 		}	
-		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious || problem.hasTransports();
+		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious || problem.hasNonCombat();
 		if (didBombard) {
 			if (needs_early_retreat) {
 				for (i = N-1; i >= 0 ; i--) {
@@ -2479,6 +2535,15 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			if (problem.verbose_level > 0) {
 				console.log(prob_ends, "prob ends");
 			}
+		}
+		if ( problem.isEarlyRetreat()) {
+			for (i = N-1; i >= 0 ; i--) {
+				for (j = M-1; j >= 0 ; j--) {
+					do_early_retreat(problem, i, j, true, 0, true, false);
+				}
+			}
+			let p = get_terminal_state_prob(problem, false);
+			prob_ends[prob_ends.length-1] = p + p0;
 		}
 		for (let ii = 0; ii < rounds; ii++) {
 			for (i = N-1; i >= 0 ; i--) {
@@ -2956,7 +3021,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			node.next_crash_fighters = node2;
 		}
 		
-		if (is_only_transports_remain(naval_group.um, node.unit_str)) {
+		if (is_only_transports_remain(naval_group.um, node.unit_str) || is_only_aa_remain(naval_group.um, node.unit_str)) {
 			let s2 = "";
 			let node2 : naval_unit_graph_node;
 			let key = make_node_key(s2, node.retreat);
@@ -2975,7 +3040,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			} else {
 				node2 = ii;
 			}
-			node.next_remove_transports = node2;
+			node.next_remove_noncombat = node2;
 		}
     }
 
@@ -3116,8 +3181,8 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				if (node.next_crash_fighters != undefined) {
 					console.log(node.index, node.next_crash_fighters.index, "next crash fighter");
 				}
-				if (node.next_remove_transports != undefined) {
-					console.log(node.index, node.next_remove_transports.index, "next remove transports ");
+				if (node.next_remove_noncombat != undefined) {
+					console.log(node.index, node.next_remove_noncombat.index, "next remove transports ");
 				}
 			}
 		}
