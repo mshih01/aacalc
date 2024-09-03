@@ -3495,15 +3495,22 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 			out += ch;
 		}
 	}
-	if (aalast && out.length > 2) {
-		// move aa's to the second to last
-		for (let i = 1; i < out.length; i++) {
+	if (aalast) {
+		// separate the aa's.
+		let aas = "";
+		let others = "";
+		for (let i = 0; i < out.length; i++) {
 			let ch = out.charAt(i);
-			//console.log(i, out);
 			if ((ch == "c") || (ch == "e")) {
-				out = out.substr(0, 1) + ch + out.substr(1, i-1) + out.substr(i+1);
-				//console.log(i, out, "post");
+				aas += ch;
+			} else {
+				others += ch;
 			}
+		}
+		if (others.length > 0) {
+			out = others.charAt(0) + aas + others.substr(1);
+		} else {
+			out = aas;
 		}
 	}
 	return out;

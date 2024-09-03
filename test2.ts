@@ -118,7 +118,7 @@ function run4(argc : number, argv : string[])
 		ool2.push(id);
 	}
 	let takes = parseInt(argv[i++]);
-	let aalast = parseInt(argv[i++]) > 9;
+	let aalast = parseInt(argv[i++]) > 0;
 	let isnaval = parseInt(argv[i++]) > 0;
 	let rounds = parseInt(argv[i++]);
 	let retreat_threshold = parseInt(argv[i++]);
