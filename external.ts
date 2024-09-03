@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 import {unit_manager, 
-		apply_ool,
 		DiceMode,
+		apply_ool,
         multiwave_input, wave_input, multiwave,
 		get_cost_from_str } from "./solve";
 
@@ -61,6 +61,7 @@ export interface MultiwaveInput {
 	in_progress : boolean;
 	num_runs	: number;
 	verbose_level : number;
+	diceMode : DiceMode;
 }
 
 export type Side = "attack" | "defense"
@@ -126,7 +127,7 @@ export function multiwaveExternal(
 		report_prune_threshold : input.report_prune_threshold,
 		is_naval : input.is_naval,
 		in_progress : input.in_progress,
-		diceMode : "Standard",
+		diceMode : input.diceMode,
 		num_runs	: input.num_runs
 		}
 

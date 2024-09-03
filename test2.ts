@@ -175,7 +175,8 @@ function run4(argc : number, argv : string[])
 		is_naval : isnaval,
 		in_progress : false, 
 		num_runs : 1,
-		verbose_level : verbose_level
+		verbose_level : verbose_level,
+		diceMode : "standard"
 	}
 		
 	console.log(JSON.stringify(input, null, 4));

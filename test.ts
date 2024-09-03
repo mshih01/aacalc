@@ -88,16 +88,16 @@ function run3(argc : number, argv : string[])
 	let diceMode : DiceMode;
 	switch (diceModeIn) {
 		case 0:
-			diceMode = "Standard";
+			diceMode = "standard";
 			break;
 		case 1: 
-			diceMode = "Biased";
+			diceMode = "biased";
 			break;
 		case 2: 
-			diceMode = "Low Luck";
+			diceMode = "lowluck";
 			break;
 		default:
-			diceMode = "Standard";
+			diceMode = "standard";
 	}
 	let verbose_level = parseInt(argv[i++]);
 
@@ -219,7 +219,7 @@ function run2(argc : number, argv : string[]) {
 			att_submerge_sub : att_submerge > 0, 
 			def_submerge_sub : def_submerge > 0, 
 			num_runs : num_runs,
-			diceMode : "Standard",
+			diceMode : "standard",
 			retreat_threshold : retreat_threshold,
 			strafe_threshold : -1,
 			strafe_attpower_threshold : 0,

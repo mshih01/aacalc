@@ -6,7 +6,7 @@ import { UnitIdentifier } from "./external";
 
 const epsilon : number = 1e-9;
 
-export type DiceMode = "Standard" | "Low Luck" | "Biased"
+export type DiceMode = "standard" | "lowluck" | "biased"
 
 class unit_group_manager {
     unit_group_arr : unit_group[];
@@ -172,9 +172,9 @@ class unit_group {
 				default:	
 					val = 1;
 			}
-			if (diceMode == "Standard") {
+			if (diceMode == "standard") {
 				this.prob_hits[ii] = val / 6;
-			} else if (diceMode == "Biased") {
+			} else if (diceMode == "biased") {
 				this.prob_hits[ii] = biasedDiceProb[val-1] / 10;
 			} else {	
 				// low luck
@@ -215,7 +215,7 @@ class unit_group {
 		let ph = this.prob_hits;
 		let tbl_sz = this.tbl_size;
 		let i, j;
-		if (this.diceMode == "Low Luck") {
+		if (this.diceMode == "lowluck") {
 			this.set_prob_table(0, 0, 1.0);
 			for (j =1; j < tbl_sz; j++) {
 				this.set_prob_table(0, j, 0.0);
@@ -410,7 +410,7 @@ class naval_problem {
 	is_crash_fighters : boolean;
 	rounds : number = -1;
 	average_rounds : number = -1;
-	diceMode : DiceMode = "Standard";
+	diceMode : DiceMode = "standard";
 	N : number;
 	M : number;
 	debug_level : number = 0;
@@ -467,7 +467,7 @@ class naval_problem {
 			is_naval : boolean = true,
 			def_cas	: casualty_1d[] | undefined = undefined,
 			is_nonaval : boolean = false,
-			diceMode : DiceMode = "Standard"
+			diceMode : DiceMode = "standard"
 			 ) {
 		
 		this.um = um;
@@ -612,9 +612,9 @@ class problem {
 
 	constructor(um : unit_manager, att_str : string, def_str : string, prob : number, cas : string = "") {
 		this.um = um;
-		this.att_data = new unit_group(um, att_str, 0, "Standard");
+		this.att_data = new unit_group(um, att_str, 0, "standard");
 		//console.log(p.att_data, `att`);
-		this.def_data = new unit_group(um, def_str, 1, "Standard");
+		this.def_data = new unit_group(um, def_str, 1, "standard");
 		//console.log(p.def_data, `def`);
 		this.prob = prob;
 		this.cas = cas;
@@ -2372,7 +2372,7 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
     for (let i =0; i < num_shots; i++) {
     	aashots = aashots + 'c';
     }
-	let aa_data = make_unit_group(myprob.um, aashots, 2, "Standard");
+	let aa_data = make_unit_group(myprob.um, aashots, 2, "standard");
 
     let N = aa_data.tbl_size;
 
