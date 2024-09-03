@@ -2,6 +2,7 @@
 import * as readline from 'readline';
 
 import {unit_manager, 
+		DiceMode,
 		} from "./solve";
 
 import {UnitIdentifier, 
@@ -122,6 +123,12 @@ function run4(argc : number, argv : string[])
 	let rounds = parseInt(argv[i++]);
 	let retreat_threshold = parseInt(argv[i++]);
 	let crash = parseInt(argv[i++]) >  0;
+	let diceMode = parseInt(argv[i++]);
+	
+	let diceArr : DiceMode[] = []
+	diceArr.push("standard");
+	diceArr.push("biased");
+	diceArr.push("lowluck");
 	
 	console.log(units, "units");
 	console.log(ool, "ool");
@@ -176,7 +183,7 @@ function run4(argc : number, argv : string[])
 		in_progress : false, 
 		num_runs : 1,
 		verbose_level : verbose_level,
-		diceMode : "standard"
+		diceMode : diceArr[diceMode]
 	}
 		
 	console.log(JSON.stringify(input, null, 4));

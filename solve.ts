@@ -153,7 +153,7 @@ class unit_group {
 			}
 		}
 		const biasedDice : number[] = [1, 2, 3, 2, 1, 1];
-		const biasedDiceProb : number[] = [1, 3, 6, 8, 9, 10];
+		const biasedDiceProb : number[] = [0, 1, 3, 6, 8, 9, 10];
 		for (i = 0; i < this.size; i++) {
 			let ii = i + 1;
 			let ch = this.unit_str.charAt(i);
@@ -175,7 +175,7 @@ class unit_group {
 			if (diceMode == "standard") {
 				this.prob_hits[ii] = val / 6;
 			} else if (diceMode == "biased") {
-				this.prob_hits[ii] = biasedDiceProb[val-1] / 10;
+				this.prob_hits[ii] = biasedDiceProb[val] / 10;
 			} else {	
 				// low luck
 				this.prob_hits[ii] = val / 6;
@@ -3497,10 +3497,12 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 	}
 	if (aalast && out.length > 2) {
 		// move aa's to the second to last
-		for (let i = 0; i < out.length; i++) {
+		for (let i = 1; i < out.length; i++) {
 			let ch = out.charAt(i);
+			console.log(i, out);
 			if ((ch == "c") || (ch == "e")) {
 				out = out.substr(0, 1) + ch + out.substr(1, i-1) + out.substr(i+1);
+				console.log(i, out, "post");
 			}
 		}
 	}
