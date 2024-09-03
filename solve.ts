@@ -3499,10 +3499,10 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 		// move aa's to the second to last
 		for (let i = 1; i < out.length; i++) {
 			let ch = out.charAt(i);
-			console.log(i, out);
+			//console.log(i, out);
 			if ((ch == "c") || (ch == "e")) {
 				out = out.substr(0, 1) + ch + out.substr(1, i-1) + out.substr(i+1);
-				console.log(i, out, "post");
+				//console.log(i, out, "post");
 			}
 		}
 	}
