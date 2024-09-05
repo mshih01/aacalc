@@ -682,6 +682,9 @@ class unit_stat {
 
 
 function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) : boolean {
+    return node.num_dest > 0;
+
+/*
 	if (node.dlast) {
 		return node.num_naval > 0;
 	}
@@ -689,6 +692,7 @@ function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) :
 		return  (node.num_naval > group.naval_group.first_destroyer_index);
 	}
 	return false;
+*/
 }
 
 
@@ -2473,7 +2477,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			if (ii == undefined) {
 				throw new Error();
 			} else {
-				problem.setP(0, ii, problem.def_cas[i].prob);
+				problem.setP(0, ii, problem.getP(0, ii) + problem.def_cas[i].prob);
 				let p = problem.def_cas[i].prob;
 				let numAA = count_units(problem.def_cas[i].remain, "c");
 				let doAA = !problem.is_naval &&
@@ -2486,7 +2490,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					for (let i = 0; i < NN; i++) {
 						let prob = aa_data.get_prob_table(NN-1, i);
 						let n = remove_aahits( problem.att_data, i, 0);
-						problem.setP(n, ii, p * prob);
+						problem.setP(n, ii, problem.getP(n, ii) + p * prob);
 						if (problem.verbose_level > 2) {
 							console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
 						}
@@ -2574,7 +2578,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 				collect_and_print_results(problem);
 			}
 			if (p > 0) {
-				if (p == prob_ends[ii-1]) {
+				if (p + p0 == prob_ends[ii-1]) {
 					break;
 				}
 			}
@@ -3311,7 +3315,16 @@ function preparse_skipaa(input : string , attdef : number) : string
 
 function preparse_battleship(input : string , attdef : number) : string
 {
-	let out = input;
+	// remove "E"
+	let removeE = "";
+	for (const ch of input) {
+		if (ch == "E") {
+			continue;
+		}
+		removeE += ch;
+	}
+
+	let out = removeE;
 	let numBB = count_units(input, 'B');
 	for (let i = 0; i< numBB; i++) {
 		out += "E";		
@@ -3561,6 +3574,7 @@ function collect_and_print_results(
 	result_data = [];
 	collect_naval_results(problem, problemArr, 0, result_data);
 	let skipMerge = problem.is_retreat;
+	skipMerge = true;
 	let out = print_naval_results(problem, problemArr, result_data, !skipMerge);
 	console.log(out);
 }
@@ -3604,7 +3618,8 @@ export function multiwave(
 					p1 = cas.prob;
 					p2 = 0;
 				}
-				let newcasstr = apply_ool(cas.remain + def_token, wave.def_ool, wave.def_aalast);
+				let newcasstr_ool = apply_ool(cas.remain + def_token, wave.def_ool, wave.def_aalast);
+				let newcasstr = input.is_naval ? preparse_battleship(newcasstr_ool, 1) : newcasstr_ool;
 			
 				// TODO... should submerged subs fight in the second wave... probably true
 				let newcasualty : casualty_1d = { remain : newcasstr, retreat: "", casualty : cas.casualty, prob : p1}
@@ -3629,6 +3644,13 @@ export function multiwave(
 
 		if (input.verbose_level > 2) {
 			console.log(defend_add_reinforce, "defend_add_reinforce");
+			if (defend_add_reinforce != undefined) {
+				let sump = 0;
+				for (let ii = 0 ; ii < defend_add_reinforce.length; ii++) {
+					sump += defend_add_reinforce[ii].prob;
+				}
+				console.log (sump, "total prob");
+			}
 		}			
 		probArr.push(new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
 			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, 	
@@ -3646,6 +3668,7 @@ export function multiwave(
 		result_data = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
 		let skipMerge = myprob.is_retreat;
+		skipMerge = true;
 		if (input.verbose_level > 2) {
 			console.log (skipMerge, "skipMerge");
 		}
