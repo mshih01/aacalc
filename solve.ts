@@ -2477,7 +2477,6 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			if (ii == undefined) {
 				throw new Error();
 			} else {
-				problem.setP(0, ii, problem.getP(0, ii) + problem.def_cas[i].prob);
 				let p = problem.def_cas[i].prob;
 				let numAA = count_units(problem.def_cas[i].remain, "c");
 				let doAA = !problem.is_naval &&
@@ -2495,6 +2494,8 @@ function solve_sub(problem : naval_problem, skipAA : number)
 							console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
 						}
 					}
+				} else {
+					problem.setP(0, ii, problem.getP(0, ii) + problem.def_cas[i].prob);
 				}
 			}
 		}	
