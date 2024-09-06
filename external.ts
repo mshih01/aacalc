@@ -308,6 +308,7 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
 			verboseLevel : input.verbose_level,
 			numBombers : input.attack.units["bom"] != undefined ? input.attack.units["bom"] : 0,
 			industrialComplexHitPoints : input.defense.units["ic"] != undefined ?  input.defense.units["ic"] : 0,
+			inProgress : input.in_progress
 		};
 	//console.log(internalInput);
 	let internalOutput = sbr(internalInput);

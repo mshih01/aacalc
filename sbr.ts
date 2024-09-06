@@ -57,6 +57,7 @@ class SbrProblem {
 	numBombers : number;
 	numIPCHitPoints : number;
 	verbose_level : number;
+	in_progress : boolean;
 	diceMode : DiceMode;
 	um : unit_manager;
 	P : number[][];		// P[i][j] is the probability that i bombers gets j hits.
@@ -67,10 +68,11 @@ class SbrProblem {
 							// Pdef[i] is the probability that i defending hit points left.
 
 	constructor(numBombers : number, numIPCHitPoints : number, diceMode : DiceMode,	
-			verbose_level : number)  {
+			verbose_level : number, in_progress : boolean)  {
 		this.numBombers = numBombers;
 		this.numIPCHitPoints = numIPCHitPoints;
 		this.diceMode = diceMode;
+		this.in_progress = in_progress;
 		this.P = [];
 		this.phit= [];	// probability distribution of 1 dice
 		for (let i = 0; i <= numBombers; i++) {
@@ -106,7 +108,10 @@ class SbrProblem {
 			console.log(this.diceMode, "this.diceMode");
 		}
 		for (let i = 0 ; i < M; i++) {		// aa hits
-			let prob = aa_data.get_prob_table(M-1, i);
+			let prob = this.in_progress ? ((i == 0) ? 1.0 : 0.0) : aa_data.get_prob_table(M-1, i);
+			if (prob == 0) {
+				continue;
+			}
 			if (this.verbose_level > 2) {
 				console.log(i, prob, "i, prob aa hit");
 			}
@@ -135,12 +140,13 @@ export interface sbr_input {
 	verboseLevel : number;
 	numBombers : number;
 	industrialComplexHitPoints : number;
+	inProgress : boolean;
 }
 
 export function sbr( input : sbr_input) : aacalc_output
 {
 	let problem = new SbrProblem(input.numBombers, input.industrialComplexHitPoints,	
-					input.diceMode, input.verboseLevel);
+					input.diceMode, input.verboseLevel, input.inProgress);
 	problem.solve();
 	let prob_att_survives = 0.0;	
 	let att_ipc = 0.0;
