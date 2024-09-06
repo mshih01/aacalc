@@ -5,6 +5,7 @@ import {unit_manager,
 		apply_ool,
         multiwave_input, wave_input, multiwave,
 		get_cost_from_str } from "./solve";
+import {sbr, sbr_input } from "./sbr";
 
 export type UnitIdentifier = "aa" | "inf" | "art" | "arm" | "fig" | "bom" | "sub" | "tra" | "des" | "cru" | "acc" | "bat" | "bat1" | "dbat" | "ic" | "inf_a" | "art_a" | "arm_a";
 
@@ -12,7 +13,7 @@ export type Army = Partial<Record<UnitIdentifier, number>>;
 
 export const  UnitIdentifier2UnitMap : Record<UnitIdentifier, string> = {
 		aa: "c", inf: "i", art: "a", arm: "t", fig: "f", bom: "b", sub : "S", tra: "T", des: "D", cru: "C", acc: "A", bat: "B", dbat: "F", 
-		ic : "", inf_a: "j", art_a : "g", arm_a : "u", bat1: "B"}
+		ic : "p", inf_a: "j", art_a : "g", arm_a : "u", bat1: "B"}
 
 export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 		[
@@ -20,7 +21,7 @@ export const  Unit2UnitIdentifierMap = new Map<string, UnitIdentifier>(
 			["f", "fig"], ["b", "bom"], ["S", "sub"], ["D", "des"],
 			["C", "cru"], ["A", "acc"], ["B", "bat"], ["E", "bat"], 
 			["d", "inf"], ["T", "tra"], ["e", "aa"], ["F", "dbat"],
-			["g", "art_a"], ["j", "inf_a"], ["u", "arm_a"]
+			["g", "art_a"], ["j", "inf_a"], ["u", "arm_a"], ["p", "ic"]
 		]);
 
 
@@ -30,7 +31,7 @@ export const  Unit2ExternalNameMap = new Map<string, string>(
 			["f", "Fig"], ["b", "Bom"], ["S", "Sub"], ["D", "Des"],
 			["C", "Cru"], ["A", "ACC"], ["B", "Bat"], /* ["E", "Bat"], intentional */
 			["d", "Inf"], ["T", "Tra"], ["e", "AA"], ["F", "DBat"],
-			["g", "Art*"], ["j", "Inf*"], ["u", "Arm*"]
+			["g", "Art*"], ["j", "Inf*"], ["u", "Arm*"], ["p", "IPC"]
 		]);
 
 export interface UnitGroup {
@@ -62,6 +63,14 @@ export interface MultiwaveInput {
 	num_runs	: number;
 	verbose_level : number;
 	diceMode : DiceMode;
+}
+
+export interface SbrInput {
+	attack : 	UnitGroup,
+	defense : 	UnitGroup,
+	verbose_level : number;
+	diceMode : DiceMode;
+	in_progress : boolean;
 }
 
 export type Side = "attack" | "defense"
@@ -289,4 +298,65 @@ export function get_external_unit_str(um : unit_manager, input : string) :
         out = out + value + " " + externalName + ", "
     })
     return out.substring(0, out.length - 2);
+}
+
+export function sbrExternal (input : SbrInput) : MultiwaveOutput 
+{
+	let output : MultiwaveOutput;
+	let internalInput : sbr_input = {
+			diceMode : input.diceMode,
+			verboseLevel : input.verbose_level,
+			numBombers : input.attack.units["bom"] != undefined ? input.attack.units["bom"] : 0,
+			industrialComplexHitPoints : input.defense.units["ic"] != undefined ?  input.defense.units["ic"] : 0,
+		};
+	//console.log(internalInput);
+	let internalOutput = sbr(internalInput);
+	let casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
+	let att : Record<string, CasualtyInfo> = {};
+	let def : Record<string, CasualtyInfo> = {};
+	let um = new unit_manager(input.verbose_level);
+	for (let i = 0; i < internalOutput.att_cas.length; i++) {
+		let cas = internalOutput.att_cas[i];
+		let casualty : CasualtyInfo;
+		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+					survivors :  get_external_unit_str(um, cas.remain),
+					retreaters : get_external_unit_str(um, cas.retreat),
+					amount : 	cas.prob,	
+					ipcLoss :    get_cost_from_str(um, cas.casualty)
+					}
+		att[i] = casualty;	
+	}
+	for (let i = 0; i < internalOutput.def_cas.length; i++) {
+		let cas = internalOutput.def_cas[i];
+		let casualty : CasualtyInfo;
+		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+					survivors :  get_external_unit_str(um, cas.remain),
+					retreaters : get_external_unit_str(um, cas.retreat),
+					amount : 	cas.prob,	
+					ipcLoss :    get_cost_from_str(um, cas.casualty)
+					}
+		def[i] = casualty;	
+	}
+	casualtiesInfo["attack"] = att;
+	casualtiesInfo["defense"] = def;
+   
+	output = {
+		attack : internalOutput.attack,
+		defense : internalOutput.defense,	
+		casualtiesInfo : casualtiesInfo,
+		takesTerritory : [],
+		rounds : [1, 0, 0],
+		waves : 1
+	}
+	
+    return output;
+}
+
+export interface MultiwaveOutput {
+    attack : CalcInfo;
+    defense : CalcInfo;
+    casualtiesInfo : CasualtiesInfo;
+    takesTerritory : number[];
+    rounds : number[];
+    waves : number;
 }

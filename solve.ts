@@ -74,6 +74,7 @@ export class unit_manager {
 		this.make_unit("Tra", 'T', 'T', 0, 0, 7, 1, false, false, false, false, false, false, false);
 		this.make_unit("DBat", 'F', 'B', 4, 4, 20, 2, false, false, false, false, false, true, false);
 		this.make_unit("+", '+', '+', 0, 0, 0, 0, false, false, false, false, false, false, false);
+		this.make_unit("IC", 'p', 'p', 0, 0, 1, 1, false, false, false, false, false, false, false);
 	}
 	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean, isAmphibious : boolean) {
@@ -92,7 +93,7 @@ export class unit_manager {
 	}
 }
 
-class unit_group {
+export class unit_group {
 	diceMode : DiceMode;
 	unit_str : string;
  	attdef	: number
@@ -3202,7 +3203,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
     }
 }
 
-function make_unit_group(um : unit_manager, input_str : string, attdef : number, diceMode : DiceMode) : unit_group 
+export function make_unit_group(um : unit_manager, input_str : string, attdef : number, diceMode : DiceMode) : unit_group 
 {
 	return um.unit_group_manager.get_or_create_unit_group(um, input_str, attdef, diceMode);
 }
@@ -3388,7 +3389,7 @@ interface casualty_2d {
 	prob : number;
 }
 
-interface casualty_1d {
+export interface casualty_1d {
 	remain : string;
 	retreat : string;
 	casualty : string;

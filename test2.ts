@@ -10,6 +10,7 @@ import {UnitIdentifier,
 		UnitIdentifier2UnitMap,
 		Unit2UnitIdentifierMap,
 		make_unit_group_string,
+		SbrInput, sbrExternal,
 		MultiwaveInput, WaveInput, UnitGroup, multiwaveExternal } from "./external";
 
 
@@ -41,6 +42,10 @@ rl.once('close', () => {
 		case 2: 
 			// example parse unit iniput
 			run4(argc, argv);
+			break;
+		case 3: 
+			// example parse unit iniput
+			run5(argc, argv);
 			break;
 	}
  });
@@ -192,3 +197,97 @@ function run4(argc : number, argv : string[])
 	console.log(JSON.stringify(output, null, 4));
 }
 
+function run5(argc : number, argv : string[]) 
+{
+	let i = 1;
+	let verbose_level = parseInt(argv[i++]);
+	let N = parseInt(argv[i++]);		// number of units
+
+	let units : Army = {};
+	let ool : UnitIdentifier[] = [];
+	let units2 : Army = {};
+	let ool2 : UnitIdentifier[] = [];
+
+	let um = new unit_manager( verbose_level);
+	for (let j = 0; j < N; j++) {
+		let uname = argv[i++];
+		let count = parseInt(argv[i++]);
+		
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			console.log(ch, "units");
+			throw new Error("rev_map3 failed");
+		}
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		units[id] = count;
+		ool.push(id);
+	}
+
+	let N2 = parseInt(argv[i++]);		// number of units
+	for (let j = 0; j < N2; j++) {
+		let uname = argv[i++];
+		let count = parseInt(argv[i++]);
+		
+		let ch = um.rev_map2.get(uname);
+		if (ch == undefined) {
+			console.log(ch, "units");
+			throw new Error("rev_map3 failed");
+		}
+        let id = Unit2UnitIdentifierMap.get(ch);
+        if (id == undefined) {
+            throw new Error("id failed");
+        }
+		units2[id] = count;
+		ool2.push(id);
+	}
+	let diceMode = parseInt(argv[i++]);
+	let in_progress = parseInt(argv[i++]) > 0;
+	
+	let diceArr : DiceMode[] = []
+	diceArr.push("standard");
+	diceArr.push("biased");
+	diceArr.push("lowluck");
+	
+	let takes = 0;
+	let aalast = false;
+	let isnaval = false;
+	let unitstr = make_unit_group_string(
+		units, ool, takes, aalast, isnaval, verbose_level);
+	let unitstr2 = make_unit_group_string(
+		units2, ool2, takes, aalast, isnaval, verbose_level);
+
+	console.log(unitstr, "unit_str, ool_str");
+	console.log(unitstr2, "unit_str, ool_str");
+
+	let input : SbrInput;
+	let att : UnitGroup;
+	let def : UnitGroup;
+	att = {	
+		units : units,
+		ool : ool,
+		takes : takes,	
+		aaLast : false
+	}
+	def = {	
+		units : units2,
+		ool : ool2,
+		takes : 0,	
+		aaLast : aalast
+	}
+	
+	input = {
+		verbose_level : verbose_level,
+		diceMode : diceArr[diceMode],
+		attack : att,
+		defense : def,
+		in_progress : in_progress,
+	}
+		
+	console.log(JSON.stringify(input, null, 4));
+	let output = sbrExternal(input);
+	console.log(JSON.stringify(input, null, 4));
+	console.log(JSON.stringify(output, null, 4));
+}
