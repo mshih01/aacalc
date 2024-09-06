@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 	P[i][j] = probability that i dice rolls sum of j
 
