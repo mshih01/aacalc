@@ -284,6 +284,8 @@ function run5(argc : number, argv : string[])
 		attack : att,
 		defense : def,
 		in_progress : in_progress,
+		reportPruneThreshold : 1e-12,
+		pruneThreshold : 1e-12,
 	}
 		
 	console.log(JSON.stringify(input, null, 4));

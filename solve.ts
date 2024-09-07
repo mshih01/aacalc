@@ -253,8 +253,10 @@ export class unit_group {
 					if (j > i) {
 						this.set_prob_table(i, j, 0.0);
 					} else {
-						this.set_prob_table(i, j, ph[i] * this.get_prob_table(i-1, j-1) + 
-													(1-ph[i]) * this.get_prob_table(i-1, j));
+						let v = ph[i] * this.get_prob_table(i-1, j-1) +
+							(1-ph[i]) * this.get_prob_table(i-1, j);
+						v = (v < 1e-300) ?  0 : v;
+						this.set_prob_table(i, j, v);
 					}
 				}
 			}
@@ -1655,7 +1657,7 @@ function retreat_non_amphibious(um : unit_manager, input_str : string) : [string
 }
 
 
-function report_filter (threshold : number, p : number) : number {
+export function report_filter (threshold : number, p : number) : number {
     if (p < threshold) {
 		return 0;
 	}
@@ -2560,6 +2562,10 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			prob_ends[prob_ends.length-1] = p + p0;
 		}
 		for (let ii = 0; ii < rounds; ii++) {
+			let label = "round " + ii;
+			if (problem.verbose_level > 2) {
+				console.time(label);
+			}
 			for (i = N-1; i >= 0 ; i--) {
 				for (j = M-1; j >= 0 ; j--) {
 					solve_one_naval_state(problem, i, j, true, 0, false, false);
@@ -2581,8 +2587,14 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 			if (p > 0) {
 				if (p + p0 == prob_ends[ii-1]) {
+					if (problem.verbose_level > 2) {
+						console.timeEnd(label);
+					}
 					break;
 				}
+			}
+			if (problem.verbose_level > 2) {
+				console.timeEnd(label);
 			}
 		}
 		if (problem.is_amphibious && prob_ends.length >= rounds ) {

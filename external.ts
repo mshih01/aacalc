@@ -71,6 +71,8 @@ export interface SbrInput {
 	verbose_level : number;
 	diceMode : DiceMode;
 	in_progress : boolean;
+	pruneThreshold : number;
+	reportPruneThreshold : number;
 }
 
 export type Side = "attack" | "defense"
@@ -308,7 +310,9 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
 			verboseLevel : input.verbose_level,
 			numBombers : input.attack.units["bom"] != undefined ? input.attack.units["bom"] : 0,
 			industrialComplexHitPoints : input.defense.units["ic"] != undefined ?  input.defense.units["ic"] : 0,
-			inProgress : input.in_progress
+			inProgress : input.in_progress,
+			reportPruneThreshold : input.reportPruneThreshold,
+			pruneThreshold : input.pruneThreshold
 		};
 	//console.log(internalInput);
 	let internalOutput = sbr(internalInput);
@@ -353,11 +357,3 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
     return output;
 }
 
-export interface MultiwaveOutput {
-    attack : CalcInfo;
-    defense : CalcInfo;
-    casualtiesInfo : CasualtiesInfo;
-    takesTerritory : number[];
-    rounds : number[];
-    waves : number;
-}

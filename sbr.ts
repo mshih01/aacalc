@@ -13,13 +13,14 @@
 
 import {unit_manager,
         DiceMode,
+		report_filter,
         unit_group,
         make_unit_group,
         aacalc_output,
         casualty_1d
         } from "./solve";
 
-function compute_prob_table (N : number, p : number[])  : number[][]
+function compute_prob_table (N : number, p : number[], prune_threshold : number)  : number[][]
 {
 	let P : number[][] =[];
 	let maxsum = N * 6;
@@ -48,6 +49,9 @@ function compute_prob_table (N : number, p : number[])  : number[][]
 					}
 					P[i][j] += p[k] * P[i-1][ii];
 				}
+				if (P[i][j] < prune_threshold) {
+					P[i][j] = 0;
+				}
 			}
 		}
 	}
@@ -61,6 +65,8 @@ class SbrProblem {
 	in_progress : boolean;
 	diceMode : DiceMode;
 	um : unit_manager;
+	prune_threshold : number;
+	report_prune_threshold : number;
 	P : number[][];		// P[i][j] is the probability that i bombers gets j hits.
 	phit : number[];		// P[i][j] is the probability that i bombers gets j hits.
 	Patt : number[]; 		// probability distribution of attackers (result of aa hits)
@@ -69,7 +75,8 @@ class SbrProblem {
 							// Pdef[i] is the probability that i defending hit points left.
 
 	constructor(numBombers : number, numIPCHitPoints : number, diceMode : DiceMode,	
-			verbose_level : number, in_progress : boolean)  {
+			verbose_level : number, in_progress : boolean,	
+			prune_threshold : number, report_prune_threshold : number)  {
 		this.numBombers = numBombers;
 		this.numIPCHitPoints = numIPCHitPoints;
 		this.diceMode = diceMode;
@@ -83,6 +90,8 @@ class SbrProblem {
 		this.Pdef = [];
 		this.um = new unit_manager(verbose_level);
 		this.verbose_level = verbose_level;
+		this.prune_threshold = prune_threshold;
+		this.report_prune_threshold = report_prune_threshold;
 		if (this.diceMode == "biased") {	
 			this.phit = [0, 0.1, 0.2, 0.3, 0.2, 0.1, 0.1];
 		} else if (this.diceMode == "standard") {	
@@ -90,7 +99,7 @@ class SbrProblem {
 		} else {	// low luck
 			this.phit = [0, 0, 0, 0.5, 0.5, 0, 0];
 		}
-		this.P = compute_prob_table(this.numBombers, this.phit);
+		this.P = compute_prob_table(this.numBombers, this.phit, this.prune_threshold);
 	}
 	solve() {
 		let N = this.numBombers;	
@@ -142,19 +151,26 @@ export interface sbr_input {
 	numBombers : number;
 	industrialComplexHitPoints : number;
 	inProgress : boolean;
+	pruneThreshold : number;	
+	reportPruneThreshold : number;
 }
 
 export function sbr( input : sbr_input) : aacalc_output
 {
 	let problem = new SbrProblem(input.numBombers, input.industrialComplexHitPoints,	
-					input.diceMode, input.verboseLevel, input.inProgress);
+					input.diceMode, input.verboseLevel, input.inProgress,
+					input.pruneThreshold, input.reportPruneThreshold
+		);
 	problem.solve();
 	let prob_att_survives = 0.0;	
 	let att_ipc = 0.0;
 	let stat = problem.um.get_stat("b");
 	let att_cas : casualty_1d[] = [];
 	for (let i = 0; i < problem.Patt.length; i++) {	// bombers remain
-		let prob = problem.Patt[i];
+		let prob = report_filter(problem.report_prune_threshold, problem.Patt[i]);
+		if (prob == undefined) {
+			continue;
+		}
 		if (i > 0) {
 			prob_att_survives += prob;
 		}
@@ -183,7 +199,7 @@ export function sbr( input : sbr_input) : aacalc_output
 	let def_ipc = 0.0;
 	let def_cas : casualty_1d[] = [];
 	for (let i = 0; i < problem.Pdef.length; i++) {	// ipc's remain
-		let prob = problem.Pdef[i];
+		let prob = report_filter(problem.report_prune_threshold, problem.Pdef[i]);
 		let ipcLoss = problem.numIPCHitPoints - i;
 		def_ipc += ipcLoss * prob;
 		if (i > 0) {
