@@ -302,6 +302,7 @@ class naval_unit_graph_node {
 	ndlastairArr : number[] = [];
 	ndlastnavalArr : number[] = [];
 	nosub_group : unit_group | undefined= undefined;
+	naval_group : unit_group | undefined= undefined;
 	numBB : number = 0;
 	constructor( um : unit_manager, unit_str : string, retreat : string, is_nonaval : boolean) {
 		this.unit_str = unit_str;
@@ -683,11 +684,19 @@ class unit_stat {
 	}
 }
 
-
 function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) : boolean {
-    return node.num_dest > 0;
-
+	let v1 = node.num_dest > 0;
 /*
+	let v2 = hasDestroyerOrig(group, node);
+	if (v1 != v2) {
+		console.log(v1, v2, group, node);
+	}
+*/
+	return v1;
+}
+
+
+function hasDestroyerOrig( group : naval_unit_group, node : naval_unit_graph_node) : boolean {
 	if (node.dlast) {
 		return node.num_naval > 0;
 	}
@@ -695,7 +704,6 @@ function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) :
 		return  (node.num_naval > group.naval_group.first_destroyer_index);
 	}
 	return false;
-*/
 }
 
 
@@ -1017,6 +1025,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 	if (defnode.dlast && problem.def_data.dlast_group != undefined) {
 		def_naval = problem.def_data.dlast_group;
 	}
+    if (defnode.naval_group != undefined) {
+		def_naval = defnode.naval_group;
+	}
 
     let NN = problem.att_data.nodeArr.length;
     let MM = problem.def_data.nodeArr.length;
@@ -1132,7 +1143,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				problem.setiP(ii, problem.getiP(ii) + prob);
             }
         }
-	} else if (true && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+	} else if (true && problem.rounds < 0 && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
 		if (true && problem.nonavalproblem != undefined) {
 			problem.setNoNavalP(N1, M1, N2, M2, p_init);
 		} else {
@@ -3178,6 +3189,17 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			let [s2, n2, subs] = retreat_subs(naval_group.um, node.unit_str);
             node.nosub_group = make_unit_group(naval_group.um, s2, naval_group.attdef, naval_group.diceMode);
 		}
+		{
+			let naval = "";
+			for (let j = 0; j < node.unit_str.length; j++) {
+				let ch = node.unit_str.charAt(j);
+				if (isAir(naval_group.um, ch) || isSub(naval_group.um, ch)) {
+					continue;
+				}
+				naval += ch;
+			}
+			node.naval_group = make_unit_group(naval_group.um, naval, naval_group.attdef, naval_group.diceMode);
+		}
     }
 	// aahits
 	{
@@ -3210,6 +3232,13 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				if (node.next_remove_noncombat != undefined) {
 					console.log(node.index, node.next_remove_noncombat.index, "next remove transports ");
 				}
+			}
+			if (naval_group.um.verbose_level > 4) {
+				console.log(node.unit_str, node.num_subs, node.num_air, node.num_naval,
+				naval_group.sub_group.unit_str.substr(0, node.num_subs),
+				naval_group.naval_group.unit_str.substr(0, node.num_naval),
+				node.naval_group != undefined ? node.naval_group.unit_str.substr(0, node.num_naval) : "",
+				naval_group.air_group.unit_str.substr(0, node.num_air));
 			}
 		}
     }
