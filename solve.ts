@@ -3665,10 +3665,10 @@ export function multiwave(
 					p1 = cas.prob;
 					p2 = 0;
 				}
-				let newcasstr_ool = apply_ool(cas.remain + def_token, wave.def_ool, wave.def_aalast);
+				// retreated subs fight in the second wave.
+				let newcasstr_ool = apply_ool(cas.remain + cas.retreat + def_token, wave.def_ool, wave.def_aalast);
 				let newcasstr = input.is_naval ? preparse_battleship(newcasstr_ool, 1) : newcasstr_ool;
 			
-				// TODO... should submerged subs fight in the second wave... probably true
 				let newcasualty : casualty_1d = { remain : newcasstr, retreat: "", casualty : cas.casualty, prob : p1}
 				defend_add_reinforce.push(newcasualty);
 				if (p2 > 0) {
