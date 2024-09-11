@@ -1474,6 +1474,10 @@ function isDestroyer(um : unit_manager, input : string) : boolean {
 	let stat = um.get_stat(input);
 	return stat.isDestroyer;
 }
+function isTransport(um : unit_manager, input : string) : boolean {
+	let stat = um.get_stat(input);
+	return (input == "T");
+}
 function isLand(um : unit_manager, input : string) : boolean {
 	let stat = um.get_stat(input);
 	return stat.isLand;
@@ -1532,7 +1536,7 @@ function remove_one_notdestroyer(um : unit_manager, input_str : string) : string
 	let found = false;
 	for (let i = N-1; i >= 0; i--) {
 		let ch = input_str.charAt(i);
-		if (!isDestroyer(um, ch)) {
+		if (!isDestroyer(um, ch) && !isTransport(um, ch)){
 			let out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
@@ -1554,7 +1558,7 @@ function remove_one_notplane(um : unit_manager, input_str : string, skipd : bool
 	let found = false;
 	for (let i = N-1; i >= 0; i--) {
 		let ch = input_str.charAt(i);
-		if (!isAir(um, ch) && (!skipd || !isDestroyer(um, ch))) {
+		if (!isAir(um, ch) && (!skipd || (!isDestroyer(um, ch) && !isTransport(um, ch)))) {
 			let out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
@@ -1579,7 +1583,7 @@ function remove_one_notsub(um : unit_manager, input_str : string, skipd : boolea
 	let found = false;
 	for (let i = N-1; i >= 0; i--) {
 		let ch = input_str.charAt(i);
-		if (!isSub(um, ch) && (!skipd || !isDestroyer(um, ch))) {
+		if (!isSub(um, ch) && (!skipd || (!isDestroyer(um, ch) && !isTransport(um, ch)))) {
 			let out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
