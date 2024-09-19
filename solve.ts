@@ -2788,7 +2788,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		let num_shots = (numAA * 3);
 		let num_planes = naval_group.num_air;
 		if (num_planes < num_shots)  num_shots = num_planes;
-		console.log(num_shots, "num_shots");
+		if (naval_group.um.verbose_level > 3) {
+			console.log(num_shots, "num_shots");
+		}
 		
 		naval_group.num_aashot = num_shots;
 
@@ -3677,7 +3679,10 @@ export function multiwave(
 					//defend_add_reinforce.push(newcasualty);
 				}
 			}
-			let defender = apply_ool(defend_add_reinforce[defend_add_reinforce.length-1].remain + 
+			let defender = 
+					defend_add_reinforce.length == 0 ? 
+					"" : 
+						apply_ool(defend_add_reinforce[defend_add_reinforce.length-1].remain + 
 						defend_add_reinforce[defend_add_reinforce.length-1].casualty, wave.def_ool, wave.def_aalast);
 			defenders_internal = preparse(input.is_naval, defender, 1);
 
