@@ -286,7 +286,7 @@ class naval_unit_graph_node {
     next_aahit : naval_unit_graph_node | undefined = undefined;
     next_subhit : naval_unit_graph_node | undefined = undefined;
     next_airhit : naval_unit_graph_node | undefined = undefined;
-    next_navalhit : naval_unit_graph_node | undefined = undefined;
+    next_navalhit! : naval_unit_graph_node;
     next_dlast_subhit : naval_unit_graph_node | undefined = undefined;
     next_dlast_airhit : naval_unit_graph_node | undefined = undefined;
     next_dlast_navalhit : naval_unit_graph_node | undefined = undefined;
@@ -1133,15 +1133,27 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		if (allow_same_state) {
 			r = p_init;
 		}
+		let curr_defnode = defnode;
+		let curr_attnode = attnode;
+		for (j = 0; j < numBombard; j++) {
+			curr_attnode = curr_attnode.next_navalhit;
+		}
+		let start_attnode = curr_attnode;
+		
         for (i = 0; i <= NNN; i++) {
-			let m = remove_navalhits2(defnode, i);
+			//let mm = remove_navalhits2(defnode, i);
+			let m = curr_defnode.index;
 			let p1 = att_nosub.get_prob_table(NNN, i) * r;
+			let curr_attnode = start_attnode;
             for (j = 0; j <= MMM; j++) {
                 prob = p1 * def_nosub.get_prob_table(MMM, j);
-				let n = remove_navalhits2(attnode, j + numBombard);
+			    //let nn = remove_navalhits2(attnode, j + numBombard);
+				let n = curr_attnode.index;
 				let ii = problem.getIndex(n, m);
 				problem.setiP(ii, problem.getiP(ii) + prob);
+				curr_attnode = curr_attnode.next_navalhit;
             }
+			curr_defnode = curr_defnode.next_navalhit;
         }
 	} else if (true && problem.rounds < 0 && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
 		if (true && problem.nonavalproblem != undefined) {
