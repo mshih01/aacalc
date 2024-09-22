@@ -1106,9 +1106,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 	let def_remove_planehits_function = remove_dlast_planehits2;
 	let def_remove_navalhits_function = remove_dlast_navalhits2;
 	if (!def_dlast) {
-		def_remove_subhits_function = remove_dlast_subhits2;
-		def_remove_planehits_function = remove_dlast_planehits2;
-		def_remove_navalhits_function = remove_dlast_navalhits2;
+		def_remove_subhits_function = remove_subhits2;
+		def_remove_planehits_function = remove_planehits2;
+		def_remove_navalhits_function = remove_navalhits2;
 	}
 	let att_remove_subhits_function = remove_dlast_subhits2;
 	let att_remove_planehits_function = remove_dlast_planehits2;
