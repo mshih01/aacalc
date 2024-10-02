@@ -1,14 +1,10 @@
 
 import * as readline from 'readline';
 
-import {unit_manager, 
+import {
 		DiceMode,
 		multiwave_input, wave_input, multiwave,
-		aacalc_input, aacalc_output, aacalc} from "./solve";
-
-const stdin: any = process.stdin;
-
-const epsilon : number = 1e-9;
+		aacalc_input, aacalc} from "./solve";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -17,7 +13,7 @@ const rl = readline.createInterface({
 });
 
 let argc : number  = 0;
-let argv : string[] = [];
+const argv : string[] = [];
 
 rl.on('line', (line) => {
     argv[argc++] = line;
@@ -25,7 +21,7 @@ rl.on('line', (line) => {
 
 rl.once('close', () => {
     console.log("done");
-    let mode = parseInt(argv[0]);
+    const mode = parseInt(argv[0]);
     switch(mode) {
         case 0:
             run2(argc, argv);
@@ -44,16 +40,16 @@ rl.once('close', () => {
 function run3(argc : number, argv : string[]) 
 {
 	let i = 1;
-	let debug = parseInt(argv[i++]);
-	let report_prune_threshold = parseFloat(argv[i++]);
-	let prune_threshold = parseFloat(argv[i++]);
-	let early_prune_threshold = prune_threshold/ 10;
-	let isnaval = parseInt(argv[i++]);
-	let attackers = argv[i++];
-	let defenders = argv[i++];
+	const debug = parseInt(argv[i++]);
+	const report_prune_threshold = parseFloat(argv[i++]);
+	const prune_threshold = parseFloat(argv[i++]);
+	const isnaval = parseInt(argv[i++]);
+	const attackers = argv[i++];
+	const defenders = argv[i++];
 	
-	let strafe_threshold = parseFloat(argv[i++]);
-	let num_runs = Math.max(parseInt(argv[i++]), 1);
+	//const strafe_threshold = parseFloat(argv[i++]);
+	i++;
+	const num_runs = Math.max(parseInt(argv[i++]), 1);
 
 	let att_destroyer_last = false;
 	let def_destroyer_last = false;
@@ -65,26 +61,26 @@ function run3(argc : number, argv : string[])
 		def_destroyer_last = parseInt(argv[i++]) > 0;
 		def_submerge = parseInt(argv[i++]) > 0;
 	}
-	let attackers2 = argv[i++];
-	let defenders2 = argv[i++];
-	let def_ool2 = argv[i++];
-	let attackers3 = argv[i++];
-	let defenders3 = argv[i++];
-	let def_ool3 = argv[i++];
-	let in_progress = parseInt(argv[i++]) > 0;
-	let retreat1 = parseInt(argv[i++]);
-	let retreat2 = parseInt(argv[i++]);
-	let retreat3 = parseInt(argv[i++]);
-	let aalast1 = parseInt(argv[i++]) > 0;
-	let aalast2 = parseInt(argv[i++]) > 0;
-	let aalast3 = parseInt(argv[i++]) > 0;
-	let rounds1 = parseInt(argv[i++]);
-	let rounds2 = parseInt(argv[i++]);
-	let rounds3 = parseInt(argv[i++]);
-	let crash1 = parseInt(argv[i++]) > 0;
-	let crash2 = parseInt(argv[i++]) > 0;
-	let crash3 = parseInt(argv[i++]) > 0;
-	let diceModeIn = parseInt(argv[i++]);
+	const attackers2 = argv[i++];
+	const defenders2 = argv[i++];
+	const def_ool2 = argv[i++];
+	const attackers3 = argv[i++];
+	const defenders3 = argv[i++];
+	const def_ool3 = argv[i++];
+	const in_progress = parseInt(argv[i++]) > 0;
+	const retreat1 = parseInt(argv[i++]);
+	const retreat2 = parseInt(argv[i++]);
+	const retreat3 = parseInt(argv[i++]);
+	const aalast1 = parseInt(argv[i++]) > 0;
+	const aalast2 = parseInt(argv[i++]) > 0;
+	const aalast3 = parseInt(argv[i++]) > 0;
+	const rounds1 = parseInt(argv[i++]);
+	const rounds2 = parseInt(argv[i++]);
+	const rounds3 = parseInt(argv[i++]);
+	const crash1 = parseInt(argv[i++]) > 0;
+	const crash2 = parseInt(argv[i++]) > 0;
+	const crash3 = parseInt(argv[i++]) > 0;
+	const diceModeIn = parseInt(argv[i++]);
 	let diceMode : DiceMode;
 	switch (diceModeIn) {
 		case 0:
@@ -99,17 +95,13 @@ function run3(argc : number, argv : string[])
 		default:
 			diceMode = "standard";
 	}
-	let verbose_level = parseInt(argv[i++]);
+	const verbose_level = parseInt(argv[i++]);
 
 	console.time('Execution Time');
 
-	let input : multiwave_input;
-	let wave1 : wave_input;
-	let wave2 : wave_input;
-	let wave3 : wave_input;
-	let wavearr : wave_input[] = [];
+	const wavearr : wave_input[] = [];
 	
-	wave1 = { attacker : attackers, 
+	const wave1 : wave_input = { attacker : attackers, 
 			  defender : defenders,
 			  def_ool : "",
 			  def_aalast : aalast1, 
@@ -120,7 +112,7 @@ function run3(argc : number, argv : string[])
 			  is_crash_fighters : crash1,
 			  rounds : rounds1,
 			  retreat_threshold : retreat1 };
-	wave2 = { attacker : attackers2, 
+	const wave2 : wave_input = { attacker : attackers2, 
 			  defender : defenders2,
 			  def_ool : def_ool2,
 			  def_aalast : aalast2, 
@@ -131,7 +123,7 @@ function run3(argc : number, argv : string[])
 			  is_crash_fighters : crash2,
 			  rounds : rounds2,
 			  retreat_threshold : retreat2};
-	wave3 = { attacker : attackers3, 
+	const wave3 : wave_input = { attacker : attackers3, 
 			  defender : defenders3,
 			  def_ool : def_ool3,
 			  def_aalast : aalast3, 
@@ -150,7 +142,7 @@ function run3(argc : number, argv : string[])
 		wavearr.push(wave3);
 	}
 
-	input = {
+	const input : multiwave_input = {
 		wave_info : wavearr,
 		debug	: debug > 0,
 		prune_threshold : prune_threshold,
@@ -164,7 +156,7 @@ function run3(argc : number, argv : string[])
 			  	
 	console.log("input", input);
 	
-	let output = multiwave(input) 
+	const output = multiwave(input) 
 
 	console.log ("output", JSON.stringify(output, null, 4))
 
@@ -173,18 +165,17 @@ function run3(argc : number, argv : string[])
 
 function run2(argc : number, argv : string[]) {
 	let i = 1;
-	let debug = parseInt(argv[i++]);
-	let report_prune_threshold = parseFloat(argv[i++]);
-	let prune_threshold = parseFloat(argv[i++]);
-	let early_prune_threshold = prune_threshold/ 10;
-	let isnaval = parseInt(argv[i++]);
-	let attackers = argv[i++];
-	let defenders = argv[i++];
+	const debug = parseInt(argv[i++]);
+	const report_prune_threshold = parseFloat(argv[i++]);
+	const prune_threshold = parseFloat(argv[i++]);
+	const isnaval = parseInt(argv[i++]);
+	const attackers = argv[i++];
+	const defenders = argv[i++];
 	
-	let strafe_threshold = parseFloat(argv[i++]);
-	let num_runs = Math.max(parseInt(argv[i++]), 1);
-	let retreat_threshold = parseInt(argv[i++]);
-	let in_progress = parseInt(argv[i++]) > 0;
+	const strafe_threshold = parseFloat(argv[i++]);
+	const num_runs = Math.max(parseInt(argv[i++]), 1);
+	const retreat_threshold = parseInt(argv[i++]);
+	const in_progress = parseInt(argv[i++]) > 0;
 
 	let att_destroyer_last = 0;
 	let def_destroyer_last = 0;
@@ -196,7 +187,7 @@ function run2(argc : number, argv : string[]) {
 		def_destroyer_last = Math.max(parseInt(argv[i++]), 0);
 		def_submerge = Math.max(parseInt(argv[i++]), 0);
 	}
-	let verbose_level = parseInt(argv[i++]);
+	const verbose_level = parseInt(argv[i++]);
 
 	console.time('Execution Time');
 	console.log(`debug = ${debug}`);
@@ -210,12 +201,11 @@ function run2(argc : number, argv : string[]) {
 	console.log(`retreat_threshold = ${retreat_threshold}`);
 	console.log(debug);
 
-	let input : aacalc_input;
-	input = { attacker: attackers, defender: defenders, debug : debug > 0, prune_threshold : prune_threshold, 
+	const input : aacalc_input = { attacker: attackers, defender: defenders, debug : debug > 0, prune_threshold : prune_threshold, 
 			report_prune_threshold : report_prune_threshold, is_naval : isnaval > 0, 
 			is_in_progress : in_progress,
 			att_destroyer_last : att_destroyer_last > 0, 
-			def_destroyer_last : att_destroyer_last > 0, 
+			def_destroyer_last : def_destroyer_last > 0, 
 			att_submerge_sub : att_submerge > 0, 
 			def_submerge_sub : def_submerge > 0, 
 			num_runs : num_runs,
@@ -230,7 +220,7 @@ function run2(argc : number, argv : string[]) {
 			 }
 	console.log("input", input);
 	
-	let output = aacalc(input) 
+	const output = aacalc(input) 
 
 	console.log ("output", JSON.stringify(output, null, 4))
     console.log ("casualtiesInfo", JSON.stringify(output.casualtiesInfo, null, 4))

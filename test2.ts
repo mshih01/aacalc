@@ -7,16 +7,11 @@ import {unit_manager,
 
 import {UnitIdentifier, 
 		Army,
-		UnitIdentifier2UnitMap,
 		Unit2UnitIdentifierMap,
 		make_unit_group_string,
 		SbrInput, sbrExternal,
 		MultiwaveInput, WaveInput, UnitGroup, multiwaveExternal } from "./external";
 
-
-const stdin: any = process.stdin;
-
-const epsilon : number = 1e-9;
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -25,7 +20,7 @@ const rl = readline.createInterface({
 });
 
 let argc : number  = 0;
-let argv : string[] = [];
+const argv : string[] = [];
 
 rl.on('line', (line) => {
 	argv[argc++] = line;
@@ -33,7 +28,7 @@ rl.on('line', (line) => {
 
 rl.once('close', () => {
 	console.log("done");
-	let mode = parseInt(argv[0]);
+	const mode = parseInt(argv[0]);
 	switch(mode) {
 		case 0: 
 			break;
@@ -53,84 +48,84 @@ rl.once('close', () => {
 function run4(argc : number, argv : string[]) 
 {
 	let i = 1;
-	let verbose_level = parseInt(argv[i++]);
-	let N = parseInt(argv[i++]);		// number of units
+	const verbose_level = parseInt(argv[i++]);
+	const N = parseInt(argv[i++]);		// number of units
 
-	let units : Army = {};
-	let ool : UnitIdentifier[] = [];
-	let units2 : Army = {};
-	let ool2 : UnitIdentifier[] = [];
+	const units : Army = {};
+	const ool : UnitIdentifier[] = [];
+	const units2 : Army = {};
+	const ool2 : UnitIdentifier[] = [];
 
-	let um = new unit_manager( verbose_level);
+	const um = new unit_manager( verbose_level);
 	for (let j = 0; j < N; j++) {
-		let uname = argv[i++];
-		let count = parseInt(argv[i++]);
+		const uname = argv[i++];
+		const count = parseInt(argv[i++]);
 		
-		let ch = um.rev_map2.get(uname);
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
 		units[id] = count;
 	}
 
-	let M = parseInt(argv[i++]);		// number of ool entries
+	const M = parseInt(argv[i++]);		// number of ool entries
 	for (let j = 0; j < M; j++) {
-		let uname = argv[i++];
-		let ch = um.rev_map2.get(uname);
+		const uname = argv[i++];
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "ool");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
 		ool.push(id);
 	}
-	let N2 = parseInt(argv[i++]);		// number of units
+	const N2 = parseInt(argv[i++]);		// number of units
 	for (let j = 0; j < N2; j++) {
-		let uname = argv[i++];
-		let count = parseInt(argv[i++]);
+		const uname = argv[i++];
+		const count = parseInt(argv[i++]);
 		
-		let ch = um.rev_map2.get(uname);
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
 		units2[id] = count;
 	}
-	let M2 = parseInt(argv[i++]);		// number of ool entries
+	const M2 = parseInt(argv[i++]);		// number of ool entries
 	for (let j = 0; j < M2; j++) {
-		let uname = argv[i++];
-		let ch = um.rev_map2.get(uname);
+		const uname = argv[i++];
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "ool");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
 		ool2.push(id);
 	}
-	let takes = parseInt(argv[i++]);
-	let aalast = parseInt(argv[i++]) > 0;
-	let isnaval = parseInt(argv[i++]) > 0;
-	let rounds = parseInt(argv[i++]);
-	let retreat_threshold = parseInt(argv[i++]);
-	let crash = parseInt(argv[i++]) >  0;
-	let diceMode = parseInt(argv[i++]);
+	const takes = parseInt(argv[i++]);
+	const aalast = parseInt(argv[i++]) > 0;
+	const isnaval = parseInt(argv[i++]) > 0;
+	const rounds = parseInt(argv[i++]);
+	const retreat_threshold = parseInt(argv[i++]);
+	const crash = parseInt(argv[i++]) >  0;
+	const diceMode = parseInt(argv[i++]);
 	
-	let diceArr : DiceMode[] = []
+	const diceArr : DiceMode[] = []
 	diceArr.push("standard");
 	diceArr.push("biased");
 	diceArr.push("lowluck");
@@ -140,33 +135,29 @@ function run4(argc : number, argv : string[])
 	console.log(takes, "takes");
 	console.log(aalast, "aalast");
 	console.log(isnaval, "isnaval");
-	let unitstr = make_unit_group_string(
+	const unitstr = make_unit_group_string(
 		units, ool, takes, aalast, isnaval, verbose_level);
-	let unitstr2 = make_unit_group_string(
+	const unitstr2 = make_unit_group_string(
 		units2, ool2, takes, aalast, isnaval, verbose_level);
 
 	console.log(unitstr, "unit_str, ool_str");
 	console.log(unitstr2, "unit_str, ool_str");
 
-	let input : MultiwaveInput;
-	let waves : WaveInput[] = [];
-	let wave : WaveInput;
-	let att : UnitGroup;
-	let def : UnitGroup;
-	att = {	
+	const waves : WaveInput[] = [];
+	const att : UnitGroup = {	
 		units : units,
 		ool : ool,
 		takes : takes,	
 		aaLast : false
 	}
-	def = {	
+	const def : UnitGroup = {	
 		units : units2,
 		ool : ool2,
 		takes : 0,	
 		aaLast : aalast
 	}
 	
-	wave = {
+	const wave : WaveInput = {
 		attack : att,
 		defense : def,
 		att_submerge : false,
@@ -179,7 +170,7 @@ function run4(argc : number, argv : string[])
 	}
 	
 	waves.push(wave);
-	input = {
+	const input : MultiwaveInput = {
 		wave_info : waves,
 		debug : false,
 		prune_threshold : 1e-12,	
@@ -192,7 +183,7 @@ function run4(argc : number, argv : string[])
 	}
 		
 	console.log(JSON.stringify(input, null, 4));
-	let output = multiwaveExternal(input);
+	const output = multiwaveExternal(input);
 	console.log(JSON.stringify(input, null, 4));
 	console.log(JSON.stringify(output, null, 4));
 }
@@ -200,25 +191,25 @@ function run4(argc : number, argv : string[])
 function run5(argc : number, argv : string[]) 
 {
 	let i = 1;
-	let verbose_level = parseInt(argv[i++]);
-	let N = parseInt(argv[i++]);		// number of units
+	const verbose_level = parseInt(argv[i++]);
+	const N = parseInt(argv[i++]);		// number of units
 
-	let units : Army = {};
-	let ool : UnitIdentifier[] = [];
-	let units2 : Army = {};
-	let ool2 : UnitIdentifier[] = [];
+	const units : Army = {};
+	const ool : UnitIdentifier[] = [];
+	const units2 : Army = {};
+	const ool2 : UnitIdentifier[] = [];
 
-	let um = new unit_manager( verbose_level);
+	const um = new unit_manager( verbose_level);
 	for (let j = 0; j < N; j++) {
-		let uname = argv[i++];
-		let count = parseInt(argv[i++]);
+		const uname = argv[i++];
+		const count = parseInt(argv[i++]);
 		
-		let ch = um.rev_map2.get(uname);
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
@@ -226,59 +217,56 @@ function run5(argc : number, argv : string[])
 		ool.push(id);
 	}
 
-	let N2 = parseInt(argv[i++]);		// number of units
+	const N2 = parseInt(argv[i++]);		// number of units
 	for (let j = 0; j < N2; j++) {
-		let uname = argv[i++];
-		let count = parseInt(argv[i++]);
+		const uname = argv[i++];
+		const count = parseInt(argv[i++]);
 		
-		let ch = um.rev_map2.get(uname);
+		const ch = um.rev_map2.get(uname);
 		if (ch == undefined) {
 			console.log(ch, "units");
 			throw new Error("rev_map3 failed");
 		}
-        let id = Unit2UnitIdentifierMap.get(ch);
+        const id = Unit2UnitIdentifierMap.get(ch);
         if (id == undefined) {
             throw new Error("id failed");
         }
 		units2[id] = count;
 		ool2.push(id);
 	}
-	let diceMode = parseInt(argv[i++]);
-	let in_progress = parseInt(argv[i++]) > 0;
+	const diceMode = parseInt(argv[i++]);
+	const in_progress = parseInt(argv[i++]) > 0;
 	
-	let diceArr : DiceMode[] = []
+	const diceArr : DiceMode[] = []
 	diceArr.push("standard");
 	diceArr.push("biased");
 	diceArr.push("lowluck");
 	
-	let takes = 0;
-	let aalast = false;
-	let isnaval = false;
-	let unitstr = make_unit_group_string(
+	const takes = 0;
+	const aalast = false;
+	const isnaval = false;
+	const unitstr = make_unit_group_string(
 		units, ool, takes, aalast, isnaval, verbose_level);
-	let unitstr2 = make_unit_group_string(
+	const unitstr2 = make_unit_group_string(
 		units2, ool2, takes, aalast, isnaval, verbose_level);
 
 	console.log(unitstr, "unit_str, ool_str");
 	console.log(unitstr2, "unit_str, ool_str");
 
-	let input : SbrInput;
-	let att : UnitGroup;
-	let def : UnitGroup;
-	att = {	
+	const att : UnitGroup = {	
 		units : units,
 		ool : ool,
 		takes : takes,	
 		aaLast : false
 	}
-	def = {	
+	const def : UnitGroup = {	
 		units : units2,
 		ool : ool2,
 		takes : 0,	
 		aaLast : aalast
 	}
 	
-	input = {
+	const input : SbrInput = {
 		verbose_level : verbose_level,
 		diceMode : diceArr[diceMode],
 		attack : att,
@@ -289,7 +277,7 @@ function run5(argc : number, argv : string[])
 	}
 		
 	console.log(JSON.stringify(input, null, 4));
-	let output = sbrExternal(input);
+	const output = sbrExternal(input);
 	console.log(JSON.stringify(input, null, 4));
 	console.log(JSON.stringify(output, null, 4));
 }

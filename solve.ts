@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { Heap } from 'heap-js';
 
 import { UnitIdentifier } from "./external";
@@ -13,7 +11,7 @@ class unit_group_manager {
 	mymap : Map<string, number>;
 	get_or_create_unit_group(um : unit_manager, input : string, attdef : number, diceMode : DiceMode) : unit_group {
 		let ug;
-		let ii = this.mymap.get(input+attdef);
+		const ii = this.mymap.get(input+attdef);
 		if (ii == undefined) {
 			ug = new unit_group(um, input, attdef, diceMode);
 			if (ug == undefined) {
@@ -21,7 +19,7 @@ class unit_group_manager {
 				throw new Error();
 			}
 			for (let i = 1; i <= input.length; i++) {
-				let t = input.substring(0,i) + attdef;
+				const t = input.substring(0,i) + attdef;
 				this.mymap.set(t, this.unit_group_arr.length);
 			}
 			this.unit_group_arr.push(ug);
@@ -78,13 +76,13 @@ export class unit_manager {
 	}
 	make_unit(fullname : string, ch : string, ch2 : string, att : number, def : number, cost : number, hits : number, isLand : boolean, isSub : boolean, 
 			isDestroyer : boolean, isAir : boolean, isAA : boolean, isBombard : boolean, isAmphibious : boolean) {
-		let unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard, isAmphibious);
+		const unit = new unit_stat(fullname, ch, ch2, att, def, cost, hits, isLand, isSub, isDestroyer, isAir, isAA, isBombard, isAmphibious);
 		this.unit_stats.set(ch, unit);
 		this.rev_map.set(ch2, ch);
 		this.rev_map2.set(fullname, ch);
 	}
 	get_stat(ch : string) : unit_stat {
-		let v = this.unit_stats.get(ch);
+		const v = this.unit_stats.get(ch);
 		if (v == undefined) {
 			console.log(ch, "get stat FATAL -- undefind");
 			throw new Error("get stat failed");
@@ -114,14 +112,14 @@ export class unit_group {
 		return this.prob_table2[ii];
 	}
 	get_prob_table(i : number, j : number) : number {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		return this.prob_table2[ii];
 	}
 	seti_prob_table(ii : number, val : number) {
 		this.prob_table2[ii] = val;
 	}
 	set_prob_table(i : number, j : number, val : number) {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		this.prob_table2[ii] = val;
 	}
 
@@ -153,13 +151,13 @@ export class unit_group {
 				this.set_prob_table(i, j, 0);
 			}
 		}
-		const biasedDice : number[] = [1, 2, 3, 2, 1, 1];
+		//const biasedDice : number[] = [1, 2, 3, 2, 1, 1];
 		const biasedDiceProb : number[] = [0, 1, 3, 6, 8, 9, 10];
 		for (i = 0; i < this.size; i++) {
-			let ii = i + 1;
-			let ch = this.unit_str.charAt(i);
+			const ii = i + 1;
+			const ch = this.unit_str.charAt(i);
 			//console.log(i, ch);
-			let stat = manager.get_stat(ch);
+			const stat = manager.get_stat(ch);
 			//console.log(stat);
 			let val;
 			switch(attdef) {
@@ -213,8 +211,8 @@ export class unit_group {
 		}
 	}
 	compute_prob_table() {
-		let ph = this.prob_hits;
-		let tbl_sz = this.tbl_size;
+		const ph = this.prob_hits;
+		const tbl_sz = this.tbl_size;
 		let i, j;
 		if (this.diceMode == "lowluck") {
 			this.set_prob_table(0, 0, 1.0);
@@ -222,11 +220,11 @@ export class unit_group {
 				this.set_prob_table(0, j, 0.0);
 			}
 			for (i = 1; i < tbl_sz; i++) {
-				let power = this.power[i];
-				let hits = Math.floor(power / 6);
-				let remainder = power % 6;
-				let probRemainderHits = remainder / 6;
-				let probRemainderMisses = 1-probRemainderHits;
+				const power = this.power[i];
+				const hits = Math.floor(power / 6);
+				const remainder = power % 6;
+				const probRemainderHits = remainder / 6;
+				const probRemainderMisses = 1-probRemainderHits;
 				for (j = 0; j < tbl_sz; j++) {
 					let p : number;
 					switch(j) {
@@ -368,7 +366,7 @@ class naval_unit_group {
 
 		let planes = "";
 		for (let i = 0; i < input_str.length; i++) {
-			let ch = input_str.charAt(i);
+			const ch = input_str.charAt(i);
 			if (isAir(this.um, ch)) {
 				planes += ch;
 			}
@@ -378,7 +376,7 @@ class naval_unit_group {
 		let naval = "";
 		let first_destroyer_index = -1;
 		for (let i = 0; i < input_str.length; i++) {
-			let ch = input_str.charAt(i);
+			const ch = input_str.charAt(i);
 			if (!isAir(this.um, ch) && !isSub(this.um, ch)) {
 				if (isDestroyer(um, ch)) {
 					if (first_destroyer_index < 0) {
@@ -393,7 +391,7 @@ class naval_unit_group {
 		this.naval_group.first_destroyer_index = first_destroyer_index;
 
 		if (first_destroyer_index >= 0) {
-			let destlast = "D" + naval.substr(0, first_destroyer_index) + naval.substr(first_destroyer_index+1);
+			const destlast = "D" + naval.substr(0, first_destroyer_index) + naval.substr(first_destroyer_index+1);
 			this.dlast_group = make_unit_group(um, destlast, attdef, this.diceMode);
 		} else {
 			this.dlast_group = this.naval_group;
@@ -442,14 +440,14 @@ class naval_problem {
 		return this.P_1d[ii];
 	}
 	getP(i : number, j : number) : number {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		return this.P_1d[ii];
 	}
 	setiP(ii : number, val : number) {
 		this.P_1d[ii] = val;
 	}
 	setP(i : number, j : number, val : number) {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		this.P_1d[ii] = val;
 	}
 	set_prune_threshold( pt : number, ept : number, rpt : number) {
@@ -477,12 +475,12 @@ class naval_problem {
 		this.um = um;
 		this.verbose_level = verbose_level;
 
-		let numAA = count_units(def_str, 'c');
+		const numAA = count_units(def_str, 'c');
 		
-		let max_att_hits = att_str.length;
+		const max_att_hits = att_str.length;
 		let max_def_hits = def_str.length;
 		if (!is_naval) {
-			let numBombard = 
+			const numBombard = 
 					count_units(att_str, 'B') + 
 					count_units(att_str, 'C');
 			max_def_hits += numBombard;
@@ -517,9 +515,9 @@ class naval_problem {
 				(this.def_data.num_subs > 0) &&
 				(this.def_data.num_air > 0) 
 				) {
-				let att = this.att_data.sub_group.unit_str + 
+				const att = this.att_data.sub_group.unit_str + 
 						this.att_data.air_group.unit_str;
-				let def = this.def_data.sub_group.unit_str + 
+				const def = this.def_data.sub_group.unit_str + 
 						this.def_data.air_group.unit_str;
 				this.nonavalproblem = new naval_problem(
 						this.verbose_level,
@@ -528,27 +526,27 @@ class naval_problem {
 						undefined, true, this.diceMode);
 				if (this.nonavalproblem != undefined) {
 					for (let i = 0 ; i < this.att_data.nodeArr.length; i++) {
-						let node = this.att_data.nodeArr[i];
+						const node = this.att_data.nodeArr[i];
 						if (node.num_naval == 0) {
-							let key : string = node.num_subs + "," + node.num_air;
+							const key : string = node.num_subs + "," + node.num_air;
 							this.attmap.set(key, i);
 						}
 					}
 					for (let i = 0 ; i < this.def_data.nodeArr.length; i++) {
-						let node = this.def_data.nodeArr[i];
+						const node = this.def_data.nodeArr[i];
 						if (node.num_naval == 0) {
-							let key : string = node.num_subs + "," + node.num_air;
+							const key : string = node.num_subs + "," + node.num_air;
 							this.defmap.set(key, i);
 						}
 					}
 					for (let i = 0 ; i < this.nonavalproblem.att_data.nodeArr.length; i++) {
-						let node = this.nonavalproblem.att_data.nodeArr[i];
-						let key : string = node.num_subs + "," + node.num_air;
+						const node = this.nonavalproblem.att_data.nodeArr[i];
+						const key : string = node.num_subs + "," + node.num_air;
 						this.attmap2.set(key, i);
 					}
 					for (let i = 0 ; i < this.nonavalproblem.def_data.nodeArr.length; i++) {
-						let node = this.nonavalproblem.def_data.nodeArr[i];
-						let key : string = node.num_subs + "," + node.num_air;
+						const node = this.nonavalproblem.def_data.nodeArr[i];
+						const key : string = node.num_subs + "," + node.num_air;
 						this.defmap2.set(key, i);
 					}
 				}
@@ -558,12 +556,12 @@ class naval_problem {
 	}
 	setNoNavalP(N1 : number, M1 : number, N2 : number, M2 : number, p : number) {
 		if (this.nonavalproblem != undefined) {
-			let key1 : string = N1 + "," + N2;
-			let key2 : string = M1 + "," + M2;
-			let i = this.attmap2.get(key1);
-			let j = this.defmap2.get(key2);
+			const key1 : string = N1 + "," + N2;
+			const key2 : string = M1 + "," + M2;
+			const i = this.attmap2.get(key1);
+			const j = this.defmap2.get(key2);
 			if (i != undefined && j != undefined) {
-				let ii  = this.nonavalproblem.getIndex(i, j);
+				const ii  = this.nonavalproblem.getIndex(i, j);
 				this.nonavalproblem.setiP(ii, this.nonavalproblem.getiP(ii) + p);
 			} else {
 				throw new Error();
@@ -598,14 +596,14 @@ class problem {
 		return this.P2[ii];
 	}
 	getP(i : number, j : number) : number {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		return this.P2[ii];
 	}
 	setiP(ii : number, val : number) {
 		this.P2[ii] = val;
 	}
 	setP(i : number, j : number, val : number) {
-		let ii = this.getIndex(i, j);
+		const ii = this.getIndex(i, j);
 		this.P2[ii] = val;
 	}
 	set_prune_threshold( pt : number, ept : number, rpt : number) {
@@ -685,7 +683,7 @@ class unit_stat {
 }
 
 function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) : boolean {
-	let v1 = node.num_dest > 0;
+	const v1 = node.num_dest > 0;
 /*
 	let v2 = hasDestroyerOrig(group, node);
 	if (v1 != v2) {
@@ -696,6 +694,7 @@ function hasDestroyer( group : naval_unit_group, node : naval_unit_graph_node) :
 }
 
 
+/*
 function hasDestroyerOrig( group : naval_unit_group, node : naval_unit_graph_node) : boolean {
 	if (node.dlast) {
 		return node.num_naval > 0;
@@ -705,29 +704,30 @@ function hasDestroyerOrig( group : naval_unit_group, node : naval_unit_graph_nod
 	}
 	return false;
 }
+*/
 
 
 function remove_subhits2(node : naval_unit_graph_node , hits : number) : number
 {
-	let n = hits;
+	const n = hits;
 	return node.nsubArr[n];	
 }
 function remove_aahits( group : naval_unit_group, hits : number, index : number) : number 
 {
-    let node = group.nodeArr[index];
-	let n = hits;
+    const node = group.nodeArr[index];
+	const n = hits;
 	return node.naaArr[n];	
 }
 
 function remove_dlast_subhits2(node : naval_unit_graph_node , hits : number) : number
 {
-	let n = hits;
+	const n = hits;
 	return node.ndlastsubArr[n];	
 }
 
 function remove_planehits2( node : naval_unit_graph_node , hasDest : boolean, hits : number) : number
 {
-	let n = hits;
+	const n = hits;
 	if (hasDest) {
 		return node.nnavalArr[n];	
 	} else {
@@ -737,7 +737,7 @@ function remove_planehits2( node : naval_unit_graph_node , hasDest : boolean, hi
 
 function remove_dlast_planehits2( node : naval_unit_graph_node , hasDest : boolean, hits : number) : number
 {
-	let n = hits;
+	const n = hits;
 	if (hasDest) {
 		return node.ndlastnavalArr[n];	
 	} else {
@@ -747,23 +747,23 @@ function remove_dlast_planehits2( node : naval_unit_graph_node , hasDest : boole
 
 function remove_navalhits2( node : naval_unit_graph_node , hits : number) : number 
 {
-	let n = hits;
+	const n = hits;
 	return node.nnavalArr[n];	
 }
 
 function remove_dlast_navalhits2( node : naval_unit_graph_node, hits : number) : number 
 {
-	let n = hits;
+	const n = hits;
 	return node.ndlastnavalArr[n];	
 }
 
 function is_terminal_state(problem : naval_problem, N : number, M : number, debug : boolean) : boolean 
 {
-	let out = is_terminal_state_helper(problem, N, M);
+	const out = is_terminal_state_helper(problem, N, M);
 	if (debug) {
 		if (!out) {
-			let attnode = problem.att_data.nodeArr[N];
-			let defnode = problem.def_data.nodeArr[M];
+			const attnode = problem.att_data.nodeArr[N];
+			const defnode = problem.def_data.nodeArr[M];
 			console.log(attnode.unit_str, ":", attnode.retreat, defnode.unit_str, "here");
 		}
 	}
@@ -772,8 +772,8 @@ function is_terminal_state(problem : naval_problem, N : number, M : number, debu
 
 function is_terminal_state_helper(problem : naval_problem, N : number, M : number) : boolean 
 {
-    let attnode = problem.att_data.nodeArr[N];
-    let defnode = problem.def_data.nodeArr[M];
+    const attnode = problem.att_data.nodeArr[N];
+    const defnode = problem.def_data.nodeArr[M];
     if (attnode.N == 0 || defnode.N == 0) {
         return true;
     }
@@ -789,12 +789,12 @@ function is_terminal_state_helper(problem : naval_problem, N : number, M : numbe
 			return true;
 		}
 	}
-    let N1 = attnode.num_subs;
-    let N2 = attnode.num_air;
-    let N3 = attnode.num_naval;
-    let M1 = defnode.num_subs;
-    let M2 = defnode.num_air;
-    let M3 = defnode.num_naval;
+    const N1 = attnode.num_subs;
+    const N2 = attnode.num_air;
+    const N3 = attnode.num_naval;
+    const M1 = defnode.num_subs;
+    const M2 = defnode.num_air;
+    const M3 = defnode.num_naval;
 	if ((N1 > 0 && N2 == 0 && N3 == 0) && (M1 == 0 && M2 > 0 && M3 == 0)) {
         return true;
 	}
@@ -805,13 +805,13 @@ function is_terminal_state_helper(problem : naval_problem, N : number, M : numbe
 }
 
 function get_terminal_state_prob(problem : naval_problem, debug : boolean = false) : number {
-	let N = problem.att_data.nodeArr.length;
-	let M = problem.def_data.nodeArr.length;
+	const N = problem.att_data.nodeArr.length;
+	const M = problem.def_data.nodeArr.length;
 	let prob = 0;
 
 	for (let i = 0; i < N ; i++) {
 		for (let j = 0; j < M ; j++) {
-			let p = problem.getP(i, j);
+			const p = problem.getP(i, j);
 			if (p > 0) {
 				if (is_terminal_state(problem, i, j, debug)) {
 					prob += p;
@@ -826,19 +826,19 @@ function get_terminal_state_prob(problem : naval_problem, debug : boolean = fals
 	// 1.  remove move the remaining non-amphibous attackers to retreat state.
 function retreat_one_naval_state(problem : naval_problem, N : number, M : number) 
 {
-    let attnode = problem.att_data.nodeArr[N];
-    let defnode = problem.def_data.nodeArr[M];
+    const attnode = problem.att_data.nodeArr[N];
+    const defnode = problem.def_data.nodeArr[M];
 
-    let p_init = problem.getP(N, M);
+    const p_init = problem.getP(N, M);
 
 	if (p_init == 0) {
 	    return;
 	}
 
 	if (attnode.N > 0 && defnode.N > 0 && attnode.retreat.length == 0 && attnode.next_retreat_amphibious != undefined) {
-		let n = attnode.next_retreat_amphibious.index;
-		let m = defnode.index;
-		let ii = problem.getIndex(n, m);
+		const n = attnode.next_retreat_amphibious.index;
+		const m = defnode.index;
+		const ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
 		return;
@@ -847,21 +847,21 @@ function retreat_one_naval_state(problem : naval_problem, N : number, M : number
 
 function do_crash_fighters(problem : naval_problem)
 {
-    let N = problem.att_data.nodeArr.length;
-    let M = problem.def_data.nodeArr.length;
+    const N = problem.att_data.nodeArr.length;
+    const M = problem.def_data.nodeArr.length;
 	for (let i = 0; i < N; i++) {
 		for (let j = 0; j < M; j++) {
-			let attnode = problem.att_data.nodeArr[i];
-			let defnode = problem.def_data.nodeArr[j];
-			let p = problem.getP(i, j);
+			const attnode = problem.att_data.nodeArr[i];
+			const defnode = problem.def_data.nodeArr[j];
+			const p = problem.getP(i, j);
 			if (p == 0) {
 				continue;
 			}
 			if (defnode.next_crash_fighters != undefined) {
 				problem.setP(i, j, 0);
-				let n = attnode.index;
-				let m = defnode.next_crash_fighters.index;
-				let ii = problem.getIndex(n, m);
+				const n = attnode.index;
+				const m = defnode.next_crash_fighters.index;
+				const ii = problem.getIndex(n, m);
 				problem.setiP(ii, problem.getiP(ii) + p);
 			}
 		}
@@ -869,31 +869,26 @@ function do_crash_fighters(problem : naval_problem)
 }
 
 
-function do_early_retreat(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
-				do_retreat_only : boolean, disable_retreat : boolean) 
+function do_early_retreat(problem : naval_problem, N : number, M : number) 
 {
-    let attnode = problem.att_data.nodeArr[N];
-    let defnode = problem.def_data.nodeArr[M];
+    const attnode = problem.att_data.nodeArr[N];
+    const defnode = problem.def_data.nodeArr[M];
     if (attnode.N == 0 || defnode.N == 0) {
         return;
     }
 	//console.log(N, M, "solve_one_naval");
-    let p_init = problem.getP(N, M);
+    const p_init = problem.getP(N, M);
 
 	if (p_init == 0) {
 	    return;
 	}
-    let N1 = attnode.num_subs;
-    let N2 = attnode.num_air;
-    let N3 = attnode.num_naval;
-    let M1 = defnode.num_subs;
-    let M2 = defnode.num_air;
-    let M3 = defnode.num_naval;
-	let att_destroyer = hasDestroyer(problem.att_data, attnode);
-	let def_destroyer = hasDestroyer(problem.def_data, defnode);
-	let att_submerge = (problem.att_data.submerge_sub && N1 > 0 &&
+    const N1 = attnode.num_subs;
+    const M1 = defnode.num_subs;
+	const att_destroyer = hasDestroyer(problem.att_data, attnode);
+	const def_destroyer = hasDestroyer(problem.def_data, defnode);
+	const att_submerge = (problem.att_data.submerge_sub && N1 > 0 &&
 						!def_destroyer);
-	let def_submerge = (problem.def_data.submerge_sub && M1 > 0 &&
+	const def_submerge = (problem.def_data.submerge_sub && M1 > 0 &&
 						!att_destroyer);
 	if (att_submerge || def_submerge) {
 		let n = attnode.index;
@@ -910,15 +905,15 @@ function do_early_retreat(problem : naval_problem, N : number, M : number, allow
 			}
 			m = defnode.next_submerge.index;
 		}
-		let ii = problem.getIndex(n, m);
+		const ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
 		return;
 	} 
 	if (defnode.next_remove_noncombat != undefined) {
-		let n = attnode.index;
-		let m = defnode.next_remove_noncombat.index;
-		let ii = problem.getIndex(n, m);
+		const n = attnode.index;
+		const m = defnode.next_remove_noncombat.index;
+		const ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
 		return;
@@ -929,15 +924,15 @@ function do_early_retreat(problem : naval_problem, N : number, M : number, allow
 function solve_one_naval_state(problem : naval_problem, N : number, M : number, allow_same_state : boolean, numBombard : number, 
 				do_retreat_only : boolean, disable_retreat : boolean)
 {
-    let attnode = problem.att_data.nodeArr[N];
-    let defnode = problem.def_data.nodeArr[M];
+    const attnode = problem.att_data.nodeArr[N];
+    const defnode = problem.def_data.nodeArr[M];
 
     if (attnode.N == 0 || defnode.N == 0) {
         return;
     }
 
 	//console.log(N, M, "solve_one_naval");
-    let p_init = problem.getP(N, M);
+    const p_init = problem.getP(N, M);
 
 	if (p_init == 0) {
 	    return;
@@ -946,9 +941,9 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		if (attnode.N <= problem.retreat_threshold) {
 			if (problem.is_amphibious) {
 				if (attnode.N > 0 && defnode.N > 0 && attnode.retreat.length == 0 && attnode.next_retreat_amphibious != undefined) {
-					let n = attnode.next_retreat_amphibious.index;
-					let m = defnode.index;
-					let ii = problem.getIndex(n, m);
+					const n = attnode.next_retreat_amphibious.index;
+					const m = defnode.index;
+					const ii = problem.getIndex(n, m);
 					problem.setiP(ii, problem.getiP(ii) + p_init);
 					problem.setP(N, M, 0);
 					return;
@@ -964,21 +959,21 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
         return;
     }
 
-    let N1 = attnode.num_subs;
-    let N2 = attnode.num_air;
-    let N3 = attnode.num_naval;
-    let M1 = defnode.num_subs;
-    let M2 = defnode.num_air;
-    let M3 = defnode.num_naval;
+    const N1 = attnode.num_subs;
+    const N2 = attnode.num_air;
+    const N3 = attnode.num_naval;
+    const M1 = defnode.num_subs;
+    const M2 = defnode.num_air;
+    const M3 = defnode.num_naval;
 
-	let att_destroyer = hasDestroyer(problem.att_data, attnode);
-	let def_destroyer = hasDestroyer(problem.def_data, defnode);
-	let att_dlast = (problem.att_data.destroyer_last && M1 > 0);
-	let def_dlast = (problem.def_data.destroyer_last && N1 > 0);
+	const att_destroyer = hasDestroyer(problem.att_data, attnode);
+	const def_destroyer = hasDestroyer(problem.def_data, defnode);
+	const att_dlast = (problem.att_data.destroyer_last && M1 > 0);
+	const def_dlast = (problem.def_data.destroyer_last && N1 > 0);
 
-	let att_submerge = (problem.att_data.submerge_sub && N1 > 0 &&
+	const att_submerge = (problem.att_data.submerge_sub && N1 > 0 &&
 						!def_destroyer);
-	let def_submerge = (problem.def_data.submerge_sub && M1 > 0 &&
+	const def_submerge = (problem.def_data.submerge_sub && M1 > 0 &&
 						!att_destroyer);
 
 	if (att_submerge || def_submerge) {
@@ -996,15 +991,15 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 			}
 			m = defnode.next_submerge.index;
 		}
-		let ii = problem.getIndex(n, m);
+		const ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
 		return;
 	} 
 	if (defnode.next_remove_noncombat != undefined) {
-		let n = attnode.index;
-		let m = defnode.next_remove_noncombat.index;
-		let ii = problem.getIndex(n, m);
+		const n = attnode.index;
+		const m = defnode.next_remove_noncombat.index;
+		const ii = problem.getIndex(n, m);
 		problem.setiP(ii, problem.getiP(ii) + p_init);
 		problem.setP(N, M, 0);
 		return;
@@ -1013,14 +1008,14 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		return;
 	}
 
-    let att_sub = problem.att_data.sub_group;
-    let att_air = problem.att_data.air_group;
+    const att_sub = problem.att_data.sub_group;
+    const att_air = problem.att_data.air_group;
     let att_naval = problem.att_data.naval_group;
 	if (attnode.dlast && problem.att_data.dlast_group != undefined) {
 		att_naval = problem.att_data.dlast_group;
 	}
-    let def_sub = problem.def_data.sub_group;
-    let def_air = problem.def_data.air_group;
+    const def_sub = problem.def_data.sub_group;
+    const def_air = problem.def_data.air_group;
     let def_naval = problem.def_data.naval_group;
 	if (defnode.dlast && problem.def_data.dlast_group != undefined) {
 		def_naval = problem.def_data.dlast_group;
@@ -1028,10 +1023,6 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
     if (defnode.naval_group != undefined) {
 		def_naval = defnode.naval_group;
 	}
-
-    let NN = problem.att_data.nodeArr.length;
-    let MM = problem.def_data.nodeArr.length;
-    let i, j;
 
 	// prob no hits.
     let P0 =
@@ -1053,7 +1044,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 	if (N1 > 0 && N2 == 0 && N3 == 0 && M2 > 0) {
 		if (!def_destroyer) {
 			// def no destroyer && def plane_hits > 0 && sub hits == 0 && naval hits == 0
-			let p = att_sub.get_prob_table(N1, 0) * def_sub.get_prob_table(M1, 0) * def_naval.get_prob_table(M3,0) *
+			const p = att_sub.get_prob_table(N1, 0) * def_sub.get_prob_table(M1, 0) * def_naval.get_prob_table(M3,0) *
 						(1 - def_air.get_prob_table(M2, 0));	// > 0 plane hits... that don't apply.
 			P0 += p;
 		}
@@ -1061,7 +1052,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
     // defender all subs
 	if (M1 > 0 && M2 == 0 && M3 == 0 && N2 > 0) {
 		if (!att_destroyer) {
-			let p = def_sub.get_prob_table(M1, 0) * att_sub.get_prob_table(N1, 0) * att_naval.get_prob_table(N3, 0) * 
+			const p = def_sub.get_prob_table(M1, 0) * att_sub.get_prob_table(N1, 0) * att_naval.get_prob_table(N3, 0) * 
 						(1 - att_air.get_prob_table(N2, 0));    // > 0 plane hits... that don't apply.
 			P0 += p;
 		}
@@ -1069,13 +1060,13 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		
 	// attacker all planes.
 	if (N1 == 0 && N2 > 0 && N3 == 0 && M1 > 0) {
-		let p = att_air.get_prob_table(N2, 0) * def_naval.get_prob_table(M3, 0) * def_air.get_prob_table(M2, 0) * 
+		const p = att_air.get_prob_table(N2, 0) * def_naval.get_prob_table(M3, 0) * def_air.get_prob_table(M2, 0) * 
 					(1 - def_sub.get_prob_table(M1, 0));
 		P0 += p;
 	}
 	// defender all planes.
 	if (M1 == 0 && M2 > 0 && M3 == 0 && N1 > 0) {
-		let p = def_air.get_prob_table(M2, 0) * att_naval.get_prob_table(N3, 0) * att_air.get_prob_table(N2, 0) * 
+		const p = def_air.get_prob_table(M2, 0) * att_naval.get_prob_table(N3, 0) * att_air.get_prob_table(N2, 0) * 
 					(1 - att_sub.get_prob_table(N1, 0));
 		P0 += p;
 	}
@@ -1087,7 +1078,6 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 	
     let prob : number;
     let p2, p3, p4, p5 : number;
-    let new_i, new_j : number;
 
     /*
      *  N1 ==> sub hits
@@ -1099,7 +1089,7 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
     let j1, j2, j3;
     let newM1, newM2, newM3;
     let newN1, newN2, newN3;
-    let hasSubs = (N1 > 0 || M1 > 0);
+    const hasSubs = (N1 > 0 || M1 > 0);
     //hasSubs = true;
 
 	let def_remove_subhits_function = remove_dlast_subhits2;
@@ -1119,16 +1109,17 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		att_remove_navalhits_function = remove_navalhits2;
 	}
 	problem.setP(N, M, 0);
-	let sum = 0.0;
+
+	const enable_airsub_optimization = true;
+	const enable_airsub_optimization2 = true;
 
     if (!hasSubs && attnode.nosub_group != undefined && defnode.nosub_group != undefined ) {
-        let att_nosub = attnode.nosub_group;
-        let def_nosub = defnode.nosub_group;
+        const att_nosub = attnode.nosub_group;
+        const def_nosub = defnode.nosub_group;
         let i, j;
-        let NNN = N2 + N3;
-        let MMM = M2 + M3;
-		let m, n;
-		let P0 = att_nosub.get_prob_table(NNN, 0) * def_nosub.get_prob_table(MMM, 0);
+        const NNN = N2 + N3;
+        const MMM = M2 + M3;
+		const P0 = att_nosub.get_prob_table(NNN, 0) * def_nosub.get_prob_table(MMM, 0);
 		let r = p_init * 1/(1-P0);
 		if (allow_same_state) {
 			r = p_init;
@@ -1138,56 +1129,56 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 		for (j = 0; j < numBombard; j++) {
 			curr_attnode = curr_attnode.next_navalhit;
 		}
-		let start_attnode = curr_attnode;
+		const start_attnode = curr_attnode;
 		
         for (i = 0; i <= NNN; i++) {
 			//let mm = remove_navalhits2(defnode, i);
-			let m = curr_defnode.index;
-			let p1 = att_nosub.get_prob_table(NNN, i) * r;
+			const m = curr_defnode.index;
+			const p1 = att_nosub.get_prob_table(NNN, i) * r;
 			let curr_attnode = start_attnode;
             for (j = 0; j <= MMM; j++) {
                 prob = p1 * def_nosub.get_prob_table(MMM, j);
 			    //let nn = remove_navalhits2(attnode, j + numBombard);
-				let n = curr_attnode.index;
-				let ii = problem.getIndex(n, m);
+				const n = curr_attnode.index;
+				const ii = problem.getIndex(n, m);
 				problem.setiP(ii, problem.getiP(ii) + prob);
 				curr_attnode = curr_attnode.next_navalhit;
             }
 			curr_defnode = curr_defnode.next_navalhit;
         }
-	} else if (true && problem.rounds < 0 && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
-		if (true && problem.nonavalproblem != undefined) {
+	} else if (enable_airsub_optimization && problem.rounds < 0 && !problem.is_retreat && problem.is_naval && N3 == 0 && M3 == 0) {	// air vs. subs -- cannot hit each other... so can be solved independently.
+		if (enable_airsub_optimization2 && problem.nonavalproblem != undefined) {
 			problem.setNoNavalP(N1, M1, N2, M2, p_init);
 		} else {
 			if (N1 > 0 && M1 > 0) {
-				let P0 = att_sub.get_prob_table(N1, 0) * def_sub.get_prob_table(M1, 0);
+				const P0 = att_sub.get_prob_table(N1, 0) * def_sub.get_prob_table(M1, 0);
 				let r = p_init * 1/(1-P0);
 				if (allow_same_state) {
 					r = p_init;
 				}
 				for (let i1 = 0; i1 <= N1; i1++) {
-					let m = def_remove_subhits_function(defnode, i1);
-					let p1 =  att_sub.get_prob_table(N1, i1) * r;
+					const m = def_remove_subhits_function(defnode, i1);
+					const p1 =  att_sub.get_prob_table(N1, i1) * r;
 					for (let j1 = 0; j1 <= M1; j1++) {
-						let n = att_remove_subhits_function(attnode, j1);
-						let p2 = p1 * def_sub.get_prob_table(M1, j1);
-						let ii = problem.getIndex(n, m);
+						const n = att_remove_subhits_function(attnode, j1);
+						const p2 = p1 * def_sub.get_prob_table(M1, j1);
+						const ii = problem.getIndex(n, m);
 						problem.setiP(ii, problem.getiP(ii) + p2);
 					}
 				}
 			} else if (N2 > 0 && M2 > 0) {
-				let P0 = att_air.get_prob_table(N2, 0) * def_air.get_prob_table(M2, 0);
+				const P0 = att_air.get_prob_table(N2, 0) * def_air.get_prob_table(M2, 0);
 				let r = p_init * 1/(1-P0);
 				if (allow_same_state) {
 					r = p_init;
 				}
 				for (let i2 = 0; i2 <= N2; i2++) {
-					let m = def_remove_planehits_function(defnode, false, i2);
-					let p1 =  att_air.get_prob_table(N2, i2) * r;
+					const m = def_remove_planehits_function(defnode, false, i2);
+					const p1 =  att_air.get_prob_table(N2, i2) * r;
 					for (let j2 = 0; j2 <= M2; j2++) {
-						let n = att_remove_planehits_function(attnode, false, j2);
-						let p2 = p1 * def_air.get_prob_table(M2, j2);
-						let ii = problem.getIndex(n, m);
+						const n = att_remove_planehits_function(attnode, false, j2);
+						const p2 = p1 * def_air.get_prob_table(M2, j2);
+						const ii = problem.getIndex(n, m);
 						problem.setiP(ii, problem.getiP(ii) + p2);
 					}
 				}
@@ -1197,11 +1188,12 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 			}
 		}
 	} else {
-		if (true && (N1 * M1 > 2)) {
-			let m = remove_subhits2(defnode, N1);
-			let n = remove_subhits2(attnode, M1);
-			let defnode2 = problem.def_data.nodeArr[m];
-			let attnode2 = problem.att_data.nodeArr[n];
+		const enable_early_filter = true;
+		if (enable_early_filter && (N1 * M1 > 2)) {
+			const m = remove_subhits2(defnode, N1);
+			const n = remove_subhits2(attnode, M1);
+			const defnode2 = problem.def_data.nodeArr[m];
+			const attnode2 = problem.att_data.nodeArr[n];
 			newM1 = M1;
 			newM2 = M2;
 			newM3 = M3;
@@ -1218,13 +1210,13 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 				newN2 = attnode2.num_air;
 				newN3 = attnode2.num_naval;
 			}
-			let maxV1 = att_air.max_prob_table[newN2];
-			let maxV2 = def_air.max_prob_table[newM2];
-			let maxV3 = att_naval.max_prob_table[newN3];
-			let maxV4 = def_naval.max_prob_table[newM3];
-			let maxV5 = att_sub.max_prob_table[newN1];
-			let maxV6 = def_sub.max_prob_table[newM1];
-			let maxp = r * (maxV1 * maxV2 * maxV3 * maxV4 * maxV5 * maxV6);
+			const maxV1 = att_air.max_prob_table[newN2];
+			const maxV2 = def_air.max_prob_table[newM2];
+			const maxV3 = att_naval.max_prob_table[newN3];
+			const maxV4 = def_naval.max_prob_table[newM3];
+			const maxV5 = att_sub.max_prob_table[newN1];
+			const maxV6 = def_sub.max_prob_table[newM1];
+			const maxp = r * (maxV1 * maxV2 * maxV3 * maxV4 * maxV5 * maxV6);
 			if (maxp < problem.early_prune_threshold) {
 				problem.setP(N, M, 0);
 				return;
@@ -1249,8 +1241,8 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
             newM1 = M1;
             newM2 = M2;
             newM3 = M3;
-			let defnode2 = attack_sub_unconstrained ? defnode : problem.def_data.nodeArr[def_remove_subhits_function(defnode, i1)];
-			let att_sub_unconstrained_hits = attack_sub_unconstrained ? i1 : 0;
+			const defnode2 = attack_sub_unconstrained ? defnode : problem.def_data.nodeArr[def_remove_subhits_function(defnode, i1)];
+			const att_sub_unconstrained_hits = attack_sub_unconstrained ? i1 : 0;
             if (!def_destroyer)  {
 				if (defnode2 == undefined) {
 					console.log(i1, M, problem.def_data.nodeArr[M], problem.def_data.nodeArr[M].nsubArr,  "undefined remove sub");
@@ -1260,8 +1252,8 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
                 newM3 = defnode2.num_naval;
             }
             for (j1 = 0; j1 <= M1; j1++) {
-				let attnode2 = defend_sub_unconstrained ? attnode : problem.att_data.nodeArr[att_remove_subhits_function(attnode, j1)];
-			    let def_sub_unconstrained_hits = defend_sub_unconstrained ? j1 : 0;
+				const attnode2 = defend_sub_unconstrained ? attnode : problem.att_data.nodeArr[att_remove_subhits_function(attnode, j1)];
+			    const def_sub_unconstrained_hits = defend_sub_unconstrained ? j1 : 0;
                 if (!att_destroyer) {
                     newN1 = attnode2.num_subs;
                     newN2 = attnode2.num_air;
@@ -1274,18 +1266,18 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
                 } else {
                     prob = att_sub.get_prob_table(N1, i1) * def_sub.get_prob_table(M1, j1) * r;
                 }
-				let maxV1 = att_air.max_prob_table[newN2];
-				let maxV2 = def_air.max_prob_table[newM2];
-				let maxV3 = att_naval.max_prob_table[newN3];
-				let maxV4 = def_naval.max_prob_table[newM3];
-				let ept0 = problem.early_prune_threshold / (maxV1 * maxV2 * maxV3 * maxV4);
-				let ept1 = ept0 * maxV1;
-				let ept2 = ept1 * maxV2;
-				let ept3 = ept2 * maxV3;
-				let ept4 = problem.early_prune_threshold;
-				let ept5 = ept1 * maxV3;
-				let ept6 = ept0 * maxV2 * maxV4;
-				let ept7 = ept2 * maxV4;
+				const maxV1 = att_air.max_prob_table[newN2];
+				const maxV2 = def_air.max_prob_table[newM2];
+				const maxV3 = att_naval.max_prob_table[newN3];
+				const maxV4 = def_naval.max_prob_table[newM3];
+				const ept0 = problem.early_prune_threshold / (maxV1 * maxV2 * maxV3 * maxV4);
+				const ept1 = ept0 * maxV1;
+				const ept2 = ept1 * maxV2;
+				const ept3 = ept2 * maxV3;
+				const ept4 = problem.early_prune_threshold;
+				const ept5 = ept1 * maxV3;
+				const ept6 = ept0 * maxV2 * maxV4;
+				const ept7 = ept2 * maxV4;
                 if (prob < ept0) {
                     continue;
                 }
@@ -1293,86 +1285,79 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 
 				if ((att_destroyer || def_destroyer) && attnode.nosub_group != undefined && defnode.nosub_group != undefined ) {
 					if (att_destroyer && def_destroyer) {
-						let att_nosub = attnode.nosub_group;
-						let def_nosub = defnode.nosub_group;
+						const att_nosub = attnode.nosub_group;
+						const def_nosub = defnode.nosub_group;
 						let i, j;
-						let NNN = N2 + N3;
-						let MMM = M2 + M3;
-						let m, n;
+						const NNN = N2 + N3;
+						const MMM = M2 + M3;
 						for (i = 0; i <= NNN; i++) {
-							let p1 = att_nosub.get_prob_table(NNN, i) * prob;
+							const p1 = att_nosub.get_prob_table(NNN, i) * prob;
 							if (p1 < ept5) {
 								continue;
 							}
-							let m = def_remove_navalhits_function(defnode2, i + att_sub_unconstrained_hits);
+							const m = def_remove_navalhits_function(defnode2, i + att_sub_unconstrained_hits);
 							for (j = 0; j <= MMM; j++) {
-								let p2 = p1 * def_nosub.get_prob_table(MMM, j );
+								const p2 = p1 * def_nosub.get_prob_table(MMM, j );
 								if (p2 < ept4) {
 									continue;
 								}
-								let n = att_remove_navalhits_function(attnode2, j + def_sub_unconstrained_hits );
-								let ii = problem.getIndex(n, m);
+								const n = att_remove_navalhits_function(attnode2, j + def_sub_unconstrained_hits );
+								const ii = problem.getIndex(n, m);
 								problem.setiP(ii, problem.getiP(ii) + p2);
 							}
 						}
 					} else if (att_destroyer) {
-						let att_nosub = attnode.nosub_group;
-						let def_nosub = defnode.nosub_group;
-						let i, j;
-						let NNN = N2 + N3;
-						let MMM = M2 + M3;
-						let m, n;
+						const att_nosub = attnode.nosub_group;
+						let i;
+						const NNN = N2 + N3;
 						for (i = 0; i <= NNN; i++) {
-							let p1 = att_nosub.get_prob_table(NNN, i) * prob;
+							const p1 = att_nosub.get_prob_table(NNN, i) * prob;
 							if (p1 < ept5) {
 								continue;
 							}
-							let m = def_remove_navalhits_function(defnode2, i );
+							const m = def_remove_navalhits_function(defnode2, i );
 							for (j2 = 0; j2 <= newM2; j2++) {
 								p3 = p1 * def_air.get_prob_table(newM2, j2);
 								if (p3 < ept3) {
 									continue;
 								}
-								let n2 = att_remove_planehits_function(attnode2, def_destroyer, j2);
-								let attnode3 = problem.att_data.nodeArr[n2];
+								const n2 = att_remove_planehits_function(attnode2, def_destroyer, j2);
+								const attnode3 = problem.att_data.nodeArr[n2];
 									for (j3 = 0; j3 <= newM3; j3++) {
 										p5 = p3 * def_naval.get_prob_table(newM3, j3);
 										if (p5 < ept4) {
 											continue;
 										}
-										let n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
-										let ii = problem.getIndex(n3, m);
+										const n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
+										const ii = problem.getIndex(n3, m);
 										problem.setiP(ii, problem.getiP(ii) + p5);
 									}
 							}
 						}
 					} else {
-						let att_nosub = attnode.nosub_group;
-						let def_nosub = defnode.nosub_group;
-						let i, j;
-						let NNN = N2 + N3;
-						let MMM = M2 + M3;
-						let m, n;
+						const def_nosub = defnode.nosub_group;
+						let j;
+						const MMM = M2 + M3;
 						for (j = 0; j <= MMM; j++) {
-							let p1 = prob * def_nosub.get_prob_table(MMM, j);
+							const p1 = prob * def_nosub.get_prob_table(MMM, j);
 							if (p1 < ept6) {
 								continue;
 							}
-							let n = att_remove_navalhits_function(attnode2, j);
+							const n = att_remove_navalhits_function(attnode2, j);
 							for (i2 = 0; i2 <= newN2; i2++) {
 								p3 = p1 * att_air.get_prob_table(newN2, i2);
 								if (p3 < ept7) {
 									continue;
 								}
-								let m2 = def_remove_planehits_function(defnode2, att_destroyer, i2);
-								let defnode3 = problem.def_data.nodeArr[m2];
+								const m2 = def_remove_planehits_function(defnode2, att_destroyer, i2);
+								const defnode3 = problem.def_data.nodeArr[m2];
 									for (i3 = 0; i3 <= newN3; i3++) {
 										p5 = p3 * att_naval.get_prob_table(newN3, i3);
 										if (p5 < ept4) {
 											continue;
 										}
-										let m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
-											let ii = problem.getIndex(n, m3);
+										const m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
+											const ii = problem.getIndex(n, m3);
 											problem.setiP(ii, problem.getiP(ii) + p5);
 									}
 							}
@@ -1384,28 +1369,28 @@ function solve_one_naval_state(problem : naval_problem, N : number, M : number, 
 						if (p2 < ept1) {
 							continue;
 						}
-						let m2 = def_remove_planehits_function(defnode2, att_destroyer, i2);
-						let defnode3 = problem.def_data.nodeArr[m2];
+						const m2 = def_remove_planehits_function(defnode2, att_destroyer, i2);
+						const defnode3 = problem.def_data.nodeArr[m2];
 						for (j2 = 0; j2 <= newM2; j2++) {
 							p3 = p2 * def_air.get_prob_table(newM2, j2);
 							if (p3 < ept2) {
 								continue;
 							}
-							let n2 = att_remove_planehits_function(attnode2, def_destroyer, j2);
-							let attnode3 = problem.att_data.nodeArr[n2];
+							const n2 = att_remove_planehits_function(attnode2, def_destroyer, j2);
+							const attnode3 = problem.att_data.nodeArr[n2];
 							for (i3 = 0; i3 <= newN3; i3++) {
 								p4 = p3 * att_naval.get_prob_table(newN3, i3);
 								if (p4 < ept3) {
 									continue;
 								}
-								let m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
+								const m3 = def_remove_navalhits_function(defnode3, i3 + att_sub_unconstrained_hits);
 								for (j3 = 0; j3 <= newM3; j3++) {
 									p5 = p4 * def_naval.get_prob_table(newM3, j3);
 									if (p5 < ept4) {
 										continue;
 									}
-									let n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
-									let ii = problem.getIndex(n3, m3);
+									const n3 = att_remove_navalhits_function(attnode3, j3 + def_sub_unconstrained_hits);
+									const ii = problem.getIndex(n3, m3);
 									problem.setiP(ii, problem.getiP(ii) + p5);
 								}
 							}
@@ -1428,7 +1413,7 @@ function solve_one_state(problem : problem, N : number, M : number, allow_same_s
 		return;
  	}
 
-	let p_init = problem.getP(N, M);
+	const p_init = problem.getP(N, M);
 
 	if (p_init == 0) {
 	    return;
@@ -1443,10 +1428,10 @@ function solve_one_state(problem : problem, N : number, M : number, allow_same_s
 		}
 	}
 
-	let att_data = problem.att_data;
-	let def_data = problem.def_data;
+	const att_data = problem.att_data;
+	const def_data = problem.def_data;
 
-	let P0 = att_data.get_prob_table(N, 0) * def_data.get_prob_table(M, 0);
+	const P0 = att_data.get_prob_table(N, 0) * def_data.get_prob_table(M, 0);
 	let r = 1/(1-P0);
 	if (allow_same_state) {
 		r = 1.0;
@@ -1458,14 +1443,14 @@ function solve_one_state(problem : problem, N : number, M : number, allow_same_s
 	problem.setP(N, M, 0);
     /*  i att hits, j def hits */
     for (i = 0; i <= N;i++) {
-		let p =  att_data.get_prob_table(N, i) * r;
+		const p =  att_data.get_prob_table(N, i) * r;
         for (j = 0; j <= M; j++) {
 			prob = p * def_data.get_prob_table(M, j);
             new_i = N-j - numBombard;
             new_j = M-i;
             if (new_i < 0) new_i = 0;
             if (new_j < 0) new_j = 0;
-			let ii = problem.getIndex(new_i, new_j);
+			const ii = problem.getIndex(new_i, new_j);
             problem.setiP(ii, problem.getiP(ii) + prob);
         }
     }
@@ -1475,29 +1460,28 @@ function solve_one_state(problem : problem, N : number, M : number, allow_same_s
 }
 
 function isAir(um : unit_manager, input : string) : boolean {
-	let stat = um.get_stat(input);
+	const stat = um.get_stat(input);
 	return stat.isAir;
 }
 function isSub(um : unit_manager, input : string) : boolean {
-	let stat = um.get_stat(input);
+	const stat = um.get_stat(input);
 	return stat.isSub;
 }
 function isDestroyer(um : unit_manager, input : string) : boolean {
-	let stat = um.get_stat(input);
+	const stat = um.get_stat(input);
 	return stat.isDestroyer;
 }
 function isTransport(um : unit_manager, input : string) : boolean {
-	let stat = um.get_stat(input);
 	return (input == "T");
 }
 function isLand(um : unit_manager, input : string) : boolean {
-	let stat = um.get_stat(input);
+	const stat = um.get_stat(input);
 	return stat.isLand;
 }
 
 function hasLand(um : unit_manager, input : string) : boolean {
 	for (let i = input.length-1; i >= 0; i--) {
-		let ch = input.charAt(i);
+		const ch = input.charAt(i);
 		if (isLand(um, ch)) {
 			return true;
 		}
@@ -1507,8 +1491,8 @@ function hasLand(um : unit_manager, input : string) : boolean {
 
 function hasAmphibious(um : unit_manager, input : string) : boolean {
 	for (let i = input.length-1; i >= 0; i--) {
-		let ch = input.charAt(i);
-		let stat = um.get_stat(ch);
+		const ch = input.charAt(i);
+		const stat = um.get_stat(ch);
 		if (stat.isAmphibious) {
 			return true;
 		}
@@ -1518,8 +1502,8 @@ function hasAmphibious(um : unit_manager, input : string) : boolean {
 
 function hasNonAAUnit(um : unit_manager, input : string) : boolean {
 	for (let i = input.length-1; i >= 0; i--) {
-		let ch = input.charAt(i);
-		let stat = um.get_stat(ch);
+		const ch = input.charAt(i);
+		const stat = um.get_stat(ch);
 		if (!stat.isAA) {
 			return true;
 		}
@@ -1530,12 +1514,11 @@ function hasNonAAUnit(um : unit_manager, input : string) : boolean {
 
 function remove_one_plane(um : unit_manager, input_str : string) : [string, string]
 {
-	let N = input_str.length;
-	let found = false;
+	const N = input_str.length;
 	for (let i = N-1; i >= 0; i--) {
-		let ch = input_str.charAt(i);
+		const ch = input_str.charAt(i);
 		if (isAir(um, ch)) {
-			let out = input_str.substring(0, i) + 
+			const out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return [out, ch];
 		}
@@ -1544,20 +1527,18 @@ function remove_one_plane(um : unit_manager, input_str : string) : [string, stri
 }
 function remove_one_notdestroyer(um : unit_manager, input_str : string) : string 
 {
-	let N = input_str.length;
-	let found = false;
+	const N = input_str.length;
 	for (let i = N-1; i >= 0; i--) {
-		let ch = input_str.charAt(i);
+		const ch = input_str.charAt(i);
 		if (!isDestroyer(um, ch) && !isTransport(um, ch)){
-			let out = input_str.substring(0, i) + 
+			const out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
 		}
 	}
 	for (let i = N-1; i >= 0; i--) {
-		let ch = input_str.charAt(i);
-		if (true) {
-			let out = input_str.substring(0, i) + 
+		{
+			const out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
 		}
@@ -1566,21 +1547,20 @@ function remove_one_notdestroyer(um : unit_manager, input_str : string) : string
 }
 function remove_one_notplane(um : unit_manager, input_str : string, skipd : boolean) : string 
 {
-	let N = input_str.length;
-	let found = false;
+	const N = input_str.length;
 	for (let i = N-1; i >= 0; i--) {
-		let ch = input_str.charAt(i);
+		const ch = input_str.charAt(i);
 		if (!isAir(um, ch) && (!skipd || (!isDestroyer(um, ch) && !isTransport(um, ch)))) {
-			let out = input_str.substring(0, i) + 
+			const out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
 		}
 	}
 	if (skipd) {
 		for (let i = N-1; i >= 0; i--) {
-			let ch = input_str.charAt(i);
+			const ch = input_str.charAt(i);
 			if (!isAir(um, ch)) {
-				let out = input_str.substring(0, i) + 
+				const out = input_str.substring(0, i) + 
 							input_str.substring(i+1, N);
 				return out;
 			}
@@ -1591,21 +1571,20 @@ function remove_one_notplane(um : unit_manager, input_str : string, skipd : bool
 }
 function remove_one_notsub(um : unit_manager, input_str : string, skipd : boolean) : string 
 {
-	let N = input_str.length;
-	let found = false;
+	const N = input_str.length;
 	for (let i = N-1; i >= 0; i--) {
-		let ch = input_str.charAt(i);
+		const ch = input_str.charAt(i);
 		if (!isSub(um, ch) && (!skipd || (!isDestroyer(um, ch) && !isTransport(um, ch)))) {
-			let out = input_str.substring(0, i) + 
+			const out = input_str.substring(0, i) + 
 						input_str.substring(i+1, N);
 			return out;
 		}
 	}
 	if (skipd) {
 		for (let i = N-1; i >= 0; i--) {
-			let ch = input_str.charAt(i);
+			const ch = input_str.charAt(i);
 			if (!isSub(um, ch)) {
-				let out = input_str.substring(0, i) + 
+				const out = input_str.substring(0, i) + 
 							input_str.substring(i+1, N);
 				return out;
 			}
@@ -1614,14 +1593,20 @@ function remove_one_notsub(um : unit_manager, input_str : string, skipd : boolea
 
 	return input_str;
 }
-function retreat_subs(um : unit_manager, input_str : string) : [string, number, string]
+interface retreat_subs_output {
+    s : string,
+	num_subs : number, 
+	subs : string
+}
+function retreat_subs(um : unit_manager, input_str : string) : 
+	retreat_subs_output
 {
-	let N = input_str.length;
+	const N = input_str.length;
 	let out = ""
 	let subs = ""
 	let num_subs = 0;
 	for (let i = 0; i < N; i++) {
-		let ch = input_str.charAt(i);
+		const ch = input_str.charAt(i);
 		if (!isSub(um, ch)) {
 			out = out + ch;
 		} else {
@@ -1629,31 +1614,31 @@ function retreat_subs(um : unit_manager, input_str : string) : [string, number, 
 			subs += "S"
 		}
 	}
-	return [out, num_subs, subs];
+	return { s : out, num_subs : num_subs, subs : subs };
 }
 
 function is_only_transports_remain(um : unit_manager, input_str : string) : boolean
 {
-	let num_transports = count_units(input_str, 'T');
+	const num_transports = count_units(input_str, 'T');
 	return (num_transports == input_str.length);
 }
 function is_only_aa_remain(um : unit_manager, input_str : string) : boolean
 {
-	let num_aa = count_units(input_str, 'c') + count_units(input_str, 'e');
+	const num_aa = count_units(input_str, 'c') + count_units(input_str, 'e');
 	return (num_aa == input_str.length);
 }
 
 function crash_fighters(um : unit_manager, input_str : string) : string
 {
-	let num_acc = count_units(input_str, 'A');
-	let max_num_fighters = num_acc * 2;
+	const num_acc = count_units(input_str, 'A');
+	const max_num_fighters = num_acc * 2;
 
-	let N = input_str.length;
+	const N = input_str.length;
 	let out = ""
 	let num_fighters = 0;
 	for (let i = 0; i < N; i++) {
-		let ch = input_str.charAt(i);
-		let stat = um.get_stat(ch);
+		const ch = input_str.charAt(i);
+		const stat = um.get_stat(ch);
 		if (!stat.isAir) {
 			out = out + ch;
 		} else {
@@ -1668,12 +1653,12 @@ function crash_fighters(um : unit_manager, input_str : string) : string
 
 function retreat_non_amphibious(um : unit_manager, input_str : string) : [string, string]
 {
-	let N = input_str.length;
+	const N = input_str.length;
 	let out = ""
 	let retreat = ""
 	for (let i = 0; i < N; i++) {
-		let ch = input_str.charAt(i);
-		let stat = um.get_stat(ch);
+		const ch = input_str.charAt(i);
+		const stat = um.get_stat(ch);
 		if (stat.isAmphibious) {
 			out += ch;
 		} else {
@@ -1695,15 +1680,14 @@ export function get_cost_from_str(um : unit_manager, s : string, retreat : strin
 {
     let cost = 0;
     let i;
-    let j = 0;
     for (i = 0; i < s.length; i++) {
-        let ch = s.charAt(i);
-		let stat = um.get_stat(ch);
+        const ch = s.charAt(i);
+		const stat = um.get_stat(ch);
         cost += stat.cost;
     }
     for (i = 0; i < retreat.length; i++) {
-        let ch = retreat.charAt(i);
-		let stat = um.get_stat(ch);
+        const ch = retreat.charAt(i);
+		const stat = um.get_stat(ch);
         cost += stat.cost;
 	}
     return cost;
@@ -1711,21 +1695,19 @@ export function get_cost_from_str(um : unit_manager, s : string, retreat : strin
 
 function get_cost_remain(um : unit_manager, group : unit_group, ii : number ) : number
 {
-    let N = group.tbl_size;
     let cost = 0;
     let i;
-    let j = 0;
     for (i = 0; i < ii; i++) {
-        let ch = group.unit_str[i];
-		let stat = um.get_stat(ch);
+        const ch = group.unit_str[i];
+		const stat = um.get_stat(ch);
         cost += stat.cost;
     }
     return cost;
 }
 
-function get_naval_cost_remain(um : unit_manager, group : naval_unit_group, ii : number, dbg : boolean = false) : number
+function get_naval_cost_remain(um : unit_manager, group : naval_unit_group, ii : number) : number
 {
-    let node = group.nodeArr[ii];
+    const node = group.nodeArr[ii];
 	let cost = 0;
 	if (node.retreat.length > 0) {
 		cost += get_cost_from_str(um, node.retreat);
@@ -1747,41 +1729,26 @@ function collect_results(
 	index : number,
 	resultArr : result_data_t[]) : result_data_t[]
 {
-	let problem = problemArr[index];
-    let N = problem.att_data.tbl_size;
-    let M = problem.def_data.tbl_size;
-    let NN = parent_prob.att_data.tbl_size;
-    let MM = parent_prob.def_data.tbl_size;
+	const problem = problemArr[index];
+    const N = problem.att_data.tbl_size;
+    const M = problem.def_data.tbl_size;
+    const NN = parent_prob.att_data.tbl_size;
+    const MM = parent_prob.def_data.tbl_size;
     let i, j;
-    let att : string;
-    let def : string;
-    let att_casualty : string;
-    let def_casualty : string;
-    let red_att : string;
-    let red_def : string;
-    let red_att_cas : string;
-    let red_def_cas : string;
-    let sum= 0.0;
-    let sumatt= 0.0;
-    let sumdef= 0.0;
-    let sumatt0= 0.0;
-    let sumdef0= 0.0;
                                     
-    let att_loss, def_loss;
     let att_cost, def_cost;
-    let count=0;
 
-    let NN_base = get_cost_remain(parent_prob.um, parent_prob.att_data, NN-1);
-    let MM_base = get_cost_remain(parent_prob.um, parent_prob.def_data, MM-1);
-	let max_cost = NN_base + MM_base;
+    const NN_base = get_cost_remain(parent_prob.um, parent_prob.att_data, NN-1);
+    const MM_base = get_cost_remain(parent_prob.um, parent_prob.def_data, MM-1);
+	const max_cost = NN_base + MM_base;
     for (i = 0; i < N;i++) {
         for (j = 0; j < M; j++) {
             //let p = report_filter(P[i][j]);
-            let p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
+            const p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
             if (p > 0) {
                 att_cost = get_cost_remain(problem.um, problem.att_data, i);
                 def_cost = get_cost_remain(problem.um, problem.def_data, j);
-                let cost = (j - i) + ((def_cost - att_cost)/max_cost);
+                const cost = (j - i) + ((def_cost - att_cost)/max_cost);
 /*
                 if (do_strafe) {
                     int attcas = NN - i;
@@ -1795,7 +1762,7 @@ function collect_results(
                     }
                 }
 */
-				let data = new result_data_t(index, i, j, cost, p);
+				const data = new result_data_t(index, i, j, cost, p);
 				resultArr.push(data);
             }
 		}
@@ -1809,43 +1776,26 @@ function collect_naval_results(
 	index : number,
 	resultArr : result_data_t[]) : result_data_t[]
 {
-	let problem = problemArr[index];
-    let N = problem.att_data.nodeArr.length;
-    let M = problem.def_data.nodeArr.length;
-    let NN = parent_prob.att_data.nodeArr.length;
-    let MM = parent_prob.def_data.nodeArr.length;
+	const problem = problemArr[index];
+    const N = problem.att_data.nodeArr.length;
+    const M = problem.def_data.nodeArr.length;
     let i, j;
-    let att : string;
-    let def : string;
-    let att_casualty : string;
-    let def_casualty : string;
-    let red_att : string;
-    let red_def : string;
-    let red_att_cas : string;
-    let red_def_cas : string;
-    let sum= 0.0;
-    let sumatt= 0.0;
-    let sumdef= 0.0;
-    let sumatt0= 0.0;
-    let sumdef0= 0.0;
                                     
-    let att_loss, def_loss;
     let att_cost, def_cost;
-    let count=0;
 
-    let NN_base = get_naval_cost_remain(parent_prob.um, parent_prob.att_data, 0);
-    let MM_base = get_naval_cost_remain(parent_prob.um, parent_prob.def_data, 0, true);
-	let max_cost = NN_base + MM_base;
+    const NN_base = get_naval_cost_remain(parent_prob.um, parent_prob.att_data, 0);
+    const MM_base = get_naval_cost_remain(parent_prob.um, parent_prob.def_data, 0);
+	const max_cost = NN_base + MM_base;
     for (i = 0; i < N;i++) {
         for (j = 0; j < M; j++) {
             //let p = report_filter(P[i][j]);
-            let p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
+            const p = report_filter(problem.report_prune_threshold, problem.getP(i, j));
             if (p > 0) {
                 att_cost = get_naval_cost_remain(problem.um, problem.att_data, i);
                 def_cost = get_naval_cost_remain(problem.um, problem.def_data, j);
-				let i2 = problem.att_data.nodeArr[i].N -  problem.att_data.nodeArr[i].numBB;
-				let j2 = problem.def_data.nodeArr[j].N -  problem.def_data.nodeArr[j].numBB;
-                let cost = (j2 - i2) + ((def_cost - att_cost)/max_cost);
+				const i2 = problem.att_data.nodeArr[i].N -  problem.att_data.nodeArr[i].numBB;
+				const j2 = problem.def_data.nodeArr[j].N -  problem.def_data.nodeArr[j].numBB;
+                const cost = (j2 - i2) + ((def_cost - att_cost)/max_cost);
 /*
                 if (do_strafe) {
                     int attcas = NN - i;
@@ -1859,7 +1809,7 @@ function collect_naval_results(
                     }
                 }
 */
-				let data = new result_data_t(index, i, j, cost, p);
+				const data = new result_data_t(index, i, j, cost, p);
 				resultArr.push(data);
             }
 		}
@@ -1869,13 +1819,13 @@ function collect_naval_results(
 
 function merge_results(sortedArr : result_data_t[]) : result_data_t[]
 {
-	let mergedArr = sortedArr;
+	const mergedArr = sortedArr;
 	let i, j;
     for (i =0; i < sortedArr.length; i++) {
-        let result = sortedArr[i];
+        const result = sortedArr[i];
         j = i+1;
         if (j < sortedArr.length) {
-			let result2 = sortedArr[j];
+			const result2 = sortedArr[j];
             if (Math.abs(result.cost - result2.cost) < epsilon) {
                 result2.p += result.p;
                 result.p = 0;
@@ -1891,8 +1841,8 @@ function get_group_string(um : unit_manager, group : unit_group, sz : number) :
 {
 	let out = ""
 	for (let i = 0; i < sz; i++) {
-		let ch = group.unit_str.charAt(i);
-		let stat = um.get_stat(ch);
+		const ch = group.unit_str.charAt(i);
+		const stat = um.get_stat(ch);
 		out += stat.ch2;
 	}
 	return out;
@@ -1902,7 +1852,7 @@ function get_naval_group_string(um : unit_manager, group : naval_unit_group, sz 
 		[string, string]
 {
 	let out = "";
-	let node = group.nodeArr[sz];
+	const node = group.nodeArr[sz];
 	if (node.retreat.length > 0) {
 		out += node.retreat;
 	}
@@ -1911,7 +1861,7 @@ function get_naval_group_string(um : unit_manager, group : naval_unit_group, sz 
 		if (ch == "") {
 			continue;
 		}
-		let stat = um.get_stat(ch);
+		const stat = um.get_stat(ch);
 		out1 += stat.ch2;
 	}
 	return [out1, out];
@@ -1920,10 +1870,10 @@ function get_naval_group_string(um : unit_manager, group : naval_unit_group, sz 
 function get_reduced_group_string(input : string) :
 		string
 {
-	let map : Map<string, number> = new Map();
+	const map : Map<string, number> = new Map();
 
-	for (var char of input) {
-		let v = map.get(char);
+	for (const char of input) {
+		const v = map.get(char);
 		if (v != undefined) {
 			map.set(char, v + 1);
 		} else {
@@ -1969,24 +1919,23 @@ export function get_external_unit_str(um : unit_manager, input : string) :
 function get_cost(um: unit_manager, group : unit_group, ii : number, cas : string = "", skipBombard : boolean = false) : 
 	[number, string]
 {
-    let N = group.tbl_size;
+    const N = group.tbl_size;
     let cost = 0;
     let i;
     let out : string = "";
-    let j = 0;
     for (i = ii; i < N; i++) {
-        let ch = group.unit_str.charAt(i);
+        const ch = group.unit_str.charAt(i);
 		if (ch == "") {
 			continue;
 		}
 		if (skipBombard) {
-			let stat = um.get_stat(ch);
+			const stat = um.get_stat(ch);
 			if (stat.isBombard) {
 				continue;
 			}
 		}
 
-		let stat = um.get_stat(ch);
+		const stat = um.get_stat(ch);
         cost += stat.cost;
         out = out + stat.ch2;
     }
@@ -1994,28 +1943,33 @@ function get_cost(um: unit_manager, group : unit_group, ii : number, cas : strin
 		if (ch == "") {
 			continue;
 		}
-		let stat = um.get_stat(ch);
+		const stat = um.get_stat(ch);
         cost += stat.cost;
         out = out + stat.ch2;
 	}	
     return [cost, out];
 }
+
+interface naval_cost {
+	cost : number, 
+	casualty : string
+};
 function get_naval_cost(problem : naval_problem, group : naval_unit_group, ii : number) : 
-	[number, string]
+	naval_cost
 {
 	let skipBombard = false;
 	if (!problem.is_naval && group.attdef == 0) {
 		skipBombard = true;
 	}
-    let node = group.nodeArr[ii];
-	let mymap : Map<string, number> = new Map();
-	let units_remain = node.unit_str + node.retreat;
-	let baseunits =  group.nodeArr[0].unit_str;
+    const node = group.nodeArr[ii];
+	const mymap : Map<string, number> = new Map();
+	const units_remain = node.unit_str + node.retreat;
+	const baseunits =  group.nodeArr[0].unit_str;
 
 	for (const ch of baseunits) {
-		let stat = problem.um.get_stat(ch);
-		let ch2 = stat.ch2;
-		let cnt = mymap.get(ch2);
+		const stat = problem.um.get_stat(ch);
+		const ch2 = stat.ch2;
+		const cnt = mymap.get(ch2);
 		if (cnt == undefined) {
 			mymap.set(ch2, 1);
 		} else {
@@ -2024,9 +1978,9 @@ function get_naval_cost(problem : naval_problem, group : naval_unit_group, ii : 
 	}
 	
 	for (const ch of units_remain) {
-		let stat = problem.um.get_stat(ch);
-		let ch2 = stat.ch2;
-		let cnt = mymap.get(ch2);
+		const stat = problem.um.get_stat(ch);
+		const ch2 = stat.ch2;
+		const cnt = mymap.get(ch2);
 		if (cnt == undefined) {
 			console.log ("fatal");
 			throw new Error();
@@ -2037,8 +1991,8 @@ function get_naval_cost(problem : naval_problem, group : naval_unit_group, ii : 
 
 	let casualty = "";
 	let cost = 0;
-	for (let [ch2, cnt] of mymap) {
-		let stat = problem.um.get_stat(ch2);
+	for (const [ch2, cnt] of mymap) {
+		const stat = problem.um.get_stat(ch2);
 		if (skipBombard && stat.isBombard) {
 			continue;
 		}
@@ -2048,7 +2002,7 @@ function get_naval_cost(problem : naval_problem, group : naval_unit_group, ii : 
 		}
 	}
 	
-	return [cost, casualty];
+	return { cost : cost, casualty : casualty };
 }
 
 function print_results(
@@ -2058,9 +2012,9 @@ function print_results(
 {
 	console.log(resultArr.length, `number of results`);
 
-	let sortedArr = resultArr.sort((n1, n2) => {
-			let r1 = n1.cost;
-			let r2 = n2.cost;
+	const sortedArr = resultArr.sort((n1, n2) => {
+			const r1 = n1.cost;
+			const r2 = n2.cost;
 			if (Math.abs(r1 - r2) < epsilon) {
 				return 0;
 			} else if (r1 < r2) {
@@ -2070,16 +2024,14 @@ function print_results(
 			}
 		});
 	
-    let mergedArr = merge_results(sortedArr);
+    const mergedArr = merge_results(sortedArr);
 
-	let N = baseproblem.att_data.tbl_size;
-	let M = baseproblem.def_data.tbl_size;
+	const N = baseproblem.att_data.tbl_size;
+	const M = baseproblem.def_data.tbl_size;
     let att : string;
     let def : string;
     let red_att : string;
     let red_def : string;
-    let att_casualty : string;
-    let def_casualty : string;
     let red_att_cas : string;
     let red_def_cas : string;
 
@@ -2097,8 +2049,8 @@ function print_results(
     let attsurvive = 0;
     let defsurvive = 0;
     for (let ii = 0; ii < mergedArr.length; ii++) {
-        let result = mergedArr[ii];
-        let p = result.p;
+        const result = mergedArr[ii];
+        const p = result.p;
         sum +=  p;
         result.cumm = sum;
 		if (get_cost_remain(baseproblem.um, problemArr[result.problem_index].att_data, 
@@ -2112,47 +2064,46 @@ function print_results(
     }
     sum = 0.0;
     for (let ii = mergedArr.length-1; ii >= 0; ii--) {
-        let result = mergedArr[ii];
-        let p = result.p;
+        const result = mergedArr[ii];
+        const p = result.p;
         sum +=  p;
         result.rcumm = sum;
     }
 
 
-	let casualties : casualty_2d[];
-	casualties = [];
+	const casualties : casualty_2d[] = [];
 
     let totalattloss = 0;
     let totaldefloss = 0;
 	let takes = 0;
 
 	// accumulate attacker and defender maps.
-	let att_map : Map<string, number> = new Map();
-	let def_map : Map<string, number> = new Map();
-	let att_cas_map : Map<string, string> = new Map();
-	let def_cas_map : Map<string, string> = new Map();
+	const att_map : Map<string, number> = new Map();
+	const def_map : Map<string, number> = new Map();
+	const att_cas_map : Map<string, string> = new Map();
+	const def_cas_map : Map<string, string> = new Map();
 
  
     for (let ii = 0; ii < mergedArr.length; ii++) {
-        let result = mergedArr[ii];
-        let problem = problemArr[result.problem_index];
+        const result = mergedArr[ii];
+        const problem = problemArr[result.problem_index];
 		//let P = problem.P;
         att = get_group_string(problem.um, problem.att_data, result.i);
         def = get_group_string(problem.um, problem.def_data, result.j);
         red_att = get_reduced_group_string(att);
         red_def = get_reduced_group_string(def);
-        let  [att_loss, att_casualty] = get_cost(problem.um, problem.att_data, result.i, problem.cas, true)
-        let  [def_loss, def_casualty] = get_cost(problem.um, problem.def_data, result.j)
+        const  [att_loss, att_casualty] = get_cost(problem.um, problem.att_data, result.i, problem.cas, true)
+        const  [def_loss, def_casualty] = get_cost(problem.um, problem.def_data, result.j)
         red_att_cas = get_reduced_group_string(att_casualty);
         red_def_cas = get_reduced_group_string(def_casualty);
-        let p = report_filter(problem.report_prune_threshold, result.p);
-		let d_p = def_map.get(def);
+        const p = report_filter(problem.report_prune_threshold, result.p);
+		const d_p = def_map.get(def);
 		if (d_p == undefined) {
 			def_map.set(def, p);
 		} else {
 			def_map.set(def, d_p + p);
 		}
-		let a_p = att_map.get(att);
+		const a_p = att_map.get(att);
 		if (a_p == undefined) {
 			att_map.set(att, p);
 		} else {
@@ -2166,7 +2117,7 @@ function print_results(
 			}
 			totalattloss += (att_loss * p);
 			totaldefloss += (def_loss * p);
-			let cas : casualty_2d = { attacker : red_att, defender : red_def, 
+			const cas : casualty_2d = { attacker : red_att, defender : red_def, 
 						attacker_retreat : "", defender_retreat: "",
 						attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
 			casualties.push( cas );
@@ -2177,15 +2128,13 @@ function print_results(
 	console.log(`defsurvive: ${defsurvive}`);
 
 
-	let att_cas_1d : casualty_1d[];
-	att_cas_1d = [];
-	let def_cas_1d : casualty_1d[];
-	def_cas_1d = [];
+	const att_cas_1d : casualty_1d[] = [];
+	const def_cas_1d : casualty_1d[] = [];
 
-	for (let [att, p] of att_map) {
-		let att_cas = att_cas_map.get(att);
+	for (const [att, p] of att_map) {
+		const att_cas = att_cas_map.get(att);
 		if (att_cas != undefined) {
-			let cas : casualty_1d = { remain : att, casualty : att_cas, prob : p, retreat: ""}
+			const cas : casualty_1d = { remain : att, casualty : att_cas, prob : p, retreat: ""}
 			att_cas_1d.push(cas);
 		} else {
 			console.log("FATAL -- undefind");
@@ -2193,10 +2142,10 @@ function print_results(
 		}
 	}
 
-	for (let [def, p] of def_map) {
-		let def_cas = def_cas_map.get(def);
+	for (const [def, p] of def_map) {
+		const def_cas = def_cas_map.get(def);
 		if (def_cas != undefined) {
-			let cas : casualty_1d = { remain : def, casualty : def_cas, prob : p, retreat: ""}
+			const cas : casualty_1d = { remain : def, casualty : def_cas, prob : p, retreat: ""}
 			def_cas_1d.push(cas);
 		} else {
 			console.log("FATAL -- undefind");
@@ -2206,7 +2155,7 @@ function print_results(
 	
 	
 	//console.log(casualties);
-    let output : aacalc_output = {
+    const output : aacalc_output = {
 				attack : { survives : [attsurvive, 0, 0], ipcLoss : [totalattloss, 0, 0]},
 				defense : { survives : [defsurvive, 0, 0], ipcLoss : [totaldefloss, 0, 0]},
 				casualtiesInfo : casualties,	
@@ -2230,9 +2179,9 @@ function print_naval_results(
 		console.log(resultArr.length, `number of results`);
 	}
 
-	let sortedArr = resultArr.sort((n1, n2) => {
-			let r1 = n1.cost;
-			let r2 = n2.cost;
+	const sortedArr = resultArr.sort((n1, n2) => {
+			const r1 = n1.cost;
+			const r2 = n2.cost;
 			if (Math.abs(r1 - r2) < epsilon) {
 				return 0;
 			} else if (r1 < r2) {
@@ -2242,23 +2191,14 @@ function print_naval_results(
 			}
 		});
 	
-	let mergedArr;
-	if (doMerge) {
-        mergedArr = merge_results(sortedArr);
-	} else{
-		mergedArr = sortedArr;
-    }
+	const mergedArr = doMerge ? merge_results(sortedArr) : sortedArr;
 
-	let N = baseproblem.att_data.nodeArr.length;
-	let M = baseproblem.def_data.nodeArr.length;
     let att : string;
     let def : string;
     let retreat_att : string;
     let retreat_def : string;
     let red_att : string;
     let red_def : string;
-    let att_casualty : string;
-    let def_casualty : string;
     let red_att_cas : string;
     let red_def_cas : string;
 
@@ -2278,8 +2218,8 @@ function print_naval_results(
     let attsurvive = 0;
     let defsurvive = 0;
     for (let ii = 0; ii < mergedArr.length; ii++) {
-        let result = mergedArr[ii];
-        let p = result.p;
+        const result = mergedArr[ii];
+        const p = result.p;
         sum +=  p;
         result.cumm = sum;
 		if (get_naval_cost_remain(baseproblem.um, problemArr[result.problem_index].att_data, 
@@ -2293,91 +2233,92 @@ function print_naval_results(
     }
     sum = 0.0;
     for (let ii = mergedArr.length-1; ii >= 0; ii--) {
-        let result = mergedArr[ii];
-        let p = result.p;
+        const result = mergedArr[ii];
+        const p = result.p;
         sum +=  p;
         result.rcumm = sum;
     }
 
  
-	let casualties : casualty_2d[];
-	casualties = [];
+	const casualties : casualty_2d[] = [];
 
 	// accumulate attacker and defender maps.
-	let att_map : Map<number, number> = new Map();
-	let def_map : Map<number, number> = new Map();
+	const att_map : Map<number, number> = new Map();
+	const def_map : Map<number, number> = new Map();
 
     let totalattloss = 0;
     let totaldefloss = 0;
 	let takes = 0;
     for (let ii = 0; ii < mergedArr.length; ii++) {
-        let result = mergedArr[ii];
-        let problem = problemArr[result.problem_index];
+        const result = mergedArr[ii];
+        const problem = problemArr[result.problem_index];
         [att, retreat_att] = get_naval_group_string(problem.um, problem.att_data, result.i);
         [def, retreat_def] = get_naval_group_string(problem.um, problem.def_data, result.j);
-        let red_retreat_att = get_reduced_group_string(retreat_att);
-        let red_retreat_def = get_reduced_group_string(retreat_def);
+        const red_retreat_att = get_reduced_group_string(retreat_att);
+        const red_retreat_def = get_reduced_group_string(retreat_def);
         red_att = get_reduced_group_string(att);
         red_def = get_reduced_group_string(def);
-        let  [att_loss, att_casualty] = get_naval_cost(problem, problem.att_data, result.i)
-        let  [def_loss, def_casualty] = get_naval_cost(problem, problem.def_data, result.j)
-        red_att_cas = get_reduced_group_string(att_casualty);
-        red_def_cas = get_reduced_group_string(def_casualty);
-        let p = report_filter(problem.report_prune_threshold, result.p);
-		let d_p = def_map.get(result.j);
+        const att_naval_cost = get_naval_cost(problem, problem.att_data, result.i)
+        const def_naval_cost = get_naval_cost(problem, problem.def_data, result.j)
+        red_att_cas = get_reduced_group_string(att_naval_cost.casualty);
+        red_def_cas = get_reduced_group_string(def_naval_cost.casualty);
+        const p = report_filter(problem.report_prune_threshold, result.p);
+		const d_p = def_map.get(result.j);
 		if (d_p == undefined) {
 			def_map.set(result.j, p);
 		} else {
 			def_map.set(result.j, d_p + p);
 		}
-		let a_p = att_map.get(result.i);
+		const a_p = att_map.get(result.i);
 		if (a_p == undefined) {
 			att_map.set(result.i, p);
 		} else {
 			att_map.set(result.i, a_p + p);
 		}
         if (p > 0) {
-			totalattloss += (att_loss * p);
-			totaldefloss += (def_loss * p);
+			totalattloss += (att_naval_cost.cost * p);
+			totaldefloss += (def_naval_cost.cost * p);
 			if (!baseproblem.is_naval && hasLand(problem.um, att)  && def.length == 0) {
 				takes += p;
 			}
 			if (baseproblem.verbose_level > 2) {
 			//console.log(`result:  P[%d][%d] ${red_att} vs. ${red_def} = ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
+				const att_loss = att_naval_cost.cost;
+				const def_loss = def_naval_cost.cost;
 				console.log(`result:  P[%d][%d] ${red_att}:${red_retreat_att} vs. ${red_def}:${red_retreat_def} (loss ${red_att_cas} ${att_loss} vs. ${red_def_cas} ${def_loss})= ${p} cumm(${result.cumm}) rcumm(${result.rcumm}) (${result.cost})`, result.i, result.j);
 			}
-			let cas : casualty_2d = { attacker : red_att, defender : red_def, 
+			const cas : casualty_2d = { attacker : red_att, defender : red_def, 
 					attacker_retreat : red_retreat_att, defender_retreat : red_retreat_def,
 					attacker_casualty : red_att_cas, defender_casualty : red_def_cas, prob : p}
 			casualties.push( cas );
         }
     }
 
-	let att_cas_1d : casualty_1d[];
-	att_cas_1d = [];
-	let def_cas_1d : casualty_1d[];
-	def_cas_1d = [];
+	const att_cas_1d : casualty_1d[] = [];
+	const def_cas_1d : casualty_1d[] = [];
 
-	for (let [i, p] of att_map) {
+	for (const [i, p] of att_map) {
 		//console.log(i, p, "i, p");
-        let [att, retreat_att] = get_naval_group_string(baseproblem.um, baseproblem.att_data, i);
-        let  [att_loss, att_cas] = get_naval_cost(baseproblem, baseproblem.att_data, i)
-		let cas : casualty_1d = { remain : att, retreat: retreat_att, casualty : att_cas, prob : p}
+        const [att, retreat_att] = get_naval_group_string(baseproblem.um, baseproblem.att_data, i);
+        const att_naval_cost = get_naval_cost(baseproblem, baseproblem.att_data, i)
+		const att_cas = att_naval_cost.casualty;
+		const cas : casualty_1d = { remain : att, retreat: retreat_att, casualty : att_cas, prob : p}
 		att_cas_1d.push(cas);
 	}
 	//console.log("att_cas_1d", JSON.stringify(att_cas_1d, null, 4));
 
-	for (let [j, p] of def_map) {
+	for (const [j, p] of def_map) {
 		//console.log(j, p, "j, p");
-        let [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, j);
-        let  [def_loss, def_cas] = get_naval_cost(baseproblem, baseproblem.def_data, j)
-		let cas : casualty_1d = { remain : def, retreat: retreat_def, casualty : def_cas, prob : p}
+        const [def, retreat_def] = get_naval_group_string(baseproblem.um, baseproblem.def_data, j);
+        const def_naval_cost = get_naval_cost(baseproblem, baseproblem.def_data, j)
+		const def_cas = def_naval_cost.casualty;
+		const cas : casualty_1d = { remain : def, retreat: retreat_def, casualty : def_cas, prob : p}
 		def_cas_1d.push(cas);
 	}
 	//console.log("def_cas_1d", JSON.stringify(def_cas_1d, null, 4));
 	
 	//console.log(casualties);
-    let output : aacalc_output = {
+    const output : aacalc_output = {
 				attack : { survives : [attsurvive, 0, 0], ipcLoss : [totalattloss, 0, 0]},
 				defense : { survives : [defsurvive, 0, 0], ipcLoss : [totaldefloss, 0, 0]},
 				casualtiesInfo : casualties,	
@@ -2396,7 +2337,7 @@ function print_naval_results(
 function solveAA(myprob : problem, numAA : number)  : aacalc_output
 {
     let num_shots = (numAA * 3);
-    let num_planes = count_units(myprob.att_data.unit_str, 'f') + count_units(myprob.att_data.unit_str, 'b');
+    const num_planes = count_units(myprob.att_data.unit_str, 'f') + count_units(myprob.att_data.unit_str, 'b');
     if (num_planes < num_shots)  num_shots = num_planes;
 
 	console.log(num_shots, `solveAA numshots`);
@@ -2406,19 +2347,18 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
     for (let i =0; i < num_shots; i++) {
     	aashots = aashots + 'c';
     }
-	let aa_data = make_unit_group(myprob.um, aashots, 2, "standard");
+	const aa_data = make_unit_group(myprob.um, aashots, 2, "standard");
 
-    let N = aa_data.tbl_size;
+    const N = aa_data.tbl_size;
 
 
 	let att_str = myprob.att_data.unit_str;
 	let att_cas = "";
-	let problemArr : problem[];
-	problemArr = [];
+	const problemArr : problem[] = [];
 
     for (let i = 0; i < N; i++) {
 		console.log(i, `solveAA i`);
-		let prob = aa_data.get_prob_table(N-1, i);
+		const prob = aa_data.get_prob_table(N-1, i);
 		if ( i > 0) {
 			let cas;
 			[att_str, cas] = remove_one_plane(myprob.um, att_str);
@@ -2429,22 +2369,21 @@ function solveAA(myprob : problem, numAA : number)  : aacalc_output
 		problemArr[i].set_prune_threshold(myprob.prune_threshold, myprob.early_prune_threshold, myprob.report_prune_threshold);
 		solve(problemArr[i], 1 );
     }
-	let result_data : result_data_t[];
-	result_data = [];
+	const result_data : result_data_t[] = [];
 	
     for (let i = 0; i < N; i++) {
         collect_results(myprob, problemArr, i, result_data);
     }
-	let output = print_results(myprob, problemArr, result_data);
+	const output = print_results(myprob, problemArr, result_data);
 	return output;
 }
 
-function solve_sub(problem : naval_problem, skipAA : number)
+function solve_sub(problem : naval_problem)
 {
     //debugger;
 	problem.P_1d = [];
-	let N = problem.att_data.nodeArr.length;
-	let M = problem.def_data.nodeArr.length;
+	const N = problem.att_data.nodeArr.length;
+	const M = problem.def_data.nodeArr.length;
 	let i, j;
     for (i = 0; i < N; i++) {
 		for (j = 0; j < M; j++) {
@@ -2453,8 +2392,8 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	}
 	if (problem.nonavalproblem != undefined) {
 		problem.nonavalproblem.P_1d = [];
-		let N = problem.nonavalproblem.att_data.nodeArr.length;
-		let M = problem.nonavalproblem.def_data.nodeArr.length;
+		const N = problem.nonavalproblem.att_data.nodeArr.length;
+		const M = problem.nonavalproblem.def_data.nodeArr.length;
 		let i, j;
 		for (i = 0; i < N; i++) {
 			for (j = 0; j < M; j++) {
@@ -2466,7 +2405,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	if (problem.def_cas == undefined) {
 		/* initial seed */
 		problem.setP(0, 0, problem.prob);
-		let doAA = !problem.is_naval &&
+		const doAA = !problem.is_naval &&
 				problem.att_data.num_aashot > 0 && 
 				hasNonAAUnit(problem.um, problem.def_data.unit_str);
 		if (doAA) {
@@ -2474,12 +2413,12 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			for (let i =0; i < problem.att_data.num_aashot; i++) {
 				aashots = aashots + 'c';
 			}
-			let aa_data = make_unit_group(problem.um, aashots, 2, problem.diceMode);
+			const aa_data = make_unit_group(problem.um, aashots, 2, problem.diceMode);
 
-			let N = aa_data.tbl_size;
+			const N = aa_data.tbl_size;
 			for (let i = 0; i < N; i++) {
-				let prob = aa_data.get_prob_table(N-1, i);
-				let n = remove_aahits( problem.att_data, i, 0);
+				const prob = aa_data.get_prob_table(N-1, i);
+				const n = remove_aahits( problem.att_data, i, 0);
 				problem.setP(n, 0, problem.prob * prob);
 				if (problem.verbose_level > 2) {
 					console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
@@ -2487,12 +2426,11 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			}
 		}
 	} else {
-		let mymap : Map<string, number> = new Map();
+		const mymap : Map<string, number> = new Map();
 		for (let i = 0; i < M; i++) {
 			mymap.set(problem.def_data.nodeArr[i].unit_str, i);
 		}
 		let aa_data;
-		let P;
 		let N;
 		if (problem.att_data.num_aashot > 0) {
 			let aashots = ""
@@ -2503,22 +2441,22 @@ function solve_sub(problem : naval_problem, skipAA : number)
 			N = aa_data.tbl_size;
 		}
 		for (let i = 0; i < problem.def_cas.length; i++) {
-			let ii = mymap.get(problem.def_cas[i].remain);
+			const ii = mymap.get(problem.def_cas[i].remain);
 			if (ii == undefined) {
 				throw new Error();
 			} else {
-				let p = problem.def_cas[i].prob;
-				let numAA = count_units(problem.def_cas[i].remain, "c");
-				let doAA = !problem.is_naval &&
+				const p = problem.def_cas[i].prob;
+				const numAA = count_units(problem.def_cas[i].remain, "c");
+				const doAA = !problem.is_naval &&
 						numAA > 0 && 
 						problem.att_data.num_aashot > 0 && 
 						hasNonAAUnit(problem.um, problem.def_cas[i].remain);
 				if (doAA && N != undefined && aa_data != undefined) {
-					let NN = Math.min(numAA * 3 + 1, N);
+					const NN = Math.min(numAA * 3 + 1, N);
 					
 					for (let i = 0; i < NN; i++) {
-						let prob = aa_data.get_prob_table(NN-1, i);
-						let n = remove_aahits( problem.att_data, i, 0);
+						const prob = aa_data.get_prob_table(NN-1, i);
+						const n = remove_aahits( problem.att_data, i, 0);
 						problem.setP(n, ii, problem.getP(n, ii) + p * prob);
 						if (problem.verbose_level > 2) {
 							console.log(i, n, problem.prob * prob, "i, n, prob -- solveAA");
@@ -2538,12 +2476,12 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		}
 	}
 
-	let p1 = get_terminal_state_prob(problem, false); // probability that the starting state is already terminal
+	const p1 = get_terminal_state_prob(problem, false); // probability that the starting state is already terminal
 	// naval bombard
 	
 	let didBombard = false;
 	if (!problem.is_naval) {
-		let numBombard = 
+		const numBombard = 
 				count_units(problem.att_data.unit_str, 'B') + 
 				count_units(problem.att_data.unit_str, 'C');
 		
@@ -2558,13 +2496,13 @@ function solve_sub(problem : naval_problem, skipAA : number)
 	}
 
 	if (problem.rounds > 0) {
-		let rounds = didBombard ? problem.rounds - 1 : problem.rounds;
-		let prob_ends : number[] = [];
+		const rounds = didBombard ? problem.rounds - 1 : problem.rounds;
+		const prob_ends : number[] = [];
 		prob_ends.push(p0 + p1);
 		if (problem.verbose_level > 2) {
 			console.log(rounds, "rounds");
 		}	
-		let needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious || problem.hasNonCombat();
+		const needs_early_retreat = problem.isEarlyRetreat() || problem.is_amphibious || problem.hasNonCombat();
 		if (didBombard) {
 			if (needs_early_retreat) {
 				for (i = N-1; i >= 0 ; i--) {
@@ -2573,7 +2511,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					}
 				}
 			}
-			let p = get_terminal_state_prob(problem, false);
+			const p = get_terminal_state_prob(problem, false);
 			prob_ends.push(p + p0);
 			if (problem.verbose_level > 2) {
 				console.log(prob_ends, "prob ends");
@@ -2582,14 +2520,14 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		if ( problem.isEarlyRetreat() || problem.hasNonCombat()) {
 			for (i = N-1; i >= 0 ; i--) {
 				for (j = M-1; j >= 0 ; j--) {
-					do_early_retreat(problem, i, j, true, 0, true, false);
+					do_early_retreat(problem, i, j);
 				}
 			}
-			let p = get_terminal_state_prob(problem, false);
+			const p = get_terminal_state_prob(problem, false);
 			prob_ends[prob_ends.length-1] = p + p0;
 		}
 		for (let ii = 0; ii < rounds; ii++) {
-			let label = "round " + ii;
+			const label = "round " + ii;
 			if (problem.verbose_level > 2) {
 				console.time(label);
 			}
@@ -2605,10 +2543,11 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					}
 				}
 			}
-			let debug = false && prob_ends.length == 8;
-			let p = get_terminal_state_prob(problem, debug);
+			const enable_debug = false;
+			const debug = enable_debug && prob_ends.length == 8;
+			const p = get_terminal_state_prob(problem, debug);
 			prob_ends.push(p + p0);
-			if (false || debug) {
+			if (debug) {
 				console.log (ii, "round", prob_ends);
 				collect_and_print_results(problem);
 			}
@@ -2635,7 +2574,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 					retreat_one_naval_state(problem, i, j);
 				}
 			}
-			let p = get_terminal_state_prob(problem);
+			const p = get_terminal_state_prob(problem);
 			prob_ends[prob_ends.length-1] = p + p0;
 			// evaluate infinite rounds -- with retreat disabled. -- remaining attackers are not allowed to retreat.
 			for (let ii = 0; ii < 100; ii++) {
@@ -2644,7 +2583,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 						solve_one_naval_state(problem, i, j, true, 0, false, true);
 					}
 				}
-				let p = get_terminal_state_prob(problem);
+				const p = get_terminal_state_prob(problem);
 				prob_ends.push(p + p0);
 				if (p == prob_ends[prob_ends.length-2]) {
 					break;
@@ -2660,7 +2599,7 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		}
 		let sum = 0.0
 		for (let i = 0; i < prob_ends.length; i++) {
-			let p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
+			const p = (i > 0) ? prob_ends[i] - prob_ends[i-1] : prob_ends[i];
 			sum += ((i) * p);
 		}
 		if (problem.verbose_level > 2) {
@@ -2685,8 +2624,8 @@ function solve_sub(problem : naval_problem, skipAA : number)
 
 
 	if (problem.nonavalproblem != undefined) {
-		let N = problem.nonavalproblem.att_data.nodeArr.length;
-		let M = problem.nonavalproblem.def_data.nodeArr.length;
+		const N = problem.nonavalproblem.att_data.nodeArr.length;
+		const M = problem.nonavalproblem.def_data.nodeArr.length;
 		let i, j;
 
 		for (i = 0; i < N; i++) {
@@ -2697,21 +2636,21 @@ function solve_sub(problem : naval_problem, skipAA : number)
 		// map back to parent problem
 		let sum = 0;
 		for (i = 0; i < N; i++) {
-			let attnode = problem.nonavalproblem.att_data.nodeArr[i];
-			let key : string = attnode.num_subs + "," + attnode.num_air;
-			let ii = problem.attmap.get(key);
+			const attnode = problem.nonavalproblem.att_data.nodeArr[i];
+			const key : string = attnode.num_subs + "," + attnode.num_air;
+			const ii = problem.attmap.get(key);
 			for (j = 0; j < M; j++) {
-				let node = problem.nonavalproblem.def_data.nodeArr[j];
-				let key2 : string = node.num_subs + "," + node.num_air;
-				let jj = problem.defmap.get(key2);
-				let p = problem.nonavalproblem.getP(i, j)
+				const node = problem.nonavalproblem.def_data.nodeArr[j];
+				const key2 : string = node.num_subs + "," + node.num_air;
+				const jj = problem.defmap.get(key2);
+				const p = problem.nonavalproblem.getP(i, j)
 				if (p > 0) {
 				    //console.log(attnode.num_subs, attnode.num_air, node.num_subs, node.num_air, p, "p here");
 					if (ii == undefined || jj == undefined) {
 						console.log(key, key2, "key, key2");
 						throw new Error();
 					}
-					let iii = problem.getIndex(ii, jj);
+					const iii = problem.getIndex(ii, jj);
 					problem.setiP(iii, problem.getiP(iii) + p);
 					sum += p;
 				}
@@ -2727,19 +2666,19 @@ function solve_sub(problem : naval_problem, skipAA : number)
 function solve(problem : problem, skipAA : number) 
 {
 	problem.P2 = [];
-	let N = problem.att_data.tbl_size;
-	let M = problem.def_data.tbl_size;
+	const N = problem.att_data.tbl_size;
+	const M = problem.def_data.tbl_size;
 	let i, j;
     for (i = 0; i < N; i++) {
 		for (j = 0; j < M; j++) {
 			problem.setP(i, j, 0.0);
         }
 	}
-    let numAA = count_units(problem.def_data.unit_str, 'c');
+    const numAA = count_units(problem.def_data.unit_str, 'c');
 	if (skipAA || numAA == 0) {
 		//problem.P[N-1][M-1] = problem.prob;
 		problem.setP(N-1, M-1, problem.prob);
-		let numBombard = 
+		const numBombard = 
 				count_units(problem.att_data.unit_str, 'B') + 
 				count_units(problem.att_data.unit_str, 'C');
 
@@ -2779,26 +2718,24 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 
 
     // root node
-    let s = naval_group.unit_str;
+    const s = naval_group.unit_str;
     //printf ("%s", s);
 	//console.log(naval_group);
     let node = new naval_unit_graph_node(naval_group.um, s, "", naval_group.is_nonaval);
 	node.dlast = false;
 
-	let nodeVec : naval_unit_graph_node[];
-	nodeVec = [];
-	let mymap : Map<string, naval_unit_graph_node> = new Map();
-	let q : number[];
-	q = [];
+	const nodeVec : naval_unit_graph_node[] = [];
+	const mymap : Map<string, naval_unit_graph_node> = new Map();
+	//const q : number[] = [];
 	// information to uniquely identify a node
 	const mycompare = (a : naval_unit_graph_node , b : naval_unit_graph_node) => b.cost - a.cost;
-	let myheap = new Heap(mycompare);
+	const myheap = new Heap(mycompare);
     mymap.set(make_node_key(s, ""), node);
 	myheap.push(node);
 
 	if (numAA > 0 && naval_group.attdef == 0) {
 		let num_shots = (numAA * 3);
-		let num_planes = naval_group.num_air;
+		const num_planes = naval_group.num_air;
 		if (num_planes < num_shots)  num_shots = num_planes;
 		if (naval_group.um.verbose_level > 3) {
 			console.log(num_shots, "num_shots");
@@ -2815,7 +2752,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				let cas;
 				[att_str, cas] = remove_one_plane(naval_group.um, att_str);
 				att_cas += cas;
-				nnode = new naval_unit_graph_node(naval_group.um, att_str, "", naval_group.is_nonaval);
+				nnode = new naval_unit_graph_node(naval_group.um, att_str, att_cas, naval_group.is_nonaval);
 				myheap.push(nnode);
 				mymap.set(make_node_key(att_str,""), nnode);
 				prev.next_aahit = nnode;
@@ -2827,11 +2764,11 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 
 	if (cas != undefined) {
 		for (let i = 0; i < cas.length; i++) {
-			let s = cas[i].remain;
-			let key = make_node_key(s, "");
-			let ii = mymap.get(key);
+			const s = cas[i].remain;
+			const key = make_node_key(s, "");
+			const ii = mymap.get(key);
 			if (ii == undefined) {
-				let newnode = new naval_unit_graph_node(naval_group.um, s, "", naval_group.is_nonaval);
+				const newnode = new naval_unit_graph_node(naval_group.um, s, "", naval_group.is_nonaval);
 				if (newnode.num_naval > 0) {
 					newnode.dlast = node.dlast;
 				} else {
@@ -2840,14 +2777,13 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				mymap.set(key, newnode);
 				myheap.push(newnode);
 				//console.log (newnode.index, "push 0");
-			} else {
 			}
 		}
 	}
 
 
     while (myheap.length > 0) {
-        let node = myheap.pop();
+        const node = myheap.pop();
 		if (node == undefined) {
 			throw new Error();
 		}
@@ -2865,15 +2801,15 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			node.next_submerge = node;
             continue;
         }
-        let ch = node.unit_str[node.N-1];
+        const ch = node.unit_str[node.N-1];
 
         // unconstrained next:  remove last unit
-		let s = node.unit_str.substring(0, node.unit_str.length - 1);
+		const s = node.unit_str.substring(0, node.unit_str.length - 1);
 
 		let newnode : naval_unit_graph_node;
 		
-		let key = make_node_key(s, node.retreat);
-		let ii = mymap.get(key);
+		const key = make_node_key(s, node.retreat);
+		const ii = mymap.get(key);
         if (ii == undefined) {
 			newnode = new naval_unit_graph_node(naval_group.um, s, node.retreat, naval_group.is_nonaval);
 			if (newnode.num_naval > 0) {
@@ -2893,10 +2829,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
             // sub is the same as unconstrained/
             node.next_subhit = newnode;
         } else {
-			let s2 = remove_one_notplane(naval_group.um, node.unit_str, false);
+			const s2 = remove_one_notplane(naval_group.um, node.unit_str, false);
             let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
@@ -2915,10 +2851,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
         if (!isSub(naval_group.um, ch)) {
             node.next_airhit = newnode;
         } else {
-            let s2 = remove_one_notsub(naval_group.um, node.unit_str, false);
+            const s2 = remove_one_notsub(naval_group.um, node.unit_str, false);
             let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
@@ -2937,9 +2873,9 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		node.next_dlast_navalhit = node.next_navalhit;
 		node.next_dlast_airhit = node.next_airhit;
 		node.next_dlast_subhit = node.next_subhit;
-		let nnnode = node.next_navalhit;
-		let nanode = node.next_airhit;
-		let nsnode = node.next_subhit;
+		const nnnode = node.next_navalhit;
+		const nanode = node.next_airhit;
+		const nsnode = node.next_subhit;
 /*
 		console.log (
 				naval_group.destroyer_last, 
@@ -2954,10 +2890,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				nnnode.num_dest == 0) {
 			//console.log ("here");
 			// next naval
-			let s2 = remove_one_notdestroyer(naval_group.um, node.unit_str);
+			const s2 = remove_one_notdestroyer(naval_group.um, node.unit_str);
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
@@ -2974,10 +2910,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				node.num_dest == 1 &&
 				nanode.num_dest == 0) {
 			// next air
-			let s2 = remove_one_notsub(naval_group.um, node.unit_str, true);
+			const s2 = remove_one_notsub(naval_group.um, node.unit_str, true);
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
@@ -2994,10 +2930,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				node.num_dest == 1 &&
 				nsnode.num_dest == 0) {
 			// next sub
-			let s2 = remove_one_notplane(naval_group.um, node.unit_str, true);
+			const s2 = remove_one_notplane(naval_group.um, node.unit_str, true);
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				node2.dlast = true;
@@ -3011,10 +2947,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			node.next_dlast_subhit = node2;
 		}
 		if (naval_group.submerge_sub && node.num_subs > 0 && node.retreat.length == 0) {
-			let [s2, num_submerge, subs] = retreat_subs(naval_group.um, node.unit_str);
+			const retreat_subs_output = retreat_subs(naval_group.um, node.unit_str);
+			const s2 = retreat_subs_output.s;
+			const subs = retreat_subs_output.subs;
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, subs);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, subs);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, subs, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
@@ -3032,11 +2970,12 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			node.next_submerge = node2;
 		}
 		if (is_amphibious && node.unit_str.length > 0 && node.retreat.length == 0) {
-			let [s2, amphibious] = retreat_non_amphibious(naval_group.um, node.unit_str);
-			if (true || hasAmphibious (naval_group.um, s2)) {
+			const [s2, amphibious] = retreat_non_amphibious(naval_group.um, node.unit_str);
+			//if (true || hasAmphibious (naval_group.um, s2)) {
+			{
 				let node2 : naval_unit_graph_node;
-				let key = make_node_key(s2, amphibious);
-				let ii = mymap.get(key);
+				const key = make_node_key(s2, amphibious);
+				const ii = mymap.get(key);
 				if (ii == undefined) {
 					node2 = new naval_unit_graph_node(naval_group.um, s2, amphibious, naval_group.is_nonaval);
 					if (node2.num_naval > 0) {
@@ -3055,10 +2994,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 			}
 		}
 		if (naval_group.is_crash_fighters) {	
-			let s2 = crash_fighters(naval_group.um, node.unit_str);
+			const s2 = crash_fighters(naval_group.um, node.unit_str);
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
@@ -3077,10 +3016,10 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 		}
 		
 		if (is_only_transports_remain(naval_group.um, node.unit_str) || is_only_aa_remain(naval_group.um, node.unit_str)) {
-			let s2 = "";
+			const s2 = "";
 			let node2 : naval_unit_graph_node;
-			let key = make_node_key(s2, node.retreat);
-			let ii = mymap.get(key);
+			const key = make_node_key(s2, node.retreat);
+			const ii = mymap.get(key);
 			if (ii == undefined) {
 				node2 = new naval_unit_graph_node(naval_group.um, s2, node.retreat, naval_group.is_nonaval);
 				if (node2.num_naval > 0) {
@@ -3204,13 +3143,14 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
         if (node.num_subs == 0) {
             node.nosub_group = make_unit_group(naval_group.um, node.unit_str, naval_group.attdef, naval_group.diceMode);
         } else {
-			let [s2, n2, subs] = retreat_subs(naval_group.um, node.unit_str);
+			const retreat_subs_output = retreat_subs(naval_group.um, node.unit_str);
+			const s2 = retreat_subs_output.s;
             node.nosub_group = make_unit_group(naval_group.um, s2, naval_group.attdef, naval_group.diceMode);
 		}
 		{
 			let naval = "";
 			for (let j = 0; j < node.unit_str.length; j++) {
-				let ch = node.unit_str.charAt(j);
+				const ch = node.unit_str.charAt(j);
 				if (isAir(naval_group.um, ch) || isSub(naval_group.um, ch)) {
 					continue;
 				}
@@ -3235,8 +3175,8 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 	//console.log("done queue 2");
     for (let i = 0; i < naval_group.nodeArr.length; i++) {
         node = naval_group.nodeArr[i];
-		let red_str = get_reduced_group_string(node.unit_str);
-		let red_retreat_str = get_reduced_group_string(node.retreat);
+		const red_str = get_reduced_group_string(node.unit_str);
+		const red_retreat_str = get_reduced_group_string(node.retreat);
 
 		if (naval_group.um.verbose_level > 2) {
 			console.log(`${node.index}:  ${red_str}:${red_retreat_str} ${node.num_subs} ${node.num_air} ${node.num_naval} ${node.num_dest} ${node.dlast} ${node.cost}`);
@@ -3268,12 +3208,11 @@ export function make_unit_group(um : unit_manager, input_str : string, attdef : 
 }
 
 
-function count_units (input : string, tok : string, last:number = 10000) : number
+function count_units (input : string, tok : string) : number
 {
     let cnt = 0;
-	let max = Math.min(last, input.length);
     for (let i = 0; i < input.length; i++) {
-		let ch = input.charAt(i);
+		const ch = input.charAt(i);
 		if (ch == tok) {
 			cnt++;
 		}
@@ -3282,24 +3221,23 @@ function count_units (input : string, tok : string, last:number = 10000) : numbe
 }
 
 
-function preparse_token(input : string, attdef : number) : string
+function preparse_token(input : string) : string
 {
 	const space = " ";
 	const comma = ",";
 
-	let a = input.split(space).join("");
-	let b = a.split(comma).join("");
+	const a = input.split(space).join("");
+	const b = a.split(comma).join("");
 	let out = ""
-	let i = 0;
-	let len = b.length;
+	const len = b.length;
 	for (let i = 0; i < len; i++) {
-		let term = b.substring(i, len);
-		let c = parseInt(term);
+		const term = b.substring(i, len);
+		const c = parseInt(term);
 		if (c > 0) {
 			// number seen.
-			let dd = c.toString();
-			let e = dd.length;
-			let unit = term.charAt(e);
+			const dd = c.toString();
+			const e = dd.length;
+			const unit = term.charAt(e);
 
 			// c is the number of units (5)
 			// e is the index of unit 'i'
@@ -3307,7 +3245,6 @@ function preparse_token(input : string, attdef : number) : string
 			for (let j = 0; j < c; j++) {
 				temp = temp + unit
 			}
-			let d = term.indexOf(unit);
 			out = out + temp;
 			i += e;
 		} else {
@@ -3323,14 +3260,12 @@ function preparse_artillery(input : string , attdef : number) : string
     if (attdef != 0) {
 		return input;
     }
-    let size = input.length + 1;
 	let out = input;
 
-    let numArt = count_units(input, 'a') + count_units(input, 'g');
+    const numArt = count_units(input, 'a') + count_units(input, 'g');
     let cnt = 0;
-    let ch : string
     for (let i = 0; i < out.length; i++) {
-		let ch = out.charAt(i);
+		const ch = out.charAt(i);
 		if (ch == 'i') {
 			if (cnt < numArt) {
 				let newout;
@@ -3361,7 +3296,7 @@ function preparse_artillery(input : string , attdef : number) : string
 	return out;
 }
 
-function preparse_skipaa(input : string , attdef : number) : string
+function preparse_skipaa(input : string) : string
 {
 	let out = "";
 	for (const ch of input) {
@@ -3374,7 +3309,7 @@ function preparse_skipaa(input : string , attdef : number) : string
     return out;
 }
 
-function preparse_battleship(input : string , attdef : number) : string
+function preparse_battleship(input : string ) : string
 {
 	// remove "E"
 	let removeE = "";
@@ -3386,7 +3321,7 @@ function preparse_battleship(input : string , attdef : number) : string
 	}
 
 	let out = removeE;
-	let numBB = count_units(input, 'B');
+	const numBB = count_units(input, 'B');
 	for (let i = 0; i< numBB; i++) {
 		out += "E";		
 	}
@@ -3395,14 +3330,14 @@ function preparse_battleship(input : string , attdef : number) : string
 
 function preparse(isnaval : boolean, input : string, attdef : number, skipAA : boolean = false) : string
 {
-    let token_out = preparse_token(input, attdef);
-    let art_out = preparse_artillery(token_out, attdef);
+    const token_out = preparse_token(input);
+    const art_out = preparse_artillery(token_out, attdef);
 	if (isnaval) {
-		let bat_out = preparse_battleship(art_out, attdef);
+		const bat_out = preparse_battleship(art_out);
 		return bat_out;
 	}
 	if (skipAA) {
-		let aa_out = preparse_skipaa(art_out, attdef);
+		const aa_out = preparse_skipaa(art_out);
 		return aa_out;
 	}
     return art_out;
@@ -3471,27 +3406,27 @@ export function aacalc(
 		) 
    : aacalc_output
 {
-	let um = new unit_manager(input.verbose_level);
+	const um = new unit_manager(input.verbose_level);
 
-	let attackers_internal = preparse(input.is_naval, input.attacker, 0);
-	let defenders_internal = preparse(input.is_naval, input.defender, 1, input.is_in_progress);
+	const attackers_internal = preparse(input.is_naval, input.attacker, 0);
+	const defenders_internal = preparse(input.is_naval, input.defender, 1, input.is_in_progress);
 	console.log(attackers_internal, "attackers_internal");
 	console.log(defenders_internal, "defenders_internal");
 	
 	if (!input.is_naval) {
 		console.time('init');
-		let myprob = new problem(um, attackers_internal, defenders_internal, 1.0);
+		const myprob = new problem(um, attackers_internal, defenders_internal, 1.0);
 		myprob.retreat_threshold = input.retreat_threshold;
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		console.timeEnd('init');
 
-		let numAA = count_units(myprob.def_data.unit_str, 'c');
-		let doAA = 
+		const numAA = count_units(myprob.def_data.unit_str, 'c');
+		const doAA = 
 				numAA > 0 && 
 				hasNonAAUnit(myprob.um, myprob.def_data.unit_str);
-		if (numAA > 0) {
+		if (doAA) {
 			console.time('solveAA');
-			let output = solveAA(myprob, numAA);
+			const output = solveAA(myprob, numAA);
 			console.timeEnd('solveAA');
 			return output;
 		} else {
@@ -3500,15 +3435,13 @@ export function aacalc(
 				solve(myprob, 0);
 				console.timeEnd('solve');
 			}
-			let problemArr : problem[];
-			problemArr = [];
+			const problemArr : problem[] = [];
 			problemArr.push(myprob);
-			let result_data : result_data_t[];
-			result_data = [];
+			const result_data : result_data_t[] = [];
 			
 			console.time('post');
 			collect_results(myprob, problemArr, 0, result_data);
-			let output = print_results(myprob, problemArr, result_data);
+			const output = print_results(myprob, problemArr, result_data);
 			console.timeEnd('post');
 			return output;
 		}
@@ -3517,25 +3450,23 @@ export function aacalc(
 		console.time('init');
 		console.profile("solve_sub");
 		//debugger
-		let myprob = new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
+		const myprob = new naval_problem(input.verbose_level, um, attackers_internal, defenders_internal, 1.0, 
 			input.att_destroyer_last, input.att_submerge_sub, input.def_destroyer_last, input.def_submerge_sub, 
 			-1 /* rounds */, input.retreat_threshold, false );
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
 		console.timeEnd('init');
-		let problemArr : naval_problem[];
-		problemArr = [];
+		const problemArr : naval_problem[] = [];
 		problemArr.push(myprob);
 		for (let i = 0; i < input.num_runs; i++) {
 			console.time('solve');
-			solve_sub( myprob, 0);
+			solve_sub( myprob);
 			console.timeEnd('solve');
 	    }
 
-		let result_data : result_data_t[];
-		result_data = [];
+		const result_data : result_data_t[] = [];
 		console.time('post');
 		collect_naval_results(myprob, problemArr, 0, result_data);
-		let output = print_naval_results(myprob, problemArr, result_data);
+		const output = print_naval_results(myprob, problemArr, result_data);
 		console.profileEnd();
 		console.timeEnd('post');
 		console.timeEnd('solve_sub');
@@ -3549,10 +3480,10 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 		return input;
 	}
 
-	let map : Map<string, number> = new Map();
+	const map : Map<string, number> = new Map();
 
-	for (var char of input) {
-		let v = map.get(char);
+	for (const char of input) {
+		const v = map.get(char);
 		if (v != undefined) {
 			map.set(char, v + 1);
 		} else {
@@ -3561,7 +3492,7 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 	}
 	let out = "";
 	for (const ch of ool) {
-		let cnt = map.get(ch);
+		const cnt = map.get(ch);
 		if (cnt == undefined) {
 			continue;
 		}
@@ -3574,7 +3505,7 @@ export function apply_ool(input : string, ool : string, aalast : boolean = false
 		let aas = "";
 		let others = "";
 		for (let i = 0; i < out.length; i++) {
-			let ch = out.charAt(i);
+			const ch = out.charAt(i);
 			if ((ch == "c") || (ch == "e")) {
 				aas += ch;
 			} else {
@@ -3628,15 +3559,13 @@ export interface multiwave_output {
 function collect_and_print_results(
 	problem : naval_problem) 
 {
-	let problemArr : naval_problem[];
-	problemArr = [];
+	const problemArr : naval_problem[] = [];
 	problemArr.push(problem);
-	let result_data : result_data_t[];
-	result_data = [];
+	const result_data : result_data_t[] = [];
 	collect_naval_results(problem, problemArr, 0, result_data);
 	let skipMerge = problem.is_retreat;
 	skipMerge = true;
-	let out = print_naval_results(problem, problemArr, result_data, !skipMerge);
+	const out = print_naval_results(problem, problemArr, result_data, !skipMerge);
 	console.log(out);
 }
 
@@ -3645,53 +3574,54 @@ export function multiwave(
 		) 
    : multiwave_output
 {
-	let umarr : unit_manager[] = [];
-	let probArr : naval_problem[] = [];
+	const umarr : unit_manager[] = [];
+	const probArr : naval_problem[] = [];
 	//let um = new unit_manager();
 	//let um2 = new unit_manager();
 	//let um3 = new unit_manager();
-	let output : aacalc_output[] = [];
+	const output : aacalc_output[] = [];
 
 	for (let runs = 0 ; runs < input.num_runs; runs++) {
 
 	for (let i = 0; i < input.wave_info.length; i++) {
 		umarr.push (new unit_manager(input.verbose_level));
-		let um = umarr[i];
-		let wave = input.wave_info[i];
+		const um = umarr[i];
+		const wave = input.wave_info[i];
 
 		let defend_add_reinforce : casualty_1d[] | undefined;
 		defend_add_reinforce = undefined;
 		let defenders_internal;
 		if (i > 0) {
-			let defend_dist = output[i-1].def_cas;
-			let def_token = preparse_token(wave.defender, 1);
+			const defend_dist = output[i-1].def_cas;
+			const def_token = preparse_token(wave.defender);
 			defend_add_reinforce = [];
 			for (let j = 0 ; j < defend_dist.length; j++) {
-				let cas = defend_dist[j];
-				let newcas = cas.remain + def_token;
+				const cas = defend_dist[j];
 				let p1; 
-				let p2;
+				//let p2;
 				if (cas.remain.length == 0 ) {
 					//if attacker takes -- then no reinforce
 					p1 = cas.prob - output[i-1].takesTerritory[0];
-					p2 = output[i-1].takesTerritory[0];
+					//p2 = output[i-1].takesTerritory[0];
 				} else {
 					p1 = cas.prob;
-					p2 = 0;
+					//p2 = 0;
 				}
 				// retreated subs fight in the second wave.
-				let newcasstr_ool = apply_ool(cas.remain + cas.retreat + def_token, wave.def_ool, wave.def_aalast);
-				let newcasstr = input.is_naval ? preparse_battleship(newcasstr_ool, 1) : newcasstr_ool;
+				const newcasstr_ool = apply_ool(cas.remain + cas.retreat + def_token, wave.def_ool, wave.def_aalast);
+				const newcasstr = input.is_naval ? preparse_battleship(newcasstr_ool) : newcasstr_ool;
 			
-				let newcasualty : casualty_1d = { remain : newcasstr, retreat: "", casualty : cas.casualty, prob : p1}
+				const newcasualty : casualty_1d = { remain : newcasstr, retreat: "", casualty : cas.casualty, prob : p1}
 				defend_add_reinforce.push(newcasualty);
+/*
 				if (p2 > 0) {
-					let newcasstr = apply_ool(cas.remain, wave.def_ool, wave.def_aalast);
-					let newcasualty : casualty_1d = { remain : newcasstr, retreat : "", casualty : cas.casualty, prob : p2}
+					const newcasstr = apply_ool(cas.remain, wave.def_ool, wave.def_aalast);
+					const newcasualty : casualty_1d = { remain : newcasstr, retreat : "", casualty : cas.casualty, prob : p2}
 					//defend_add_reinforce.push(newcasualty);
 				}
+*/
 			}
-			let defender = 
+			const defender = 
 					defend_add_reinforce.length == 0 ? 
 					"" : 
 						apply_ool(defend_add_reinforce[defend_add_reinforce.length-1].remain + 
@@ -3699,12 +3629,12 @@ export function multiwave(
 			defenders_internal = preparse(input.is_naval, defender, 1);
 
 		} else {
-			let defenders_token = preparse_token(wave.defender, 1);
-			let defenders_ool = apply_ool(defenders_token, wave.def_ool, wave.def_aalast);
-			let skipAA = input.in_progress;
+			const defenders_token = preparse_token(wave.defender);
+			const defenders_ool = apply_ool(defenders_token, wave.def_ool, wave.def_aalast);
+			const skipAA = input.in_progress;
 			defenders_internal = preparse(input.is_naval, defenders_ool, 1, skipAA);
 		}
-		let attackers_internal = preparse(input.is_naval, wave.attacker, 0);
+		const attackers_internal = preparse(input.is_naval, wave.attacker, 0);
 
 		if (input.verbose_level > 2) {
 			console.log(defend_add_reinforce, "defend_add_reinforce");
@@ -3720,23 +3650,21 @@ export function multiwave(
 			wave.att_dest_last, wave.att_submerge, wave.def_dest_last, wave.def_submerge, 	
 			wave.rounds, wave.retreat_threshold, wave.is_crash_fighters, input.is_naval,
 			defend_add_reinforce, false, input.diceMode));
-		let myprob = probArr[i];
+		const myprob = probArr[i];
 		myprob.set_prune_threshold(input.prune_threshold, input.prune_threshold / 10, input.report_prune_threshold);
-		let problemArr : naval_problem[];
-		problemArr = [];
+		const problemArr : naval_problem[] = [];
 		problemArr.push(myprob);
 		//console.log(myprob);
-		solve_sub( myprob, 0);
+		solve_sub( myprob);
 
-		let result_data : result_data_t[];
-		result_data = [];
+		const result_data : result_data_t[] = [];
 		collect_naval_results(myprob, problemArr, 0, result_data);
 		let skipMerge = myprob.is_retreat;
 		skipMerge = true;
 		if (input.verbose_level > 2) {
 			console.log (skipMerge, "skipMerge");
 		}
-		let out = print_naval_results(myprob, problemArr, result_data, !skipMerge);
+		const out = print_naval_results(myprob, problemArr, result_data, !skipMerge);
 		output.push(out);
 		if (input.verbose_level > 2) {
 			console.log(out, "wave", i);
@@ -3745,14 +3673,14 @@ export function multiwave(
 
     }
 
-	let attsurvive : number[] = [];
-	let defsurvive : number[] = [];
-	let attipc : number[] = [];
-	let defipc : number[] = [];
-	let atttakes : number[] = [];
+	const attsurvive : number[] = [];
+	const defsurvive : number[] = [];
+	const attipc : number[] = [];
+	const defipc : number[] = [];
+	const atttakes : number[] = [];
 	for (let i = 0; i < input.wave_info.length; i++) {
 		let att_survives = output[i].attack.survives[0]
-		let def_survives = output[i].defense.survives[0]
+		const def_survives = output[i].defense.survives[0]
 		let att_ipcLoss = output[i].attack.ipcLoss[0]
 		let def_ipcLoss = output[i].defense.ipcLoss[0]
 		let att_takes = output[i].takesTerritory[0]
@@ -3771,9 +3699,9 @@ export function multiwave(
 		defipc.push(def_ipcLoss);
 		atttakes.push(att_takes);
 	}
-	let att_cas : casualty_1d[];
+	//let att_cas : casualty_1d[];
 
-	let out2 : aacalc_output = {
+	const out2 : aacalc_output = {
 		attack : { survives : attsurvive, ipcLoss : attipc },
 		defense : { survives : defsurvive, ipcLoss : defipc },
 		casualtiesInfo : [],
@@ -3783,7 +3711,7 @@ export function multiwave(
 		takesTerritory : atttakes
 	}
 
-	let out : multiwave_output = { 
+	const out : multiwave_output = { 
 		out: out2,
 		output : output };
 	return out;

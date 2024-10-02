@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import {unit_manager, 
 		DiceMode,
@@ -105,19 +104,18 @@ export function multiwaveExternal(
 		) 
    : MultiwaveOutput
 {
-	let internal_input : multiwave_input;
 
-	let wavearr : wave_input[] = [];
+	const wavearr : wave_input[] = [];
 	for (let i = 0; i < input.wave_info.length; i++) { 
-		let wave = input.wave_info[i];
-		let [att_unitstr, att_oolstr] = make_unit_group_string(
+		const wave = input.wave_info[i];
+		const att_unit_group_string = make_unit_group_string(
 			wave.attack.units, wave.attack.ool, wave.attack.takes, false, input.is_naval, input.verbose_level);
-		let [def_unitstr, def_oolstr] = make_unit_group_string(
+		const def_unit_group_string = make_unit_group_string(
 			wave.defense.units, wave.defense.ool, 0, wave.defense.aaLast, input.is_naval, input.verbose_level);
 		
-		let internal_wave = { attacker : att_unitstr, 
-			  defender : def_unitstr,
-			  def_ool : def_oolstr,
+		const internal_wave = { attacker : att_unit_group_string.unit, 
+			  defender : def_unit_group_string.unit,
+			  def_ool : def_unit_group_string.ool,
 			  def_aalast : wave.defense.aaLast,
 			  att_submerge : wave.att_submerge,
 			  def_submerge : wave.def_submerge,
@@ -130,7 +128,7 @@ export function multiwaveExternal(
 		wavearr.push(internal_wave);
 	}
 
-	internal_input = {
+	const internal_input : multiwave_input = {
 		verbose_level : input.verbose_level,
 		wave_info : wavearr,
 		debug	: input.debug,
@@ -142,23 +140,21 @@ export function multiwaveExternal(
 		num_runs	: input.num_runs
 		}
 
-	let internal_output = multiwave(internal_input);
-    let out : MultiwaveOutput;
-	let rounds : number[] = [];
+	const internal_output = multiwave(internal_input);
+	const rounds : number[] = [];
 	for (let i = 0; i < internal_output.output.length; i++) {
 		rounds.push(internal_output.output[i].rounds);
 	}
-	let casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
-	let att : Record<string, CasualtyInfo> = {};
-	let def : Record<string, CasualtyInfo> = {};
+	const casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
+	const att : Record<string, CasualtyInfo> = {};
+	const def : Record<string, CasualtyInfo> = {};
    
-	let lastWave = internal_output.output.length - 1;
-	let lastOutput = internal_output.output[lastWave];
-	let um = new unit_manager(input.verbose_level);
+	const lastWave = internal_output.output.length - 1;
+	const lastOutput = internal_output.output[lastWave];
+	const um = new unit_manager(input.verbose_level);
 	for (let i = 0; i < lastOutput.att_cas.length; i++) {
-		let cas = lastOutput.att_cas[i];
-		let casualty : CasualtyInfo;
-		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+		const cas = lastOutput.att_cas[i];
+		const casualty : CasualtyInfo = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
 					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
@@ -167,9 +163,8 @@ export function multiwaveExternal(
 		att[i] = casualty;	
 	}
 	for (let i = 0; i < lastOutput.def_cas.length; i++) {
-		let cas = lastOutput.def_cas[i];
-		let casualty : CasualtyInfo;
-		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+		const cas = lastOutput.def_cas[i];
+		const casualty : CasualtyInfo = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
 					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
@@ -180,7 +175,7 @@ export function multiwaveExternal(
 	casualtiesInfo["attack"] = att;
 	casualtiesInfo["defense"] = def;
 	
-	out = {
+    const out : MultiwaveOutput = {
 		attack : internal_output.out.attack,
 		defense : internal_output.out.defense,
 		waves : internal_output.output.length,		
@@ -193,6 +188,11 @@ export function multiwaveExternal(
 }
 
 
+interface make_unit_group_string_output  {
+	unit : string 
+	ool : string
+}
+
 export function make_unit_group_string(
 		units : Army,
 		ool : UnitIdentifier[],		// array of order of loss
@@ -200,17 +200,17 @@ export function make_unit_group_string(
 		aa_last : boolean,		// take aa as second last casualty for defender
 		is_naval : boolean,
 		verbose_level : number
-		) : [string, string]		// unit_str , ool_str
+		) : make_unit_group_string_output
 {
 
 	let unitstr = "";
-	let um = new unit_manager(verbose_level);
+	const um = new unit_manager(verbose_level);
 
 	for (const [uid , count ] of Object.entries(units)) {
         if (count == 0) {
             continue;
         }
-        let ch = UnitIdentifier2UnitMap[<UnitIdentifier>uid];
+        const ch = UnitIdentifier2UnitMap[<UnitIdentifier>uid];
         if (ch == undefined) {
             throw new Error("make unit group string failed");
         }
@@ -221,8 +221,8 @@ export function make_unit_group_string(
 	
 	let oolstr = "";
 	for (let i  = ool.length-1 ; i >= 0; i--) {
-		let unit = ool[i];
-		let ch = UnitIdentifier2UnitMap[unit];
+		const unit = ool[i];
+		const ch = UnitIdentifier2UnitMap[unit];
 		if (ch == undefined) {
 			throw new Error("make unit group string failed");
 		}
@@ -234,7 +234,7 @@ export function make_unit_group_string(
 	if (is_naval) {
 		oolstr = "T" + oolstr;
 	}
-    let mymap : Map<string, number> = new Map();
+    const mymap : Map<string, number> = new Map();
 	let ool2 = "";
 	for (const ch of oolstr) {
 		if (mymap.has(ch)) {
@@ -252,16 +252,14 @@ export function make_unit_group_string(
 		let remains = out;
 		for (let i = 0; i < takes; i++) {
 			let j;
-			let found = false;
 			let ch;
 			for (j = 0; j < remains.length; j++) {
 				ch = remains.charAt(j);
-				let stat = um.get_stat(ch);
+				const stat = um.get_stat(ch);
 				if (stat == undefined) {
 					throw new Error("make unit group string failed");
 				}
 				if (stat.isLand) {
-					found = true;
 					remains = remains.substr(0, j) + remains.substr(j+1)
 					head += ch;
 					break;
@@ -273,17 +271,17 @@ export function make_unit_group_string(
 			}
 		}
 	}
-	return [out, oolstr];
+	return { unit : out, ool: oolstr }
 }
 
 
 export function get_external_unit_str(um : unit_manager, input : string) :
         string
 {
-    let map : Map<string, number> = new Map();
+    const map : Map<string, number> = new Map();
 
-    for (var char of input) {
-        let v = map.get(char);
+    for (const char of input) {
+        const v = map.get(char);
         if (v != undefined) {
             map.set(char, v + 1);
         } else {
@@ -293,7 +291,7 @@ export function get_external_unit_str(um : unit_manager, input : string) :
 
     let out = ""
     map.forEach((value : number, key : string) => {
-		let externalName = Unit2ExternalNameMap.get(key);
+		const externalName = Unit2ExternalNameMap.get(key);
 		if (externalName == undefined) {	
 			return;
 		}
@@ -304,8 +302,7 @@ export function get_external_unit_str(um : unit_manager, input : string) :
 
 export function sbrExternal (input : SbrInput) : MultiwaveOutput 
 {
-	let output : MultiwaveOutput;
-	let internalInput : sbr_input = {
+	const internalInput : sbr_input = {
 			diceMode : input.diceMode,
 			verboseLevel : input.verbose_level,
 			numBombers : input.attack.units["bom"] != undefined ? input.attack.units["bom"] : 0,
@@ -315,15 +312,14 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
 			pruneThreshold : input.pruneThreshold
 		};
 	//console.log(internalInput);
-	let internalOutput = sbr(internalInput);
-	let casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
-	let att : Record<string, CasualtyInfo> = {};
-	let def : Record<string, CasualtyInfo> = {};
-	let um = new unit_manager(input.verbose_level);
+	const internalOutput = sbr(internalInput);
+	const casualtiesInfo : CasualtiesInfo = { attack : {}, defense : {}};
+	const att : Record<string, CasualtyInfo> = {};
+	const def : Record<string, CasualtyInfo> = {};
+	const um = new unit_manager(input.verbose_level);
 	for (let i = 0; i < internalOutput.att_cas.length; i++) {
-		let cas = internalOutput.att_cas[i];
-		let casualty : CasualtyInfo;
-		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+		const cas = internalOutput.att_cas[i];
+		const casualty : CasualtyInfo = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
 					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
@@ -332,9 +328,8 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
 		att[i] = casualty;	
 	}
 	for (let i = 0; i < internalOutput.def_cas.length; i++) {
-		let cas = internalOutput.def_cas[i];
-		let casualty : CasualtyInfo;
-		casualty = { casualties : get_external_unit_str(um, cas.casualty),	
+		const cas = internalOutput.def_cas[i];
+		const casualty : CasualtyInfo = { casualties : get_external_unit_str(um, cas.casualty),	
 					survivors :  get_external_unit_str(um, cas.remain),
 					retreaters : get_external_unit_str(um, cas.retreat),
 					amount : 	cas.prob,	
@@ -345,7 +340,7 @@ export function sbrExternal (input : SbrInput) : MultiwaveOutput
 	casualtiesInfo["attack"] = att;
 	casualtiesInfo["defense"] = def;
    
-	output = {
+	const output : MultiwaveOutput = {
 		attack : internalOutput.attack,
 		defense : internalOutput.defense,	
 		casualtiesInfo : casualtiesInfo,
