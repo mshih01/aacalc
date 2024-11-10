@@ -2752,7 +2752,7 @@ function compute_remove_hits(naval_group : naval_unit_group, max_remove_hits : n
 				let cas;
 				[att_str, cas] = remove_one_plane(naval_group.um, att_str);
 				att_cas += cas;
-				nnode = new naval_unit_graph_node(naval_group.um, att_str, att_cas, naval_group.is_nonaval);
+				nnode = new naval_unit_graph_node(naval_group.um, att_str, "", naval_group.is_nonaval);
 				myheap.push(nnode);
 				mymap.set(make_node_key(att_str,""), nnode);
 				prev.next_aahit = nnode;
