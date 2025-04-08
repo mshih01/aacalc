@@ -160,7 +160,12 @@ export function multiwaveExternal(
 					amount : 	cas.prob,	
 					ipcLoss :    get_cost_from_str(um, cas.casualty)
 					}
-		att[i] = casualty;	
+		const key : string =  get_external_unit_str(um, cas.casualty) + ";" + get_external_unit_str(um, cas.remain) + ";" + get_external_unit_str(um, cas.retreat);
+		if (att[key] == undefined) {
+			att[key] = casualty;	
+		} else {
+			att[key].amount += cas.prob;
+		}
 	}
 	for (let i = 0; i < lastOutput.def_cas.length; i++) {
 		const cas = lastOutput.def_cas[i];
@@ -170,7 +175,12 @@ export function multiwaveExternal(
 					amount : 	cas.prob,	
 					ipcLoss :    get_cost_from_str(um, cas.casualty)
 					}
-		def[i] = casualty;	
+		const key : string =  get_external_unit_str(um, cas.casualty) + ";" + get_external_unit_str(um, cas.remain) + ";" + get_external_unit_str(um, cas.retreat);
+		if (def[key] == undefined) {
+			def[key] = casualty;	
+		} else {
+			def[key].amount += cas.prob;
+		}
 	}
 	casualtiesInfo["attack"] = att;
 	casualtiesInfo["defense"] = def;
